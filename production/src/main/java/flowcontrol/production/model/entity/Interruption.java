@@ -22,7 +22,7 @@ public class Interruption {
             name = "id",
             updatable = false
     )
-    private String id;
+    private Long id;
 
     private String startAt;
     private String endAt;

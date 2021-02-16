@@ -1,10 +1,16 @@
 package flowcontrol.production.model.entity;
 
+import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.*;
 import java.util.List;
 
 import static javax.persistence.GenerationType.SEQUENCE;
 
+@Getter
+@Setter
 @Entity( name = "Line" )
 @Table( name = "line" )
 public class Line {
@@ -23,7 +29,7 @@ public class Line {
             name = "id",
             updatable = false
     )
-    private String id;
+    private Long id;
 
     private String name;
     private String description;

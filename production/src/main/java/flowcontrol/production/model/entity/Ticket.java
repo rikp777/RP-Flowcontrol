@@ -28,7 +28,7 @@ public class Ticket {
             name = "id",
             updatable = false
     )
-    private String id;
+    private Long id;
 
     private String palletLabelId;
 

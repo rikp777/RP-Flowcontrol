@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/palletlabels")
+@RequestMapping("v1/palletlabels")
 public class PalletLabelController {
 
     @Autowired

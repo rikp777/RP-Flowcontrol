@@ -1,11 +1,12 @@
 package flowcontrol.production.service;
 
+import flowcontrol.production.model.entity.Line;
 import flowcontrol.production.model.entity.Ticket;
 import flowcontrol.production.model.general.PalletLabel;
 import flowcontrol.production.repository.TicketRepository;
+import flowcontrol.production.repository.impl.PalletLabelRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.reactive.function.client.WebClient;
 
 @Service
 public class TicketService {
@@ -17,25 +18,30 @@ public class TicketService {
     private final LineService lineService;
 
     @Autowired
-    private WebClient.Builder webClientBuilder;
+    private final PalletLabelRepository palletLabelRepository;
 
-    public TicketService(TicketRepository ticketRepository, LineService lineService) {
+    public TicketService(TicketRepository ticketRepository, LineService lineService, PalletLabelRepository palletLabelRepository) {
         this.ticketRepository = ticketRepository;
         this.lineService = lineService;
+        this.palletLabelRepository = palletLabelRepository;
     }
 
 
-    public Ticket create(String PalletLabelId, String productionLine){
+    public Ticket create(Long palletLabelId, Long lineId){
         // Get pallet label ?
-        PalletLabel palletLabel = webClientBuilder.build() //Gives you a client
-                .get() // Method for the request
-                .uri("http://localhost:7072/palletlabels/" + PalletLabelId) // Url that you need to access
-                .retrieve() // Go do the fetch
-                .bodyToMono(PalletLabel.class) // Whatever body go get back map it to the class - Mono means you will get a object back but not right away "async" //empty page but you will need to wait but you know it will come and than you can do stuff "promise"
-                .block();
 
+        PalletLabel palletLabel = palletLabelRepository.findById(palletLabelId);
         // Get production line ?
-        this.lineService.get(productionLine);
+        Line line = this.lineService.get(lineId);
+
+        line.getDescription();
+//        this.ticketRepository.findById();
+        // If endtime not set yet
+            //if endtime not set yet check for open interruptions
+                // if open innterruption close this interruption by filling the end
+
+
+
 
         // Create ticket with logic
 

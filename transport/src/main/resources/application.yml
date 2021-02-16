@@ -1,0 +1,13 @@
+#============SERVER============
+# HTTP server port
+
+server:
+  port: 7072
+
+  # Context path of the application
+  servlet:
+    context-path: /api
+
+    # Default HTTP session time out
+    session:
+      timeout: 15m

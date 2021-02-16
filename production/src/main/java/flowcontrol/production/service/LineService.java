@@ -21,7 +21,7 @@ public class LineService {
         return this.lineRepository.findAll();
     }
 
-    public Line get(String id){
+    public Line get(Long id){
         return this.lineRepository.findById(id).orElse(null);
     }
 }
