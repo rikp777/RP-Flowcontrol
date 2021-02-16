@@ -1,0 +1,34 @@
+#============SERVER============
+# HTTP server port
+
+server:
+  port: 7073
+
+  # Context path of the application
+  servlet:
+    context-path: /api
+
+    # Default HTTP session time out
+    session:
+      timeout: 15m
+
+spring:
+  #============JDBC============
+  datasource:
+    url: jdbc:mysql://localhost:3306/production_line?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
+    username: root
+
+  #============JPA============
+  jpa:
+    hibernate:
+      #      ddl-auto: create-drop
+      dialect: org.hibernate.dialect.MySQL57Dialect
+      ddl-auto: create-drop
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        jdbc:
+          lob:
+            non_contextual_creation: true
+
