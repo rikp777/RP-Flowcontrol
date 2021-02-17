@@ -1,8 +1,6 @@
 package flowcontrol.production.model.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -12,6 +10,9 @@ import static javax.persistence.GenerationType.SEQUENCE;
 
 @Entity(name = "Ticket")
 @Table(name = "ticket")
+@Getter
+@Setter
+@ToString
 public class Ticket {
 
     @Id
@@ -30,7 +31,7 @@ public class Ticket {
     )
     private Long id;
 
-    private String palletLabelId;
+    private Long palletLabelId;
 
     @Column(
             name = "started_at",
@@ -40,10 +41,17 @@ public class Ticket {
 
     @Column(
             name = "ended_at",
-            nullable = false
+            nullable = true
     )
     private LocalDateTime  endAt;
 
+    @Column(
+            name = "article_amount_used",
+            nullable = false
+    )
+    private Integer ArticleAmountUsed;
+
+    // Relations
     @OneToMany(
             mappedBy = "ticket",
             orphanRemoval = true,

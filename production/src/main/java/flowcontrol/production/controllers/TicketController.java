@@ -26,6 +26,13 @@ public class TicketController {
         return ticket;
     }
 
+    @PutMapping("/{palletLabelId}/tickets/{ticketId}")
+    public Ticket closeTicket(@PathVariable("ticketId") Long ticketId){
+
+        Ticket ticket = ticketService.close(ticketId);
+        return ticket;
+    }
+
 //    @PostMapping("/{palletLabelId}/ticketss")
 //    public Ticket createTicketsssss(@PathVariable("palletLabelId") String palletLabelId){
 ////        Ticket ticket = ticketService.create(palletLabelId, lineId);

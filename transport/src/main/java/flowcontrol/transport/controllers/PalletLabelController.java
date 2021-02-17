@@ -24,7 +24,7 @@ public class PalletLabelController {
     }
 
     @GetMapping("{palletLabelId}")
-    public PalletLabel getPalletLabel(@PathVariable("palletLabelId") String palletLabelId){
+    public PalletLabel getPalletLabel(@PathVariable("palletLabelId") Long palletLabelId){
         return palletLabelService.getById(palletLabelId);
     }
 }
