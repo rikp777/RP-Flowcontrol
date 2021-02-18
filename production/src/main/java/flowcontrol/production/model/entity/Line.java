@@ -1,5 +1,7 @@
 package flowcontrol.production.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
@@ -35,12 +37,4 @@ public class Line {
 
     private String name;
     private String description;
-
-    @OneToMany(
-            mappedBy = "line",
-            orphanRemoval = true,
-            cascade = { CascadeType.PERSIST, CascadeType.REMOVE },
-            fetch = FetchType.LAZY
-    )
-    private List<Ticket> tickets;
 }

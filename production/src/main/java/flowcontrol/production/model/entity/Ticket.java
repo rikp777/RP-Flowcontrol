@@ -1,10 +1,13 @@
 package flowcontrol.production.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import static javax.persistence.GenerationType.SEQUENCE;
 
@@ -53,14 +56,15 @@ public class Ticket {
 
     // Relations
     @OneToMany(
-            mappedBy = "ticket",
-            orphanRemoval = true,
-            cascade = { CascadeType.PERSIST, CascadeType.REMOVE },
-            fetch = FetchType.LAZY
+            targetEntity = Interruption.class,
+            cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY,
+            orphanRemoval = true
     )
-    private List<Interruption> interruptions;
+    @JoinColumn(name = "ticketId", referencedColumnName = "id")
+    private List<Interruption> interruptions = new ArrayList<>();
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(
             name = "lineId",
             nullable = false,
@@ -69,5 +73,6 @@ public class Ticket {
                     name = "line_ticket_fk"
             )
     )
+    @JsonBackReference
     private Line line;
 }

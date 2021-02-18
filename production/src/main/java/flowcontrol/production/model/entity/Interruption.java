@@ -1,9 +1,19 @@
 package flowcontrol.production.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.*;
+
+import java.time.LocalDateTime;
+import java.util.Optional;
 
 import static javax.persistence.GenerationType.SEQUENCE;
 
+@Getter
+@Setter
 @Entity( name = "Interruption" )
 @Table( name = "interruption" )
 public class Interruption {
@@ -24,10 +34,20 @@ public class Interruption {
     )
     private Long id;
 
-    private String startAt;
-    private String endAt;
+    private LocalDateTime startAt;
+    private LocalDateTime endAt;
 
-    @ManyToOne
-    @JoinColumn(name = "ticket_id", nullable = false)
+    @ManyToOne(
+            targetEntity = Ticket.class,
+            fetch = FetchType.LAZY
+    )
+    @JoinColumn(name = "ticketId", nullable = false)
+    @JsonIgnore
     private Ticket ticket;
+
+    @ManyToOne(
+            targetEntity = InterruptionReason.class
+    )
+    @JoinColumn(name = "interruptionReasonId", nullable = false)
+    private InterruptionReason interruptionReason;
 }
