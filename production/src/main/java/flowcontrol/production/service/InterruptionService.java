@@ -5,6 +5,8 @@ import flowcontrol.production.model.entity.InterruptionReason;
 import flowcontrol.production.model.entity.Ticket;
 import flowcontrol.production.repository.InterruptionReasonRepository;
 import flowcontrol.production.repository.InterruptionRepository;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +15,7 @@ import java.util.List;
 
 @Service
 public class InterruptionService {
+    private static final Logger logger = LogManager.getLogger(InterruptionService.class);
 
     @Autowired
     private final InterruptionRepository interruptionRepository;
@@ -38,13 +41,15 @@ public class InterruptionService {
     }
 
     public Interruption create(Long ticketId, Long interruptionReasonId, Integer usedArticleAmount){
+        logger.info("================================================");
+        logger.info("Begin check [Create Interruption]");
         // Get interruption Reason
         InterruptionReason interruptionReason = interruptionReasonRepository.findById(interruptionReasonId).orElse(null);
 
         // Get ticket entity
         Ticket ticket = ticketService.getById(ticketId);
 
-        System.out.println("Interruption will be created for ticket: [" + ticket.getId() + "]");
+        logger.info("Interruption will be created for ticket: [" + ticket.getId() + "]");
 
         // Check if ticket has open interruptions
         // Create new interruption
@@ -55,16 +60,21 @@ public class InterruptionService {
 
         // Check if to close process and fill end time of interruption
         if(interruptionReason.getStopProcess()){
-            System.out.println("Interruption will stop the current ticket: [" + ticket.getId() + "] ");
-            System.out.println("Interruption has been created and also will be closed");
+            logger.info("Interruption will stop the current ticket: [" + ticket.getId() + "] because stop process is [true]");
+            logger.info("Interruption has been created and will be closed immediately");
+
             // Stop ticket
             ticketService.closeTicketWithRestAmount(ticketId, usedArticleAmount);
+
+            // Set end time for interruption
             interruption.setEndAt(LocalDateTime.now());
         }
 
         // Save new interruption
         Interruption interruptionSaved = interruptionRepository.save(interruption);
 
+        logger.info("End check");
+        logger.info("================================================");
         // Return new interruption with id
         return interruptionSaved;
     }

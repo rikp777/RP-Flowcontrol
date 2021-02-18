@@ -5,6 +5,8 @@ import flowcontrol.production.model.entity.Ticket;
 import flowcontrol.production.model.general.PalletLabel;
 import flowcontrol.production.repository.TicketRepository;
 import flowcontrol.production.repository.impl.PalletLabelRepository;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,6 +17,7 @@ import java.util.Optional;
 
 @Service
 public class TicketService {
+    private static final Logger logger = LogManager.getLogger(TicketService.class);
 
     @Autowired
     private final TicketRepository ticketRepository;
@@ -80,31 +83,32 @@ public class TicketService {
 
         List<Ticket> ticketList = ticketRepository.getTicketByPalletLabelId(palletLabel.getId());
 
-        System.out.println("================================================");
-        System.out.println("Begin check");
+        logger.info("================================================");
+        logger.info("Begin check [Create Ticket]");
         if(ticketList.isEmpty()) {
-            System.out.println("Pallet label: [" + palletLabel.getId() + "] has no tickets yet");
+            logger.info("Pallet label: [" + palletLabel.getId() + "] has no tickets yet");
+
             ticket.setArticleAmountUsed(palletLabel.getArticleAmount());
             ticket.setStartAt(LocalDateTime.now());
             ticket.setPalletLabelId(palletLabel.getId());
             ticket.setLine(line);
             ticketRepository.save(ticket);
         }else{
-            System.out.println("Pallet label: [" + palletLabel.getId() + "] has [" + ticketList.stream().count() + "] tickets");
+            logger.info("Pallet label: [" + palletLabel.getId() + "] has [" + ticketList.stream().count() + "] tickets");
             Integer totalArticleAmountUsed = this.getTotalArticleAmountUsed(ticketList);
 
             if(totalArticleAmountUsed >= palletLabel.getArticleAmount()){
-                System.out.println("Pallet label: [" + palletLabel.getId() + "] exceeds max amount throw exception");
-                System.out.println("Pallet label: [" + palletLabel.getId() + "] the pallet has been completely used and can no longer be scanned for processing");
+                logger.info("Pallet label: [" + palletLabel.getId() + "] exceeds max amount throw exception");
+                logger.info("Pallet label: [" + palletLabel.getId() + "] the pallet has been completely used and can no longer be scanned for processing");
                 this.closeOpenTickets(ticketList);
             }else{
-                System.out.println("Exceed with the checks ");
+                logger.info("Exceed with the checks ");
 
                 // Close ticket before
                 this.closeOpenTickets(ticketList);
 
                 // Create new ticket with rest amount
-                System.out.println("Create new ticket with rest amount ");
+                logger.info("Create new ticket with rest amount ");
                 ticket.setArticleAmountUsed(palletLabel.getArticleAmount() - totalArticleAmountUsed);
                 ticket.setStartAt(LocalDateTime.now());
                 ticket.setPalletLabelId(palletLabel.getId());
@@ -112,7 +116,8 @@ public class TicketService {
                 ticketRepository.save(ticket);
             }
         }
-        System.out.println("End check");
+        logger.info("End check");
+        logger.info("================================================");
 
         return ticket;
     }
