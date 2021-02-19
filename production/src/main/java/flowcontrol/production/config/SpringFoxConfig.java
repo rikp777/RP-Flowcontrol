@@ -26,7 +26,7 @@ public class SpringFoxConfig {
     public Docket api() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .host(hostUrl)
-                .groupName("Spring Actuator")
+                .groupName("Flowcontrol Production")
                 .select()
                 .apis(RequestHandlerSelectors.any())
                 .paths(PathSelectors.any())

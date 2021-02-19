@@ -2,6 +2,8 @@ package flowcontrol.gateway.controllers.advise;
 
 import flowcontrol.gateway.exception.*;
 import flowcontrol.gateway.model.response.ApiResponse;
+import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,16 +26,11 @@ import java.util.Locale;
 import java.util.stream.Collectors;
 
 @RestControllerAdvice
+@Slf4j
+@AllArgsConstructor
 public class AuthControllerAdvice {
 
-    private static final Logger logger = LogManager.getLogger(AuthControllerAdvice.class);
-
     private final MessageSource messageSource;
-
-    @Autowired
-    public AuthControllerAdvice(MessageSource messageSource) {
-        this.messageSource = messageSource;
-    }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
@@ -66,7 +63,7 @@ public class AuthControllerAdvice {
     private String resolveLocalizedErrorMessage(ObjectError objectError) {
         Locale currentLocale = LocaleContextHolder.getLocale();
         String localizedErrorMessage = messageSource.getMessage(objectError, currentLocale);
-        logger.info(localizedErrorMessage);
+        log.info(localizedErrorMessage);
         return localizedErrorMessage;
     }
 

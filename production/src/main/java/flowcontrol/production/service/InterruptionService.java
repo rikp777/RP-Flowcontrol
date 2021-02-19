@@ -5,6 +5,8 @@ import flowcontrol.production.model.entity.InterruptionReason;
 import flowcontrol.production.model.entity.Ticket;
 import flowcontrol.production.repository.InterruptionReasonRepository;
 import flowcontrol.production.repository.InterruptionRepository;
+import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,8 +16,9 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
+@AllArgsConstructor
+@Slf4j
 public class InterruptionService {
-    private static final Logger logger = LogManager.getLogger(InterruptionService.class);
 
     @Autowired
     private final InterruptionRepository interruptionRepository;
@@ -26,13 +29,6 @@ public class InterruptionService {
     @Autowired
     private final TicketService ticketService;
 
-    public InterruptionService(InterruptionRepository interruptionRepository, InterruptionReasonRepository interruptionReasonRepository, TicketService ticketService) {
-        this.interruptionRepository = interruptionRepository;
-        this.interruptionReasonRepository = interruptionReasonRepository;
-        this.ticketService = ticketService;
-    }
-
-
     public List<Interruption> getAll(){
         return interruptionRepository.findAll();
     }
@@ -41,15 +37,15 @@ public class InterruptionService {
     }
 
     public Interruption create(Long ticketId, Long interruptionReasonId, Integer usedArticleAmount){
-        logger.info("================================================");
-        logger.info("Begin check [Create Interruption]");
+        log.info("================================================");
+        log.info("Begin check [Create Interruption]");
         // Get interruption Reason
         InterruptionReason interruptionReason = interruptionReasonRepository.findById(interruptionReasonId).orElse(null);
 
         // Get ticket entity
         Ticket ticket = ticketService.getById(ticketId);
 
-        logger.info("Interruption will be created for ticket: [" + ticket.getId() + "]");
+        log.info("Interruption will be created for ticket: [" + ticket.getId() + "]");
 
         // Check if ticket has open interruptions
         // Create new interruption
@@ -60,8 +56,8 @@ public class InterruptionService {
 
         // Check if to close process and fill end time of interruption
         if(interruptionReason.getStopProcess()){
-            logger.info("Interruption will stop the current ticket: [" + ticket.getId() + "] because stop process is [true]");
-            logger.info("Interruption has been created and will be closed immediately");
+            log.info("Interruption will stop the current ticket: [" + ticket.getId() + "] because stop process is [true]");
+            log.info("Interruption has been created and will be closed immediately");
 
             // Stop ticket
             ticketService.closeTicketWithRestAmount(ticketId, usedArticleAmount);
@@ -73,8 +69,8 @@ public class InterruptionService {
         // Save new interruption
         Interruption interruptionSaved = interruptionRepository.save(interruption);
 
-        logger.info("End check");
-        logger.info("================================================");
+        log.info("End check");
+        log.info("================================================");
         // Return new interruption with id
         return interruptionSaved;
     }

@@ -30,4 +30,8 @@ public class RefreshToken extends DateAudit {
 
     @Column(name = "expiry_date", nullable = false)
     private Instant ExpiryDate;
+
+    public void incrementRefreshCount(){
+        this.refreshCount = this.refreshCount + 1;
+    }
 }
