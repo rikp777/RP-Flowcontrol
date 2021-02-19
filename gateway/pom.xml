@@ -48,6 +48,23 @@
             <artifactId>spring-boot-starter-validation</artifactId>
         </dependency>
 
+        <!--Spring Mail -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-mail</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.freemarker</groupId>
+            <artifactId>freemarker</artifactId>
+        </dependency>
+
+        <!--Expiring Map-->
+        <dependency>
+            <groupId>net.jodah</groupId>
+            <artifactId>expiringmap</artifactId>
+            <version>0.5.9</version>
+        </dependency>
+
 
         <dependency>
             <groupId>com.h2database</groupId>
@@ -110,6 +127,12 @@
             <version>${swagger.version}</version>
         </dependency>
 
+        <!--Jwt-->
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt</artifactId>
+            <version>0.9.1</version>
+        </dependency>
 
     </dependencies>
 
