@@ -5,13 +5,14 @@ import flowcontrol.gateway.model.entity.RefreshToken;
 import flowcontrol.gateway.repository.RefreshTokenRepository;
 import flowcontrol.gateway.util.Uuid;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
+import java.util.Optional;
 
 @Service
-@AllArgsConstructor
 public class RefreshTokenService {
 
     private final RefreshTokenRepository refreshTokenRepository;
@@ -19,8 +20,13 @@ public class RefreshTokenService {
     @Value("${app.token.refresh.duration}")
     private Long refreshTokenDurationMs;
 
-    public RefreshToken findByToken(RefreshToken refreshToken){
-        return refreshTokenRepository.save(refreshToken);
+    @Autowired
+    public RefreshTokenService(RefreshTokenRepository refreshTokenRepository) {
+        this.refreshTokenRepository = refreshTokenRepository;
+    }
+
+    public Optional<RefreshToken> findByToken(String token){
+        return refreshTokenRepository.findByToken(token);
     }
 
     public RefreshToken save(RefreshToken refreshToken){

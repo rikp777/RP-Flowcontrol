@@ -17,30 +17,28 @@ public class JwtTokenProvider {
     private final String jwtSecret;
     private final long jwtExpirationInMs;
 
-    public JwtTokenProvider(@Value("${app.jwt.secret}") String jwtSecret, @Value("${app.jwt.expiration") long jwtExpirationInMs){
+    public JwtTokenProvider(@Value("${app.jwt.secret}") String jwtSecret, @Value("${app.jwt.expiration}") long jwtExpirationInMs){
         this.jwtSecret = jwtSecret;
         this.jwtExpirationInMs = jwtExpirationInMs;
     }
 
     public String generateToken(CustomUserDetails customUserDetails){
         Instant expiryDate = Instant.now().plusMillis(jwtExpirationInMs);
-
         return Jwts.builder()
                 .setSubject(Long.toString(customUserDetails.getId()))
                 .setIssuedAt(Date.from(Instant.now()))
                 .setExpiration(Date.from(expiryDate))
-                .signWith(SignatureAlgorithm.ES512, jwtSecret)
+                .signWith(SignatureAlgorithm.HS512, jwtSecret)
                 .compact();
     }
 
     public String generateTokenFromUserId(Long userId){
         Instant expiryDate = Instant.now().plusMillis(jwtExpirationInMs);
-
         return Jwts.builder()
                 .setSubject(Long.toString(userId))
                 .setIssuedAt(Date.from(Instant.now()))
                 .setExpiration(Date.from(expiryDate))
-                .signWith(SignatureAlgorithm.ES512, jwtSecret)
+                .signWith(SignatureAlgorithm.HS512, jwtSecret)
                 .compact();
     }
 

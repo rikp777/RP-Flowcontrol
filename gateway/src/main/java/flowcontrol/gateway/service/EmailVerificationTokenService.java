@@ -5,7 +5,6 @@ import flowcontrol.gateway.model.entity.User;
 import flowcontrol.gateway.model.entity.enumeration.TokenStatus;
 import flowcontrol.gateway.model.general.EmailVerificationToken;
 import flowcontrol.gateway.repository.EmailVerificationTokenRepository;
-import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -16,13 +15,16 @@ import java.util.UUID;
 
 @Service
 @Slf4j
-@AllArgsConstructor
 public class EmailVerificationTokenService {
 
     private final EmailVerificationTokenRepository emailVerificationTokenRepository;
 
     @Value("${app.token.email.verification.duration}")
     private Long emailVerificationTokenExpiryDuration;
+
+    public EmailVerificationTokenService(EmailVerificationTokenRepository emailVerificationTokenRepository) {
+        this.emailVerificationTokenRepository = emailVerificationTokenRepository;
+    }
 
     public void createVerificationToken(User user, String token){
         EmailVerificationToken emailVerificationToken = new EmailVerificationToken();

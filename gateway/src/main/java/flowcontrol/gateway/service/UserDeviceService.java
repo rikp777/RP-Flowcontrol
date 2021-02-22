@@ -35,7 +35,7 @@ public class UserDeviceService {
     }
 
 
-    private void verifyRefreshAvailability(RefreshToken refreshToken){
+    public void verifyRefreshAvailability(RefreshToken refreshToken){
         UserDevice userDevice = findByRefreshToken(refreshToken).orElseThrow(() -> new TokenRefreshException(refreshToken.getToken(), "No device found for the matching token. Please login again"));
 
         if(!userDevice.getIsRefreshActive()){

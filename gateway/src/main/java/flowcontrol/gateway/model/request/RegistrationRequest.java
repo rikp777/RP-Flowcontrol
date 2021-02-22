@@ -1,5 +1,7 @@
 package flowcontrol.gateway.model.request;
 
+import flowcontrol.gateway.validation.NullOrNotBlank;
+import io.micrometer.core.lang.Nullable;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,21 +18,16 @@ import javax.validation.constraints.Null;
 @Setter
 public class RegistrationRequest {
 
-    @NotNull
-    @NotBlank
+    @NullOrNotBlank(message = "Registration username can be null but not blank")
     private String username;
 
-    @NotNull
-    @NotBlank
+    @NullOrNotBlank(message = "Registration email can be null but not blank")
     private String email;
 
-    @NotNull
-    @NotBlank
+    @NotNull(message = "Registration password cannot be null")
     private String password;
 
-    @NotNull
-    @NotBlank
+    @NotNull(message = "Specify whether the user has to be registered as and admin or not ")
     private Boolean registerAsAdmin;
-
 
 }

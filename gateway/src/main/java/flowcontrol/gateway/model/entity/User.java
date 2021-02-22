@@ -6,6 +6,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
+import flowcontrol.gateway.validation.NullOrNotBlank;
 import lombok.Data;
 import org.hibernate.annotations.NaturalId;
 
@@ -22,14 +23,13 @@ public class User extends DateAudit {
     @SequenceGenerator(name = "user_sequence", allocationSize = 1)
     private Long id;
 
-    //@NaturelId //Looup Id
+    @NaturalId //Lookup Id
     @Column(name = "email", unique = true)
     @NotBlank(message = "User email cannot be null")
     private String email;
 
     @Column(name = "username", unique = true)
-    @NotBlank(message = "Username cannot be blank")
-    @NotNull(message =  "Username cannot be null")
+    @NullOrNotBlank(message = "Username can be null but not blank")
     private String username;
 
     @Column(name = "password")
@@ -37,13 +37,11 @@ public class User extends DateAudit {
     private String password;
 
     @Column(name = "first_name")
-    @NotNull(message = "First name cannot be null")
-    @NotBlank(message = "First name cannot be blank")
+    @NullOrNotBlank(message = "First name can be null but not blank")
     private String firstName;
 
     @Column(name = "last_name")
-    @NotNull(message = "Last name cannot be null")
-    @NotBlank(message = "Last name cannot be blank")
+    @NullOrNotBlank(message = "Last name can be null but not blank")
     private String lastName;
 
     @Column(name = "active", nullable = false)
@@ -91,5 +89,10 @@ public class User extends DateAudit {
     public void removeRole(Role role){
         roles.remove(role);
         role.getUsers().remove(this);
+    }
+
+
+    public void markVerificationConfirmed(){
+        this.setIsEmailVerified(true);
     }
 }

@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.springframework.context.ApplicationEvent;
 
+import java.time.Instant;
 import java.util.Date;
 
 @Getter
@@ -17,11 +18,11 @@ public class OnUserLogOutSuccessEvent extends ApplicationEvent {
     private final transient LogOutRequest logOutRequest;
     private final Date evenTime;
 
-    public OnUserLogOutSuccessEvent(String userEmail, String token, LogOutRequest logOutRequest, Date evenTime) {
+    public OnUserLogOutSuccessEvent(String userEmail, String token, LogOutRequest logOutRequest) {
         super(userEmail);
         this.userEmail = userEmail;
         this.token = token;
         this.logOutRequest = logOutRequest;
-        this.evenTime = evenTime;
+        this.evenTime = Date.from(Instant.now());
     }
 }

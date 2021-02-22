@@ -38,4 +38,7 @@ public class EmailVerificationToken extends DateAudit {
     @Column(name = "expiry_date", nullable = false)
     private Instant expiryDate;
 
+    public void setConfirmedStatus() {
+        this.setTokenStatus(TokenStatus.STATUS_CONFIRMED);
+    }
 }

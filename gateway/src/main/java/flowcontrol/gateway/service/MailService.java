@@ -4,7 +4,7 @@ import flowcontrol.gateway.model.general.Mail;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
-import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -19,21 +19,26 @@ import java.util.concurrent.TimeUnit;
 
 
 @Service
-@AllArgsConstructor
 public class MailService {
 
     private final JavaMailSender mailSender;
 
     private final Configuration configurationTemplate;
 
-    @Value("${app.velocity.template.location}")
+    @Value("${app.velocity.templates.location}")
     private String basePackagePath;
 
     @Value("${spring.mail.username}")
     private String mailFrom;
 
-    @Value("{app.token.password.reset.duration}")
+    @Value("${app.token.password.reset.duration}")
     private Long expiration;
+
+    @Autowired
+    public MailService(JavaMailSender mailSender, Configuration configurationTemplate) {
+        this.mailSender = mailSender;
+        this.configurationTemplate = configurationTemplate;
+    }
 
     public void sendEmailVerification(String emailVerificationUrl, String to) throws MessagingException, TemplateException, IOException {
         Mail mail = new Mail();
@@ -44,7 +49,7 @@ public class MailService {
         mail.getModel().put("userEmailTokenVerificationLink", emailVerificationUrl);
 
         configurationTemplate.setClassForTemplateLoading(getClass(), basePackagePath);
-        Template template = configurationTemplate.getTemplate("email-verification.ft1");
+        Template template = configurationTemplate.getTemplate("email-verification.ftl");
         String mailContent = FreeMarkerTemplateUtils.processTemplateIntoString(template, mail.getModel());
         mail.setContent(mailContent);
         this.send(mail);

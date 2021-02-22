@@ -1,32 +1,80 @@
 package flowcontrol.gateway.controllers;
 
+import flowcontrol.gateway.annotation.CurrentUser;
+import flowcontrol.gateway.event.OnUserAccountChangeEvent;
+import flowcontrol.gateway.event.OnUserLogOutSuccessEvent;
+import flowcontrol.gateway.exception.PasswordUpdateException;
+import flowcontrol.gateway.model.entity.CustomUserDetails;
+import flowcontrol.gateway.model.request.LogOutRequest;
+import flowcontrol.gateway.model.request.UpdatePasswordRequest;
+import flowcontrol.gateway.model.response.ApiResponse;
+import flowcontrol.gateway.service.AuthService;
+import flowcontrol.gateway.service.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import lombok.AllArgsConstructor;
+import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 
 @RestController
 @RequestMapping("/api/user")
 @Api(value = "User Rest APi - Endpoints")
+@Slf4j
+@AllArgsConstructor
 public class UserController {
 
-    private static final Logger logger = LogManager.getLogger(UserController.class);
-
-    @Autowired
-    public UserController(){
-
-    }
+    private final AuthService authService;
+    private final UserService userService;
+    private final ApplicationEventPublisher applicationEventPublisher;
 
 
     @GetMapping("/me")
-    @ApiOperation(value = "Returns the current user profile")
-    public ResponseEntity getUserProfile(){
-        return ResponseEntity.ok("Hello test");
+    @PreAuthorize("hasRole('User')")
+    public ResponseEntity getUserProfile(@CurrentUser CustomUserDetails currentUser){
+        log.info(currentUser.getEmail() + " has role: " + currentUser.getRoles());
+        return ResponseEntity.ok("Hello. this is about me");
+    }
+
+
+    @GetMapping("/admins")
+    @PreAuthorize("hasRole('admin')")
+    public ResponseEntity getAllAdmins(){
+       log.info("Inside secured resource with admin");
+       return ResponseEntity.ok("Hello. this is about admins");
+    }
+
+    @PostMapping("/password/update")
+    @PreAuthorize("hasRole('USER')")
+    public ResponseEntity updateUserPassword(@CurrentUser CustomUserDetails customUserDetails, @Valid @RequestBody UpdatePasswordRequest updatePasswordRequest){
+        return authService.updatePassword(customUserDetails, updatePasswordRequest)
+                .map(updatedUser -> {
+                    OnUserAccountChangeEvent onUserAccountChangeEvent =new OnUserAccountChangeEvent(updatedUser, "Update Password", "Change successful");
+                    applicationEventPublisher.publishEvent(onUserAccountChangeEvent);
+                    return ResponseEntity.ok(new ApiResponse("Password changed successfully", true));
+                })
+                .orElseThrow(() -> new PasswordUpdateException("--Empty--", "No such user present"));
+    }
+
+    @PostMapping("/logout")
+    public ResponseEntity logoutUser(@CurrentUser CustomUserDetails customUserDetails, @Valid @RequestBody LogOutRequest logOutRequest){
+        userService.logOutUser(customUserDetails, logOutRequest);
+
+        Object credentials = SecurityContextHolder.getContext().getAuthentication().getCredentials();
+
+        OnUserLogOutSuccessEvent onUserLogOutSuccessEvent = new OnUserLogOutSuccessEvent(customUserDetails.getEmail(), credentials.toString(), logOutRequest);
+        applicationEventPublisher.publishEvent(onUserLogOutSuccessEvent);
+
+        return ResponseEntity.ok(new ApiResponse("Log out successfully", true));
     }
 }
