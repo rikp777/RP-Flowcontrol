@@ -1,5 +1,8 @@
 package flowcontrol.production.service;
 
+import flowcontrol.production.exception.AppException;
+import flowcontrol.production.exception.InterruptionNotFoundException;
+import flowcontrol.production.exception.ResourceNotFoundException;
 import flowcontrol.production.model.entity.Interruption;
 import flowcontrol.production.model.entity.InterruptionReason;
 import flowcontrol.production.model.entity.Ticket;
@@ -12,8 +15,10 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.swing.text.html.Option;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -32,23 +37,27 @@ public class InterruptionService {
     public List<Interruption> getAll(){
         return interruptionRepository.findAll();
     }
-    public Interruption getById(Long id){
-        return interruptionRepository.findById(id).orElse(null);
+    public Optional<Interruption> getById(Long id){
+        Interruption interruption=  interruptionRepository.findById(id)
+                .orElseThrow(() -> new InterruptionNotFoundException(id));
+
+        return Optional.of(interruption);
     }
 
-    public Interruption create(Long ticketId, Long interruptionReasonId, Integer usedArticleAmount){
+    public Optional<Interruption> create(Long ticketId, Long interruptionReasonId, Integer usedArticleAmount){
         log.info("================================================");
         log.info("Begin check [Create Interruption]");
         // Get interruption Reason
-        InterruptionReason interruptionReason = interruptionReasonRepository.findById(interruptionReasonId).orElse(null);
+        InterruptionReason interruptionReason = interruptionReasonRepository.findById(interruptionReasonId)
+                .orElseThrow(() -> new ResourceNotFoundException("Interruption reason", "Interruption reason not found", interruptionReasonId));
 
-        // Get ticket entity
-        Ticket ticket = ticketService.getById(ticketId);
+        // Get ticket
+        Ticket ticket = ticketService.getById(ticketId)
+                .orElseThrow(() -> new AppException("Ticket is need for creation of an interruption"));
 
         log.info("Interruption will be created for ticket: [" + ticket.getId() + "]");
 
-        // Check if ticket has open interruptions
-        // Create new interruption
+        // Create new interruption instance
         Interruption interruption = new Interruption();
         interruption.setStartAt(LocalDateTime.now());
         interruption.setTicket(ticket);
@@ -71,24 +80,29 @@ public class InterruptionService {
 
         log.info("End check");
         log.info("================================================");
+
         // Return new interruption with id
-        return interruptionSaved;
+        return Optional.of(interruptionSaved);
     }
 
-    public Interruption close(Long interruptionId){
-        Interruption interruption = interruptionRepository.getOne(interruptionId);
+    public Optional<Interruption> close(Long interruptionId){
+        // Get interruption
+        Interruption interruption = this.getById(interruptionId).get();
 
+        // Close interruption by filling setEndAt
         interruption.setEndAt(LocalDateTime.now());
 
-        interruptionRepository.save(interruption);
+        // Update interruption
+        Interruption interruptionSaved = interruptionRepository.save(interruption);
 
-        return interruption;
+        // Return interruption
+        return Optional.of(interruptionSaved);
     }
 
 
     public Interruption update(Long interruptionId, Interruption interruption){
-        // Gets only a reference does not fetch it from the database only updates properties that are updated
-        Interruption interruptionToUpdate = interruptionRepository.getOne(interruptionId);
+        // Get interruption
+        Interruption interruptionToUpdate = this.getById(interruptionId).get();
 
         // Update properties
         interruptionToUpdate.setStartAt(interruption.getStartAt());
@@ -102,8 +116,11 @@ public class InterruptionService {
     }
 
 
-    public boolean delete(Long id){
-        interruptionRepository.deleteById(id);
-        return false;
+    public void deleteById(Long interruptionId){
+        // Check if exists
+        if(interruptionRepository.existsById(interruptionId)){
+            throw new InterruptionNotFoundException(interruptionId);
+        }
+        interruptionRepository.deleteById(interruptionId);
     }
 }

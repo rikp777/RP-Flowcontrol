@@ -1,8 +1,12 @@
 package flowcontrol.production.service;
 
+import flowcontrol.production.exception.AppException;
+import flowcontrol.production.exception.ResourceNotFoundException;
+import flowcontrol.production.exception.TicketException;
 import flowcontrol.production.model.entity.Line;
 import flowcontrol.production.model.entity.Ticket;
 import flowcontrol.production.model.general.PalletLabel;
+import flowcontrol.production.model.request.FillRefillTrayRequest;
 import flowcontrol.production.repository.TicketRepository;
 import flowcontrol.production.repository.impl.PalletLabelRepository;
 import lombok.AllArgsConstructor;
@@ -13,6 +17,7 @@ import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.swing.text.html.Option;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -35,15 +40,18 @@ public class TicketService {
         return this.ticketRepository.getTicketByPalletLabelId(palletLabelId);
     }
 
-    public Ticket getById(Long ticketId){
-        Ticket ticket = this.ticketRepository.findById(ticketId).orElse(null);
+    public Optional<Ticket> getById(Long ticketId){
+        // Get ticket
+        Ticket ticket = this.ticketRepository.findById(ticketId)
+                .orElseThrow(() -> new ResourceNotFoundException("Ticket", "Ticket not found", ticketId));
 
-        return ticket;
+        return Optional.of(ticket);
     }
 
-    public Ticket close(Long ticketId){
+    public Optional<Ticket> close(Long ticketId){
         // Get ticket
-        Ticket ticket =this.ticketRepository.findById(ticketId).orElse(null);
+        Ticket ticket =this.ticketRepository.findById(ticketId)
+                .orElseThrow(() -> new ResourceNotFoundException("Ticket", "Ticket not found", ticketId));
 
         // Close ticket by filling setEndAt
         ticket.setEndAt(LocalDateTime.now());
@@ -52,32 +60,38 @@ public class TicketService {
         ticketRepository.save(ticket);
 
         // Return ticket
-        return ticket;
+        return Optional.of(ticket);
     }
 
-    public Ticket closeTicketWithRestAmount(Long ticketId, Integer usedArticleAmount){
-        Ticket ticket = this.ticketRepository.getOne(ticketId);
+    public Optional<Ticket> closeTicketWithRestAmount(Long ticketId, Integer usedArticleAmount){
+        // Get ticket
+        Ticket ticket = this.ticketRepository.findById(ticketId)
+                .orElseThrow(() -> new ResourceNotFoundException("Ticket", "Ticket not found", ticketId));
 
+        // Close ticket and fill rest amount
         ticket.setEndAt(LocalDateTime.now());
         ticket.setArticleAmountUsed(usedArticleAmount);
 
+        // Save ticket
         ticketRepository.save(ticket);
 
-        return ticket;
+        // Return ticket
+        return Optional.of(ticket);
     }
 
-    public Ticket create(Long palletLabelId, Long lineId){
+    public Optional<Ticket> create(Long palletLabelId, Long lineId){
         // Get pallet label ?
-        PalletLabel palletLabel = palletLabelRepository.findById(palletLabelId);
+        PalletLabel palletLabel = palletLabelRepository.findById(palletLabelId)
+                .orElseThrow(() -> new ResourceNotFoundException("Pallet label", "Pallet label not found", palletLabelId));
 
         // Get production line ?
-        Line line = this.lineService.get(lineId);
+        Line line = this.lineService.getById(lineId)
+                .orElseThrow(() -> new AppException("Line is needed for the creation of a ticket"));
 
-        line.getDescription();
-
+        // Instantiate new Ticket
         Ticket ticket = new Ticket();
 
-
+        // Get List of tickets that belong to pallet label by id
         List<Ticket> ticketList = ticketRepository.getTicketByPalletLabelId(palletLabel.getId());
 
         log.info("================================================");
@@ -98,6 +112,8 @@ public class TicketService {
                 log.info("Pallet label: [" + palletLabel.getId() + "] exceeds max amount throw exception");
                 log.info("Pallet label: [" + palletLabel.getId() + "] the pallet has been completely used and can no longer be scanned for processing");
                 this.closeOpenTickets(ticketList);
+
+                throw new TicketException("Pallet label : [ " + palletLabel.getId() + "] has been completely used and can no longer be scanned for processing");
             }else{
                 log.info("Exceed with the checks ");
 
@@ -116,7 +132,7 @@ public class TicketService {
         log.info("End check");
         log.info("================================================");
 
-        return ticket;
+        return Optional.of(ticket);
     }
 
     private Integer getTotalArticleAmountUsed(@NotNull List<Ticket> tickets){
@@ -135,5 +151,16 @@ public class TicketService {
                 ticketRepository.save(ticket);
             }
         }
+    }
+
+    public Optional<Ticket> fillRefillTray(Long ticketId, FillRefillTrayRequest fillRefillTrayRequest){
+        Ticket ticket = ticketRepository.findById(ticketId)
+                .orElseThrow(() -> new ResourceNotFoundException("Ticket", "Ticket not found", ticketId));
+
+        ticket.setRefillTrays(fillRefillTrayRequest.getAmount());
+
+        ticketRepository.save(ticket);
+
+        return Optional.of(ticket);
     }
 }

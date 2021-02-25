@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.web.reactive.function.client.WebClient;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public class PalletLabelRepository {
@@ -14,7 +15,7 @@ public class PalletLabelRepository {
     @Autowired
     private WebClient.Builder webClientBuilder;
 
-    public PalletLabel findById(Long id) {
+    public Optional<PalletLabel> findById(Long id) {
         PalletLabel palletLabel = webClientBuilder.build() //Gives you a client
                 .get() // Method for the request
                 .uri("http://localhost:7072/api/v1/palletlabels/" + id) // Url that you need to access
@@ -22,7 +23,7 @@ public class PalletLabelRepository {
                 .bodyToMono(PalletLabel.class) // Whatever body go get back map it to the class - Mono means you will get a object back but not right away "async" //empty page but you will need to wait but you know it will come and than you can do stuff "promise"
                 .block();  // converts async to sync
 
-        return palletLabel;
+        return Optional.of(palletLabel);
     }
 
     public List<PalletLabel> findAll() {

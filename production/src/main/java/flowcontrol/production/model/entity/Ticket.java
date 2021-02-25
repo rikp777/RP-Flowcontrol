@@ -52,7 +52,9 @@ public class Ticket {
             name = "article_amount_used",
             nullable = false
     )
-    private Integer ArticleAmountUsed;
+    private Integer articleAmountUsed;
+
+    private Integer refillTrays;
 
     // Relations
     @OneToMany(
@@ -75,4 +77,5 @@ public class Ticket {
     )
     @JsonBackReference
     private Line line;
+
 }
