@@ -49,7 +49,7 @@ public class InterruptionController {
      * @param interruptionId
      * @return
      */
-    @PostMapping("{interruptionId}")
+    @PostMapping("/{interruptionId}")
     public ResponseEntity closeInterruption(
             @PathVariable String palletLabelId,
             @PathVariable String ticketId,
@@ -83,7 +83,7 @@ public class InterruptionController {
      * @param interruptionId
      * @return
      */
-    @GetMapping("{interruptionId}")
+    @GetMapping("/{interruptionId}")
     public ResponseEntity getInterruption(
             @PathVariable String palletLabelId,
             @PathVariable String ticketId,

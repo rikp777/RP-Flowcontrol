@@ -113,7 +113,7 @@ public class TicketService {
                 log.info("Pallet label: [" + palletLabel.getId() + "] the pallet has been completely used and can no longer be scanned for processing");
                 this.closeOpenTickets(ticketList);
 
-                throw new TicketException("Pallet label : [ " + palletLabel.getId() + "] has been completely used and can no longer be scanned for processing");
+                throw new TicketException("Pallet label: [" + palletLabel.getId() + "] has been completely used and can no longer be scanned for processing");
             }else{
                 log.info("Exceed with the checks ");
 

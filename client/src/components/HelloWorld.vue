@@ -2,7 +2,7 @@
   <el-row :gutter="20">
     <el-col :span="12" :offset="6">
       <div class="grid-content bg-purple">
-        <el-container style="height: 500px; border: 1px solid #eee">
+        <el-container style="height: 1300px; border: 1px solid #eee">
           <el-aside width="200px" style="background-color: rgb(238, 241, 246)">
             <el-menu :default-openeds="['1', '3']">
               <el-submenu index="1">
@@ -67,14 +67,149 @@
             </el-header>
 
             <el-main>
-              <el-table :data="tableData">
-                <el-table-column prop="date" label="Date" width="140">
+
+
+              <el-form ref="form" :model="form" label-width="120px">
+                <el-alert
+                    v-if="error"
+                    :title="error"
+                    type="error"
+                    effect="dark"
+                >
+                </el-alert>
+
+                    <el-form-item label="Pallet label Nr:">
+                      <el-input v-model="form.palletLabelId" @input="getTickets"></el-input>
+                    </el-form-item>
+
+                    <el-form-item label="Line Nr:">
+                      <el-select v-model="form.lineId" placeholder="Select">
+                        <el-option
+                            v-for="item in lineOptions"
+                            :key="item.value"
+                            :label="item.label"
+                            :value="item.value">
+                        </el-option>
+                      </el-select>
+                    </el-form-item>
+
+                <el-form-item>
+                  <el-button @click="createTicket">Create ticket</el-button>
+                </el-form-item>
+
+
+
+                <el-form-item label="Interruption reason">
+                  <el-select v-model="form.interruptionReasonId" placeholder="Select" @input="checkProcess()">
+                    <el-option-group
+                        v-for="group in interruptionReasonsOptions"
+                        :key="group.label"
+                        :label="group.label">
+                      <el-option
+                          v-for="item in group.options"
+                          :key="item.value"
+                          :label="item.label"
+                          :value="item.value">
+                      </el-option>
+                    </el-option-group>
+                  </el-select>
+                </el-form-item>
+                <el-alert
+                    v-if="show.restAmountOpen"
+                    title="Also fill the refill quantity"
+                    type="warning"
+                    effect="dark">
+                </el-alert>
+                <el-form-item label="Amount used" v-if="show.restAmountOpen">
+
+                  <el-input-number v-model="form.restAmount" :disabled="!show.restAmountOpen"></el-input-number>
+                </el-form-item>
+                <el-form-item>
+                  <el-button @click="createInterruption">Create interruption</el-button>
+                  <el-button @click="closeInterruption">Close interruption</el-button>
+                </el-form-item>
+
+
+                <el-form-item label="refill quantity">
+                  <el-input-number v-model="form.refillAmount" ></el-input-number>
+                </el-form-item>
+                <el-form-item>
+                  <el-button @click="closeTicket">Close ticket</el-button>
+                </el-form-item>
+
+              </el-form>
+
+
+
+              <el-table
+                  v-if="tickets.length > 0"
+                  :data="tickets"
+                  style="width: 100%"
+                  :row-class-name="tableRowClassName"
+              >
+                <el-table-column
+                    prop="id"
+                    label="Ticket Nr.">
                 </el-table-column>
-                <el-table-column prop="name" label="Name" width="120">
+                <el-table-column
+                    prop="palletLabelId"
+                    label="Pallet label Nr.">
                 </el-table-column>
-                <el-table-column prop="address" label="Address">
+                <el-table-column
+                    prop="startAt"
+                    label="Started at">
+                </el-table-column>
+                <el-table-column
+                    prop="endAt"
+                    label="Ended at">
+                </el-table-column>
+                <el-table-column
+                    prop="articleAmountUsed"
+                    label="Amount used">
+                </el-table-column>
+                <el-table-column
+                    prop="refillTrays"
+                    label="Refill quantity">
+                </el-table-column>
+                <el-table-column
+                    prop="interruptions.length"
+                    label="Interruptions">
                 </el-table-column>
               </el-table>
+
+
+
+              <el-table
+                  v-if="tickets.length > 0"
+                  :data="interruptions"
+                  style="width: 100%"
+                  :row-class-name="tableRowClassName"
+              >
+                <div slot="append" v-if="interruptions.length=='0'">
+                  <small class="p-4">No data</small>
+                </div>
+                <el-table-column
+                    prop="id"
+                    label="Interruptions Nr.">
+                </el-table-column>
+                <el-table-column
+                    prop="interruptionReason.name"
+                    label="Name">
+                </el-table-column>
+                <el-table-column
+                    prop="startAt"
+                    label="Started At">
+                </el-table-column>
+                <el-table-column
+                    prop="endAt"
+                    label="Ended At">
+                </el-table-column>
+              </el-table>
+
+              <br><br><br>
+              {{ tickets }}
+              <br><br><br>
+              {{interruptions}}
             </el-main>
           </el-container>
         </el-container>
@@ -83,17 +218,201 @@
   </el-row>
 </template>
 
+<style>
+.el-table__empty-block {
+  display: none!important;
+}
+.el-table .warning-row {
+  background: #E6A23C;
+}
+
+.el-table .success-row {
+  background: #67C23A;
+}
+</style>
+
 <script>
+
+
+const apiBaseUrl = "http://localhost:7073";
+
+
 export default {
+
   data() {
-    const item = {
-      date: '2016-05-02',
-      name: 'Tom',
-      address: 'No. 189, Grove St, Los Angeles'
-    };
     return {
-      tableData: Array(20).fill(item)
+      error: null,
+      tickets: [],
+      ticket: [],
+      interruptions: [],
+      interruption: [],
+      form: {
+        palletLabelId: "",
+        lineId: 0,
+        interruptionReasonId: 0,
+        restAmount: 0,
+        refillAmount: 0,
+      },
+      lineOptions: [
+        {
+          value: 1,
+          label: "line One"
+        },
+        {
+          value: 2,
+          label: "line Two"
+        },
+        {
+          value: 3,
+          label: "line Three"
+        }
+      ],
+      interruptionReasonsOptions: [
+          {
+            label: 'Normal',
+            options: [
+              {
+                value: 1,
+                label: "Break"
+              },
+              {
+                value: 2,
+                label: "New foil"
+              },
+              {
+                value: 3,
+                label: "Sticker change"
+              },
+            ]
+          },
+        {
+          label: 'Stop process',
+          options: [
+            {
+              value: 4,
+              label: "Product swap"
+            },
+            {
+              value: 5,
+              label: "Product disapproval"
+            },
+            {
+              value: 6,
+              label: "Production line error"
+            }
+          ]
+        },
+      ],
+      request: {
+        headers: {
+          "Content-Type": "application/json",
+        }
+      },
+      show: {
+        restAmountOpen: false
+      }
     }
+  },
+  methods: {
+    tableRowClassName({row}){
+
+      if(row.endAt != null){
+        return 'warning-row';
+      } else {
+        console.log(row)
+        return 'success-row';
+      }
+    },
+
+
+    checkProcess(){
+      if(this.form.interruptionReasonId === 4 || this.form.interruptionReasonId === 5 || this.form.interruptionReasonId ===6){
+        this.show.restAmountOpen = true;
+      }else {
+        this.show.restAmountOpen = false;
+      }
+    },
+
+    getTickets(){
+      this.error = null;
+      const apiUrl = `${apiBaseUrl}/api/v1/palletlabels/${this.form.palletLabelId}/tickets`
+      this.axios.get(apiUrl).then((response) => {
+        this.tickets = response.data;
+        this.getInterruptions()
+      })
+    },
+    getInterruptions(){
+      if(this.tickets.length > 0){
+        const apiUrl = `${apiBaseUrl}/api/v1/palletlabels/${this.form.palletLabelId}/tickets/${this.tickets[this.tickets.length -1].id}/interruptions`
+        this.axios.get(apiUrl).then((response) => {
+          this.interruptions = response.data;
+        })
+      }
+    },
+
+
+    createTicket(){
+
+      const params = {
+        lineId: this.form.lineId
+      }
+      const data = {}
+      const headers = this.request.headers
+      const apiUrl = `${apiBaseUrl}/api/v1/palletlabels/${this.form.palletLabelId}/tickets/`
+      this.axios.post(apiUrl, data, { params, headers }).then((response) => {
+        console.log(response.data)
+        this.ticket = response.data;
+        this.getTickets();
+      }).catch((error) => {
+        this.getTickets()
+        this.error = error.response.data.data;
+        console.log(error.response.data.data)
+      })
+    },
+    closeTicket(){
+      const data = {}
+      const headers = this.request.headers
+      const apiUrl = `${apiBaseUrl}/api/v1/palletlabels/${this.form.palletLabelId}/tickets/${this.tickets[this.tickets.length -1].id}`
+      this.axios.post(apiUrl, data, { headers }).then((response) => {
+        console.log(response.data)
+        this.ticket = response.data;
+        this.getTickets();
+      })
+    },
+
+
+    createInterruption(){
+      const data = {}
+      const params = {}
+      console.log(this.form.restAmount)
+      if (this.form.restAmount != null || this.form.restAmount != ""){
+        params.interruptionReasonId = this.form.interruptionReasonId;
+        params.usedArticleAmount = this.form.restAmount;
+      }else {
+        params.interruptionReasonId = this.form.interruptionReasonId;
+        params.usedArticleAmount = 0;
+      }
+
+      console.log(params)
+      const headers = this.request.headers
+      const apiUrl = `${apiBaseUrl}/api/v1/palletlabels/${this.form.palletLabelId}/tickets/${this.tickets[this.tickets.length -1].id}/interruptions`
+      this.axios.post(apiUrl, data, { params, headers }).then((response) => {
+        console.log(response.data)
+        this.interruption = response.data;
+        this.getTickets();
+      })
+    },
+    closeInterruption(){
+      const data = {}
+      const headers = this.request.headers
+      const apiUrl = `${apiBaseUrl}/api/v1/palletlabels/${this.form.palletLabelId}/tickets/${this.tickets[this.tickets.length -1].id}/interruptions/${this.interruption.id}`
+      this.axios.post(apiUrl, data, {  headers }).then((response) => {
+        console.log(response.data)
+        this.interruption = response.data;
+        this.getTickets();
+      })
+    }
+
   }
 };
 </script>
