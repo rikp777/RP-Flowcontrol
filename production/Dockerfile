@@ -1,15 +1,5 @@
-#FROM ubuntu:20.10
-#
-#EXPOSE 7073
-#
-#COPY ./target/production-0.0.1-SNAPSHOT.jar /opt
-#RUN apt update -y \
-#    && apt install -y openjdk-15-jdk
-#
-#ENTRYPOINT java -jar /opt/production-0.0.1-SNAPSHOT.jar -Djava.net.preferIPv4Stack=true
+MAINTAINER Rik Peeters
 
-
-# syntax=docker/dockerfile:experimental
 FROM openjdk:15-jdk-alpine as build
 WORKDIR /workspace/app
 

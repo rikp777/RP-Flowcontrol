@@ -1,4 +1,4 @@
 
 
 ### Docker 
-````mvnw spring-boot:build-image````
+````docker build -t production .````
