@@ -76,7 +76,7 @@ cmake-build-*/
 *.iws
 
 # IntelliJ
-out/
+documentatie/SWOT/out/
 
 # mpeltonen/sbt-idea plugin
 .idea_modules/

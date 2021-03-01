@@ -4,7 +4,7 @@ services:
   back-end:
     build: .
 
-    container_name: flowcontrol
+    container_name: production
     depends_on:
       - db
 
