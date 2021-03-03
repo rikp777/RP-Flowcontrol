@@ -1,0 +1,28 @@
+%& -job-name=PDR_Rik_Peeters
+
+\documentclass[11pt, twoside]{report}
+
+\usepackage{packages}
+
+%! Author = rikpe
+%! Date = 02/03/2021
+
+% Document
+\begin{document}
+
+    \input{general/title_page}
+    \newpage
+    \tableofcontents
+    \newpage
+
+    \clearpage
+    \setcounter{page}{1}
+
+    \chapter{Inleiding}
+    \label{ch:inleiding}
+
+
+    \begin{appendices}
+        \input{Appendices/Main}
+    \end{appendices}
+\end{document}
