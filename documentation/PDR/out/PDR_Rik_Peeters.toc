@@ -4,3 +4,39 @@
 \thispagestyle {empty}
 \defcounter {refsection}{0}\relax 
 \contentsline {chapter}{\numberline {1}Inleiding}{1}{chapter.1}%
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\numberline {2}Leer uitkomsten}{2}{chapter.2}%
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {2.1}Ontwikkelen van bedrijfssoftware als teaminspanning}{2}{section.2.1}%
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {2.2}Context Based Research}{2}{section.2.2}%
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {2.3}Voorbereiding op levenslang leren}{3}{section.2.3}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {2.3.1}Deployment en schalen}{3}{subsection.2.3.1}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{Eerste evaluatie - Week 3}{3}{section*.5}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {2.3.2}Protocollen}{3}{subsection.2.3.2}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{Eerste evaluatie - Week 3}{3}{section*.6}%
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {2.4}Schaalbare architecturen}{3}{section.2.4}%
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {2.5}Ontwikkeling en uitvoering (DevOps)}{3}{section.2.5}%
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {2.6}Clouddiensten}{4}{section.2.6}%
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {2.7}Veiligheid door ontwerp}{4}{section.2.7}%
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {2.8}Gedistribueerde gegevens}{4}{section.2.8}%
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\numberline {3}Retrospect}{5}{chapter.3}%
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\numberline {4}Conclusie}{6}{chapter.4}%
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{Appendices}{7}{section*.7}%
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\numberline {A}SWOT}{9}{appendix.1.A}%
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\numberline {B}Context based research}{15}{appendix.1.B}%

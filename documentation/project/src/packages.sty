@@ -1,0 +1,63 @@
+\ProvidesPackage{packages}
+\usepackage{variables}
+
+% Packages
+\usepackage[utf8]{inputenc}
+\usepackage[a4paper,width=150mm,top=25mm,bottom=25mm]{geometry}
+
+
+% Zorgt ervoor dat de taal in het Nederlands zoals 'inhoudspagina' ipv
+% 'contents'.
+\usepackage[dutch]{babel}
+
+% Zorgt voor juiste typesetting om geciteerde tekst
+\usepackage{csquotes}
+
+% Package wat nodig is om bibliografie op te zetten.
+\usepackage[backend=biber]{biblatex}
+\addbibresource{./sources.bib}
+
+% De package graphicx is nodig om foto's weer te geven.
+\usepackage{graphicx}
+\graphicspath{{images/}}
+
+
+% Toevoeging zorgt dat ':' correct weergegeven wordt.
+\usepackage{caption}
+
+% Nodig voor meerdere figuren in één figuur.
+\usepackage{subcaption}
+
+% Voegt links toe aan refs & cites.
+\usepackage[hidelinks]{hyperref}
+
+% Voor bookmarks in pdfviewer zoals acrobat
+\usepackage{bookmark}
+
+% Package voor kleuren
+\usepackage[dvipsnames]{xcolor}
+\definecolor{Kansen}{RGB}{161, 233, 25}
+\definecolor{Bedreigingen}{RGB}{0, 172, 136}
+\definecolor{Sterktes}{RGB}{4, 191, 249}
+\definecolor{Zwaktes}{RGB}{133, 138, 232}
+
+% Include pdf
+\usepackage{pdfpages}
+
+% Header setup
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhead{}
+\fancyhead[RO,LE]{\includegraphics[width=0.07\textwidth]{images/fontys_logo.png}}
+\fancyhead[CO,RE]{\documentDate}
+\fancyhead[LO]{\documentTitle}
+\fancyfoot{}
+\fancyfoot[LE,RO]{\thepage}
+\fancyfoot[LO,CE]{Hoofdstuk \thechapter}
+\fancyfoot[CO,RE]{\documentAuthor}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
+\AtBeginDocument{\addtocontents{toc}{\protect\thispagestyle{empty}}}
+\usepackage{etoolbox}
+\patchcmd{\chapter}{\thispagestyle{plain}}{\thispagestyle{fancy}}{}{}
+\setlength{\headheight}{20.00pt}

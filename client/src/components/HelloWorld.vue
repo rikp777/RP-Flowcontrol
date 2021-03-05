@@ -1,224 +1,237 @@
 <template>
-  <el-row :gutter="20">
-    <el-col :span="12" :offset="6">
-      <div class="grid-content bg-purple">
-        <el-container style="height: 1300px; border: 1px solid #eee">
-          <el-aside width="200px" style="background-color: rgb(238, 241, 246)">
-            <el-menu :default-openeds="['1', '3']">
-              <el-submenu index="1">
-                <template slot="title"><i class="el-icon-message"></i>Navigator One</template>
-                <el-menu-item-group>
-                  <template slot="title">Group 1</template>
-                  <el-menu-item index="1-1">Option 1</el-menu-item>
-                  <el-menu-item index="1-2">Option 2</el-menu-item>
-                </el-menu-item-group>
-                <el-menu-item-group title="Group 2">
-                  <el-menu-item index="1-3">Option 3</el-menu-item>
-                </el-menu-item-group>
-                <el-submenu index="1-4">
-                  <template slot="title">Option4</template>
-                  <el-menu-item index="1-4-1">Option 4-1</el-menu-item>
+  <div>
+
+
+    <el-row :gutter="20">
+      <el-col :span="12" :offset="6">
+        <div class="grid-content bg-purple">
+          <el-container style="height: 1300px; border: 1px solid #eee">
+            <el-aside width="200px" style="background-color: rgb(238, 241, 246)">
+              <el-menu :default-openeds="['1', '3']">
+                <el-submenu index="1">
+                  <template slot="title"><i class="el-icon-message"></i>Navigator One</template>
+                  <el-menu-item-group>
+                    <template slot="title">Group 1</template>
+                    <el-menu-item index="1-1">Option 1</el-menu-item>
+                    <el-menu-item index="1-2">Option 2</el-menu-item>
+                  </el-menu-item-group>
+                  <el-menu-item-group title="Group 2">
+                    <el-menu-item index="1-3">Option 3</el-menu-item>
+                  </el-menu-item-group>
+                  <el-submenu index="1-4">
+                    <template slot="title">Option4</template>
+                    <el-menu-item index="1-4-1">Option 4-1</el-menu-item>
+                  </el-submenu>
                 </el-submenu>
-              </el-submenu>
-              <el-submenu index="2">
-                <template slot="title"><i class="el-icon-menu"></i>Navigator Two</template>
-                <el-menu-item-group>
-                  <template slot="title">Group 1</template>
-                  <el-menu-item index="2-1">Option 1</el-menu-item>
-                  <el-menu-item index="2-2">Option 2</el-menu-item>
-                </el-menu-item-group>
-                <el-menu-item-group title="Group 2">
-                  <el-menu-item index="2-3">Option 3</el-menu-item>
-                </el-menu-item-group>
-                <el-submenu index="2-4">
-                  <template slot="title">Option 4</template>
-                  <el-menu-item index="2-4-1">Option 4-1</el-menu-item>
+                <el-submenu index="2">
+                  <template slot="title"><i class="el-icon-menu"></i>Navigator Two</template>
+                  <el-menu-item-group>
+                    <template slot="title">Group 1</template>
+                    <el-menu-item index="2-1">Option 1</el-menu-item>
+                    <el-menu-item index="2-2">Option 2</el-menu-item>
+                  </el-menu-item-group>
+                  <el-menu-item-group title="Group 2">
+                    <el-menu-item index="2-3">Option 3</el-menu-item>
+                  </el-menu-item-group>
+                  <el-submenu index="2-4">
+                    <template slot="title">Option 4</template>
+                    <el-menu-item index="2-4-1">Option 4-1</el-menu-item>
+                  </el-submenu>
                 </el-submenu>
-              </el-submenu>
-              <el-submenu index="3">
-                <template slot="title"><i class="el-icon-setting"></i>Navigator Three</template>
-                <el-menu-item-group>
-                  <template slot="title">Group 1</template>
-                  <el-menu-item index="3-1">Option 1</el-menu-item>
-                  <el-menu-item index="3-2">Option 2</el-menu-item>
-                </el-menu-item-group>
-                <el-menu-item-group title="Group 2">
-                  <el-menu-item index="3-3">Option 3</el-menu-item>
-                </el-menu-item-group>
-                <el-submenu index="3-4">
-                  <template slot="title">Option 4</template>
-                  <el-menu-item index="3-4-1">Option 4-1</el-menu-item>
+                <el-submenu index="3">
+                  <template slot="title"><i class="el-icon-setting"></i>Navigator Three</template>
+                  <el-menu-item-group>
+                    <template slot="title">Group 1</template>
+                    <el-menu-item index="3-1">Option 1</el-menu-item>
+                    <el-menu-item index="3-2">Option 2</el-menu-item>
+                  </el-menu-item-group>
+                  <el-menu-item-group title="Group 2">
+                    <el-menu-item index="3-3">Option 3</el-menu-item>
+                  </el-menu-item-group>
+                  <el-submenu index="3-4">
+                    <template slot="title">Option 4</template>
+                    <el-menu-item index="3-4-1">Option 4-1</el-menu-item>
+                  </el-submenu>
                 </el-submenu>
-              </el-submenu>
-            </el-menu>
-          </el-aside>
+              </el-menu>
+            </el-aside>
 
-          <el-container>
-            <el-header style="text-align: right; font-size: 12px">
-              <el-dropdown>
-                <i class="el-icon-setting" style="margin-right: 15px"></i>
-                <el-dropdown-menu slot="dropdown">
-                  <el-dropdown-item>View</el-dropdown-item>
-                  <el-dropdown-item>Add</el-dropdown-item>
-                  <el-dropdown-item>Delete</el-dropdown-item>
-                </el-dropdown-menu>
-              </el-dropdown>
-              <span>Rik</span>
-            </el-header>
+            <el-container>
+              <el-header style="text-align: right; font-size: 12px">
+                <el-dropdown>
+                  <i class="el-icon-setting" style="margin-right: 15px"></i>
+                  <el-dropdown-menu slot="dropdown">
+                    <el-dropdown-item>View</el-dropdown-item>
+                    <el-dropdown-item>Add</el-dropdown-item>
+                    <el-dropdown-item>Delete</el-dropdown-item>
+                  </el-dropdown-menu>
+                </el-dropdown>
+                <span>Rik</span>
+              </el-header>
 
-            <el-main>
+              <el-main>
+                <el-row :gutter="20">
+                  <el-col :span="6" :offset="6">
+                    <p class="error">{{ error }}</p>
 
+                    <p class="decode-result">Last result: <b>{{ form.palletLabelId }}</b></p>
 
-              <el-form ref="form" :model="form" label-width="120px">
-                <el-alert
-                    v-if="error"
-                    :title="error"
-                    type="error"
-                    effect="dark"
-                >
-                </el-alert>
+                    <qrcode-stream @decode="onDecode" @init="onInit" />
+                  </el-col>
+                </el-row>
 
-                    <el-form-item label="Pallet label Nr:">
-                      <el-input v-model="form.palletLabelId" @input="getTickets"></el-input>
-                    </el-form-item>
+                <el-form ref="form" :model="form" label-width="120px">
+                  <el-alert
+                      v-if="error"
+                      :title="error"
+                      type="error"
+                      effect="dark"
+                  >
+                  </el-alert>
 
-                    <el-form-item label="Line Nr:">
-                      <el-select v-model="form.lineId" placeholder="Select">
-                        <el-option
-                            v-for="item in lineOptions"
-                            :key="item.value"
-                            :label="item.label"
-                            :value="item.value">
-                        </el-option>
-                      </el-select>
-                    </el-form-item>
+                  <el-form-item label="Pallet label Nr:">
+                    <el-input v-model="form.palletLabelId" @input="getTickets"></el-input>
+                  </el-form-item>
 
-                <el-form-item>
-                  <el-button @click="createTicket">Create ticket</el-button>
-                </el-form-item>
-
-
-
-                <el-form-item label="Interruption reason">
-                  <el-select v-model="form.interruptionReasonId" placeholder="Select" @input="checkProcess()">
-                    <el-option-group
-                        v-for="group in interruptionReasonsOptions"
-                        :key="group.label"
-                        :label="group.label">
+                  <el-form-item label="Line Nr:">
+                    <el-select v-model="form.lineId" placeholder="Select">
                       <el-option
-                          v-for="item in group.options"
+                          v-for="item in lineOptions"
                           :key="item.value"
                           :label="item.label"
                           :value="item.value">
                       </el-option>
-                    </el-option-group>
-                  </el-select>
-                </el-form-item>
-                <el-alert
-                    v-if="show.restAmountOpen"
-                    title="Also fill the refill quantity"
-                    type="warning"
-                    effect="dark">
-                </el-alert>
-                <el-form-item label="Amount used" v-if="show.restAmountOpen">
+                    </el-select>
+                  </el-form-item>
 
-                  <el-input-number v-model="form.restAmount" :disabled="!show.restAmountOpen"></el-input-number>
-                </el-form-item>
-                <el-form-item>
-                  <el-button @click="createInterruption">Create interruption</el-button>
-                  <el-button @click="closeInterruption">Close interruption</el-button>
-                </el-form-item>
-
-
-                <el-form-item label="refill quantity">
-                  <el-input-number v-model="form.refillAmount" ></el-input-number>
-                </el-form-item>
-                <el-form-item>
-                  <el-button @click="closeTicket">Close ticket</el-button>
-                </el-form-item>
-
-              </el-form>
+                  <el-form-item>
+                    <el-button @click="createTicket">Create ticket</el-button>
+                  </el-form-item>
 
 
 
-              <el-table
-                  v-if="tickets.length > 0"
-                  :data="tickets"
-                  style="width: 100%"
-                  :row-class-name="tableRowClassName"
-              >
-                <el-table-column
-                    prop="id"
-                    label="Ticket Nr.">
-                </el-table-column>
-                <el-table-column
-                    prop="palletLabelId"
-                    label="Pallet label Nr.">
-                </el-table-column>
-                <el-table-column
-                    prop="startAt"
-                    label="Started at">
-                </el-table-column>
-                <el-table-column
-                    prop="endAt"
-                    label="Ended at">
-                </el-table-column>
-                <el-table-column
-                    prop="articleAmountUsed"
-                    label="Amount used">
-                </el-table-column>
-                <el-table-column
-                    prop="refillTrays"
-                    label="Refill quantity">
-                </el-table-column>
-                <el-table-column
-                    prop="interruptions.length"
-                    label="Interruptions">
-                </el-table-column>
-              </el-table>
+                  <el-form-item label="Interruption reason">
+                    <el-select v-model="form.interruptionReasonId" placeholder="Select" @input="checkProcess()">
+                      <el-option-group
+                          v-for="group in interruptionReasonsOptions"
+                          :key="group.label"
+                          :label="group.label">
+                        <el-option
+                            v-for="item in group.options"
+                            :key="item.value"
+                            :label="item.label"
+                            :value="item.value">
+                        </el-option>
+                      </el-option-group>
+                    </el-select>
+                  </el-form-item>
+                  <el-alert
+                      v-if="show.restAmountOpen"
+                      title="Also fill the refill quantity"
+                      type="warning"
+                      effect="dark">
+                  </el-alert>
+                  <el-form-item label="Amount used" v-if="show.restAmountOpen">
+
+                    <el-input-number v-model="form.restAmount" :disabled="!show.restAmountOpen"></el-input-number>
+                  </el-form-item>
+                  <el-form-item>
+                    <el-button @click="createInterruption">Create interruption</el-button>
+                    <el-button @click="closeInterruption">Close interruption</el-button>
+                  </el-form-item>
+
+
+                  <el-form-item label="refill quantity">
+                    <el-input-number v-model="form.refillAmount" ></el-input-number>
+                  </el-form-item>
+                  <el-form-item>
+                    <el-button @click="closeTicket">Close ticket</el-button>
+                  </el-form-item>
+
+                </el-form>
 
 
 
-              <el-table
-                  v-if="tickets.length > 0"
-                  :data="interruptions"
-                  style="width: 100%"
-                  :row-class-name="tableRowClassName"
-              >
-                <div slot="append" v-if="interruptions.length=='0'">
-                  <small class="p-4">No data</small>
-                </div>
-                <el-table-column
-                    prop="id"
-                    label="Interruptions Nr.">
-                </el-table-column>
-                <el-table-column
-                    prop="interruptionReason.name"
-                    label="Name">
-                </el-table-column>
-                <el-table-column
-                    prop="startAt"
-                    label="Started At">
-                </el-table-column>
-                <el-table-column
-                    prop="endAt"
-                    label="Ended At">
-                </el-table-column>
-              </el-table>
+                <el-table
+                    v-if="tickets.length > 0"
+                    :data="tickets"
+                    style="width: 100%"
+                    :row-class-name="tableRowClassName"
+                >
+                  <el-table-column
+                      prop="id"
+                      label="Ticket Nr.">
+                  </el-table-column>
+                  <el-table-column
+                      prop="palletLabelId"
+                      label="Pallet label Nr.">
+                  </el-table-column>
+                  <el-table-column
+                      prop="startAt"
+                      label="Started at">
+                  </el-table-column>
+                  <el-table-column
+                      prop="endAt"
+                      label="Ended at">
+                  </el-table-column>
+                  <el-table-column
+                      prop="articleAmountUsed"
+                      label="Amount used">
+                  </el-table-column>
+                  <el-table-column
+                      prop="refillTrays"
+                      label="Refill quantity">
+                  </el-table-column>
+                  <el-table-column
+                      prop="interruptions.length"
+                      label="Interruptions">
+                  </el-table-column>
+                </el-table>
 
-              <br><br><br>
-              {{ tickets }}
-              <br><br><br>
-              {{interruptions}}
-            </el-main>
+
+
+                <el-table
+                    v-if="tickets.length > 0"
+                    :data="interruptions"
+                    style="width: 100%"
+                    :row-class-name="tableRowClassName"
+                >
+                  <div slot="append" v-if="interruptions.length=='0'">
+                    <small class="p-4">No data</small>
+                  </div>
+                  <el-table-column
+                      prop="id"
+                      label="Interruptions Nr.">
+                  </el-table-column>
+                  <el-table-column
+                      prop="interruptionReason.name"
+                      label="Name">
+                  </el-table-column>
+                  <el-table-column
+                      prop="startAt"
+                      label="Started At">
+                  </el-table-column>
+                  <el-table-column
+                      prop="endAt"
+                      label="Ended At">
+                  </el-table-column>
+                </el-table>
+
+                <br><br><br>
+                {{ tickets }}
+                <br><br><br>
+                {{interruptions}}
+              </el-main>
+            </el-container>
           </el-container>
-        </el-container>
-      </div>
-    </el-col>
-    <qrcode-stream></qrcode-stream>
-    <qrcode-drop-zone></qrcode-drop-zone>
-    <qrcode-capture></qrcode-capture>
-  </el-row>
+        </div>
+      </el-col>
+      <!--    <qrcode-stream></qrcode-stream>-->
+      <!--    <qrcode-drop-zone></qrcode-drop-zone>-->
+      <!--    <qrcode-capture></qrcode-capture>-->
+    </el-row>
+  </div>
+
 </template>
 
 <style>
@@ -244,6 +257,7 @@ export default {
 
   data() {
     return {
+      QRCode: null,
       error: null,
       tickets: [],
       ticket: [],
@@ -317,6 +331,30 @@ export default {
     }
   },
   methods: {
+    onDecode (decodedString) {
+      this.form.palletLabelId = decodedString;
+      this.getTickets();
+    },
+    async onInit (promise) {
+      try {
+        await promise
+      } catch (error) {
+        if (error.name === 'NotAllowedError') {
+          this.error = "ERROR: you need to grant camera access permisson"
+        } else if (error.name === 'NotFoundError') {
+          this.error = "ERROR: no camera on this device"
+        } else if (error.name === 'NotSupportedError') {
+          this.error = "ERROR: secure context required (HTTPS, localhost)"
+        } else if (error.name === 'NotReadableError') {
+          this.error = "ERROR: is the camera already in use?"
+        } else if (error.name === 'OverconstrainedError') {
+          this.error = "ERROR: installed cameras are not suitable"
+        } else if (error.name === 'StreamApiNotSupportedError') {
+          this.error = "ERROR: Stream API is not supported in this browser"
+        }
+      }
+    },
+
     tableRowClassName({row}){
 
       if(row.endAt != null){

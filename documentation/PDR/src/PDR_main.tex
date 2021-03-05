@@ -3,6 +3,7 @@
 \documentclass[11pt, twoside]{report}
 
 \usepackage{packages}
+\usepackage[T1]{fontenc}
 
 %! Author = rikpe
 %! Date = 02/03/2021
@@ -11,18 +12,33 @@
 \begin{document}
 
     \input{general/title_page}
-    \newpage
+    \thispagestyle{empty}
+
+
+    \input{chapters/summary}
+    \thispagestyle{empty}
+
+    \thispagestyle{empty}
     \tableofcontents
-    \newpage
+    \thispagestyle{empty}
 
     \clearpage
     \setcounter{page}{1}
 
-    \chapter{Inleiding}
-    \label{ch:inleiding}
+    \input{chapters/introduction}
+    \pagestyle{fancy}
 
+    \input{chapters/learning_outcomes}
+
+
+
+    \input{chapters/retrospect}
+
+    \chapter{Conclusie}
+    \label{ch:conclusion}
+    \input{chapters/conclusion}
 
     \begin{appendices}
-        \input{Appendices/Main}
+        \input{appendices/main}
     \end{appendices}
 \end{document}

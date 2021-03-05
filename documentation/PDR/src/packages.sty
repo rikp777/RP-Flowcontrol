@@ -34,6 +34,13 @@
 % Voor bookmarks in pdfviewer zoals acrobat
 \usepackage{bookmark}
 
+% Voor bijlages
+\usepackage[toc,page]{appendix}
+\addto\captionsdutch{%
+    \renewcommand\appendixname{Bijlage}
+    \renewcommand\appendixpagename{Bijlagen}
+}
+
 % Package voor kleuren
 \usepackage[dvipsnames]{xcolor}
 \definecolor{Kansen}{RGB}{161, 233, 25}
