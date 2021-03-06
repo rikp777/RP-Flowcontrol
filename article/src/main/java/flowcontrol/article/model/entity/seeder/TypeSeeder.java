@@ -6,6 +6,9 @@ import flowcontrol.article.repository.TypeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 
+import java.util.HashSet;
+import java.util.Set;
+
 @Configuration
 public class TypeSeeder {
 
@@ -16,7 +19,7 @@ public class TypeSeeder {
         this.typeRepo = typeRepo;
     }
 
-    public void run() {
+    public Set<Type> run() {
 
         Type bunches = new Type();
         bunches.setName("Bunches");
@@ -41,5 +44,7 @@ public class TypeSeeder {
         Type air = new Type();
         air.setName("Air");
         typeRepo.save(air);
+
+        return new HashSet<>(typeRepo.findAll());
     }
 }

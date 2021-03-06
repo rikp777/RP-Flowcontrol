@@ -5,6 +5,7 @@ import flowcontrol.article.repository.Generic.AbstractBaseEntity;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.*;
 
@@ -20,12 +21,13 @@ import static javax.persistence.GenerationType.SEQUENCE;
 @Getter
 @Setter
 @ToString
+@Transactional
 public class Inset extends AbstractBaseEntity {
 
     private String excelCode;
     private String name;
     private String description;
-    private String maxInsetAmount;
+    private Integer maxInsetAmount;
 
     // Relations
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "inset")

@@ -7,6 +7,7 @@ import flowcontrol.article.repository.CaskRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 
+import java.util.HashSet;
 import java.util.Set;
 
 @Configuration
@@ -26,9 +27,13 @@ public class CaskSeeder {
                 .orElseThrow(() -> new ResourceNotFoundException("Color", "Name", color));
     }
 
-    public void run(Set<Color> colors){
-
-
+    public Set<Cask> run(UtilSeeder util){
+        Color brown = util.findColorInSet("Brown");
+        Color transparent = util.findColorInSet("Transparent");
+        Color styro = util.findColorInSet("Styro");
+        Color blue = util.findColorInSet("Blue");
+        Color green = util.findColorInSet("Green");
+        Color black = util.findColorInSet("Black");
 
 
         // Multi
@@ -38,20 +43,20 @@ public class CaskSeeder {
         emballageMulti.setDescription("Emballage multi");
         emballageMulti.setWeight(null);
         emballageMulti.setMaxFillingQuantity(null);
-        emballageMulti.setMaterial("Hout");
+        emballageMulti.setMaterial("Wood");
 
-        emballageMulti.setColor(findColorInSet(colors, "Brown"));
+        emballageMulti.setColor(brown);
         caskRepo.save(emballageMulti);
 
         Cask emballageIndustrie = new Cask();
         emballageIndustrie.setExcelCode("EM0002XX");
         emballageIndustrie.setName("Emballage industrie");
-        emballageIndustrie.setDescription("Emballage industrie");
+        emballageIndustrie.setDescription("Emballage industrie 10KG");
         emballageIndustrie.setWeight(10000);
         emballageIndustrie.setMaxFillingQuantity(null);
-        emballageIndustrie.setMaterial("Hout");
+        emballageIndustrie.setMaterial("Wood");
 
-        emballageMulti.setColor(findColorInSet(colors, "Brown"));
+        emballageIndustrie.setColor(brown);
         caskRepo.save(emballageIndustrie);
 
         Cask emballageSemiMulti = new Cask();
@@ -60,9 +65,9 @@ public class CaskSeeder {
         emballageSemiMulti.setDescription("Emballage semi-multi");
         emballageSemiMulti.setWeight(null);
         emballageSemiMulti.setMaxFillingQuantity(null);
-        emballageSemiMulti.setMaterial("Hout");
+        emballageSemiMulti.setMaterial("Wood");
 
-        emballageMulti.setColor(findColorInSet(colors, "Brown"));
+        emballageSemiMulti.setColor(brown);
         caskRepo.save(emballageSemiMulti);
 
         Cask EmballageDoos = new Cask();
@@ -73,7 +78,7 @@ public class CaskSeeder {
         EmballageDoos.setMaxFillingQuantity(null);
         EmballageDoos.setMaterial("Karton");
 
-        emballageMulti.setColor(findColorInSet(colors, "Brown"));
+        EmballageDoos.setColor(brown);
         caskRepo.save(EmballageDoos);
 
 
@@ -85,6 +90,8 @@ public class CaskSeeder {
         doos.setWeight(null);
         doos.setMaxFillingQuantity(null);
         doos.setMaterial("Karton");
+
+        doos.setColor(brown);
         caskRepo.save(doos);
 
 
@@ -96,6 +103,8 @@ public class CaskSeeder {
         CH705.setWeight(null);
         CH705.setMaxFillingQuantity(640);
         CH705.setMaterial("Plastic");
+
+        CH705.setColor(styro);
         caskRepo.save(CH705);
 
         Cask CH052 = new Cask();
@@ -105,6 +114,8 @@ public class CaskSeeder {
         CH052.setWeight(null);
         CH052.setMaxFillingQuantity(770);
         CH052.setMaterial("Plastic");
+
+        CH052.setColor(styro);
         caskRepo.save(CH052);
 
         Cask CH050 = new Cask();
@@ -114,6 +125,8 @@ public class CaskSeeder {
         CH050.setWeight(null);
         CH050.setMaxFillingQuantity(756);
         CH050.setMaterial("Pet");
+
+        CH050.setColor(blue);
         caskRepo.save(CH050);
 
         Cask CH050B = new Cask();
@@ -123,6 +136,8 @@ public class CaskSeeder {
         CH050B.setWeight(null);
         CH050B.setMaxFillingQuantity(770);
         CH050B.setMaterial("Plastic");
+
+        CH050B.setColor(blue);
         caskRepo.save(CH050B);
 
         Cask CH051G = new Cask();
@@ -132,6 +147,8 @@ public class CaskSeeder {
         CH051G.setWeight(null);
         CH051G.setMaxFillingQuantity(770);
         CH051G.setMaterial("Plastic");
+
+        CH051G.setColor(green);
         caskRepo.save(CH051G);
 
         Cask CH051Z = new Cask();
@@ -141,6 +158,8 @@ public class CaskSeeder {
         CH051Z.setWeight(null);
         CH051Z.setMaxFillingQuantity(770);
         CH051Z.setMaterial("Plastic");
+
+        CH051Z.setColor(black);
         caskRepo.save(CH051Z);
 
         Cask CH190 = new Cask();
@@ -150,16 +169,35 @@ public class CaskSeeder {
         CH190.setWeight(null);
         CH190.setMaxFillingQuantity(640);
         CH190.setMaterial("Pet");
+
+        CH190.setColor(transparent);
         caskRepo.save(CH190);
 
         Cask CH193 = new Cask();
         CH193.setExcelCode("EM0008XX");
-        CH193.setName("CH193");
-        CH193.setDescription("CH193");
+        CH193.setName("CH093");
+        CH193.setDescription("CH093");
         CH193.setWeight(null);
         CH193.setMaxFillingQuantity(700);
         CH193.setMaterial("Pet");
+
+        CH193.setColor(transparent);
         caskRepo.save(CH193);
+
+
+        Cask M6 = new Cask();
+        M6.setExcelCode("EM0008XX");
+        M6.setName("M6 Holland Crates");
+        M6.setDescription("M6 Holland Crates");
+        M6.setWeight(null);
+        M6.setMaxFillingQuantity(700);
+        M6.setMaterial("Wood");
+
+        M6.setColor(brown);
+        caskRepo.save(M6);
+
+
+        return new HashSet<>(caskRepo.findAll());
     }
 }
 

@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.*;
 
@@ -21,6 +22,7 @@ import static javax.persistence.GenerationType.SEQUENCE;
 @Setter
 @ToString
 @NoArgsConstructor
+@Transactional
 public class Group extends AbstractBaseEntity {
 
     private String name;
@@ -30,11 +32,4 @@ public class Group extends AbstractBaseEntity {
     // Relations
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "group")
     private Set<Article> articles = new HashSet<>();
-
-    @ManyToOne()
-    @JoinColumn(
-            name = "color_id", referencedColumnName = "id",
-            foreignKey = @ForeignKey(name="color_fk_in_group")
-    )
-    private Color color;
 }

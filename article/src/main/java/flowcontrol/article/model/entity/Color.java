@@ -32,5 +32,5 @@ public class Color extends AbstractBaseEntity {
     private Set<Inset> insets = new HashSet<>();
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "color")
-    private Set<Group> groups = new HashSet<>();
+    private Set<Article> articles = new HashSet<>();
 }

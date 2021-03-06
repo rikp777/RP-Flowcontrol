@@ -1,10 +1,15 @@
 package flowcontrol.article.model.entity.seeder;
 
+import flowcontrol.article.exception.ResourceNotFoundException;
+import flowcontrol.article.model.entity.Color;
 import flowcontrol.article.model.entity.Group;
 import flowcontrol.article.repository.CaskRepository;
 import flowcontrol.article.repository.GroupRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
+
+import java.util.HashSet;
+import java.util.Set;
 
 @Configuration
 public class GroupSeeder {
@@ -12,11 +17,22 @@ public class GroupSeeder {
     @Autowired
     private final GroupRepository groupRepo;
 
+
     public GroupSeeder(GroupRepository groupRepo) {
         this.groupRepo = groupRepo;
     }
 
-    public void run() {
+    public Set<Group> run() {
+        Group AFK60 = new Group();
+        AFK60.setName("Afk(2-2-60)");
+        AFK60.setDescription("Afk(2-2-60)");
+        groupRepo.save(AFK60);
+        Group AFK80 = new Group();
+        AFK80.setName("Afk(2-3-80)");
+        AFK80.setDescription("Afk(2-3-80)");
+        groupRepo.save(AFK80);
+
+
         Group kastanje = new Group();
         kastanje.setName("Kastanje");
         kastanje.setDescription("Kastanje");
@@ -86,6 +102,8 @@ public class GroupSeeder {
         shiiMeji.setName("Shii-meji ");
         shiiMeji.setDescription("Shii-meji ");
         groupRepo.save(shiiMeji);
+
+        return new HashSet<>(groupRepo.findAll());
     }
 
 }

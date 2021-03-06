@@ -36,9 +36,9 @@ public class ColorSeeder {
         yellow.setName("Yellow");
         colorRepo.save(yellow);
 
-        Color gray = new Color();
-        gray.setName("Gray");
-        colorRepo.save(gray);
+        Color grey = new Color();
+        grey.setName("Grey");
+        colorRepo.save(grey);
 
         Color styro = new Color();
         styro.setName("Styro");
@@ -55,6 +55,10 @@ public class ColorSeeder {
         Color black = new Color();
         black.setName("Black");
         colorRepo.save(black);
+
+        Color transparent = new Color();
+        transparent.setName("Transparent");
+        colorRepo.save(transparent);
 
         return new HashSet<>(colorRepo.findAll());
     }
