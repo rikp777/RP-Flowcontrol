@@ -1,6 +1,7 @@
 package flowcontrol.article.model.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import flowcontrol.article.repository.Generic.AbstractBaseEntity;
 import lombok.Getter;
 import lombok.Setter;
@@ -31,6 +32,7 @@ public class Inset extends AbstractBaseEntity {
 
     // Relations
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "inset")
+    @JsonIgnore
     private Set<Article> articles = new HashSet<>();
 
     @ManyToOne()

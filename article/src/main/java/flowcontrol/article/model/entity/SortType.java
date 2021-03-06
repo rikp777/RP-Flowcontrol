@@ -1,6 +1,7 @@
 package flowcontrol.article.model.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import flowcontrol.article.repository.Generic.AbstractBaseEntity;
 import lombok.Getter;
 import lombok.Setter;
@@ -28,5 +29,6 @@ public class SortType extends AbstractBaseEntity {
 
     // Relations
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "sortType")
+    @JsonIgnore
     private Set<Article> articles = new HashSet<>();
 }

@@ -1,6 +1,8 @@
 #============SERVER============
 # HTTP server port
 
+
+
 server:
   port: 7078
 
@@ -13,6 +15,9 @@ server:
       timeout: 15m
 
 spring:
+  jackson:
+    serialization:
+      fail_on_empty_beans: false
   #============JDBC============
   datasource:
     url: jdbc:mysql://localhost:3306/article?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
@@ -37,4 +42,5 @@ hibernate:
 swagger:
   host:
     url: http://localhost:7078
+
 

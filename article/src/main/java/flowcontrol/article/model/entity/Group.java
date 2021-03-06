@@ -1,5 +1,6 @@
 package flowcontrol.article.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import flowcontrol.article.repository.Generic.AbstractBaseEntity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -31,5 +32,6 @@ public class Group extends AbstractBaseEntity {
 
     // Relations
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "group")
+    @JsonIgnore
     private Set<Article> articles = new HashSet<>();
 }

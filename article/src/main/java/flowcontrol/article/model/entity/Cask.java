@@ -33,6 +33,7 @@ public class Cask extends AbstractBaseEntity {
 
     // Relations
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "cask")
+    @JsonIgnore
     private Set<Article> articles = new HashSet<>();
 
     @ManyToOne()

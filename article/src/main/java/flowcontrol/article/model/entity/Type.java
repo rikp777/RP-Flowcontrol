@@ -1,5 +1,6 @@
 package flowcontrol.article.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import flowcontrol.article.repository.Generic.AbstractBaseEntity;
 import lombok.Getter;
 import lombok.Setter;
@@ -22,5 +23,6 @@ public class Type extends AbstractBaseEntity {
     private String name;
 
     @OneToMany()
+    @JsonIgnore
     private Set<Article> articles = new HashSet<>();
 }
