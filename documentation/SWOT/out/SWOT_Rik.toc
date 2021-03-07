@@ -1,0 +1,12 @@
+\boolfalse {citerequest}\boolfalse {citetracker}\boolfalse {pagetracker}\boolfalse {backtracker}\relax 
+\babel@toc {dutch}{}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {1}Inleiding}{2}{section.1}%
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {2}Sterktes}{3}{section.2}%
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {3}Zwaktes}{3}{section.3}%
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {4}Kansen}{4}{section.4}%
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {5}Bedreigingen}{4}{section.5}%

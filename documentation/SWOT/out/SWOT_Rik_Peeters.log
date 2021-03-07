@@ -1,0 +1,793 @@
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (MiKTeX 20.11) (preloaded format=pdflatex 2020.12.8)  2 MAR 2021 11:58
+entering extended mode
+**./SWOT_main.tex
+(SWOT_main.tex
+LaTeX2e <2020-10-01> patch level 2
+L3 programming layer <2020-12-03> xparse <2020-03-03>
+(C:\Users\rikpe\AppData\Local\Programs\MiKTeX\tex/latex/base\report.cls
+Document Class: report 2020/04/10 v1.4m Standard LaTeX document class
+(C:\Users\rikpe\AppData\Local\Programs\MiKTeX\tex/latex/base\size11.clo
+File: size11.clo 2020/04/10 v1.4m Standard LaTeX file (size option)
+)
+\c@part=\count177
+\c@chapter=\count178
+\c@section=\count179
+\c@subsection=\count180
+\c@subsubsection=\count181
+\c@paragraph=\count182
+\c@subparagraph=\count183
+\c@figure=\count184
+\c@table=\count185
+\abovecaptionskip=\skip47
+\belowcaptionskip=\skip48
+\bibindent=\dimen138
+)
+(packages.sty
+Package: packages 
+ (variables.sty
+Package: variables 
+)
+(C:\Users\rikpe\AppData\Local\Programs\MiKTeX\tex/latex/base\inputenc.sty
+Package: inputenc 2020/08/01 v1.3d Input encoding file
+\inpenc@prehook=\toks15
+\inpenc@posthook=\toks16
+)
+(C:\Users\rikpe\AppData\Local\Programs\MiKTeX\tex/latex/geometry\geometry.sty
+Package: geometry 2020/01/02 v5.9 Page Geometry
+
+(C:\Users\rikpe\AppData\Local\Programs\MiKTeX\tex/latex/graphics\keyval.sty
+Package: keyval 2014/10/28 v1.15 key=value parser (DPC)
+\KV@toks@=\toks17
+)
+(C:\Users\rikpe\AppData\Local\Programs\MiKTeX\tex/generic/iftex\ifvtex.sty
+Package: ifvtex 2019/10/25 v1.7 ifvtex legacy package. Use iftex instead.
+
+(C:\Users\rikpe\AppData\Local\Programs\MiKTeX\tex/generic/iftex\iftex.sty
+Package: iftex 2020/03/06 v1.0d TeX engine tests
+))
+\Gm@cnth=\count186
+\Gm@cntv=\count187
+\c@Gm@tempcnt=\count188
+\Gm@bindingoffset=\dimen139
+\Gm@wd@mp=\dimen140
+\Gm@odd@mp=\dimen141
+\Gm@even@mp=\dimen142
+\Gm@layoutwidth=\dimen143
+\Gm@layoutheight=\dimen144
+\Gm@layouthoffset=\dimen145
+\Gm@layoutvoffset=\dimen146
+\Gm@dimlist=\toks18
+
+(C:\Users\rikpe\AppData\Local\Programs\MiKTeX\tex/latex/geometry\geometry.cfg))
+(C:\Users\rikpe\AppData\Local\Programs\MiKTeX\tex/generic/babel\babel.sty
+Package: babel 2020/10/27 3.51 The Babel package
+
+(C:\Users\rikpe\AppData\Local\Programs\MiKTeX\tex/generic/babel\babel.def
+File: babel.def 2020/10/27 3.51 Babel common definitions
+\babel@savecnt=\count189
+\U@D=\dimen147
+\l@babelnohyphens=\language79
+
+(C:\Users\rikpe\AppData\Local\Programs\MiKTeX\tex/generic/babel\txtbabel.def)
+\bbl@readstream=\read2
+)
+\bbl@dirlevel=\count190
+
+*************************************
+* Local config file bblopts.cfg used
+*
+(C:\Users\rikpe\AppData\Local\Programs\MiKTeX\tex/latex/arabi\bblopts.cfg
+File: bblopts.cfg 2005/09/08 v0.1 add Arabic and Farsi to "declared" options of
+ babel
+)
+(C:\Users\rikpe\AppData\Local\Programs\MiKTeX\tex/latex/babel-dutch\dutch.ldf
+Language: dutch 2020/10/29 v3.8j Dutch support from the babel system
+Package babel Info: Making " an active character on input line 127.
+)) (C:\Users\rikpe\AppData\Local\Programs\MiKTeX\tex/latex/csquotes\csquotes.st
+y
+Package: csquotes 2021-01-04 v5.2k context-sensitive quotations (JAW)
+
+(C:\Users\rikpe\AppData\Local\Programs\MiKTeX\tex/latex/etoolbox\etoolbox.sty
+Package: etoolbox 2020/10/05 v2.5k e-TeX tools for LaTeX (JAW)
+\etb@tempcnta=\count191
+)
+\csq@reset=\count192
+\csq@gtype=\count193
+\csq@glevel=\count194
+\csq@qlevel=\count195
+\csq@maxlvl=\count196
+\csq@tshold=\count197
+\csq@ltx@everypar=\toks19
+
+(C:\Users\rikpe\AppData\Local\Programs\MiKTeX\tex/latex/csquotes\csquotes.def
+File: csquotes.def 2021-01-04 v5.2k csquotes generic definitions (JAW)
+)
+Package csquotes Info: Trying to load configuration file 'csquotes.cfg'...
+Package csquotes Info: ... configuration file loaded successfully.
+
+(C:\Users\rikpe\AppData\Local\Programs\MiKTeX\tex/latex/csquotes\csquotes.cfg
+File: csquotes.cfg 
+)) (C:\Users\rikpe\AppData\Local\Programs\MiKTeX\tex/latex/biblatex\biblatex.st
+y
+Package: biblatex 2020/08/23 v3.15a programmable bibliographies (PK/MW)
+
+(C:\Users\rikpe\AppData\Local\Programs\MiKTeX\tex/generic/pdftexcmds\pdftexcmds
+.sty
+Package: pdftexcmds 2020-06-27 v0.33 Utility functions of pdfTeX for LuaTeX (HO
+)
+
+(C:\Users\rikpe\AppData\Local\Programs\MiKTeX\tex/generic/infwarerr\infwarerr.s
+ty
+Package: infwarerr 2019/12/03 v1.5 Providing info/warning/error messages (HO)
+)
+(C:\Users\rikpe\AppData\Local\Programs\MiKTeX\tex/generic/ltxcmds\ltxcmds.sty
+Package: ltxcmds 2020-05-10 v1.25 LaTeX kernel commands for general use (HO)
+)
+Package pdftexcmds Info: \pdf@primitive is available.
+Package pdftexcmds Info: \pdf@ifprimitive is available.
+Package pdftexcmds Info: \pdfdraftmode found.
+)
+(C:\Users\rikpe\AppData\Local\Programs\MiKTeX\tex/latex/kvoptions\kvoptions.sty
+Package: kvoptions 2020-10-07 v3.14 Key value format for package options (HO)
+
+(C:\Users\rikpe\AppData\Local\Programs\MiKTeX\tex/generic/kvsetkeys\kvsetkeys.s
+ty
+Package: kvsetkeys 2019/12/15 v1.18 Key value parser (HO)
+)) (C:\Users\rikpe\AppData\Local\Programs\MiKTeX\tex/latex/logreq\logreq.sty
+Package: logreq 2010/08/04 v1.0 xml request logger
+\lrq@indent=\count198
+
+(C:\Users\rikpe\AppData\Local\Programs\MiKTeX\tex/latex/logreq\logreq.def
+File: logreq.def 2010/08/04 v1.0 logreq spec v1.0
+))
+(C:\Users\rikpe\AppData\Local\Programs\MiKTeX\tex/latex/base\ifthen.sty
+Package: ifthen 2014/09/29 v1.1c Standard LaTeX ifthen package (DPC)
+)
+(C:\Users\rikpe\AppData\Local\Programs\MiKTeX\tex/latex/url\url.sty
+\Urlmuskip=\muskip16
+Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
+)
+\c@tabx@nest=\count199
+\c@listtotal=\count266
+\c@listcount=\count267
+\c@liststart=\count268
+\c@liststop=\count269
+\c@citecount=\count270
+\c@citetotal=\count271
+\c@multicitecount=\count272
+\c@multicitetotal=\count273
+\c@instcount=\count274
+\c@maxnames=\count275
+\c@minnames=\count276
+\c@maxitems=\count277
+\c@minitems=\count278
+\c@citecounter=\count279
+\c@maxcitecounter=\count280
+\c@savedcitecounter=\count281
+\c@uniquelist=\count282
+\c@uniquename=\count283
+\c@refsection=\count284
+\c@refsegment=\count285
+\c@maxextratitle=\count286
+\c@maxextratitleyear=\count287
+\c@maxextraname=\count288
+\c@maxextradate=\count289
+\c@maxextraalpha=\count290
+\c@abbrvpenalty=\count291
+\c@highnamepenalty=\count292
+\c@lownamepenalty=\count293
+\c@maxparens=\count294
+\c@parenlevel=\count295
+\blx@tempcnta=\count296
+\blx@tempcntb=\count297
+\blx@tempcntc=\count298
+\blx@maxsection=\count299
+\blx@maxsegment@0=\count300
+\blx@notetype=\count301
+\blx@parenlevel@text=\count302
+\blx@parenlevel@foot=\count303
+\blx@sectionciteorder@0=\count304
+\blx@entrysetcounter=\count305
+\blx@biblioinstance=\count306
+\labelnumberwidth=\skip49
+\labelalphawidth=\skip50
+\biblabelsep=\skip51
+\bibitemsep=\skip52
+\bibnamesep=\skip53
+\bibinitsep=\skip54
+\bibparsep=\skip55
+\bibhang=\skip56
+\blx@bcfin=\read3
+\blx@bcfout=\write3
+\blx@langwohyphens=\language80
+\c@mincomprange=\count307
+\c@maxcomprange=\count308
+\c@mincompwidth=\count309
+Package biblatex Info: Trying to load biblatex default data model...
+Package biblatex Info: ... file 'blx-dm.def' found.
+
+(C:\Users\rikpe\AppData\Local\Programs\MiKTeX\tex/latex/biblatex\blx-dm.def
+File: blx-dm.def 2020/08/23 v3.15a biblatex localization (PK/MW)
+)
+Package biblatex Info: Trying to load biblatex custom data model...
+Package biblatex Info: ... file 'biblatex-dm.cfg' not found.
+\c@afterword=\count310
+\c@savedafterword=\count311
+\c@annotator=\count312
+\c@savedannotator=\count313
+\c@author=\count314
+\c@savedauthor=\count315
+\c@bookauthor=\count316
+\c@savedbookauthor=\count317
+\c@commentator=\count318
+\c@savedcommentator=\count319
+\c@editor=\count320
+\c@savededitor=\count321
+\c@editora=\count322
+\c@savededitora=\count323
+\c@editorb=\count324
+\c@savededitorb=\count325
+\c@editorc=\count326
+\c@savededitorc=\count327
+\c@foreword=\count328
+\c@savedforeword=\count329
+\c@holder=\count330
+\c@savedholder=\count331
+\c@introduction=\count332
+\c@savedintroduction=\count333
+\c@namea=\count334
+\c@savednamea=\count335
+\c@nameb=\count336
+\c@savednameb=\count337
+\c@namec=\count338
+\c@savednamec=\count339
+\c@translator=\count340
+\c@savedtranslator=\count341
+\c@shortauthor=\count342
+\c@savedshortauthor=\count343
+\c@shorteditor=\count344
+\c@savedshorteditor=\count345
+\c@labelname=\count346
+\c@savedlabelname=\count347
+\c@institution=\count348
+\c@savedinstitution=\count349
+\c@lista=\count350
+\c@savedlista=\count351
+\c@listb=\count352
+\c@savedlistb=\count353
+\c@listc=\count354
+\c@savedlistc=\count355
+\c@listd=\count356
+\c@savedlistd=\count357
+\c@liste=\count358
+\c@savedliste=\count359
+\c@listf=\count360
+\c@savedlistf=\count361
+\c@location=\count362
+\c@savedlocation=\count363
+\c@organization=\count364
+\c@savedorganization=\count365
+\c@origlocation=\count366
+\c@savedoriglocation=\count367
+\c@origpublisher=\count368
+\c@savedorigpublisher=\count369
+\c@publisher=\count370
+\c@savedpublisher=\count371
+\c@language=\count372
+\c@savedlanguage=\count373
+\c@origlanguage=\count374
+\c@savedoriglanguage=\count375
+\c@pageref=\count376
+\c@savedpageref=\count377
+\shorthandwidth=\skip57
+\shortjournalwidth=\skip58
+\shortserieswidth=\skip59
+\shorttitlewidth=\skip60
+\shortauthorwidth=\skip61
+\shorteditorwidth=\skip62
+\locallabelnumberwidth=\skip63
+\locallabelalphawidth=\skip64
+\localshorthandwidth=\skip65
+\localshortjournalwidth=\skip66
+\localshortserieswidth=\skip67
+\localshorttitlewidth=\skip68
+\localshortauthorwidth=\skip69
+\localshorteditorwidth=\skip70
+Package biblatex Info: Trying to load compatibility code...
+Package biblatex Info: ... file 'blx-compat.def' found.
+
+(C:\Users\rikpe\AppData\Local\Programs\MiKTeX\tex/latex/biblatex\blx-compat.def
+File: blx-compat.def 2020/08/23 v3.15a biblatex compatibility (PK/MW)
+) (C:\Users\rikpe\AppData\Local\Programs\MiKTeX\tex/latex/l3kernel\expl3.sty
+Package: expl3 2020-12-03 L3 programming layer (loader) 
+
+(C:\Users\rikpe\AppData\Local\Programs\MiKTeX\tex/latex/l3backend\l3backend-pdf
+tex.def
+File: l3backend-pdftex.def 2020-09-24 L3 backend support: PDF output (pdfTeX)
+\l__kernel_color_stack_int=\count378
+\l__pdf_internal_box=\box47
+))
+Package biblatex Info: expl3
+(biblatex)             2020-12-03 L3 programming layer (loader) 
+(biblatex)             is new enough (at least 2020/04/06),
+(biblatex)             setting 'casechanger=expl3'.
+Package biblatex Info: Trying to load expl3 case changing code...
+Package biblatex Info: ... file 'blx-case-expl3.def' found.
+
+(C:\Users\rikpe\AppData\Local\Programs\MiKTeX\tex/latex/biblatex\blx-case-expl3
+.def
+(C:\Users\rikpe\AppData\Local\Programs\MiKTeX\tex/latex/l3packages/xparse\xpars
+e.sty
+Package: xparse 2020-10-27 L3 Experimental document command parser
+
+(C:\Users\rikpe\AppData\Local\Programs\MiKTeX\tex/latex/l3packages/xparse\xpars
+e-generic.tex))
+File: blx-case-expl3 2020/08/23 v3.15a expl3 case changing code for biblatex
+)
+Package biblatex Info: Trying to load generic definitions...
+Package biblatex Info: ... file 'biblatex.def' found.
+
+(C:\Users\rikpe\AppData\Local\Programs\MiKTeX\tex/latex/biblatex\biblatex.def
+File: biblatex.def 2020/08/23 v3.15a biblatex compatibility (PK/MW)
+\c@textcitecount=\count379
+\c@textcitetotal=\count380
+\c@textcitemaxnames=\count381
+\c@biburlbigbreakpenalty=\count382
+\c@biburlbreakpenalty=\count383
+\c@biburlnumpenalty=\count384
+\c@biburlucpenalty=\count385
+\c@biburllcpenalty=\count386
+\biburlbigskip=\muskip17
+\biburlnumskip=\muskip18
+\biburlucskip=\muskip19
+\biburllcskip=\muskip20
+\c@smartand=\count387
+)
+Package biblatex Info: Trying to load bibliography style 'numeric'...
+Package biblatex Info: ... file 'numeric.bbx' found.
+
+(C:\Users\rikpe\AppData\Local\Programs\MiKTeX\tex/latex/biblatex/bbx\numeric.bb
+x
+File: numeric.bbx 2020/08/23 v3.15a biblatex bibliography style (PK/MW)
+Package biblatex Info: Trying to load bibliography style 'standard'...
+Package biblatex Info: ... file 'standard.bbx' found.
+
+(C:\Users\rikpe\AppData\Local\Programs\MiKTeX\tex/latex/biblatex/bbx\standard.b
+bx
+File: standard.bbx 2020/08/23 v3.15a biblatex bibliography style (PK/MW)
+\c@bbx:relatedcount=\count388
+\c@bbx:relatedtotal=\count389
+))
+Package biblatex Info: Trying to load citation style 'numeric'...
+Package biblatex Info: ... file 'numeric.cbx' found.
+
+(C:\Users\rikpe\AppData\Local\Programs\MiKTeX\tex/latex/biblatex/cbx\numeric.cb
+x
+File: numeric.cbx 2020/08/23 v3.15a biblatex citation style (PK/MW)
+Package biblatex Info: Redefining '\cite'.
+Package biblatex Info: Redefining '\parencite'.
+Package biblatex Info: Redefining '\footcite'.
+Package biblatex Info: Redefining '\footcitetext'.
+Package biblatex Info: Redefining '\smartcite'.
+Package biblatex Info: Redefining '\supercite'.
+Package biblatex Info: Redefining '\textcite'.
+Package biblatex Info: Redefining '\textcites'.
+Package biblatex Info: Redefining '\cites'.
+Package biblatex Info: Redefining '\parencites'.
+Package biblatex Info: Redefining '\smartcites'.
+)
+Package biblatex Info: Trying to load configuration file...
+Package biblatex Info: ... file 'biblatex.cfg' found.
+
+(C:\Users\rikpe\AppData\Local\Programs\MiKTeX\tex/latex/biblatex\biblatex.cfg
+File: biblatex.cfg 
+)) (C:\Users\rikpe\AppData\Local\Programs\MiKTeX\tex/latex/graphics\graphicx.st
+y
+Package: graphicx 2020/09/09 v1.2b Enhanced LaTeX Graphics (DPC,SPQR)
+
+(C:\Users\rikpe\AppData\Local\Programs\MiKTeX\tex/latex/graphics\graphics.sty
+Package: graphics 2020/08/30 v1.4c Standard LaTeX Graphics (DPC,SPQR)
+
+(C:\Users\rikpe\AppData\Local\Programs\MiKTeX\tex/latex/graphics\trig.sty
+Package: trig 2016/01/03 v1.10 sin cos tan (DPC)
+)
+(C:\Users\rikpe\AppData\Local\Programs\MiKTeX\tex/latex/graphics-cfg\graphics.c
+fg
+File: graphics.cfg 2016/06/04 v1.11 sample graphics configuration
+)
+Package graphics Info: Driver file: pdftex.def on input line 105.
+
+(C:\Users\rikpe\AppData\Local\Programs\MiKTeX\tex/latex/graphics-def\pdftex.def
+File: pdftex.def 2020/10/05 v1.2a Graphics/color driver for pdftex
+))
+\Gin@req@height=\dimen148
+\Gin@req@width=\dimen149
+) (C:\Users\rikpe\AppData\Local\Programs\MiKTeX\tex/latex/caption\caption.sty
+Package: caption 2020/10/26 v3.5g Customizing captions (AR)
+(C:\Users\rikpe\AppData\Local\Programs\MiKTeX\tex/latex/caption\caption3.sty
+Package: caption3 2020/10/21 v2.2e caption3 kernel (AR)
+\captionmargin=\dimen150
+\captionmargin@=\dimen151
+\captionwidth=\dimen152
+\caption@tempdima=\dimen153
+\caption@indent=\dimen154
+\caption@parindent=\dimen155
+\caption@hangindent=\dimen156
+Package caption Info: Standard document class detected.
+)
+\c@caption@flags=\count390
+\c@continuedfloat=\count391
+)
+(C:\Users\rikpe\AppData\Local\Programs\MiKTeX\tex/latex/caption\subcaption.sty
+Package: subcaption 2020/10/07 v1.3j Sub-captions (AR)
+\c@subfigure=\count392
+\c@subtable=\count393
+) (C:\Users\rikpe\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\hyperref.sty
+Package: hyperref 2020-05-15 v7.00e Hypertext links for LaTeX
+
+(C:\Users\rikpe\AppData\Local\Programs\MiKTeX\tex/generic/kvdefinekeys\kvdefine
+keys.sty
+Package: kvdefinekeys 2019-12-19 v1.6 Define keys (HO)
+)
+(C:\Users\rikpe\AppData\Local\Programs\MiKTeX\tex/generic/pdfescape\pdfescape.s
+ty
+Package: pdfescape 2019/12/09 v1.15 Implements pdfTeX's escape features (HO)
+) (C:\Users\rikpe\AppData\Local\Programs\MiKTeX\tex/latex/hycolor\hycolor.sty
+Package: hycolor 2020-01-27 v1.10 Color options for hyperref/bookmark (HO)
+)
+(C:\Users\rikpe\AppData\Local\Programs\MiKTeX\tex/latex/letltxmacro\letltxmacro
+.sty
+Package: letltxmacro 2019/12/03 v1.6 Let assignment for LaTeX macros (HO)
+)
+(C:\Users\rikpe\AppData\Local\Programs\MiKTeX\tex/latex/auxhook\auxhook.sty
+Package: auxhook 2019-12-17 v1.6 Hooks for auxiliary files (HO)
+)
+\@linkdim=\dimen157
+\Hy@linkcounter=\count394
+\Hy@pagecounter=\count395
+
+(C:\Users\rikpe\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\pd1enc.def
+File: pd1enc.def 2020-05-15 v7.00e Hyperref: PDFDocEncoding definition (HO)
+Now handling font encoding PD1 ...
+... no UTF-8 mapping file for font encoding PD1
+)
+(C:\Users\rikpe\AppData\Local\Programs\MiKTeX\tex/generic/intcalc\intcalc.sty
+Package: intcalc 2019/12/15 v1.3 Expandable calculations with integers (HO)
+)
+(C:\Users\rikpe\AppData\Local\Programs\MiKTeX\tex/generic/etexcmds\etexcmds.sty
+Package: etexcmds 2019/12/15 v1.7 Avoid name clashes with e-TeX commands (HO)
+)
+\Hy@SavedSpaceFactor=\count396
+Package hyperref Info: Hyper figures OFF on input line 4464.
+Package hyperref Info: Link nesting OFF on input line 4469.
+Package hyperref Info: Hyper index ON on input line 4472.
+Package hyperref Info: Plain pages OFF on input line 4479.
+Package hyperref Info: Backreferencing OFF on input line 4484.
+Package hyperref Info: Implicit mode ON; LaTeX internals redefined.
+Package hyperref Info: Bookmarks ON on input line 4717.
+\c@Hy@tempcnt=\count397
+LaTeX Info: Redefining \url on input line 5076.
+\XeTeXLinkMargin=\dimen158
+ (C:\Users\rikpe\AppData\Local\Programs\MiKTeX\tex/generic/bitset\bitset.sty
+Package: bitset 2019/12/09 v1.3 Handle bit-vector datatype (HO)
+
+(C:\Users\rikpe\AppData\Local\Programs\MiKTeX\tex/generic/bigintcalc\bigintcalc
+.sty
+Package: bigintcalc 2019/12/15 v1.5 Expandable calculations on big integers (HO
+)
+))
+\Fld@menulength=\count398
+\Field@Width=\dimen159
+\Fld@charsize=\dimen160
+Package hyperref Info: Hyper figures OFF on input line 6347.
+Package hyperref Info: Link nesting OFF on input line 6352.
+Package hyperref Info: Hyper index ON on input line 6355.
+Package hyperref Info: backreferencing OFF on input line 6362.
+Package hyperref Info: Link coloring OFF on input line 6367.
+Package hyperref Info: Link coloring with OCG OFF on input line 6372.
+Package hyperref Info: PDF/A mode OFF on input line 6377.
+LaTeX Info: Redefining \ref on input line 6417.
+LaTeX Info: Redefining \pageref on input line 6421.
+
+(C:\Users\rikpe\AppData\Local\Programs\MiKTeX\tex/latex/base\atbegshi-ltx.sty
+Package: atbegshi-ltx 2020/08/17 v1.0a Emulation of the original atbegshi packa
+ge
+with kernel methods
+)
+\Hy@abspage=\count399
+\c@Item=\count400
+\c@Hfootnote=\count401
+)
+Package hyperref Info: Driver (autodetected): hpdftex.
+(C:\Users\rikpe\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\hpdftex.def
+File: hpdftex.def 2020-05-15 v7.00e Hyperref driver for pdfTeX
+
+(C:\Users\rikpe\AppData\Local\Programs\MiKTeX\tex/latex/base\atveryend-ltx.sty
+Package: atveryend-ltx 2020/08/19 v1.0a Emulation of the original atvery packag
+e
+with kernel methods
+)
+\Fld@listcount=\count402
+\c@bookmark@seq@number=\count403
+
+(C:\Users\rikpe\AppData\Local\Programs\MiKTeX\tex/latex/rerunfilecheck\rerunfil
+echeck.sty
+Package: rerunfilecheck 2019/12/05 v1.9 Rerun checks for auxiliary files (HO)
+
+(C:\Users\rikpe\AppData\Local\Programs\MiKTeX\tex/generic/uniquecounter\uniquec
+ounter.sty
+Package: uniquecounter 2019/12/15 v1.4 Provide unlimited unique counter (HO)
+)
+Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
+86.
+)
+\Hy@SectionHShift=\skip71
+)
+(C:\Users\rikpe\AppData\Local\Programs\MiKTeX\tex/latex/bookmark\bookmark.sty
+Package: bookmark 2020-11-06 v1.29 PDF bookmarks (HO)
+
+(C:\Users\rikpe\AppData\Local\Programs\MiKTeX\tex/latex/bookmark\bkm-pdftex.def
+File: bkm-pdftex.def 2020-11-06 v1.29 bookmark driver for pdfTeX (HO)
+\BKM@id=\count404
+)) (C:\Users\rikpe\AppData\Local\Programs\MiKTeX\tex/latex/xcolor\xcolor.sty
+Package: xcolor 2016/05/11 v2.12 LaTeX color extensions (UK)
+
+(C:\Users\rikpe\AppData\Local\Programs\MiKTeX\tex/latex/graphics-cfg\color.cfg
+File: color.cfg 2016/01/02 v1.6 sample color configuration
+)
+Package xcolor Info: Driver file: pdftex.def on input line 225.
+Package xcolor Info: Model `cmy' substituted by `cmy0' on input line 1348.
+Package xcolor Info: Model `hsb' substituted by `rgb' on input line 1352.
+Package xcolor Info: Model `RGB' extended on input line 1364.
+Package xcolor Info: Model `HTML' substituted by `rgb' on input line 1366.
+Package xcolor Info: Model `Hsb' substituted by `hsb' on input line 1367.
+Package xcolor Info: Model `tHsb' substituted by `hsb' on input line 1368.
+Package xcolor Info: Model `HSB' substituted by `hsb' on input line 1369.
+Package xcolor Info: Model `Gray' substituted by `gray' on input line 1370.
+Package xcolor Info: Model `wave' substituted by `hsb' on input line 1371.
+(C:\Users\rikpe\AppData\Local\Programs\MiKTeX\tex/latex/graphics\dvipsnam.def
+File: dvipsnam.def 2016/06/17 v3.0m Driver-dependent file (DPC,SPQR)
+)) (C:\Users\rikpe\AppData\Local\Programs\MiKTeX\tex/latex/fancyhdr\fancyhdr.st
+y
+Package: fancyhdr 2019/01/31 v3.10 Extensive control of page headers and footer
+s
+\f@nch@headwidth=\skip72
+\f@nch@O@elh=\skip73
+\f@nch@O@erh=\skip74
+\f@nch@O@olh=\skip75
+\f@nch@O@orh=\skip76
+\f@nch@O@elf=\skip77
+\f@nch@O@erf=\skip78
+\f@nch@O@olf=\skip79
+\f@nch@O@orf=\skip80
+))
+Package csquotes Info: Checking for multilingual support...
+Package csquotes Info: ... found 'babel' package.
+Package csquotes Info: Adjusting default style.
+Package csquotes Info: Redefining alias 'default' -> 'dutch'.
+ (C:/Projects\individueel\documentatie\SWOT\out\SWOT_Rik_Peeters.aux)
+\openout1 = `SWOT_Rik_Peeters.aux'.
+
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 11.
+LaTeX Font Info:    ... okay on input line 11.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 11.
+LaTeX Font Info:    ... okay on input line 11.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 11.
+LaTeX Font Info:    ... okay on input line 11.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 11.
+LaTeX Font Info:    ... okay on input line 11.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 11.
+LaTeX Font Info:    ... okay on input line 11.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 11.
+LaTeX Font Info:    ... okay on input line 11.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 11.
+LaTeX Font Info:    ... okay on input line 11.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 11.
+LaTeX Font Info:    ... okay on input line 11.
+
+*geometry* driver: auto-detecting
+*geometry* detected driver: pdftex
+*geometry* verbose mode - [ preamble ] result:
+* driver: pdftex
+* paper: a4paper
+* layout: <same size as paper>
+* layoutoffset:(h,v)=(0.0pt,0.0pt)
+* modes: twoside 
+* h-part:(L,W,R)=(68.28659pt, 426.79134pt, 102.42995pt)
+* v-part:(T,H,B)=(71.13188pt, 702.78308pt, 71.13188pt)
+* \paperwidth=597.50787pt
+* \paperheight=845.04684pt
+* \textwidth=426.79134pt
+* \textheight=702.78308pt
+* \oddsidemargin=-3.9834pt
+* \evensidemargin=30.15996pt
+* \topmargin=-38.1381pt
+* \headheight=20.0pt
+* \headsep=25.0pt
+* \topskip=11.0pt
+* \footskip=30.0pt
+* \marginparwidth=113.0pt
+* \marginparsep=10.0pt
+* \columnsep=10.0pt
+* \skip\footins=10.0pt plus 4.0pt minus 2.0pt
+* \hoffset=0.0pt
+* \voffset=0.0pt
+* \mag=1000
+* \@twocolumnfalse
+* \@twosidetrue
+* \@mparswitchtrue
+* \@reversemarginfalse
+* (1in=72.27pt=25.4mm, 1cm=28.453pt)
+
+Package biblatex Info: Trying to load language 'dutch'...
+Package biblatex Info: ... file 'dutch.lbx' found.
+(C:\Users\rikpe\AppData\Local\Programs\MiKTeX\tex/latex/biblatex/lbx\dutch.lbx
+File: dutch.lbx 2020/08/23 v3.15a biblatex localization (PK/MW)
+)
+Package biblatex Info: Input encoding 'utf8' detected.
+Package biblatex Info: Automatic encoding selection.
+(biblatex)             Assuming data encoding 'utf8'.
+\openout3 = `SWOT_Rik_Peeters.bcf'.
+
+Package biblatex Info: Trying to load bibliographic data...
+Package biblatex Info: ... file 'SWOT_Rik_Peeters.bbl' not found.
+No file SWOT_Rik_Peeters.bbl.
+Package biblatex Info: Reference section=0 on input line 11.
+Package biblatex Info: Reference segment=0 on input line 11.
+
+(C:\Users\rikpe\AppData\Local\Programs\MiKTeX\tex/context/base/mkii\supp-pdf.mk
+ii
+[Loading MPS to PDF converter (version 2006.09.02).]
+\scratchcounter=\count405
+\scratchdimen=\dimen161
+\scratchbox=\box48
+\nofMPsegments=\count406
+\nofMParguments=\count407
+\everyMPshowfont=\toks20
+\MPscratchCnt=\count408
+\MPscratchDim=\dimen162
+\MPnumerator=\count409
+\makeMPintoPDFobject=\count410
+\everyMPtoPDFconversion=\toks21
+)
+(C:\Users\rikpe\AppData\Local\Programs\MiKTeX\tex/latex/epstopdf-pkg\epstopdf-b
+ase.sty
+Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
+Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
+85.
+)
+Package caption Info: Begin \AtBeginDocument code.
+Package caption Info: hyperref package is loaded.
+Package caption Info: End \AtBeginDocument code.
+Package hyperref Info: Link coloring OFF on input line 11.
+
+(C:\Users\rikpe\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\nameref.sty
+Package: nameref 2019/09/16 v2.46 Cross-referencing by name of section
+
+(C:\Users\rikpe\AppData\Local\Programs\MiKTeX\tex/latex/refcount\refcount.sty
+Package: refcount 2019/12/15 v3.6 Data extraction from label references (HO)
+)
+(C:\Users\rikpe\AppData\Local\Programs\MiKTeX\tex/generic/gettitlestring\gettit
+lestring.sty
+Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
+)
+\c@section@level=\count411
+)
+LaTeX Info: Redefining \ref on input line 11.
+LaTeX Info: Redefining \pageref on input line 11.
+LaTeX Info: Redefining \nameref on input line 11.
+ (general/title_page.tex
+<images/swot.jpg, id=3, 602.25pt x 376.40625pt>
+File: images/swot.jpg Graphic file (type jpg)
+<use images/swot.jpg>
+Package pdftex.def Info: images/swot.jpg  used on input line 13.
+(pdftex.def)             Requested size: 256.0774pt x 160.05382pt.
+<images/profile_image.jpg, id=4, 321.2pt x 321.2pt>
+File: images/profile_image.jpg Graphic file (type jpg)
+<use images/profile_image.jpg>
+Package pdftex.def Info: images/profile_image.jpg  used on input line 18.
+(pdftex.def)             Requested size: 106.69783pt x 106.69717pt.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <17.28> on input line 19.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <12> on input line 19.
+<images/fontys_logo.png, id=5, 1204.5pt x 608.2725pt>
+File: images/fontys_logo.png Graphic file (type png)
+<use images/fontys_logo.png>
+Package pdftex.def Info: images/fontys_logo.png  used on input line 22.
+(pdftex.def)             Requested size: 192.05478pt x 96.98216pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 29--32
+
+ []
+
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <10.95> on input line 32.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <8> on input line 32.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <6> on input line 32.
+
+Overfull \hbox (17.0pt too wide) in paragraph at lines 28--33
+[]$[]$ 
+ []
+
+[1
+
+{C:/Users/rikpe/AppData/Local/MiKTeX/pdftex/config/pdftex.map} <./images/swot.j
+pg> <./images/profile_image.jpg> <./images/fontys_logo.png>])
+(C:/Projects\individueel\documentatie\SWOT\out\SWOT_Rik_Peeters.toc)
+\tf@toc=\write4
+\openout4 = `SWOT_Rik_Peeters.toc'.
+
+ [2
+
+]
+Hoofdstuk 1.
+File: images/fontys_logo.png Graphic file (type png)
+<use images/fontys_logo.png>
+Package pdftex.def Info: images/fontys_logo.png  used on input line 40.
+(pdftex.def)             Requested size: 29.87851pt x 15.0824pt.
+pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has 
+been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.40     \newpage
+                  [1
+
+
+]
+Hoofdstuk 2.
+File: images/fontys_logo.png Graphic file (type png)
+<use images/fontys_logo.png>
+Package pdftex.def Info: images/fontys_logo.png  used on input line 78.
+(pdftex.def)             Requested size: 29.87851pt x 15.0824pt.
+pdfTeX warning (ext4): destination with the same identifier (name{page.2}) has 
+been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.78     \end{itemize}
+                       [2
+
+]
+File: images/fontys_logo.png Graphic file (type png)
+<use images/fontys_logo.png>
+Package pdftex.def Info: images/fontys_logo.png  used on input line 114.
+(pdftex.def)             Requested size: 29.87851pt x 15.0824pt.
+ [3]
+(C:/Projects\individueel\documentatie\SWOT\out\SWOT_Rik_Peeters.aux)
+
+LaTeX Warning: There were undefined references.
+
+
+Package biblatex Warning: Please (re)run Biber on the file:
+(biblatex)                SWOT_Rik_Peeters
+(biblatex)                and rerun LaTeX afterwards.
+
+Package logreq Info: Writing requests to 'SWOT_Rik_Peeters.run.xml'.
+\openout1 = `SWOT_Rik_Peeters.run.xml'.
+
+ ) 
+Here is how much of TeX's memory you used:
+ 16010 strings out of 479697
+ 282677 string characters out of 2867133
+ 1037158 words of memory out of 3000000
+ 32886 multiletter control sequences out of 15000+200000
+ 410826 words of font info for 51 fonts, out of 3000000 for 9000
+ 1141 hyphenation exceptions out of 8191
+ 80i,15n,86p,744b,1642s stack positions out of 5000i,500n,10000p,200000b,50000s
+<C:/Users/rikpe/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/
+cmbx10.pfb><C:/Users/rikpe/AppData/Local/Programs/MiKTeX/fonts/type1/public/ams
+fonts/cm/cmbx12.pfb><C:/Users/rikpe/AppData/Local/Programs/MiKTeX/fonts/type1/p
+ublic/amsfonts/cm/cmbxti10.pfb><C:/Users/rikpe/AppData/Local/Programs/MiKTeX/fo
+nts/type1/public/amsfonts/cm/cmr10.pfb><C:/Users/rikpe/AppData/Local/Programs/M
+iKTeX/fonts/type1/public/amsfonts/cm/cmr17.pfb><C:/Users/rikpe/AppData/Local/Pr
+ograms/MiKTeX/fonts/type1/public/amsfonts/cm/cmr6.pfb><C:/Users/rikpe/AppData/L
+ocal/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmti10.pfb>
+Output written on C:/Projects\individueel\documentatie\SWOT\out\SWOT_Rik_Peeter
+s.pdf (5 pages, 179930 bytes).
+PDF statistics:
+ 92 PDF objects out of 1000 (max. 8388607)
+ 11 named destinations out of 1000 (max. 500000)
+ 64 words of extra memory for PDF output out of 10000 (max. 10000000)
+
