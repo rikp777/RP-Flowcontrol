@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/v1/article")
@@ -21,7 +22,13 @@ public class ArticleController {
 
 
     @GetMapping
-    public List<Article> getAll(){
+    public Iterable<Article> getAll(){
         return articleService.getAll();
+    }
+
+    @GetMapping("/{articleId}")
+    public Optional<Article> getById(@PathVariable Long articleId){
+        System.out.println(articleId);
+        return articleService.getById(articleId);
     }
 }
