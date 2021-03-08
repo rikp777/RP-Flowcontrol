@@ -1,22 +1,26 @@
 package flowcontrol.transport.controllers;
 
+import flowcontrol.transport.exception.PalletLabelException;
 import flowcontrol.transport.model.entity.PalletLabel;
+import flowcontrol.transport.model.request.CreatePalletLabelRequest;
 import flowcontrol.transport.service.PalletLabelService;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("v1/palletlabels")
+@AllArgsConstructor
 public class PalletLabelController {
 
     @Autowired
     private final PalletLabelService palletLabelService;
 
-    public PalletLabelController(PalletLabelService palletLabelService) {
-        this.palletLabelService = palletLabelService;
-    }
 
     @GetMapping()
     public List<PalletLabel> getAllPalletLabels(){
@@ -24,7 +28,18 @@ public class PalletLabelController {
     }
 
     @GetMapping("{palletLabelId}")
-    public PalletLabel getPalletLabel(@PathVariable("palletLabelId") Long palletLabelId){
+    public Optional<PalletLabel> getPalletLabel(@PathVariable("palletLabelId") Long palletLabelId){
         return palletLabelService.getById(palletLabelId);
+    }
+
+    @PostMapping(
+//            consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}
+    )
+    public ResponseEntity createPalletLabel(@RequestBody CreatePalletLabelRequest newPalletLabel){
+        return palletLabelService.create(newPalletLabel)
+                .map(palletLabel -> ResponseEntity.ok(palletLabel))
+                .orElseThrow(() ->
+                        new PalletLabelException("Couldn't", "Something went wrong during creating ", newPalletLabel)
+                );
     }
 }

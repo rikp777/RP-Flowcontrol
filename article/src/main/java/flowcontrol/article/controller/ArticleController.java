@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/v1/article")
+@RequestMapping("/v1/articles")
 @AllArgsConstructor
 public class ArticleController {
 
