@@ -16,18 +16,29 @@ public class FarmerSeeder {
     @Autowired
     private final FarmerRepository farmerRepo;
 
-
     public FarmerSeeder(FarmerRepository farmerRepo) {
         this.farmerRepo = farmerRepo;
     }
 
-    public Set<Farmer> run() {
+    public Set<Farmer> run(UtilSeeder util) {
         List<Farmer> farmers = Arrays.asList(
             Farmer.builder()
-                    .name("Test farmer")
-                    .street("Test street")
+                    .name("Test farmer one")
+                    .street("Test street one")
                     .place("Panningen")
                     .zipCode("5728XL")
+                    .country("Netherlands")
+                    .province("Limburg")
+                    .email("test@flowcontrol.com")
+                    .phone("+31623456789")
+                    .fax("+1234567890")
+                    .kvk("ASDFGHJKL")
+                    .build(),
+                Farmer.builder()
+                    .name("Test farmer two")
+                    .street("Test street two")
+                    .place("Panningen")
+                    .zipCode("2749WL")
                     .country("Netherlands")
                     .province("Limburg")
                     .email("test@flowcontrol.com")
@@ -38,9 +49,11 @@ public class FarmerSeeder {
         );
 
         if(farmerRepo.findAll().size() == 0){
+            log.info("Farmer done seeding");
             farmerRepo.saveAll(farmers);
         }
 
-        return new HashSet<>(farmerRepo.findAll());
+        List<Farmer> farmerss = farmerRepo.findAll();
+        return new HashSet<>(farmerss);
     }
 }

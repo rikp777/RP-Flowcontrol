@@ -1,5 +1,7 @@
 package flowcontrol.farmer.model.entity.seeder;
 
+import flowcontrol.farmer.model.entity.Cell;
+import flowcontrol.farmer.model.entity.Certificate;
 import flowcontrol.farmer.model.entity.Farmer;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
@@ -11,11 +13,24 @@ import java.util.Set;
 public class Seeder {
     @Bean
     CommandLineRunner commandLineRunner(
-           FarmerSeeder farmerSeeder
+           FarmerSeeder farmerSeeder,
+           CertificateSeeder certificateSeeder,
+           CellSeeder cellSeeder
     ) {
         return arts -> {
+            UtilSeeder util = new UtilSeeder();
+
             // Farmer
-            Set<Farmer> farmers = farmerSeeder.run();
+            Set<Farmer> farmers = farmerSeeder.run(util);
+            util.setFarmers(farmers);
+
+            // Cell
+            Set<Cell> cells = cellSeeder.run(util);
+            util.setCells(cells);
+
+            // Certificate
+            Set<Certificate> certificates = certificateSeeder.run();
+            util.setCertificates(certificates);
         };
     }
 }

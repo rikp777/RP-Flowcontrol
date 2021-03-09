@@ -14,6 +14,7 @@ import flowcontrol.transport.repository.impl.FarmerRepository;
 import flowcontrol.transport.repository.impl.PalletTypeRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -37,7 +38,8 @@ public class PalletLabelService {
     }
 
     public Optional<PalletLabel> getById(Long palletLabelId){
-        return palletLabelRepository.findById(palletLabelId);
+        return palletLabelRepository
+                .findById(palletLabelId);
     }
 
 
@@ -52,7 +54,7 @@ public class PalletLabelService {
                 .orElseThrow(() -> new ResourceNotFoundException("Article", "Id", articleId));
 
         Cell cell = cellRepository
-                .findById(cellId)
+                .findById(farmerId, cellId)
                 .orElseThrow(() -> new ResourceNotFoundException("Cell", "Id", cellId));
 
         Farmer farmer = farmerRepository

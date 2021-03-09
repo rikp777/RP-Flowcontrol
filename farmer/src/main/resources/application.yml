@@ -15,6 +15,9 @@ server:
       timeout: 15m
 
 spring:
+  jackson:
+    serialization:
+      fail_on_empty_beans: false
   #============JDBC============
   datasource:
     url: jdbc:mysql://localhost:3306/farmer?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
@@ -29,6 +32,7 @@ spring:
     show-sql: false
     properties:
       hibernate:
+        enable_lazy_load_no_trans: true
         format_sql: false
         jdbc:
           lob:
@@ -39,3 +43,5 @@ hibernate:
 swagger:
   host:
     url: http://localhost:7071
+
+

@@ -11,3 +11,28 @@ server:
     # Default HTTP session time out
     session:
       timeout: 15m
+
+spring:
+  #============JDBC============
+  datasource:
+    url: jdbc:mysql://localhost:3306/transport?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
+    username: root
+
+  #============JPA============
+  jpa:
+    hibernate:
+      #      ddl-auto: create-drop
+      dialect: org.hibernate.dialect.MySQL57Dialect
+      ddl-auto: create-drop
+    show-sql: false
+    properties:
+      hibernate:
+        format_sql: true
+        jdbc:
+          lob:
+            non_contextual_creation: true
+
+
+swagger:
+  host:
+    url: http://localhost:7072

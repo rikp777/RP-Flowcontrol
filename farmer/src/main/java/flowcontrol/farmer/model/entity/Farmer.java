@@ -1,8 +1,13 @@
 package flowcontrol.farmer.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.transaction.Transactional;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -27,9 +32,17 @@ public class Farmer extends BaseEntity{
     private String fax;
     private String kvk;
 
-//    @OneToMany(cascade = CascadeType.ALL, mappedBy = "farmer")
-//    Set<FarmerCertificate> farmerCertificates = new HashSet<>();
-//
-//    @OneToMany(cascade = CascadeType.ALL, mappedBy = "farmer")
-//    Set<Cell> cells = new HashSet<>();
+    @OneToMany(fetch = FetchType.EAGER)
+    @JoinColumn(name = "farmer_id")
+    private Set<FarmerCertificate> farmerCertificates = new HashSet<>();
+
+    @OneToMany(
+            mappedBy = "farmer",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    @JsonManagedReference
+    private List<Cell> cells;
 }
+
+//https://stackoverflow.com/questions/58090291/obtain-column-data-from-one-to-many-join-relation-in-spring-data-jpa

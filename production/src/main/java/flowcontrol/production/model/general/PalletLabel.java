@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 public class PalletLabel {
     private Long id;
     private Long generalId;
-    private LocalDateTime cropDate;
+    private String cropDate;
     private String note;
     private Long palletLabelFarmerId;
     private Integer articleAmount;
