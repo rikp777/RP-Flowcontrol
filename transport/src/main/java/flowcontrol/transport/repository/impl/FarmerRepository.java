@@ -20,7 +20,7 @@ public class FarmerRepository {
     @Autowired
     private WebClient.Builder webClientBuilder;
 
-    public Optional<Farmer> findById(Long id) {
+    public Farmer findById(Long id) {
         Farmer farmer = webClientBuilder.build() //Gives you a client
                 .get() // Method for the request
                 .uri("http://localhost:7071/api/v1/farmers/" + id) // Url that you need to access
@@ -33,7 +33,7 @@ public class FarmerRepository {
                 // object back but not right away "async" //empty page but you will need to wait but you know it will come and than you can do stuff "promise"
                 .block();  // converts async to sync
 
-        return Optional.of(farmer);
+        return Optional.of(farmer).orElseThrow(() -> new ResourceNotFoundException("Farmer", "Id", id));
     }
 
     public List<Farmer> findAll() {

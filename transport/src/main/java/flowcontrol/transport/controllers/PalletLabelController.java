@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/v1/palletlabels")
+@RequestMapping("/v1/farmers/{farmerId}/palletlabels")
 @AllArgsConstructor
 public class PalletLabelController {
 
@@ -22,24 +22,30 @@ public class PalletLabelController {
 
 
     @GetMapping()
-    public List<PalletLabel> getAllPalletLabels(){
-        return palletLabelService.getAll();
+    public List<PalletLabel> getAllPalletLabels(
+            @PathVariable Long farmerId
+    ){
+        return palletLabelService.getAll(farmerId);
     }
 
     @GetMapping("/{palletLabelId}")
-    public ResponseEntity<PalletLabel> getPalletLabel(@PathVariable("palletLabelId") Long palletLabelId){
-        return palletLabelService.getById(palletLabelId)
+    public ResponseEntity<PalletLabel> getPalletLabel(
+            @PathVariable Long farmerId,
+            @PathVariable("palletLabelId") Long palletLabelId
+    ){
+        return palletLabelService.getById(farmerId, palletLabelId)
                 .map(palletLabel -> ResponseEntity.ok(palletLabel))
                 .orElseThrow(() ->
                         new ResourceNotFoundException("PalletLabel", "Id", palletLabelId)
                 );
     }
 
-    @PostMapping(
-//            consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}
-    )
-    public ResponseEntity createPalletLabel(@RequestBody CreatePalletLabelRequest newPalletLabel){
-        return palletLabelService.create(newPalletLabel)
+    @PostMapping()
+    public ResponseEntity createPalletLabel(
+            @PathVariable Long farmerId,
+            @RequestBody CreatePalletLabelRequest newPalletLabel
+    ){
+        return palletLabelService.create(farmerId, newPalletLabel)
                 .map(palletLabel -> ResponseEntity.ok(palletLabel))
                 .orElseThrow(() ->
                         new PalletLabelException("Couldn't", "Something went wrong during creating ", newPalletLabel)

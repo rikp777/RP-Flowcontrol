@@ -4,6 +4,7 @@ package flowcontrol.transport.controllers.advise;
 import flowcontrol.transport.exception.AppException;
 import flowcontrol.transport.exception.PalletLabelException;
 import flowcontrol.transport.exception.ResourceNotFoundException;
+import flowcontrol.transport.exception.ShippingLabelException;
 import flowcontrol.transport.model.response.ApiResponse;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -86,9 +87,21 @@ public class TransportAdvise {
     }
 
     @ExceptionHandler(value = PalletLabelException.class)
-    @ResponseStatus(HttpStatus.NOT_FOUND)
+    @ResponseStatus(HttpStatus.EXPECTATION_FAILED)
     @ResponseBody
     public ApiResponse handlePalletLabelException(ResourceNotFoundException exception, WebRequest request) {
+        return new ApiResponse(
+                false,
+                exception.getMessage(),
+                exception.getClass().getName(),
+                resolvePathFromWebRequest(request)
+        );
+    }
+
+    @ExceptionHandler(value = ShippingLabelException.class)
+    @ResponseStatus(HttpStatus.EXPECTATION_FAILED)
+    @ResponseBody
+    public ApiResponse handleShippingLabelException(ResourceNotFoundException exception, WebRequest request) {
         return new ApiResponse(
                 false,
                 exception.getMessage(),

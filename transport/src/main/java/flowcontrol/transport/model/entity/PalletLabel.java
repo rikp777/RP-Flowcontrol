@@ -4,17 +4,17 @@ import flowcontrol.transport.model.general.Article;
 import flowcontrol.transport.model.general.Cell;
 import flowcontrol.transport.model.general.Farmer;
 import flowcontrol.transport.model.general.PalletType;
+import io.micrometer.core.lang.Nullable;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.Set;
 
-@Entity
+@Entity(name = "palletLabel")
+@Table(name = "pallet_labels")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -50,4 +50,13 @@ public class PalletLabel {
 //    private Article article;
 //    private Farmer farmer;
 //    private PalletType palletType;
+
+    @ManyToOne(
+            fetch = FetchType.LAZY,
+            optional = true
+    )
+    @JoinColumn(
+            name = "shipping_label_id"
+    )
+    private ShippingLabel shippingLabel;
 }

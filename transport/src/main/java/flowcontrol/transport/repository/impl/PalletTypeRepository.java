@@ -20,7 +20,7 @@ public class PalletTypeRepository {
     @Autowired
     private WebClient.Builder webClientBuilder;
 
-    public Optional<PalletType> findById(Long id) {
+    public PalletType findById(Long id) {
         PalletType palletType = webClientBuilder.build() //Gives you a client
                 .get() // Method for the request
                 .uri("http://localhost:7078/api/v1/pallettypes/" + id) // Url that you need to access
@@ -33,7 +33,7 @@ public class PalletTypeRepository {
                 // object back but not right away "async" //empty page but you will need to wait but you know it will come and than you can do stuff "promise"
                 .block();  // converts async to sync
 
-        return Optional.of(palletType);
+        return Optional.of(palletType).orElseThrow(() -> new ResourceNotFoundException("PalletType", "Id", id));
     }
 
     public List<PalletType> findAll() {

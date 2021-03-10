@@ -20,7 +20,7 @@ public class ArticleRepository {
     @Autowired
     private WebClient.Builder webClientBuilder;
 
-    public Optional<Article> findById(Long id) {
+    public Article findById(Long id) {
         Article article = webClientBuilder.build() //Gives you a client
                 .get() // Method for the request
                 .uri("http://localhost:7078/api/v1/articles/" + id) // Url that you need to access
@@ -33,7 +33,7 @@ public class ArticleRepository {
                 // object back but not right away "async" //empty page but you will need to wait but you know it will come and than you can do stuff "promise"
                 .block();  // converts async to sync
 
-        return Optional.of(article);
+        return Optional.of(article).orElseThrow(() -> new ResourceNotFoundException("Article", "Id", id));
     }
 
     public List<Article> findAll() {
