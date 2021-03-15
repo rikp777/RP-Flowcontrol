@@ -1,19 +1,27 @@
 package flowcontrol.transport.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity(name = "shippingLabel")
 @Table(name = "shipping_labels")
 @Data
-
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler", "palletLabels"})
 public class ShippingLabel {
     @Id
     @GeneratedValue
@@ -31,10 +39,11 @@ public class ShippingLabel {
     private Long transportDriverId;
 
     @OneToMany(
-            cascade = CascadeType.ALL,
             mappedBy = "shippingLabel",
-            orphanRemoval = true
+            targetEntity = PalletLabel.class,
+            cascade = CascadeType.ALL,
+            fetch = FetchType.EAGER
     )
-    @JsonIgnore
-    private Set<PalletLabel> palletLabels;
+    @JsonManagedReference
+    private Set<PalletLabel> palletLabels = new HashSet<PalletLabel>();
 }

@@ -19,10 +19,10 @@ public class PalletLabelRepository {
     @Autowired
     private WebClient.Builder webClientBuilder;
 
-    public Optional<PalletLabel> findById(Long id) {
+    public Optional<PalletLabel> findById(Long farmerId, Long id) {
         PalletLabel palletLabel = webClientBuilder.build() //Gives you a client
                 .get() // Method for the request
-                .uri("http://localhost:7072/api/v1/palletlabels/" + id) // Url that you need to access
+                .uri("http://localhost:7072/api/v1/farmers/" + farmerId + "/palletlabels/" + id)
                 .retrieve() // Go do the fetch
                 .onStatus(HttpStatus::is4xxClientError,
                         error -> Mono.error(new ResourceNotFoundException("PalletLabel", "Id", id)))
@@ -34,10 +34,10 @@ public class PalletLabelRepository {
         return Optional.of(palletLabel);
     }
 
-    public List<PalletLabel> findAll() {
+    public List<PalletLabel> findAll(Long farmerId) {
         List<PalletLabel> palletLabel = webClientBuilder.build()
                 .get()
-                .uri("http://localhost:7072/api/v1/palletlabels/")
+                .uri("http://localhost:7072/api/v1/farmers/"+ farmerId + "/palletlabels")
                 .retrieve()
                 .bodyToMono(new ParameterizedTypeReference<List<PalletLabel>>() {})
                 .block();

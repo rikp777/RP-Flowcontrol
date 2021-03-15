@@ -14,7 +14,9 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 @AllArgsConstructor
@@ -30,6 +32,12 @@ public class ShippingLabelService {
 
 
     private final PalletLabelService palletLabelService;
+
+    public Optional<ShippingLabel> getAll(Long farmerId, Long shippingLabelId){
+        Optional<ShippingLabel> shippingLabel = shippingLabelRepository.findById(shippingLabelId);
+
+        return shippingLabel;
+    }
 
     public Optional<ShippingLabel> create(Long farmerId, CreateShippingLabelRequest newShippingLabel){
         if(newShippingLabel.getPalletLabelIds().length == 0) throw new ShippingLabelException("Create", "Palletlabels" +

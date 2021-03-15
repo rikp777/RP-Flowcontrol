@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/v1/palletlabels/{palletLabelId}/tickets/{ticketId}/interruptions")
+@RequestMapping("/v1/farmers/{farmerId}/palletlabels/{palletLabelId}/tickets/{ticketId}/interruptions")
 @AllArgsConstructor
 public class InterruptionController {
 
@@ -30,11 +30,12 @@ public class InterruptionController {
      */
     @PostMapping()
     public ResponseEntity createInterruption(
+            @PathVariable Long farmerId,
             @PathVariable Long palletLabelId,
             @PathVariable Long ticketId,
             @RequestParam Long interruptionReasonId,
             @RequestParam Integer usedArticleAmount
-    ){
+            ){
         return interruptionService.create(ticketId, interruptionReasonId, usedArticleAmount)
                 .map(interruption -> ResponseEntity.ok(interruption))
                 .orElseThrow(() -> new InterruptionException("Couldn't create interruption"));
@@ -51,8 +52,9 @@ public class InterruptionController {
      */
     @PostMapping("/{interruptionId}")
     public ResponseEntity closeInterruption(
-            @PathVariable String palletLabelId,
-            @PathVariable String ticketId,
+            @PathVariable Long farmerId,
+            @PathVariable Long palletLabelId,
+            @PathVariable Long ticketId,
             @PathVariable Long interruptionId
     ){
         return interruptionService.close(interruptionId)
@@ -69,10 +71,11 @@ public class InterruptionController {
      */
     @GetMapping()
     public List<Interruption> getAllInterruptions(
-            @PathVariable String palletLabelId,
-            @PathVariable String ticketId
+            @PathVariable Long farmerId,
+            @PathVariable Long palletLabelId,
+            @PathVariable Long ticketId
     ){
-        return interruptionService.getAll();
+        return interruptionService.getAll(ticketId);
     }
 
 
@@ -85,6 +88,7 @@ public class InterruptionController {
      */
     @GetMapping("/{interruptionId}")
     public ResponseEntity getInterruption(
+            @PathVariable Long farmerId,
             @PathVariable String palletLabelId,
             @PathVariable String ticketId,
             @PathVariable("interruptionId") Long interruptionId

@@ -1,7 +1,9 @@
 package flowcontrol.article.controller;
 
+import flowcontrol.article.exception.ResourceNotFoundException;
 import flowcontrol.article.model.entity.Article;
 import flowcontrol.article.model.response.ApiResponse;
+import flowcontrol.article.model.response.ArticleResponse;
 import flowcontrol.article.service.ArticleService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -27,8 +29,18 @@ public class ArticleController {
     }
 
     @GetMapping("/{articleId}")
-    public Optional<Article> getById(@PathVariable Long articleId){
+    public ResponseEntity getById(@PathVariable Long articleId){
         System.out.println(articleId);
-        return articleService.getById(articleId);
+
+        return articleService.getById(articleId)
+                .map(article -> {
+                    ArticleResponse articleResponse = new ArticleResponse();
+                    articleResponse.setName(article);
+                    return ResponseEntity.ok(articleResponse);
+                })
+                .orElseThrow(() ->
+                        new ResourceNotFoundException("Article", "Id", articleId)
+                );
+
     }
 }

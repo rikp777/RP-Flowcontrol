@@ -52,6 +52,12 @@
             <artifactId>spring-boot-starter-webflux</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>io.logz.logback</groupId>
+            <artifactId>logzio-logback-appender</artifactId>
+            <version>1.0.24</version>
+        </dependency>
+
 
         <dependency>
             <groupId>com.h2database</groupId>

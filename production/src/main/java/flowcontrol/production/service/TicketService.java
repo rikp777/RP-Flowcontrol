@@ -79,9 +79,9 @@ public class TicketService {
         return Optional.of(ticket);
     }
 
-    public Optional<Ticket> create(Long palletLabelId, Long lineId){
+    public Optional<Ticket> create(Long farmerId, Long palletLabelId, Long lineId){
         // Get pallet label ?
-        PalletLabel palletLabel = palletLabelRepository.findById(palletLabelId)
+        PalletLabel palletLabel = palletLabelRepository.findById(farmerId, palletLabelId)
                 .orElseThrow(() -> new ResourceNotFoundException("Pallet label", "Pallet label not found", palletLabelId));
 
         // Get production line ?

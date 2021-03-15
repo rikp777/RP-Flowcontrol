@@ -34,8 +34,8 @@ public class InterruptionService {
     @Autowired
     private final TicketService ticketService;
 
-    public List<Interruption> getAll(){
-        return interruptionRepository.findAll();
+    public List<Interruption> getAll(Long ticketId){
+        return interruptionRepository.getInterruptionsByTicketId(ticketId);
     }
     public Optional<Interruption> getById(Long id){
         Interruption interruption=  interruptionRepository.findById(id)

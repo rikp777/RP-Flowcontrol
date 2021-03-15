@@ -14,7 +14,7 @@ import java.util.List;
 import javax.validation.Valid;
 
 @RestController
-@RequestMapping("/v1/palletlabels/{palletLabelId}/tickets")
+@RequestMapping("/v1/farmers/{farmerId}/palletlabels/{palletLabelId}/tickets")
 @AllArgsConstructor
 public class TicketController {
 
@@ -28,7 +28,7 @@ public class TicketController {
      * @return
      */
     @GetMapping
-    public List<Ticket> getAllTickets(@PathVariable Long palletLabelId){
+    public List<Ticket> getAllTickets(@PathVariable Long farmerId, @PathVariable Long palletLabelId){
         return ticketService.getAll(palletLabelId);
     }
 
@@ -40,9 +40,10 @@ public class TicketController {
      * @return
      */
     @PostMapping()
-    public ResponseEntity createTicket(@PathVariable("palletLabelId") Long palletLabelId, @RequestParam Long lineId){
+    public ResponseEntity createTicket(@PathVariable Long farmerId,
+                                       @PathVariable("palletLabelId") Long palletLabelId, @RequestParam Long lineId){
 
-        return ticketService.create(palletLabelId, lineId)
+        return ticketService.create(farmerId, palletLabelId, lineId)
                 .map(ticket -> ResponseEntity.ok(ticket))
                 .orElseThrow(() -> new TicketException("Couldn't create new ticket"));
     }
@@ -55,7 +56,8 @@ public class TicketController {
      * @return
      */
     @PostMapping("/{ticketId}")
-    public ResponseEntity closeTicket(@PathVariable String palletLabelId, @PathVariable("ticketId") Long ticketId){
+    public ResponseEntity closeTicket(@PathVariable Long farmerId, @PathVariable String palletLabelId,
+                                      @PathVariable("ticketId") Long ticketId){
 
         return ticketService.close(ticketId)
                 .map(ticket -> ResponseEntity.ok(ticket))
@@ -72,6 +74,7 @@ public class TicketController {
      */
     @PutMapping("/{ticketId}/refillTray")
     public ResponseEntity fillRefillTray(
+            @PathVariable Long farmerId,
             @PathVariable("palletLabelId") Long palletLabelId,
             @PathVariable("ticketId") Long ticketId,
             @Valid @RequestBody FillRefillTrayRequest fillRefillTrayRequest

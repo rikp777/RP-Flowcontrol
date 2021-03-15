@@ -4,6 +4,8 @@ import flowcontrol.transport.exception.PalletLabelException;
 import flowcontrol.transport.exception.ResourceNotFoundException;
 import flowcontrol.transport.model.entity.PalletLabel;
 import flowcontrol.transport.model.request.CreatePalletLabelRequest;
+import flowcontrol.transport.model.response.PalletLabelResponse;
+import flowcontrol.transport.repository.impl.ArticleRepository;
 import flowcontrol.transport.service.PalletLabelService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +22,9 @@ public class PalletLabelController {
     @Autowired
     private final PalletLabelService palletLabelService;
 
+    @Autowired
+    private final ArticleRepository articleRepository;
+
 
     @GetMapping()
     public List<PalletLabel> getAllPalletLabels(
@@ -29,12 +34,22 @@ public class PalletLabelController {
     }
 
     @GetMapping("/{palletLabelId}")
-    public ResponseEntity<PalletLabel> getPalletLabel(
+    public ResponseEntity<PalletLabelResponse> getPalletLabel(
             @PathVariable Long farmerId,
             @PathVariable("palletLabelId") Long palletLabelId
     ){
         return palletLabelService.getById(farmerId, palletLabelId)
-                .map(palletLabel -> ResponseEntity.ok(palletLabel))
+                .map(palletLabel -> ResponseEntity.ok(
+                        new PalletLabelResponse().builder()
+                                .id(palletLabel.getId())
+                                .generalId(palletLabel.getGeneralId())
+                                .article(articleRepository.findById(palletLabel.getArticle()))
+                                .articleAmount(palletLabel.getArticleAmount())
+                                .cropDate(palletLabel.getCropDate())
+                                .harvestCycle(palletLabel.getHarvestCycle())
+                                .harvestCycleDay(palletLabel.getHarvestCycleDay())
+                                .build()
+                ))
                 .orElseThrow(() ->
                         new ResourceNotFoundException("PalletLabel", "Id", palletLabelId)
                 );

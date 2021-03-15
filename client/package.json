@@ -8,11 +8,9 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
-    "autoprefixer": "^9.8.6",
     "axios": "^0.21.1",
     "core-js": "^3.6.5",
     "element-ui": "^2.15.1",
-    "postcss": "^7.0.35",
     "vue": "^2.6.11",
     "vue-axios": "^3.2.4",
     "vue-json-pretty": "^2.0.2",
@@ -23,9 +21,12 @@
     "@vue/cli-plugin-babel": "~4.5.0",
     "@vue/cli-plugin-eslint": "~4.5.0",
     "@vue/cli-service": "~4.5.0",
+    "autoprefixer": "^10.2.5",
     "babel-eslint": "^10.1.0",
     "eslint": "^6.8.0",
     "eslint-plugin-vue": "^7.7.0",
+    "postcss": "^8.2.8",
+    "tailwindcss": "^2.0.3",
     "vue-template-compiler": "^2.6.11"
   },
   "eslintConfig": {

@@ -1,11 +1,16 @@
 package flowcontrol.transport.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import flowcontrol.transport.model.general.Article;
 import flowcontrol.transport.model.general.Cell;
 import flowcontrol.transport.model.general.Farmer;
 import flowcontrol.transport.model.general.PalletType;
 import io.micrometer.core.lang.Nullable;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -16,8 +21,10 @@ import java.util.Set;
 @Entity(name = "palletLabel")
 @Table(name = "pallet_labels")
 @Data
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler", "shippinglabel"})
 public class PalletLabel {
     @Id @GeneratedValue
     @Column(
@@ -52,11 +59,11 @@ public class PalletLabel {
 //    private PalletType palletType;
 
     @ManyToOne(
-            fetch = FetchType.LAZY,
             optional = true
     )
     @JoinColumn(
             name = "shipping_label_id"
     )
+    @JsonBackReference
     private ShippingLabel shippingLabel;
 }
