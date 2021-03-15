@@ -17,18 +17,14 @@ jobs:
         image: mysql:5.7
         env:
           MYSQL_ALLOW_EMPTY_PASSWORD: yes
-          MYSQL_DATABASE: forge
+          MYSQL_DATABASE: production_line
         ports:
           - 33306:3306
         options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
-
+    strategy:
+      fail-fast: true
 
     steps:
-      - name: Create Database 🚀
-        run: |
-          sudo systemctl start mysql
-          mysql --user="root" --password="root" -e "CREATE DATABASE production_line character set UTF8mb4 collate utf8mb4_bin;"
-
       - uses: actions/checkout@v2
       - name: Set up JDK
         uses: actions/setup-java@v1
