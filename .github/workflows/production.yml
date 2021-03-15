@@ -1,0 +1,30 @@
+name: Production
+
+on:
+  push:
+    branches:
+      - 'master'
+    paths:
+      - 'production/**'
+
+
+jobs:
+  test:
+    name: Test & Package
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up JDK
+        uses: actions/setup-java@v1
+        with:
+          java-version: 1.15
+      - name: Maven Test
+        working-directory: ./production
+        run: mvn -B clean test
+      - name: Maven Package
+        working-directory: ./production
+        run: mvn -B clean package -DskipTests
+      - name: Maven Verify
+        working-directory: ./production
+        run: mvn -B clean verify
