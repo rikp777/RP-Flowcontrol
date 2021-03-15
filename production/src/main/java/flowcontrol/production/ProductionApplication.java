@@ -9,11 +9,6 @@ import org.springframework.web.reactive.function.client.WebClient;
 @SpringBootApplication
 public class ProductionApplication {
 
-//    @Bean
-//    public WebClient.Builder getWebClientBuilder(){
-//        return WebClient.builder();
-//    }
-
     public static void main(String[] args) {
         SpringApplication.run(ProductionApplication.class, args);
     }
