@@ -12,19 +12,22 @@ jobs:
   test:
     name: Test & Package
     runs-on: ubuntu-latest
+    services:
+      mysql:
+        image: mysql:5.7
+        env:
+          MYSQL_ALLOW_EMPTY_PASSWORD: yes
+          MYSQL_DATABASE: forge
+        ports:
+          - 33306:3306
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+
 
     steps:
-      - name: Set up MySQL
-        uses: mirromutth/mysql-action@v1.1
-        with:
-          host port: 3306
-          container port: 3306
-          character set server: 'utf8'
-          collation server: 'utf8_general_ci'
-          mysql version: 'latest'
-          mysql database: 'production_line'
-          mysql user: 'root'
-          mysql password: 'root'
+      - name: Create Database 🚀
+        run: |
+          sudo systemctl start mysql
+          mysql --user="root" --password="root" -e "CREATE DATABASE production_line character set UTF8mb4 collate utf8mb4_bin;"
 
       - uses: actions/checkout@v2
       - name: Set up JDK
