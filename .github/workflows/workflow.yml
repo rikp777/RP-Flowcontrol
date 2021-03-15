@@ -1,0 +1,24 @@
+name: Master Branch
+
+on:
+  push:
+    paths:
+      - 'production/*'
+    branches:
+      - 'master'
+
+jobs:
+  test:
+    name: Unit-Test
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up JDK
+        uses: actions/setup-java@v1
+        with:
+          java-version: 15
+      - name: Maven Package
+        run: mvn -B clean package
+      - name: Maven Verify
+        run: mvn -B clean verify -DskipTests
