@@ -4,8 +4,8 @@ on:
   push:
     branches:
       - 'master'
-    paths:
-      - 'production/**'
+#    paths:
+#      - 'production/**'
 
 
 jobs:
