@@ -15,7 +15,7 @@ server:
 spring:
   #============JDBC============
   datasource:
-    url: jdbc:mysql://localhost:3306/production_line?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
+    url: jdbc:mysql://127.0.0.1:3306/production_line?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
     username: root
 
   #============JPA============
