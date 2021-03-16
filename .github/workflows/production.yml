@@ -9,20 +9,36 @@ on:
 
 
 jobs:
-  test:
-    name: Test & Package
+  compile:
     runs-on: ubuntu-latest
+    name: Running Java ${{ matrix.java }} compile
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up JDK
+        uses: actions/setup-java@v1
+        with:
+          - java-version: 1.15
+      - name: Compile code
+        run: mvn compile
+
+
+  test:
+    runs-on: ubuntu-latest
+    name: Test & Package
+    needs: compile
+
     services:
       mysql:
         image: mysql:5.7
         env:
-          MYSQL_ALLOW_EMPTY_PASSWORD: yes
+          MYSQL_USER: root
+          MYSQL_PASSWORD:
+          MYSQL_PORT: 3306
           MYSQL_DATABASE: production_line
+          MYSQL_ROOT_PASSWORD: root
         ports:
-          - 33306:3306
+          - 3306
         options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
-    strategy:
-      fail-fast: true
 
     steps:
       - uses: actions/checkout@v2
@@ -40,9 +56,9 @@ jobs:
         working-directory: ./production
         run: mvn -B clean verify
 
-  build-docker-image:
-    name: Build docker image
+  build:
     runs-on: ubuntu-latest
+    name: Build docker image
     needs: [test]
     steps:
       - name: Checkout
