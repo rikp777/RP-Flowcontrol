@@ -19,6 +19,7 @@ jobs:
         with:
           java-version: 1.15
       - name: Compile code
+        working-directory: ./production
         run: mvn compile
 
 
