@@ -177,6 +177,7 @@
         </nav>
       </div>
 
+
       <!--Dash Content -->
       <div
         id="dash-content"
@@ -207,6 +208,7 @@
           <div class="w-full xl:w-2/3 p-6 xl:max-w-6xl">
             <!--"Container" for the graphs"-->
             <div class="max-w-full lg:max-w-3xl xl:max-w-5xl">
+              <router-view />
               <!--Graph Card-->
               <div class="p-3">
                 <div class="border-b p-3">
