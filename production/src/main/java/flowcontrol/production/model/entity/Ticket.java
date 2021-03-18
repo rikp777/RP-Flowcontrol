@@ -68,7 +68,7 @@ public class Ticket {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(
-            name = "lineId",
+            name = "line_id",
             nullable = false,
             referencedColumnName = "id",
             foreignKey = @ForeignKey(

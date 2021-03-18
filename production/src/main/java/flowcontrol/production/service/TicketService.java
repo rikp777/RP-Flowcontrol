@@ -36,10 +36,19 @@ public class TicketService {
     @Autowired
     private final PalletLabelRepository palletLabelRepository;
 
+    // New format
+    public List<Ticket> findAll(Long palletLabelId){
+        return this.ticketRepository.getTicketByPalletLabelId(palletLabelId);
+    }
+    public Optional<Ticket> findById(Long ticketId){
+        return this.ticketRepository.findById(ticketId);
+    }
+
+    // Old format
+
     public List<Ticket> getAll(Long palletLabelId){
         return this.ticketRepository.getTicketByPalletLabelId(palletLabelId);
     }
-
     public Optional<Ticket> getById(Long ticketId){
         // Get ticket
         Ticket ticket = this.ticketRepository.findById(ticketId)
