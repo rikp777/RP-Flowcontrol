@@ -1,15 +1,8 @@
 package flowcontrol.production.controllers.palletLabel;
 
 
-import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.*;
-
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
-
 import flowcontrol.production.controllers.assembler.TicketAssembler;
+import flowcontrol.production.model.meta.BasicMetaData;
 import flowcontrol.production.exception.TicketException;
 import flowcontrol.production.model.entity.Ticket;
 import flowcontrol.production.model.response.TicketResponse;
@@ -18,8 +11,8 @@ import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
-import org.springframework.hateoas.IanaLinkRelations;
-import org.springframework.hateoas.Link;
+import org.springframework.hateoas.MediaTypes;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -34,104 +27,120 @@ public class TicketController {
     private final TicketAssembler ticketAssembler;
 
 
-    @GetMapping
-    public ResponseEntity<CollectionModel<EntityModel<Ticket>>> findAll(
+    /**
+     * Create new ticket
+     * @param farmerId
+     * @param palletLabelId
+     */
+    @GetMapping(
+            produces = {
+                    MediaType.APPLICATION_JSON_VALUE,
+                    MediaTypes.HAL_JSON_VALUE
+            }
+    )
+    public ResponseEntity<CollectionModel<TicketResponse>> findAll(
             @PathVariable Long farmerId,
             @PathVariable Long palletLabelId
     ){
-
-        List<EntityModel<Ticket>> tickets = StreamSupport
-                .stream(ticketService.findAll(palletLabelId).spliterator(), false)
-                .map(ticket -> EntityModel.of(ticket,
-                        linkTo(methodOn(TicketController.class).findOne(farmerId,palletLabelId, ticket.getId())).withSelfRel(),
-                        linkTo(methodOn(TicketController.class).findAll(farmerId, palletLabelId)).withRel("tickets")))
-                .collect(Collectors.toList());
+        BasicMetaData metaData = BasicMetaData.builder()
+                .farmerId(farmerId)
+                .palletLabelId(palletLabelId)
+                .build();
 
         return ResponseEntity.ok(
-                CollectionModel.of(tickets,
-                        linkTo(methodOn(TicketController.class).findAll(farmerId, palletLabelId)).withSelfRel()));
+                ticketAssembler.toCollectionModel(
+                        ticketService.findAll(metaData)
+                )
+        );
     }
 
-    @GetMapping("/{ticketId}")
+
+    /**
+     * Create new ticket
+     * @param farmerId
+     * @param palletLabelId
+     * @param ticketId
+     */
+    @GetMapping(
+            path = "/{ticketId}",
+            produces = {
+                MediaType.APPLICATION_JSON_VALUE,
+                MediaTypes.HAL_JSON_VALUE
+            }
+    )
     public ResponseEntity<EntityModel<TicketResponse>> findOne(
             @PathVariable Long farmerId,
             @PathVariable Long palletLabelId,
             @PathVariable Long ticketId
     ) {
+        BasicMetaData metaData = BasicMetaData.builder()
+                .farmerId(farmerId)
+                .palletLabelId(palletLabelId)
+                .build();
 
-//        return ticketService.findById(ticketId) //
-//                .map(ticket -> EntityModel.of(ticket, //
-//                        linkTo(methodOn(TicketController.class).findOne(farmerId, palletLabelId, ticket.getId())).withSelfRel(), //
-//                        linkTo(methodOn(TicketController.class).findAll(farmerId, palletLabelId)).withRel("tickets"))) //
-//                .map(ResponseEntity::ok) //
-//                .orElse(ResponseEntity.notFound().build());
-
-        return ticketService.findById(ticketId)
-                .map(ticket -> {
-                    TicketResponse ticketResponse = ticketAssembler.toModel(ticket)
-                            .add(linkTo(methodOn(TicketController.class).findAll(1L, 1L)).withRel("tickets"));
-
-                    return ResponseEntity.ok(EntityModel.of(ticketResponse));
-                })
+        return ticketService.findById(metaData, ticketId)
+                .map(ticket -> ticketAssembler(ticket))
                 .orElse(ResponseEntity.notFound().build());
     }
 
     /**
      * Create new ticket
+     * @param farmerId
      * @param palletLabelId
      * @param lineId
-     * @return
      */
-    @PostMapping()
-    public ResponseEntity<EntityModel<Ticket>> createTicket(
+    @PostMapping(
+            produces = {
+                    MediaType.APPLICATION_JSON_VALUE,
+                    MediaTypes.HAL_JSON_VALUE
+            }
+    )
+    public ResponseEntity<EntityModel<TicketResponse>> createTicket(
             @PathVariable Long farmerId,
-            @PathVariable("palletLabelId") Long palletLabelId,
+            @PathVariable Long palletLabelId,
             @RequestParam Long lineId
     ){
-        return ticketService.create(farmerId, palletLabelId, lineId)
-                .map(ticket -> ResponseEntity.ok(EntityModel.of(ticket)))
+        BasicMetaData metaData = BasicMetaData.builder()
+                .farmerId(farmerId)
+                .palletLabelId(palletLabelId)
+                .build();
+
+        return ticketService.create(metaData, lineId)
+                .map(ticket -> ticketAssembler(ticket))
                 .orElseThrow(() -> new TicketException("Couldn't create new ticket"));
-
-
-//        return ticketService.create(farmerId, palletLabelId, lineId)
-//                .map(ticket -> ResponseEntity.ok(ticket))
-//                .orElseThrow(() -> new TicketException("Couldn't create new ticket"));
     }
-//
-//
-//    /**
-//     * Close existing ticket
-//     * @param palletLabelId
-//     * @param ticketId
-//     * @return
-//     */
-//    @PostMapping("/{ticketId}")
-//    public ResponseEntity closeTicket(@PathVariable Long farmerId, @PathVariable String palletLabelId,
-//                                      @PathVariable("ticketId") Long ticketId){
-//
-//        return ticketService.close(ticketId)
-//                .map(ticket -> ResponseEntity.ok(ticket))
-//                .orElseThrow(() -> new TicketException("Couldn't close ticket: [" + ticketId + "]"));
-//    }
-//
-//
-//    /**
-//     * Fill ticket refill tray amount
-//     * @param palletLabelId
-//     * @param ticketId
-//     * @param fillRefillTrayRequest
-//     * @return
-//     */
-//    @PutMapping("/{ticketId}/refillTray")
-//    public ResponseEntity fillRefillTray(
-//            @PathVariable Long farmerId,
-//            @PathVariable("palletLabelId") Long palletLabelId,
-//            @PathVariable("ticketId") Long ticketId,
-//            @Valid @RequestBody FillRefillTrayRequest fillRefillTrayRequest
-//            ){
-//
-//            return ticketService.fillRefillTray(ticketId, fillRefillTrayRequest)
-//                    .map(ticket -> ResponseEntity.ok(ticket))
-//                    .orElseThrow(() -> new TicketException("Couldn't fill refill tray amount for ticket [" + ticketId + "]"));
-//    }
+
+
+    /**
+     * Close existing ticket
+     * @param palletLabelId
+     * @param ticketId
+     */
+    @PostMapping(
+            path = "/{ticketId}",
+            produces = {
+                    MediaType.APPLICATION_JSON_VALUE,
+                    MediaTypes.HAL_JSON_VALUE
+            }
+    )
+    public ResponseEntity<EntityModel<TicketResponse>> closeTicket(
+            @PathVariable Long farmerId,
+            @PathVariable Long palletLabelId,
+            @PathVariable Long ticketId
+    ){
+        BasicMetaData metaData = BasicMetaData.builder()
+                .farmerId(farmerId)
+                .palletLabelId(palletLabelId)
+                .build();
+
+        return ticketService.close(metaData, ticketId)
+                .map(ticket -> ticketAssembler(ticket))
+                .orElseThrow(() -> new TicketException("Couldn't close ticket: [" + ticketId + "]"));
+    }
+
+
+
+    private ResponseEntity<EntityModel<TicketResponse>> ticketAssembler(Ticket ticket){
+        return ResponseEntity.ok(EntityModel.of(ticketAssembler.toModel(ticket)));
+    }
 }

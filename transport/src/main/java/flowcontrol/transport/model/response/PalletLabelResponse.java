@@ -1,6 +1,7 @@
 package flowcontrol.transport.model.response;
 
 import flowcontrol.transport.model.general.Article;
+import flowcontrol.transport.model.general.Farmer;
 import lombok.*;
 
 @Getter
@@ -19,4 +20,6 @@ public class PalletLabelResponse {
 
     private Integer harvestCycle;
     private Integer harvestCycleDay;
+
+    private Farmer farmer;
 }

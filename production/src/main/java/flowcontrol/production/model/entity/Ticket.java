@@ -1,40 +1,25 @@
 package flowcontrol.production.model.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import lombok.*;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.*;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import static javax.persistence.GenerationType.SEQUENCE;
 
 @Entity(name = "Ticket")
 @Table(name = "ticket")
 @Getter
 @Setter
 @ToString
-public class Ticket {
-
-    @Id
-    @SequenceGenerator(
-            name = "ticket_sequence",
-            sequenceName = "ticket_sequence",
-            allocationSize = 1
-    )
-    @GeneratedValue(
-            strategy = SEQUENCE,
-            generator = "ticket_sequence"
-    )
-    @Column(
-            name = "id",
-            updatable = false
-    )
-    private Long id;
+public class Ticket extends BaseEntity {
 
     private Long palletLabelId;
+    private Long farmerId;
 
     @Column(
             name = "started_at",
@@ -60,13 +45,14 @@ public class Ticket {
     @OneToMany(
             targetEntity = Interruption.class,
             cascade = CascadeType.ALL,
-            fetch = FetchType.LAZY,
+            fetch = FetchType.EAGER,
             orphanRemoval = true
     )
     @JoinColumn(name = "ticketId", referencedColumnName = "id")
+    @JsonIgnore
     private List<Interruption> interruptions = new ArrayList<>();
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(
             name = "line_id",
             nullable = false,

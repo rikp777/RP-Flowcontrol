@@ -1,37 +1,19 @@
 package flowcontrol.production.model.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
-
 import java.util.ArrayList;
 import java.util.List;
-
-import static javax.persistence.GenerationType.SEQUENCE;
 
 @Getter
 @Setter
 @Entity( name = "InterruptionReason" )
 @Table( name = "interruption_reason" )
-public class InterruptionReason {
+public class InterruptionReason extends BaseEntity {
 
-    @Id
-    @SequenceGenerator(
-            name = "interruption_reason_sequence",
-            sequenceName = "interruption_reason_sequence",
-            allocationSize = 1
-    )
-    @GeneratedValue(
-            strategy = SEQUENCE,
-            generator = "interruption_reason_sequence"
-    )
-    @Column(
-            name = "id",
-            updatable = false
-    )
     private Long id;
 
     @Column(

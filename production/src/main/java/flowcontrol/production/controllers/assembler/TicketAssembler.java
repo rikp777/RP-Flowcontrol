@@ -2,20 +2,31 @@ package flowcontrol.production.controllers.assembler;
 
 import flowcontrol.production.controllers.palletLabel.TicketController;
 import flowcontrol.production.model.entity.Ticket;
+import flowcontrol.production.model.general.PalletLabel;
 import flowcontrol.production.model.response.TicketResponse;
+import flowcontrol.production.repository.impl.PalletLabelRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.CollectionModel;
-import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.server.RepresentationModelAssembler;
-import org.springframework.hateoas.server.SimpleRepresentationModelAssembler;
 import org.springframework.stereotype.Component;
 
-import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.*;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
+
+
+
 
 
 @Component
 public class TicketAssembler implements RepresentationModelAssembler<Ticket, TicketResponse> {
+
+    @Autowired
+    PalletLabelRepository palletLabelRepository;
+
+
     @Override
     public TicketResponse toModel(Ticket ticket) {
+        PalletLabel palletLabel = palletLabelRepository.findById(1L, ticket.getPalletLabelId()).get();
 
         TicketResponse ticketResponse = TicketResponse.builder()
                 .id(ticket.getId())
@@ -25,15 +36,18 @@ public class TicketAssembler implements RepresentationModelAssembler<Ticket, Tic
                 .refillTrays(ticket.getRefillTrays())
                 .interruptions(ticket.getInterruptions())
                 .line(ticket.getLine())
-                .palletLabelId(1L) //change in further
-                .farmerId(1L) //change in further
+                .palletLabel(palletLabel) //change in further
+                .farmer(palletLabel.getFarmer())
                 .build();
 
         ticketResponse
-                .add(linkTo(methodOn(TicketController.class).findOne(1L, 1L, ticket.getId())).withSelfRel());
+                .add(linkTo(methodOn(TicketController.class)
+                        .findOne(palletLabel.getFarmer().getId(), palletLabel.getId(), ticket.getId()))
+                        .withSelfRel());
         ticketResponse
-                .add(linkTo(methodOn(TicketController.class).findAll(1L, 1L)).withRel(
-                "tickets"));
+                .add(linkTo(methodOn(TicketController.class)
+                        .findAll(palletLabel.getFarmer().getId(), palletLabel.getId()))
+                        .withRel("tickets"));
 
         return ticketResponse;
     }
@@ -41,28 +55,12 @@ public class TicketAssembler implements RepresentationModelAssembler<Ticket, Tic
     @Override
     public CollectionModel<TicketResponse> toCollectionModel(Iterable<? extends Ticket> entities) {
         CollectionModel<TicketResponse> ticketResponse = RepresentationModelAssembler.super.toCollectionModel(entities);
-
-        ticketResponse.add(linkTo(methodOn(TicketController.class).findAll(1L, 1L)).withSelfRel());
+        if(ticketResponse.getContent() != null && ticketResponse.getContent().size() > 0){
+            Long farmerId = ticketResponse.getContent().iterator().next().getFarmer().getId();
+            Long palletLabelId = ticketResponse.getContent().iterator().next().getPalletLabel().getId();
+            ticketResponse.add(linkTo(methodOn(TicketController.class).findAll(farmerId, palletLabelId)).withSelfRel());
+        }
 
         return ticketResponse;
     }
-
-//    @Override
-//    public void addLinks(EntityModel<TicketResponse> resource){
-//        Long farmerId = resource.getContent().getFarmerId();
-//        Long palletLabelId = resource.getContent().getPalletLabelId();
-//        Long ticketId = resource.getContent().getId();
-//
-//        resource.add(linkTo(methodOn(TicketController.class).findOne(farmerId, palletLabelId, ticketId)).withSelfRel());
-//        resource.add(linkTo(methodOn(TicketController.class).findAll(farmerId, palletLabelId)).withRel("tickets"));
-//    }
-//
-//    @Override
-//    public void addLinks(CollectionModel<EntityModel<TicketResponse>> resources) {
-//        Long farmerId = resources.getContent().iterator().next().getContent().getFarmerId();
-//        Long palletLabelId = resources.getContent().iterator().next().getContent().getPalletLabelId();
-//
-//        resources.add(linkTo(methodOn(TicketController.class).findAll(farmerId, palletLabelId)).withSelfRel());
-//
-//    }
 }

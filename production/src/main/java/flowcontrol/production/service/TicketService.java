@@ -1,5 +1,6 @@
 package flowcontrol.production.service;
 
+import flowcontrol.production.model.meta.BasicMetaData;
 import flowcontrol.production.exception.AppException;
 import flowcontrol.production.exception.ResourceNotFoundException;
 import flowcontrol.production.exception.TicketException;
@@ -11,13 +12,10 @@ import flowcontrol.production.repository.TicketRepository;
 import flowcontrol.production.repository.impl.PalletLabelRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.swing.text.html.Option;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -36,30 +34,36 @@ public class TicketService {
     @Autowired
     private final PalletLabelRepository palletLabelRepository;
 
-    // New format
-    public List<Ticket> findAll(Long palletLabelId){
-        return this.ticketRepository.getTicketByPalletLabelId(palletLabelId);
-    }
-    public Optional<Ticket> findById(Long ticketId){
-        return this.ticketRepository.findById(ticketId);
+
+    /**
+     * @param meta
+     * @return
+     */
+    public List<Ticket> findAll(BasicMetaData meta){
+        return this.ticketRepository.getTicketByFarmerIdAndPalletLabelId(meta.getFarmerId(), meta.getPalletLabelId());
     }
 
-    // Old format
-
-    public List<Ticket> getAll(Long palletLabelId){
-        return this.ticketRepository.getTicketByPalletLabelId(palletLabelId);
+    /**
+     * @param meta
+     * @param ticketId
+     * @return
+     */
+    public Optional<Ticket> findById(BasicMetaData meta, Long ticketId){
+        return this.ticketRepository.getTicketsByFarmerIdAndPalletLabelIdAndId(
+                meta.getFarmerId(),
+                meta.getPalletLabelId(),
+                ticketId
+        );
     }
-    public Optional<Ticket> getById(Long ticketId){
+
+    public Optional<Ticket> close(BasicMetaData meta, Long ticketId){
         // Get ticket
-        Ticket ticket = this.ticketRepository.findById(ticketId)
-                .orElseThrow(() -> new ResourceNotFoundException("Ticket", "Ticket not found", ticketId));
-
-        return Optional.of(ticket);
-    }
-
-    public Optional<Ticket> close(Long ticketId){
-        // Get ticket
-        Ticket ticket =this.ticketRepository.findById(ticketId)
+        Ticket ticket =this.ticketRepository
+                .getTicketsByFarmerIdAndPalletLabelIdAndId(
+                        meta.getFarmerId(),
+                        meta.getPalletLabelId(),
+                        ticketId
+                )
                 .orElseThrow(() -> new ResourceNotFoundException("Ticket", "Ticket not found", ticketId));
 
         // Close ticket by filling setEndAt
@@ -72,9 +76,18 @@ public class TicketService {
         return Optional.of(ticket);
     }
 
-    public Optional<Ticket> closeTicketWithRestAmount(Long ticketId, Integer usedArticleAmount){
+    public Optional<Ticket> closeTicketWithRestAmount(
+            BasicMetaData meta,
+            Long ticketId,
+            Integer usedArticleAmount
+    ){
         // Get ticket
-        Ticket ticket = this.ticketRepository.findById(ticketId)
+        Ticket ticket = this.ticketRepository
+                .getTicketsByFarmerIdAndPalletLabelIdAndId(
+                        meta.getFarmerId(),
+                        meta.getPalletLabelId(),
+                        ticketId
+                )
                 .orElseThrow(() -> new ResourceNotFoundException("Ticket", "Ticket not found", ticketId));
 
         // Close ticket and fill rest amount
@@ -88,10 +101,14 @@ public class TicketService {
         return Optional.of(ticket);
     }
 
-    public Optional<Ticket> create(Long farmerId, Long palletLabelId, Long lineId){
+    public Optional<Ticket> create(BasicMetaData meta, Long lineId){
         // Get pallet label ?
-        PalletLabel palletLabel = palletLabelRepository.findById(farmerId, palletLabelId)
-                .orElseThrow(() -> new ResourceNotFoundException("Pallet label", "Pallet label not found", palletLabelId));
+        PalletLabel palletLabel = palletLabelRepository
+                .findById(
+                        meta.getFarmerId(),
+                        meta.getPalletLabelId()
+                )
+                .orElseThrow(() -> new ResourceNotFoundException("Pallet label", "Pallet label not found", meta.getPalletLabelId()));
 
         // Get production line ?
         Line line = this.lineService.getById(lineId)
@@ -99,9 +116,14 @@ public class TicketService {
 
         // Instantiate new Ticket
         Ticket ticket = new Ticket();
+        ticket.setFarmerId(palletLabel.getFarmer().getId());
 
         // Get List of tickets that belong to pallet label by id
-        List<Ticket> ticketList = ticketRepository.getTicketByPalletLabelId(palletLabel.getId());
+        List<Ticket> ticketList =
+                ticketRepository.getTicketByFarmerIdAndPalletLabelId(
+                        palletLabel.getFarmer().getId(),
+                        palletLabel.getId()
+                );
 
         log.info("================================================");
         log.info("Begin check [Create Ticket]");
@@ -162,14 +184,25 @@ public class TicketService {
         }
     }
 
-    public Optional<Ticket> fillRefillTray(Long ticketId, FillRefillTrayRequest fillRefillTrayRequest){
-        Ticket ticket = ticketRepository.findById(ticketId)
+    public Optional<Ticket> fillRefillTray(
+            BasicMetaData meta,
+            Long ticketId,
+            FillRefillTrayRequest fillRefillTrayRequest){
+        Ticket ticket = ticketRepository
+                .getTicketsByFarmerIdAndPalletLabelIdAndId(
+                        meta.getFarmerId(),
+                        meta.getPalletLabelId(),
+                        ticketId
+                )
                 .orElseThrow(() -> new ResourceNotFoundException("Ticket", "Ticket not found", ticketId));
 
+        // Fill refill amount
         ticket.setRefillTrays(fillRefillTrayRequest.getAmount());
 
+        // Save updated ticket
         ticketRepository.save(ticket);
 
+        // Return optional ticket
         return Optional.of(ticket);
     }
 }

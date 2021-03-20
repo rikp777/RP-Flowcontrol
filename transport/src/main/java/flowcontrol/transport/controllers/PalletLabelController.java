@@ -3,9 +3,11 @@ package flowcontrol.transport.controllers;
 import flowcontrol.transport.exception.PalletLabelException;
 import flowcontrol.transport.exception.ResourceNotFoundException;
 import flowcontrol.transport.model.entity.PalletLabel;
+import flowcontrol.transport.model.general.Farmer;
 import flowcontrol.transport.model.request.CreatePalletLabelRequest;
 import flowcontrol.transport.model.response.PalletLabelResponse;
 import flowcontrol.transport.repository.impl.ArticleRepository;
+import flowcontrol.transport.repository.impl.FarmerRepository;
 import flowcontrol.transport.service.PalletLabelService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +26,8 @@ public class PalletLabelController {
 
     @Autowired
     private final ArticleRepository articleRepository;
+    @Autowired
+    private final FarmerRepository farmerRepository;
 
 
     @GetMapping()
@@ -38,6 +42,8 @@ public class PalletLabelController {
             @PathVariable Long farmerId,
             @PathVariable("palletLabelId") Long palletLabelId
     ){
+        Farmer farmer = farmerRepository.findById(farmerId); //change get it from palletlabel farmer id
+
         return palletLabelService.getById(farmerId, palletLabelId)
                 .map(palletLabel -> ResponseEntity.ok(
                         new PalletLabelResponse().builder()
@@ -48,6 +54,7 @@ public class PalletLabelController {
                                 .cropDate(palletLabel.getCropDate())
                                 .harvestCycle(palletLabel.getHarvestCycle())
                                 .harvestCycleDay(palletLabel.getHarvestCycleDay())
+                                .farmer(farmer)
                                 .build()
                 ))
                 .orElseThrow(() ->

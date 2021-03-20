@@ -4,7 +4,7 @@ import lombok.Data;
 
 @Data
 public class Farmer {
-
+    private Long id;
     private String name;
     private String street;
     private String street_number; //String because 4a 4b

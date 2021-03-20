@@ -13,6 +13,10 @@ server:
       timeout: 15m
 
 spring:
+  hateoas:
+    use-hal-as-default-json-media-type: true
+  jackson:
+    default-property-inclusion: NON_ABSENT
   #============JDBC============
   datasource:
     url: jdbc:mysql://127.0.0.1:3306/production_line?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC

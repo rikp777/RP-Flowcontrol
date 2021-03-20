@@ -1,23 +1,23 @@
 package flowcontrol.production.model.response;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import flowcontrol.production.model.entity.Interruption;
 import flowcontrol.production.model.entity.Line;
-import flowcontrol.production.model.entity.Ticket;
+import flowcontrol.production.model.general.Farmer;
+import flowcontrol.production.model.general.PalletLabel;
 import lombok.Builder;
-import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.Setter;
 import org.springframework.hateoas.RepresentationModel;
 import org.springframework.hateoas.server.core.Relation;
 
-import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 @Builder
 @Getter
+@Setter
 @EqualsAndHashCode(callSuper = false)
 @Relation(itemRelation = "ticket", collectionRelation = "tickets")
 public class TicketResponse extends RepresentationModel<TicketResponse> {
@@ -30,6 +30,6 @@ public class TicketResponse extends RepresentationModel<TicketResponse> {
     private List<Interruption> interruptions = new ArrayList<>();
     private Line line;
 
-    private Long palletLabelId;
-    private Long farmerId;
+    private PalletLabel palletLabel;
+    private Farmer farmer;
 }
