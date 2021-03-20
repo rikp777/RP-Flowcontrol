@@ -58,7 +58,7 @@ public class InterruptionController {
      * @param interruptionId
      * @return
      */
-    @PostMapping("/{interruptionId}")
+    @PostMapping("/{interruptionId}/close")
     public ResponseEntity closeInterruption(
             @PathVariable Long farmerId,
             @PathVariable Long palletLabelId,
@@ -76,6 +76,13 @@ public class InterruptionController {
     }
 
 
+    /**
+     * Find all interruptions that belong to farmer, pallet label and ticket
+     * @param farmerId
+     * @param palletLabelId
+     * @param ticketId
+     * @return
+     */
     @GetMapping
     public ResponseEntity<CollectionModel<InterruptionResponse>> findAll(
             @PathVariable Long farmerId,
@@ -95,7 +102,7 @@ public class InterruptionController {
     }
 
     /**
-     * Get interruption by interruption id and ticket id
+     * Find one interruption by id and that belongs to farmer, pallet label and ticket
      * @param palletLabelId
      * @param ticketId
      * @param interruptionId

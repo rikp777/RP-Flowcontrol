@@ -28,7 +28,7 @@ public class TicketController {
 
 
     /**
-     * Create new ticket
+     * Find all ticket that belong to farmer and pallet label
      * @param farmerId
      * @param palletLabelId
      */
@@ -56,7 +56,7 @@ public class TicketController {
 
 
     /**
-     * Create new ticket
+     * Find one by id that belong to farmer and pallet label
      * @param farmerId
      * @param palletLabelId
      * @param ticketId
@@ -117,7 +117,7 @@ public class TicketController {
      * @param ticketId
      */
     @PostMapping(
-            path = "/{ticketId}",
+            path = "/{ticketId}/close",
             produces = {
                     MediaType.APPLICATION_JSON_VALUE,
                     MediaTypes.HAL_JSON_VALUE

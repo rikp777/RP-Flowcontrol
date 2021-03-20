@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
@@ -35,25 +36,54 @@ public class InterruptionService {
     /**
      * @param ticketId
      * @return
+     * Returns error message when data has been found for ticketId but the belonging ids are not right else return
+     * empty list
      */
     public List<Interruption> findAll(BasicMetaData meta, Long ticketId){
-        return interruptionRepository.getInterruptionsByTicketId(ticketId);
+        return interruptionRepository.getInterruptionsByTicketId(ticketId)
+                .stream()
+                .map(interruptionItem -> {
+                    if (interruptionItem.getTicket().getFarmerId() == meta.getFarmerId() && interruptionItem.getTicket().getPalletLabelId() == meta.getPalletLabelId() && interruptionItem.getTicket().getId() == ticketId)
+                        return interruptionItem;
+//                        //  Returns error message when data has been found for ticketId but the belonging ids are not right else return
+//                        //  empty list
+//                    throw new InterruptionNotFoundException(
+//                            "given id's",
+//                            "FarmerId + [" + meta.getFarmerId() + "] " +
+//                            "PalletLabelId + [" + meta.getPalletLabelId() + "] " +
+//                            "TicketId + [" + ticketId + "] "
+//                            ) ;
+                    return null;
+                }).collect(Collectors.toList());
     }
 
+
     /**
-     * @param id
+     * @param meta
+     * @param ticketId
+     * @param interruptionId
      * @return
      */
     public Optional<Interruption> findById(BasicMetaData meta, Long ticketId, Long interruptionId){
-        Interruption interruption=  interruptionRepository.findById(interruptionId)
-                .orElseThrow(() -> new InterruptionNotFoundException(interruptionId));
+        Interruption interruption=  interruptionRepository
+                .getInterruptionByTicketIdAndId(
+                        ticketId,
+                        interruptionId
+                )
+                .map(interruptionItem -> {
+                            if (interruptionItem.getTicket().getFarmerId() == meta.getFarmerId() && interruptionItem.getTicket().getPalletLabelId() == meta.getPalletLabelId())
+                                return interruptionItem;
+                            return null;
+                        }
+                )
+                .orElseThrow(() -> new InterruptionNotFoundException("Id", interruptionId));
 
         return Optional.of(interruption);
     }
 
+
     /**
-     * @param farmerId
-     * @param palletLabelId
+     * @param meta
      * @param ticketId
      * @param interruptionReasonId
      * @param usedArticleAmount
@@ -175,7 +205,7 @@ public class InterruptionService {
     ){
         // Check if exists
         if(interruptionRepository.existsById(interruptionId)){
-            throw new InterruptionNotFoundException(interruptionId);
+            throw new InterruptionNotFoundException("Id", interruptionId);
         }
         interruptionRepository.deleteById(interruptionId);
     }
