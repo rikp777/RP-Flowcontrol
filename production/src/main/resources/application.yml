@@ -40,3 +40,12 @@ spring:
 swagger:
   host:
     url: http://localhost:7073
+
+
+kafka:
+  bootstrapAdress: localhost:9092
+
+  topics:
+    transport:
+      palletlabel.topic.name: palletLabel
+      shippinglabel.topic.name: shippingLabel

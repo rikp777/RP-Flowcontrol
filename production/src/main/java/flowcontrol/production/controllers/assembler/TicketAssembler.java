@@ -26,6 +26,8 @@ public class TicketAssembler implements RepresentationModelAssembler<Ticket, Tic
 
     @Override
     public TicketResponse toModel(Ticket ticket) {
+
+
         PalletLabel palletLabel = palletLabelRepository.findById(1L, ticket.getPalletLabelId()).get();
 
         TicketResponse ticketResponse = TicketResponse.builder()

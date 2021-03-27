@@ -11,13 +11,8 @@ import flowcontrol.gateway.model.response.ApiResponse;
 import flowcontrol.gateway.service.AuthService;
 import flowcontrol.gateway.service.UserService;
 import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
-import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -43,6 +38,8 @@ public class UserController {
     @PreAuthorize("hasRole('User')")
     public ResponseEntity getUserProfile(@CurrentUser CustomUserDetails currentUser){
         log.info(currentUser.getEmail() + " has role: " + currentUser.getRoles());
+        //mag production getall
+
         return ResponseEntity.ok("Hello. this is about me");
     }
 

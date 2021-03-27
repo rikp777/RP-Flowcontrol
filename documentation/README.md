@@ -1,5 +1,5 @@
 https://gitlab.com/jacksierkstra/workshop-microservices
-
+//https://grapeup.com/blog/how-to-build-hypermedia-api-with-spring-hateoas/
 
 
 idea .
