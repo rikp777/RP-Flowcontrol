@@ -1,0 +1,72 @@
+\boolfalse {citerequest}\boolfalse {citetracker}\boolfalse {pagetracker}\boolfalse {backtracker}\relax 
+\babel@toc {dutch}{}
+\defcounter {refsection}{0}\relax 
+\thispagestyle {empty}
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\numberline {1}Inleiding}{1}{chapter.1}%
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\numberline {2}Leeruitkomsten}{2}{chapter.2}%
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {2.1}Ontwikkelen van bedrijfssoftware als teaminspanning}{2}{section.2.1}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {2.1.1}Ontwikkel process}{2}{subsection.2.1.1}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{Sprint 0}{2}{section*.5}%
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Evaluatie: 12-03-2021}{2}{section*.6}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subparagraph}{Sterke punten:}{2}{section*.7}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subparagraph}{Verbeter punten:}{2}{section*.8}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{Sprint 1}{3}{section*.9}%
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Evaluatie: 01-04-2021}{3}{section*.10}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subparagraph}{Sterke punten:}{3}{section*.11}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subparagraph}{Verbeter punten:}{3}{section*.12}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {2.1.2}Eind beoordeling / reflectie}{3}{subsection.2.1.2}%
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {2.2}Context Based Research}{4}{section.2.2}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {2.2.1}Ontwikkel process}{4}{subsection.2.2.1}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{Case Studies}{4}{section*.13}%
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Evaluatie: 13-03-2021}{4}{section*.14}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {2.2.2}Eind beoordeling / reflectie}{4}{subsection.2.2.2}%
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {2.3}Voorbereiding op levenslang leren}{5}{section.2.3}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {2.3.1}Toegepaste technieken}{5}{subsection.2.3.1}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{Deployment en schalen}{5}{section*.15}%
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Eerste evaluatie - Week 3}{5}{section*.16}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{Protocollen}{5}{section*.17}%
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Eerste evaluatie - Week 3}{5}{section*.18}%
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {2.4}Schaalbare architecturen}{5}{section.2.4}%
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {2.5}Ontwikkeling en uitvoering (DevOps)}{6}{section.2.5}%
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {2.6}Clouddiensten}{6}{section.2.6}%
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {2.7}Veiligheid door ontwerp}{6}{section.2.7}%
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {2.8}Gedistribueerde gegevens}{6}{section.2.8}%
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\numberline {3}Retrospect}{8}{chapter.3}%
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\numberline {4}Conclusie}{9}{chapter.4}%
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{Appendices}{10}{section*.19}%
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\numberline {A}SWOT}{12}{appendix.1.A}%
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\numberline {B}Context based research}{18}{appendix.1.B}%

@@ -6,7 +6,13 @@ idea .
 
 
 Gateway:
-zuul
+zuul <- achterhaald en oud
 https://spring.io/guides/gs/gateway/
 
+spring cloud gateway 
+
 docker run -d -p 8081:8080 service-billing:0.0.1-snapshot
+
+
+
+\\todo fix export of latex pdf on arch os 
