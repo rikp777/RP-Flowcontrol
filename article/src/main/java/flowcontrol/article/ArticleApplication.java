@@ -5,7 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
 public class ArticleApplication {
-    //test change github actions workflow
+    //test change github actions workfl
     public static void main(String[] args) {
         SpringApplication.run(ArticleApplication.class, args);
     }
