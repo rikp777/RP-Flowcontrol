@@ -8,6 +8,7 @@ class ArticleApplicationTests {
 
     @Test
     void contextLoads() {
+        assert(true);
     }
 
 }
