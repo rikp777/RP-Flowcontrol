@@ -4,8 +4,8 @@ on:
   push:
     branches:
       - 'master'
-#    paths:
-#      - 'production/**'
+    paths:
+      - 'article/**'
 
 
 jobs:
@@ -28,20 +28,28 @@ jobs:
     name: Test & Package
     needs: compile
 
-    services:
-      mysql:
-        image: mysql:5.7
-        env:
-          MYSQL_USER: root
-          MYSQL_PASSWORD:
-          MYSQL_PORT: 3306
-          MYSQL_DATABASE: production_line
-          MYSQL_ROOT_PASSWORD: root
-        ports:
-          - 3306
-        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+#    services:
+#      mysql:
+#        image: mysql:5.7
+#        env:
+#          MYSQL_USER: root
+#          MYSQL_PASSWORD:
+#          MYSQL_PORT: 3306
+#          MYSQL_DATABASE: production_line
+#          MYSQL_ROOT_PASSWORD: root
+#        ports:
+#          - 3306
+#        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
 
     steps:
+      - uses: getong/mariadb-action@v1.1
+        with:
+          character set server: 'utf8' # Optional, default value is 'utf8mb4'. The '--character-set-server' option for mysqld
+          collation server: 'utf8_general_ci' # Optional, default value is 'utf8mb4_general_ci'. The '--collation-server' option for mysqld
+          mysql database: 'article'
+          mysql root password: ${{ secrets.RootPassword }} # Required if "mysql user" is empty, default is empty. The root superuser password
+          mysql user: 'root' # Required if "mysql root password" is empty, default is empty. The superuser for the specified database. Can use secrets, too
+          mysql password: ${{ secrets.DatabasePassword }} # Required if "mysql user" exists. The password for the "mysql user"
       - uses: actions/checkout@v2
       - name: Set up JDK
         uses: actions/setup-java@v1
