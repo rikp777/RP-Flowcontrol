@@ -1,4 +1,4 @@
-name: Production
+name: Article
 
 on:
   push:
@@ -19,7 +19,7 @@ jobs:
         with:
           java-version: 1.15
       - name: Compile code
-        working-directory: ./production
+        working-directory: ./article
         run: mvn compile
 
 
@@ -43,13 +43,13 @@ jobs:
         with:
           java-version: 1.15
       - name: Maven Test
-        working-directory: ./production
+        working-directory: ./article
         run: mvn -B clean test
       - name: Maven Package
-        working-directory: ./production
+        working-directory: ./article
         run: mvn -B clean package -DskipTests
       - name: Maven Verify
-        working-directory: ./production
+        working-directory: ./article
         run: mvn -B clean verify
 
   build:
