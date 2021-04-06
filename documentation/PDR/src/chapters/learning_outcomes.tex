@@ -136,9 +136,18 @@ Hieronder is een opsomming te vinden van de eind bespreking van sprint 1.
 %Door de behaalde resulaten difinieer ik mijn bekwaamheid tot dit leerdoel als:\\
 %\par\vspace{10pt}\textbf{\uppercase{"Proficient"}}\\
 
+
+
+
+
+
+
+
+
+
+
+
 \newpage
-
-
 \section{Context Based Research}\label{sec:context-based-research}
 
 %Leeruitkomst 2 - Contextgericht onderzoek Je onderbouwt je keuzes voor processen en technieken aan de hand van een
@@ -193,9 +202,15 @@ Voor het groepproject zijn een twee onderzoeken uitgevoerd.
 %\par\vspace{10pt}\textbf{\uppercase{"Proficient"}}\\
 
 
+
+
+
+
+
+
+
+
 \newpage
-
-
 \section{Voorbereiding op levenslang leren}\label{sec:voorbereiding-op-levenslang-leren}
 %Leer uitkomst 3 - Voorbereiding op levenslang leren Je signaleert opkomende trends in software engineering,
 %onderzoekt ze en past ze waar nodig toe in je projecten.
@@ -273,6 +288,15 @@ Hierbij ben ik tot de conclusie gekomen dat voor onze toepassing heb beste kan w
 Webrct is een opvolger van het verouderde maar nog steeds veel gebruikte RTMP-protocol.
 
 
+
+
+
+
+
+
+
+
+\newpage
 \section{Schaalbare architecturen}\label{sec:schaalbare-architecturen}
 %Leer uitkomst 4 - Schaalbare architecturen Je ontwikkelt bedrijfssoftware op basis van een gekozen gedistribueerde
 %architectuur die duidelijk schaalbaarheid ondersteunt voor hoog volume communicatie en event handling, en
@@ -309,6 +333,16 @@ Hierbij is het belangrijk dat ik stevige argumenten heb om mijn keuzes te onderb
 het ontwikkel process.
 
 
+
+
+
+
+
+
+
+
+
+\newpage
 \section{Ontwikkeling en uitvoering (DevOps)}\label{sec:ontwikkeling-en-uitvoering-(devops)}
 %Leer uitkomst 5 - Development and Operations (DevOps) Je zet een omgeving en teamprocessen op die een volledig
 %geautomatiseerde softwarelevenscyclus ondersteunen, terwijl je een hoge kwaliteit, hoge beschikbaarheid, snelle
@@ -325,20 +359,59 @@ het ontwikkel process.
 
 
 %Wat wil ik leren / %Wat moet ik doen om dit te kunnen bereiken? / %Welke middelen heb ik hiervoor nodig?
-Voor dit leerdoel wil ik leren hoe ik een automatische test pipeline opzet door middel van Github actions.
+Voor dit leerdoel wil ik leren hoe ik een automatische test pipeline (CI/CD) opzet door middel van Github actions.
 Hierbij wordt een automatische test flow opgezet die valideert of een build is geslaagd.
-Wanneer deze build en tests succesvol zijn uitgevoerd wordt de image naar een production environment gestuurd waarna
+Wanneer deze build en en de daarbij horende testen succesvol zijn uitgevoerd wordt de image naar een production environment gestuurd waarna
 de software vervolgens live wordt gezet en gebruikt kan worden door de klant.
-Ook ga ik tooling gebruiken voor het bijhouden van de te ontwikkelen functionaliteiten. Hierbij wordt in het
-groepsproject Devops gebruikt en voor mijn individueel project ga ik hier het github issue bord voor gebruiken.
+Dit gebeurt doormiddel van een Kubernetes cluster.
+Ook ga ik tooling gebruiken voor het bijhouden van de te ontwikkelen functionaliteiten.
+Hierbij wordt in het groepsproject Devops gebruikt en voor mijn individueel project ga ik hier het Github issue-board voor gebruiken.
 
 %Hoe ga ik success meetbaar maken?
 Dit leerdoel is meetbaar te maken door de leraar proactief te informeren over hoe het ontwikkelproces zich vordert.
+Ook ga ik mijn Github actions CI/CD pipeline laten zien waar de code wordt gecontroleerd op geslaagde testen en kwaliteit.
+De kwaliteit van de code word getest met SonarCloud.
+
+
+\subsection{Ontwikkel process}
+\subsubsection{Github actions}
+\paragraph{Evaluatie: 05-04-2021}
+Voor het toepassen van de CI/CD pipeline verwacht ik niet enorm veel werk.
+Dit is mede omdat ik in semester drie maar ook in vier hier al mee heb gewerkt en dit al eerder heb geïmplementeerd.
+Daarom zie ik tijdens dit semester meer mogelijkheden voor verbetering van dit process.
+Voor mijn CI/CD module heb ik gekozen voor het toepassen van Github actions.
+Mijn pipeline controleert op zowel geslaagde testen als op de code kwaliteit.
+Elke microservice binnen mijn applicatie heeft zijn eigen pipeline met checks.
+Hieronder is de uitwerking van een van deze pipeline's voor de microservice "Article".
+Hierbij is te zien dat deze pipeline verschillende checks heeft waar hij doorheen loopt.\\
+
+\includegraphics[width=\textwidth]{Article_Service_CI_CD_Pipeline.png}\label{fig:figure}
+
+
+Via SonarCloud wordt de code gecontroleerd op kwaliteit en wordt aangekaart welke verbeteringen er kunnen plaatsvinden.\\
+
+\includegraphics[width=\textwidth]{Article_Code_Quality_SonarCloud.png}\label{fig:figure2}
+
+
+Omdat ik een gehele CI/CD pipeline heb geïmplementeerd voor mijn individueel project en mede door de uitwerking hierboven oriënteer ik mijzelf als:
+\par\vspace{10pt}\textbf{\uppercase{"Proficient"}}.\\
+
+Ik zou de beoordeling kunnen verbeteren naar een outstanding door middel van het implementeren van een kubernetes cluster.
+
+\subsection{Eind beoordeling / reflectie}
+%Omdat ik een gehele CI/CD pipeline heb geimplementeeerd voor mijn individuele project door de uitwerking hierboven oriënteer ik mijzelf als proficient:
+%\par\vspace{10pt}\textbf{\uppercase{"Proficient"}}\\
 
 
 
 
 
+
+
+
+
+
+\newpage
 \section{Clouddiensten}\label{sec:clouddiensten}
 %Leer uitkomst 6 - Cloud Services Je integreert cloud services en serverless computing technieken die je enterprise
 %applicatie ondersteunen en er goed bij passen.
@@ -356,6 +429,11 @@ Nog niet van toepassing
 
 
 
+
+
+
+
+\newpage
 \section{Veiligheid door ontwerp}\label{sec:veiligheid-door-ontwerp}
 %Leer uitkomst 7 - Security by Design Je integreert authenticatie en autorisatie, en beperkt mogelijke
 %beveiligingsinbreuken tijdens het ontwerp en de implementatie van bedrijfssoftware.
@@ -384,6 +462,13 @@ semesters.
 
 
 
+
+
+
+
+
+
+\newpage
 \section{Gedistribueerde gegevens}\label{sec:gedistribueerde-gegevens}
 %Leer uitkomst 8 - Gedistribueerde data Je bent je bewust van data-eisen en je ontwikkelt bedrijfssystemen die
 %gebruik maken van gedistribueerde data tooling en best practices.
