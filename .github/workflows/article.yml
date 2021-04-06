@@ -30,6 +30,14 @@ jobs:
     name: SonarCloud code qualitity check
     runs-on: ubuntu-latest
     steps:
+      - uses: getong/mariadb-action@v1.1
+        with:
+          character set server: 'utf8'
+          collation server: 'utf8_general_ci'
+          mysql database: 'article'
+          mysql root password: ${{ secrets.ROOTPASSWORD }}
+          mysql user: 'root'
+          mysql password: ${{ secrets.DATABASEPASSWORD }}
       - uses: actions/checkout@v2
         with:
           fetch-depth: 0
