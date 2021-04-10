@@ -1,0 +1,7 @@
+version: '2'
+
+services:
+  article_service:
+    extends:
+      file: ./article/docker-compose.yml
+      service: back-end

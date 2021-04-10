@@ -31,7 +31,7 @@ public class CaskSeeder {
     }
 
     public Set<Cask> run(UtilSeeder util) {
-        if (!caskRepo.findById(1L).isPresent()) {
+        if (!caskRepo.findById(104L).isPresent()) {
             Color brown = util.findColorInSet("Brown");
             Color transparent = util.findColorInSet("Transparent");
             Color styro = util.findColorInSet("Styro");

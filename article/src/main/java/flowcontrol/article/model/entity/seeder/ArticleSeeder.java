@@ -24,7 +24,7 @@ public class ArticleSeeder {
 
 
     public void run(UtilSeeder util) {
-        if(!articleRepo.findArticleByExcelCode("WI0000NL").isPresent()) {
+        if(!articleRepo.findById(1L).isPresent()) {
             Color brown = util.findColorInSet("Brown");
             Color white = util.findColorInSet("White");
             Color grey = util.findColorInSet("Grey");

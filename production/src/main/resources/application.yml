@@ -19,14 +19,16 @@ spring:
     default-property-inclusion: NON_ABSENT
   #============JDBC============
   datasource:
-    url: jdbc:mysql://127.0.0.1:3306/production_line?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
+    url: jdbc:mariadb://localhost:3306/production
     username: root
+    driver-class-name: org.mariadb.jdbc.Driver
+    password: root
 
   #============JPA============
   jpa:
     hibernate:
       #      ddl-auto: create-drop
-      dialect: org.hibernate.dialect.MySQL57Dialect
+      dialect: org.hibernate.dialect.MySQLDialect
       ddl-auto: create-drop
     show-sql: true
     properties:

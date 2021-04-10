@@ -15,14 +15,16 @@ server:
 spring:
   #============JDBC============
   datasource:
-    url: jdbc:mysql://localhost:3306/transport?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
+    url: jdbc:mariadb://localhost:3306/transport
     username: root
+    driver-class-name: org.mariadb.jdbc.Driver
+    password: root
 
   #============JPA============
   jpa:
     hibernate:
       #      ddl-auto: create-drop
-      dialect: org.hibernate.dialect.MySQL57Dialect
+      dialect: org.hibernate.dialect.MySQLDialect
       ddl-auto: create-drop
     show-sql: false
     properties:

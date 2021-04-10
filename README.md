@@ -1,8 +1,9 @@
 # Flowcontrol
-[![Article](https://github.com/rikp777/RP-Flowcontrol/actions/workflows/article.yml/badge.svg)](https://github.com/rikp777/RP-Flowcontrol/actions/workflows/article.yml)
 
 ## Modules
 ### Article
+[![Article](https://github.com/rikp777/RP-Flowcontrol/actions/workflows/article.yml/badge.svg)](https://github.com/rikp777/RP-Flowcontrol/actions/workflows/article.yml)
+
     Registration of items that a producer/farmer can supply to the distribution center.
 ### Farmer
     Keep records of affiliated farmers at the distribution center and which farmer is delivering product.

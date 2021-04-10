@@ -30,7 +30,7 @@ spring:
     hibernate:
       # ddl-auto: create-drop
       dialect: org.hibernate.dialect.MySQLDialect
-      ddl-auto: create-drop
+      ddl-auto: update
     show-sql: false
     properties:
       hibernate:

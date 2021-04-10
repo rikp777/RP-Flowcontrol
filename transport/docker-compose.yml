@@ -4,24 +4,24 @@ services:
   # Setup Database
   database:
     image: mariadb # or mysql they are basically the same
-    container_name: flowcontrol_production_database
+    container_name: flowcontrol_transport_database
     restart: always
 
     environment:
-      MYSQL_DATABASE: production
+      MYSQL_DATABASE: transport
       MYSQL_USER: user
       MYSQL_PASSWORD: user
       MYSQL_ROOT_PASSWORD: root
       MYSQL_ROOT_HOST: '%'
 
     volumes:
-      - /home/rik/mariadb/flowcontrol/production:/var/lib/mysql
+      - /home/rik/mariadb/flowcontrol/transport:/var/lib/mysql
 
     ports:
-      - 6073:3306
+      - 6072:3306
 
     networks:
-      - production-network
+      - transport-network
 
 
     healthcheck:
@@ -32,7 +32,7 @@ services:
   # Setup Back-end
   back-end:
     build: .
-    container_name: flowcontrol_production_api
+    container_name: flowcontrol_transport_api
 
     depends_on:
       database:
@@ -40,15 +40,15 @@ services:
         condition: service_healthy
 
     ports:
-      - 7073:7073
+      - 7072:7072
 
     environment:
-      - WAIT_HOSTS=database:6073
+      - WAIT_HOSTS=database:6072
       - WAIT_HOSTS_TIMEOUT=300
       - WAIT_SLEEP_INTERVAL=30
       - WAIT_HOST_CONNECTION_TIMEOUT=30
-      - SPRING_DATASOURCE_URL=jdbc:mariadb://database:3306/production?autoReconnect=true&useSSL=false
-#      - SPRING_DATASOURCE_URL=jdbc:mysql://database:3306/production?autoReconnect=true&useSSL=false
+      - SPRING_DATASOURCE_URL=jdbc:mariadb://database:3306/transport?autoReconnect=true&useSSL=false
+#      - SPRING_DATASOURCE_URL=jdbc:mysql://database:3306/transport?autoReconnect=true&useSSL=false
       - SPRING_DATASOURCE_USERNAME=user
       - SPRING_DATASOURCE_PASSWORD=user
 #      - SPRING_DATASOURCE_DRIVER_CLASS_NAME=com.mysql.cj.jdbc.Driver
@@ -57,11 +57,11 @@ services:
 #      - SPRING_JPA_DATABASE=mysql
 
     networks:
-      - production-network
+      - transport-network
 
 
 #Docker Networks
 networks:
-  production-network:
+  transport-network:
     driver: bridge
 
