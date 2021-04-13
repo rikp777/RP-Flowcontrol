@@ -9,10 +9,10 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>flowcontrol</groupId>
-    <artifactId>gateway</artifactId>
+    <artifactId>gateway-authservice</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>gateway</name>
-    <description>Security gateway for Flowcontrol</description>
+    <name>gateway-authservice</name>
+    <description>Security authservice for the gateway in Flowcontrol</description>
 
     <properties>
         <jwwt.version>0.9.1</jwwt.version>
