@@ -14,7 +14,7 @@ public class JwtConfig {
     @Value("${security.jwt.uri:/auth/**}")
     private String Uri;
 
-    @Value("${security.jwt.header:Authorization}")
+    @Value("${security.jwt.header.title:Authorization}")
     private String header;
 
     @Value("${security.jwt.prefix:Bearer }")

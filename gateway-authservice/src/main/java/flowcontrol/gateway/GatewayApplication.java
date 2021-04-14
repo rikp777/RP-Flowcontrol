@@ -8,11 +8,13 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
 //import org.springframework.cloud.gateway.route.builder.RouteLocatorBuilder;
 //import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 //import org.springframework.context.annotation.Bean;
+import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.data.jpa.convert.threeten.Jsr310JpaConverters;
 //import org.springframework.web.reactive.function.client.WebClient;
 
 //@EnableEurekaClient
 @SpringBootApplication
+@EnableEurekaClient
 @EntityScan(basePackageClasses = {
         GatewayApplication.class,
         Jsr310JpaConverters.class

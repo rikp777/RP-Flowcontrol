@@ -1,0 +1,108 @@
+#Server properties
+server:
+  port: 7070
+
+
+#Datasource properties
+spring:
+  application:
+    name: gateway-authservice
+
+
+  data:
+    mariadb:
+      database: authservice
+
+
+  datasource:
+    url: jdbc:mariadb://localhost:3306/authservice
+    username: root
+    driver-class-name: org.mariadb.jdbc.Driver
+    password: root
+    testWhileIdle: true
+    validationQuery: SELECT 1
+    initialization-mode: always
+
+  #JPA properties. Using ddl-auto = create will drop schema every-time.
+  #Choose the correct property based on development / production role.
+  jpa:
+    hibernate:
+      dialect: org.hibernate.dialect.MySQLDialect
+      ddl-auto: update
+    show-sql: false
+    properties:
+      hibernate:
+        format_sql: false
+        jdbc:
+          lob:
+            non_contextual_creation: true
+
+  #Jackson properties
+  jackson:
+    serialization:
+      WRITE_DATES_AS_TIMESTAMPS: false
+    time-zone: UTC
+
+  cloud:
+    stream:
+      kafka:
+        binder:
+          brokers: localhost:9092
+          configuration:
+            key:
+              serializer: org.apache.kafka.common.serialization.StringSerializer
+      bindings:
+        momentsUserChanged:
+          destination: moments.user.changed
+          contentType: application/json
+
+eureka:
+  client:
+    service-url:
+      default-zone: http://localhost:8761/eureka
+
+
+security:
+  basic:
+    enable: false
+
+  jwt:
+    uri: /auth/**
+    header: Authorization
+    prefix: Bearer
+    expiration: 86400
+    secret: JwtSecretKey
+
+  service:
+    username: d245ef53-5ad5-4216-9c56-89fe0f8302a0
+    password: ef919ae4-b893-4969-b782-57978180ad33
+
+#JWT properties
+app:
+  jwt:
+    uri: /auth/**
+    header:
+      title: Authorization
+      prefix: Bearer
+    secret: mySecret
+    expiration: 900000
+
+  #Token properties
+  token:
+    email:
+      verification:
+        duration: 3600000
+    password:
+      reset:
+        duration: 3600000
+    refresh:
+      duration: 3600000
+
+  velocity:
+    templates:
+      location: /templates/
+
+  #Logged out token cache
+  cache:
+    logoutToken:
+      maxSize: 1000

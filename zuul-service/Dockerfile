@@ -1,8 +1,8 @@
 #BUILD STAGE
-FROM openjdk:15-jdk-alpine as build
+FROM adoptopenjdk/openjdk11:latest as build
 WORKDIR /workspace/app
 
-EXPOSE 7072
+EXPOSE 8762
 
 COPY mvnw .
 COPY .mvn .mvn
@@ -17,18 +17,13 @@ RUN jar -xf ../*.jar
 
 
 #PROD STAGE
-FROM openjdk:15-jdk-alpine as prod
-
-# Don't run as root, create new user here
-RUN addgroup -S demo && adduser -S demo -G demo
-VOLUME /tmp
-USER demo
+FROM adoptopenjdk/openjdk11:latest as prod
 
 # Copy over unpacked jar content from build stage
 ARG DEPENDENCY=/workspace/app/target/dependency
 COPY --from=build ${DEPENDENCY}/BOOT-INF/lib /app/lib
 COPY --from=build ${DEPENDENCY}/META-INF /app/META-INF
 COPY --from=build ${DEPENDENCY}/BOOT-INF/classes /app
-ENTRYPOINT ["java","-noverify","-XX:TieredStopAtLevel=1","-cp","app:app/lib/*","-Dspring.main.lazy-initialization=true","flowcontrol.transport.TransportApplication"]
+ENTRYPOINT ["java","-noverify","-XX:TieredStopAtLevel=1","-cp","app:app/lib/*","-Dspring.main.lazy-initialization=true","flowcontrol.zuulservice.ZuulServiceApplication"]
 
 MAINTAINER Rik Peeters

@@ -1,4 +1,4 @@
-version: '2'
+version: '3'
 
 services:
   kafka:
@@ -19,6 +19,12 @@ services:
     depends_on:
       - zookeeper
 
+    healthcheck:
+      test: [ "CMD-SHELL", "kafka-topics.sh --bootstrap-server 127.0.0.1:9092 --topic flow --describe" ]
+      interval: 2s
+      timeout: 2s
+      retries: 15
+
   zookeeper:
     image: confluentinc/cp-zookeeper:latest
     ports:
@@ -28,22 +34,47 @@ services:
       ZOOKEEPER_CLIENT_PORT: 2181
       ZOOKEEPER_TICK_TIME: 2000
 
+    depends_on:
+      database:
+        condition: service_healthy
 
   eureka-service:
     container_name: eureka-service
+    hostname: eureka-service
     build: ./eureka-service
+
+
+    mem_limit: 350m
+
     ports:
     - 8761:8761
 
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://eureka-service:8761" ]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
   zuul-service:
     container_name: zuul-service
+    hostname: zuul-service
     build: ./zuul-service
+
+    command: "mvn spring-boot:run -Dspring.devtools.restart.enabled=true"
+
+    mem_limit: 350m
+
     ports:
     - 80:80
+
     depends_on:
-      - eureka-service
+      eureka-service:
+        condition: service_started
+      database:
+        condition: service_healthy
+
     environment:
-      eureka.client.serviceUrl.defaultZone: http://eureka-server:8761/eureka
+      eureka.client.serviceUrl.defaultZone: http://eureka-service:8761/eureka
 
 
 
@@ -53,27 +84,40 @@ services:
     restart: always
 
     environment:
+      MYSQL_USER: user
+      MYSQL_PASSWORD: user
       MYSQL_ROOT_PASSWORD: root
       MYSQL_ROOT_HOST: '%'
-
-    volumes:
-      - /home/rik/mariadb/flowcontrol:/var/lib/mysql
+      MYSQL_DATABASE: authservice
 
     ports:
-      - 6072:3306
+      - 6073:3306
 
-    networks:
-      - flowcontrol-network
 
     healthcheck:
       test: mysqladmin ping -h 127.0.0.1 -u $$MYSQL_USER --password=$$MYSQL_PASSWORD
       timeout: 20s
       retries: 10
 
+  gateway-authservice:
+    build: ./gateway-authservice
 
+    ports:
+      - 7070:7070
 
+    depends_on:
+      eureka-service:
+        condition: service_healthy
+      database:
+        condition: service_healthy
 
-#Docker Networks
-networks:
-  flowcontrol-network:
-    driver: bridge
+    environment:
+      eureka.client.serviceUrl.defaultZone: http://eureka-service:8761/eureka
+      WAIT_HOSTS=database: 6073
+      WAIT_HOSTS_TIMEOUT: 300
+      WAIT_SLEEP_INTERVAL: 30
+      WAIT_HOST_CONNECTION_TIMEOUT: 30
+      SPRING_DATASOURCE_URL: jdbc:mariadb://database:3306/authservice
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: root
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update

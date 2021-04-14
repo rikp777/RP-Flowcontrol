@@ -1,7 +1,7 @@
 
 spring:
   application:
-    name: eureka-server
+    name: eureka-service
 
 server:
   port: 8761
@@ -9,7 +9,8 @@ server:
 
 eureka:
   client:
-    registerWithEureka: false
-    fetchRegistry: false
+    register-with-eureka: false
+    fetch-registry: false
+    healthcheck.enabled: true
   server:
-    waitTimeInMsWhenSyncEmpty: 0
+    wait-time-in-ms-when-sync-empty: 0

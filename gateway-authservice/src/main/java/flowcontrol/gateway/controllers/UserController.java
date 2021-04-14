@@ -10,7 +10,7 @@ import flowcontrol.gateway.model.request.UpdatePasswordRequest;
 import flowcontrol.gateway.model.response.ApiResponse;
 import flowcontrol.gateway.service.AuthService;
 import flowcontrol.gateway.service.UserService;
-import io.swagger.annotations.Api;
+//import io.swagger.annotations.Api;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.ApplicationEventPublisher;
@@ -24,7 +24,7 @@ import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/api/user")
-@Api(value = "User Rest APi - Endpoints")
+//@Api(value = "User Rest APi - Endpoints")
 @Slf4j
 @AllArgsConstructor
 public class UserController {
