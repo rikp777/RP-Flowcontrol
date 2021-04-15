@@ -1,5 +1,8 @@
 package flowcontrol.gateway.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import flowcontrol.gateway.model.entity.base.DateAudit;
 
 import javax.persistence.*;
@@ -8,13 +11,18 @@ import javax.validation.constraints.NotNull;
 
 import flowcontrol.gateway.validation.NullOrNotBlank;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 import org.hibernate.annotations.NaturalId;
 
 import java.util.HashSet;
 import java.util.Set;
 
-@Data
+@Getter
+@Setter
 @Entity(name = "user")
+@ToString
 public class User extends DateAudit {
 
     @Id
@@ -50,7 +58,7 @@ public class User extends DateAudit {
     @Column(name = "email_verified", nullable = false)
     private Boolean isEmailVerified;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+    @ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
     @JoinTable(
             name = "user_authority",
             joinColumns = {

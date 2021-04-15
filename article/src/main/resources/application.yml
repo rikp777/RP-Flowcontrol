@@ -8,13 +8,15 @@ server:
 
   # Context path of the application
   servlet:
-    context-path: /api
+#    context-path: /api
 
     # Default HTTP session time out
     session:
       timeout: 15m
 
 spring:
+  application:
+    name: article-service
   jackson:
     serialization:
       fail_on_empty_beans: false
@@ -46,3 +48,18 @@ swagger:
     url: http://localhost:7078
 
 
+eureka:
+  client:
+    service-url:
+      default-zone: http://localhost:8761/eureka
+
+security:
+  basic:
+    enable: false
+
+  jwt:
+    uri: /authservice/**
+    header: Authorization
+    prefix: Bearer
+    expiration: 86400
+    secret: JwtSecretKey

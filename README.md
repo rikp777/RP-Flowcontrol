@@ -3,6 +3,8 @@
 ## Modules
 ### Article
 [![Article](https://github.com/rikp777/RP-Flowcontrol/actions/workflows/article.yml/badge.svg)](https://github.com/rikp777/RP-Flowcontrol/actions/workflows/article.yml)
+[![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=flowcontrol.article&metric=security_rating)](https://sonarcloud.io/dashboard?id=flowcontrol.article)
+[![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=flowcontrol.article&metric=vulnerabilities)](https://sonarcloud.io/dashboard?id=flowcontrol.article)
 
     Registration of items that a producer/farmer can supply to the distribution center.
 ### Farmer

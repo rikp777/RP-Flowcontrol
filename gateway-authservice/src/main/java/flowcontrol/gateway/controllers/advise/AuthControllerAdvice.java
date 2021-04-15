@@ -211,6 +211,7 @@ public class AuthControllerAdvice {
     @ResponseStatus(HttpStatus.EXPECTATION_FAILED)
     @ResponseBody
     public ApiResponse handleUserRegistrationException(UserRegistrationException exception, WebRequest request){
+
         return new ApiResponse(exception.getMessage(), false, exception.getClass().getName(), resolvePathFromWebRequest(request));
     }
     /**

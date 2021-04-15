@@ -35,7 +35,7 @@ public class UserController {
 
 
     @GetMapping("/me")
-    @PreAuthorize("hasRole('User')")
+    @PreAuthorize("hasRole('USER')")
     public ResponseEntity getUserProfile(@CurrentUser CustomUserDetails currentUser){
         log.info(currentUser.getEmail() + " has role: " + currentUser.getRoles());
         //mag production getall

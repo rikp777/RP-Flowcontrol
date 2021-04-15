@@ -32,7 +32,7 @@ import javax.validation.Valid;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("api/auth")
+@RequestMapping("/api/v1")
 @Slf4j
 @AllArgsConstructor
 public class AuthController {
@@ -40,6 +40,11 @@ public class AuthController {
     private final AuthService authService;
     private final JwtTokenProvider tokenProvider;
     private final ApplicationEventPublisher applicationEventPublisher;
+
+    @GetMapping("/signal")
+    public String signal(){
+        return "Hello!";
+    }
 
     @GetMapping("/checkEmailInUse")
     public ResponseEntity checkEmailInUse(@RequestParam("email") String email){
@@ -76,7 +81,7 @@ public class AuthController {
     public ResponseEntity registerUser(@Valid @RequestBody RegistrationRequest registrationRequest){
         return authService.registerUser(registrationRequest)
                 .map(user -> {
-                    UriComponentsBuilder urlBuilder = ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/auth/registrationConfirmation");
+                    UriComponentsBuilder urlBuilder = ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/v1/registrationConfirmation");
                     OnUserRegistrationCompleteEvent onUserRegistrationCompleteEvent = new OnUserRegistrationCompleteEvent(user, urlBuilder);
                     applicationEventPublisher.publishEvent(onUserRegistrationCompleteEvent);
                     log.info("Registered User returned [ API ] : " + user);
