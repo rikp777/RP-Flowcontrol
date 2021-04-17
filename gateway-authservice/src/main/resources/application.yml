@@ -67,11 +67,11 @@ security:
     enable: false
 
   jwt:
-    uri: /auth/**
+    uri: /authservice/**
     header: Authorization
     prefix: Bearer
     expiration: 86400
-    secret: JwtSecretKey
+    secret: mySecret
 
   service:
     username: d245ef53-5ad5-4216-9c56-89fe0f8302a0
@@ -80,12 +80,12 @@ security:
 #JWT properties
 app:
   jwt:
-    uri: /auth/**
+    uri: /authservice/**
     header:
       title: Authorization
       prefix: Bearer
     secret: mySecret
-    expiration: 900000
+    expiration: 86400
 
   #Token properties
   token:
