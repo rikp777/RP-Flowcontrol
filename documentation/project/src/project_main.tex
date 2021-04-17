@@ -132,4 +132,33 @@
     \subsection{Volgende sprint}\label{subsec:volgende-sprint-1}
     In de volgende sprint wil ik mij gaan focussen op de gateway module die de applicatie moet gaan beveiligen en er
     voor gaan zorgen dat requests naar de juiste service worden gelinkt.
+
+
+    \newpage
+    \section{Sprint 2}
+    \label{sec:sprint-2}
+
+    \subsection{Goals}\label{subsec:goals=2}
+    Tijdens sprint 2 ben ik bezig geweest met de authenticatie en authorizatie binnen verschillende microservices.
+    Dit heb ik gedaan doormiddel van een api gateway met een discovery service.
+    Hiervoor heb ik eureka en zuul gebruikt in combinatie met een authservice.
+    Tijdens deze sprint is het mogelijk een gebruiker te controleren op een JWT token in de artikel service en
+    is het mogelijk een gebruiker te registreren en in te laten loggen met een bearer (JWT) token.
+    Bij het implementeren van de authservice is er gekozen voor een eigen implementatie dit is mede omdat ik dit zelf
+    zeer leerzaam vind en graag wou weten wat er achter de schermen gebeurd.
+    In latere statia is het mogelijk deze implementatie te vervangen door een degelijk framework zoals Keycloak.
+
+    \subsection{Achievements}\label{subsec:achievements-2}
+    Tijdens deze sprint heb ik met verschillende nieuwe technologieën geëxperimenteerd zoals Eureka en Zuul.
+    Ook heb ik mij verder verdiept in docker en de docker compose build files.
+
+    \subsection{Retrospective}\label{subsec:retrospective-2}
+    Ik ben zeer tevreden met de prototype die ik heb gemaakt gebaseerd op het ontwerp.
+    Deze ontwerpen zijn te vinden in de map genaamd 'assets'.
+
+    \subsection{Volgende sprint}\label{subsec:volgende-sprint-2}
+    In de volgende sprint wil ik mij gaan focussen op het verder uitwerken van de security en de gateway.
+    Wanneer dit vervolgens af ik ga ik mij verder verdiepen in de onderlinge communicatie met Kafka of RabbitMQ.
+
+
 \end{document}
