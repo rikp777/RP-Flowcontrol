@@ -66,7 +66,7 @@
     \newline
     Documentatie:
     \begin{itemize}
-        \item \href{https://github.com/rikp777/RP-Flowcontrol/blob/master/documentation/PDR/out/PDR_Rik_Peeters.pdf}{PDR}
+        \item \href{https://github.com/rikp777/RP-Flowcontrol/blob/master/documentation/PDR/out/PDR_main.pdf}{PDR}
         \item \href{https://github.com/rikp777/RP-Flowcontrol/blob/master/documentation/project/out/Project_Rik_Peeters.pdf}{Project}
         \item \href{https://github.com/rikp777/RP-Flowcontrol/blob/master/documentation/context_based_research/out/context_based_research_Rik_Peeters.pdf}{Context based research}
         \item \href{https://github.com/rikp777/RP-Flowcontrol/blob/master/documentation/SWOT/out/SWOT_Rik_Peeters.pdf}{SWOT}
@@ -76,7 +76,7 @@
     \begin{itemize}
         \item \href{https://github.com/rikp777/RP-Flowcontrol/issues}{Github backlog}
         \item \href{https://github.com/rikp777/RP-Flowcontrol/projects/1}{Github kanban bord}
-        \item Github actions CI/CD n.v.t.
+        \item \href{https://github.com/rikp777/RP-Flowcontrol/actions}{Github actions CI/CD}
     \end{itemize}
 
     \newpage
@@ -140,25 +140,26 @@
 
     \subsection{Goals}\label{subsec:goals=2}
     Tijdens sprint 2 ben ik bezig geweest met de authenticatie en authorizatie binnen verschillende microservices.
-    Dit heb ik gedaan doormiddel van een api gateway met een discovery service.
-    Hiervoor heb ik eureka en zuul gebruikt in combinatie met een authservice.
-    Tijdens deze sprint is het mogelijk een gebruiker te controleren op een JWT token in de artikel service en
-    is het mogelijk een gebruiker te registreren en in te laten loggen met een bearer (JWT) token.
-    Bij het implementeren van de authservice is er gekozen voor een eigen implementatie dit is mede omdat ik dit zelf
+    Dit heb ik gedaan door middel van een API-gateway met een discovery service.
+    Hiervoor heb ik Eureka en Zuul gebruikt in combinatie met een authservice.
+    Tijdens deze sprint is het mogelijk gemaakt een gebruiker te controleren op een JWT-token in de artikel service en
+    ook is het nu mogelijk een gebruiker te registreren en in te laten loggen met een bearer (JWT) token.
+    Bij het implementeren van de authservice heb ik gekozen voor een eigen implementatie omdat ik
+    dit zelf
     zeer leerzaam vind en graag wou weten wat er achter de schermen gebeurd.
-    In latere statia is het mogelijk deze implementatie te vervangen door een degelijk framework zoals Keycloak.
+    In latere stadia is het mogelijk deze implementatie te vervangen door een degelijk framework zoals Keycloak.
 
     \subsection{Achievements}\label{subsec:achievements-2}
     Tijdens deze sprint heb ik met verschillende nieuwe technologieën geëxperimenteerd zoals Eureka en Zuul.
-    Ook heb ik mij verder verdiept in docker en de docker compose build files.
+    Ook heb ik mij verder verdiept in Docker en de Docker compose build files.
 
     \subsection{Retrospective}\label{subsec:retrospective-2}
-    Ik ben zeer tevreden met de prototype die ik heb gemaakt gebaseerd op het ontwerp.
+    Ik ben zeer tevreden met het prototype dat ik heb gemaakt gebaseerd op het ontwerp.
     Deze ontwerpen zijn te vinden in de map genaamd 'assets'.
 
     \subsection{Volgende sprint}\label{subsec:volgende-sprint-2}
     In de volgende sprint wil ik mij gaan focussen op het verder uitwerken van de security en de gateway.
-    Wanneer dit vervolgens af ik ga ik mij verder verdiepen in de onderlinge communicatie met Kafka of RabbitMQ.
+    Wanneer dit vervolgens af is ga ik mij verder verdiepen in de onderlinge communicatie met Kafka of RabbitMQ.
 
 
 \end{document}
