@@ -18,14 +18,14 @@ jobs:
     name: Running Java ${{ matrix.java }} compile
     steps:
       - uses: actions/checkout@v2
-      - name: Set up JDK 15
+      - name: Set up JDK 11
         uses: actions/setup-java@v1
         with:
-          java-version: 1.15
+          java-version: 1.11
       - name: Compile code
         working-directory: ./article
         run: mvn compile
-
+Github
   code_quality:
     name: SonarCloud code qualitity check
     runs-on: ubuntu-latest
@@ -41,10 +41,10 @@ jobs:
       - uses: actions/checkout@v2
         with:
           fetch-depth: 0
-      - name: Set up JDK 15
+      - name: Set up JDK 11
         uses: actions/setup-java@v1
         with:
-          java-version: 1.15
+          java-version: 1.11
       - name: Cache SonarCloud packages
         uses: actions/cache@v1
         with:
@@ -79,10 +79,10 @@ jobs:
           mysql user: 'root'
           mysql password: ${{ secrets.DATABASEPASSWORD }}
       - uses: actions/checkout@v2
-      - name: Set up JDK
+      - name: Set up JDK 11
         uses: actions/setup-java@v1
         with:
-          java-version: 1.15
+          java-version: 1.11
       - name: Maven Test
         working-directory: ./article
         run: mvn -B clean test
