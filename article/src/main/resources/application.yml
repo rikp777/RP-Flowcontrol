@@ -8,7 +8,7 @@ server:
 
   # Context path of the application
   servlet:
-#    context-path: /api
+    context-path: /api
 
     # Default HTTP session time out
     session:
@@ -58,8 +58,8 @@ security:
     enable: false
 
   jwt:
-    uri: /authservice/**
+    uri: /auth/**
     header: Authorization
     prefix: Bearer
     expiration: 86400
-    secret: mySecret
+    secret: !1fl0wC0NtrOlS3crEt$uP3rseCreTV3ryLong

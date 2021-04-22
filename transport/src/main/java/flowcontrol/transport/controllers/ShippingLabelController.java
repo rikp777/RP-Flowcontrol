@@ -11,7 +11,6 @@ import flowcontrol.transport.model.response.exact.ShippingLabelExactExportRespon
 import flowcontrol.transport.service.PalletLabelService;
 import flowcontrol.transport.service.ShippingLabelService;
 import lombok.AllArgsConstructor;
-import org.dom4j.Element;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;

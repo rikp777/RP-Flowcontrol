@@ -2,24 +2,30 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
+
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>2.3.9.RELEASE</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
+
     <groupId>flowcontrol</groupId>
     <artifactId>article</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>article</name>
-    <description>Demo project for Spring Boot</description>
+    <description>School Project Semester 4 Fontys</description>
+
     <properties>
-        <java.version>15</java.version>
+        <java.version>11</java.version>
         <sonar.projectKey>flowcontrol.article</sonar.projectKey>
         <sonar.organization>rikp777</sonar.organization>
         <sonar.host.url>https://sonarcloud.io</sonar.host.url>
         <spring-cloud.version>Hoxton.RELEASE</spring-cloud.version>
+        <jwwt.version>0.9.1</jwwt.version>
     </properties>
+
+
     <dependencies>
         <!-- Spring -->
         <dependency>
@@ -35,6 +41,7 @@
         <dependency>
             <groupId>io.jsonwebtoken</groupId>
             <artifactId>jjwt</artifactId>
+            <version>${jwwt.version}</version>
         </dependency>
         <dependency>
             <groupId>org.glassfish.jaxb</groupId>
@@ -42,10 +49,8 @@
             <version>2.4.0-b180830.0438</version>
         </dependency>
 
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-neo4j</artifactId>
-        </dependency>
+
+        <!-- Gateway & Message bus -->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-stream</artifactId>
@@ -57,11 +62,6 @@
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-hateoas</artifactId>
         </dependency>
 
         <!-- Tests -->
@@ -78,7 +78,7 @@
 
 
 
-        <!-- Maria db -->
+        <!-- db -->
         <dependency>
             <groupId>org.mariadb.jdbc</groupId>
             <artifactId>mariadb-java-client</artifactId>
@@ -107,6 +107,10 @@
             <artifactId>guava</artifactId>
             <version>20.0</version>
             <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-hateoas</artifactId>
         </dependency>
 
     </dependencies>

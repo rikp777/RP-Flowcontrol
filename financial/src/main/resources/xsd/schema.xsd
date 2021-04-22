@@ -1,0 +1,17 @@
+<eExact xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+    <element name ="order">
+        <attribute name="orderid" type="string" use="required"></attribute>
+        <complexType>
+            <sequence>
+                <element name="product" type="string"></element>
+                <element name="adress">
+                    <complexType>
+                        <sequence>
+                            <element name="name" type="string"></element>
+                        </sequence>
+                    </complexType>
+                </element>
+            </sequence>
+        </complexType>
+    </element>
+</eExact>

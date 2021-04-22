@@ -22,13 +22,23 @@ zuul:
   ignored-services: '*'
   routes:
     gateway-authservice:
-      path: /authservice/**
+      path: /auth/**
       service-id: gateway-authservice
       sensitive-headers: Cookie, Set-Cookie
 
     article:
-      path: /articleservice/**
+      path: /article/**
       service-id: article-service
+      sensitive-headers: Cookie, Set-Cookie
+
+    farmer:
+      path: /farmer/**
+      service-id: farmer-service
+      sensitive-headers: Cookie, Set-Cookie
+
+    transport:
+      path: /transport/**
+      service-id: transport-service
       sensitive-headers: Cookie, Set-Cookie
 
 
@@ -51,8 +61,8 @@ security:
     enable: false
 
   jwt:
-    uri: /authservice/**
+    uri: /auth/**
     header: Authorization
     prefix: Bearer
     expiration: 86400
-    secret: JwtSecretKey
+    secret: t!1fl0wC0NtrOlS3crEt$uP3rseCreTV3ryLong

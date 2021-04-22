@@ -13,6 +13,8 @@ server:
       timeout: 15m
 
 spring:
+  application:
+    name: transport-service
   #============JDBC============
   datasource:
     url: jdbc:mariadb://localhost:3306/transport
@@ -38,3 +40,20 @@ spring:
 swagger:
   host:
     url: http://localhost:7072
+
+
+eureka:
+  client:
+    service-url:
+      default-zone: http://localhost:8761/eureka
+
+security:
+  basic:
+    enable: false
+
+  jwt:
+    uri: /auth/**
+    header: Authorization
+    prefix: Bearer
+    expiration: 86400
+    secret: t!1fl0wC0NtrOlS3crEt$uP3rseCreTV3ryLong

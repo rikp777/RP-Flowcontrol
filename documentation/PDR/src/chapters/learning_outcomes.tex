@@ -250,7 +250,7 @@ Deze technieken waren voor mij nog van onbekend terrein.
 %Wat heb ik gedaan om dit aan te tonen?
 
 \subsubsection{Microservices}
-\paragraph{Eerste evaluatie - Week 5}
+\paragraph{Eerste evaluatie - 16-03-2021}
 Voor mijn individueel project ben ik bezig aan een distributie app.
 Context over dit project is te lezen in de inleiding
 Deze distributie app ga ik ontwikkelen met een modulaire architectuur die bestaat uit microservices.
@@ -267,7 +267,7 @@ Na dit gesprek heeft merel geconstateerd dat mijn bekwaamheid tot verschillende 
 
 
 \subsubsection{Deployment en schalen}
-\paragraph{Eerste evaluatie - Week 3}
+\paragraph{Eerste evaluatie - 02-03-2021}
 De eerste weken heb ik onderzoek gedaan hoe Docker werkt en hoe ik een image kan maken van een project.
 Vervolgens heb ik een compose file gemaakt die het mogelijk maakt verschillende images tegelijkertijd te starten.
 
@@ -277,7 +277,7 @@ Deze workflow in te zien in de project repositorie op github.
 De volgende stap is het deployen van deze image naar een cloud omgeving om zo de app live te zetten.
 
 \subsubsection{Protocollen}\label{subsec:protocollen}
-\paragraph{Eerste evaluatie - Week 3}
+\paragraph{Eerste evaluatie - 02-03-2021}
 De eerst weken heb ik onderzoek gedaan naar de verschillende protocollen die worden gebruikt voor het streamen van data.
 Dit was van belang voor het groepsproject waarbij een online video platform moet worden ontwikkeld.
 Welke protocollen passen bijvoorbeeld het beste bij het huidige groepsproject.
@@ -287,10 +287,19 @@ bepaald protocol hebben gekozen.
 Hierbij ben ik tot de conclusie gekomen dat voor onze toepassing heb beste kan worden gewerkt met webrtc.
 Webrct is een opvolger van het verouderde maar nog steeds veel gebruikte RTMP-protocol.
 
+\subsubsection{Gateway}\label{subsec:gateway}
+\paragraph{Eerste evaluatie - 20-04-2021}
+Omdat mijn applicatie met een microservice architectuur werkt en omdat het van belang is dat de frontend goed kan communiceren met deze back-end.
+Het ik er voor gekozen om een gateway te implementeren.
+Een gateway is een soort van service balie van een applicatie die je naar de juiste plek verwijst.
+Elke microservice binnen mijn app heeft zijn eigen poort wanneer deze vervolgens gaat schalen kunnen dit er nog meer worden.
+Als oplossing hiervoor heb ik gekozen om Zuul gateway in combinatie met Eureka discovery te implementeren.
+Deze dependencies zijn beide ontwikkeld door Netflix.
+Eureka kan automatisch zien wanneer een applicatie zich 'aanmeld' wanneer er dus een request naar de Zuul gateway wordt gestuurd kan eureka deze call doorsturen naar de juist microservice.
 
+Hieronder een afbeelding van de microservices die zich aan hebben gemeld bij eureka.
 
-
-
+\includegraphics[width=\textwidth]{Eureka_Discovery.png}\label{fig:eureka_discovery}
 
 
 
@@ -459,10 +468,29 @@ Ook ga ik proberen mijn software te kraken met de kennis die ik heb opgedaan uit
 semesters.
 
 
+\subsection{Ontwikkel process}
+\subsubsection{JWT Tokens}
+Een JSON Web Token (JWT) is een op zichzelf staande manier definieert voor het veilig verzenden van informatie tussen partijen als een JSON-object.
+Deze informatie kan worden geverifieerd en vertrouwd omdat ze digitaal ondertekend is.
+JWT's kunnen worden ondertekend met een geheim of een openbaar/particulier sleutelpaar.
+\paragraph{Evaluatie: 20-04-2021}
+Voor mijn authenticatie en authenticatie gebruik ik JWT tokens in de vorm van een bearer.
+Bearer authenticatie (ook wel token authenticatie genoemd) is een HTTP-authenticatieschema dat gebruik maakt van beveiligingstokens die bearer tokens worden genoemd.
+De naam "Bearer authenticatie" kan worden opgevat als "geef toegang aan de drager van dit token".
+Het bearer token is een cryptische string, meestal gegenereerd door de server in antwoord op een login verzoek.
+De client moet dit token meesturen in de Authorization header wanneer hij verzoeken doet aan beschermde bronnen:
+In mijn applicatie gebruik ik een token voor het authorizeren van interacties met mijn rest api.
+Elke microservice binnen mijn applicatie heeft een Token nodig wanneer er een request wordt gestuurd.
+Voor mijn eerste implementatie heb ik ervoor gezorg dat het artikel service kan worden geautoriseerd.
 
 
-
-
+\subsubsection{HATEOAS HAL}
+HATEOAS (Hypermedia as the Engine of Application State) is een beperking van de REST architectuur die de RESTful-stijlarchitectuur uniek houdt ten opzichte van de meeste andere toepassingsarchitecturen.
+De term "hypermedia" verwijst naar alle inhoud die links bevat naar andere vormen van media, zoals afbeeldingen, films en tekst.
+Dit houdt dus in dat een api interactief kan worden gemaakt en dat het makkelijk is om naar relational data te verwijzen.
+\paragraph{Evaluatie: 20-04-2021}
+Omdat ik gebruik maar van microservices is het handig als een frontend makkelijk naar relationele data kan verwijzen.
+Dit doe ik door middel van HATEOAS met een gestandaardiseerde vorm in HAL formaat
 
 
 
@@ -502,6 +530,15 @@ Deze wetgeving / regelgeving heet de "GDPR" General Data Protection Regulation.
 Dit leerdoel ik en het toepassen ervan wil ik gaan aantonen in het groepsproject waarbij dit zeer belangrijk is.
 Dit is belangrijk, omdat het over een persoon zijn gesteldheid gaat en dit kwetsbare data is die gevoelig voor hem of haar kan zijn.
 Daarom is het belangrijk dat de gebruiken kan bepalen wat hij met zijn gegevens wil doen.
+
+
+\subsection{Ontwikkel process}
+Binnen mijn applicatie wil ik er ook voor zorgen dat een gebruiken in deze kwestie personeel geen gevoelige data van zichzelf kan opslaan binnen mijn systeem.
+Mijn applicatie zal in deze geen gevoelige data van gebruikers opslaan om dat dit binnen mijn applicatie niet van belang is.
+Wel zorg ik ervoor dat gevoelige bedrijfs- informatie veilig wordt verwerkt.
+Dit ga ik doen door verschillende technieken toe te passen die standaard zijn binnen de OWASP top 10.
+Daarmee zorg ik dat mijn applicatie tot zekere hoogte niet kan worden gehackt en daarmee geen gevoelige bedrijfs- gegevens kan lekken.
+
 
 
 \newpage

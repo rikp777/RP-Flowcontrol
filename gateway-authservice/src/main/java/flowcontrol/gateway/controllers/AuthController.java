@@ -32,7 +32,7 @@ import javax.validation.Valid;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/v1")
+@RequestMapping("/v1/auth")
 @Slf4j
 @AllArgsConstructor
 public class AuthController {
@@ -81,7 +81,7 @@ public class AuthController {
     public ResponseEntity registerUser(@Valid @RequestBody RegistrationRequest registrationRequest){
         return authService.registerUser(registrationRequest)
                 .map(user -> {
-                    UriComponentsBuilder urlBuilder = ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/v1/registrationConfirmation");
+                    UriComponentsBuilder urlBuilder = ServletUriComponentsBuilder.fromCurrentContextPath().path("/v1/auth/registrationConfirmation");
                     OnUserRegistrationCompleteEvent onUserRegistrationCompleteEvent = new OnUserRegistrationCompleteEvent(user, urlBuilder);
                     applicationEventPublisher.publishEvent(onUserRegistrationCompleteEvent);
                     log.info("Registered User returned [ API ] : " + user);

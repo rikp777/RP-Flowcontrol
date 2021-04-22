@@ -49,15 +49,19 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {subsubsection}{Microservices}{6}{section*.17}%
 \defcounter {refsection}{0}\relax 
-\contentsline {paragraph}{Eerste evaluatie - Week 5}{6}{section*.18}%
+\contentsline {paragraph}{Eerste evaluatie - 16-03-2021}{6}{section*.18}%
 \defcounter {refsection}{0}\relax 
 \contentsline {subsubsection}{Deployment en schalen}{6}{section*.19}%
 \defcounter {refsection}{0}\relax 
-\contentsline {paragraph}{Eerste evaluatie - Week 3}{6}{section*.20}%
+\contentsline {paragraph}{Eerste evaluatie - 02-03-2021}{6}{section*.20}%
 \defcounter {refsection}{0}\relax 
 \contentsline {subsubsection}{Protocollen}{7}{section*.21}%
 \defcounter {refsection}{0}\relax 
-\contentsline {paragraph}{Eerste evaluatie - Week 3}{7}{section*.22}%
+\contentsline {paragraph}{Eerste evaluatie - 02-03-2021}{7}{section*.22}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{Gateway}{7}{section*.23}%
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Eerste evaluatie - 20-04-2021}{7}{section*.24}%
 \defcounter {refsection}{0}\relax 
 \contentsline {section}{\numberline {2.4}Schaalbare architecturen}{8}{section.2.4}%
 \defcounter {refsection}{0}\relax 
@@ -65,9 +69,9 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {subsection}{\numberline {2.5.1}Ontwikkel process}{9}{subsection.2.5.1}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{Github actions}{9}{section*.23}%
+\contentsline {subsubsection}{Github actions}{9}{section*.25}%
 \defcounter {refsection}{0}\relax 
-\contentsline {paragraph}{Evaluatie: 05-04-2021}{9}{section*.24}%
+\contentsline {paragraph}{Evaluatie: 05-04-2021}{9}{section*.26}%
 \defcounter {refsection}{0}\relax 
 \contentsline {subsection}{\numberline {2.5.2}Eind beoordeling / reflectie}{10}{subsection.2.5.2}%
 \defcounter {refsection}{0}\relax 
@@ -75,13 +79,25 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {section}{\numberline {2.7}Veiligheid door ontwerp}{12}{section.2.7}%
 \defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {2.7.1}Ontwikkel process}{12}{subsection.2.7.1}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{JWT Tokens}{12}{section*.27}%
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Evaluatie: 20-04-2021}{12}{section*.28}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{HATEOAS HAL}{12}{section*.29}%
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Evaluatie: 20-04-2021}{12}{section*.30}%
+\defcounter {refsection}{0}\relax 
 \contentsline {section}{\numberline {2.8}Gedistribueerde gegevens}{13}{section.2.8}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {2.8.1}Ontwikkel process}{13}{subsection.2.8.1}%
 \defcounter {refsection}{0}\relax 
 \contentsline {chapter}{\numberline {3}Retrospect}{15}{chapter.3}%
 \defcounter {refsection}{0}\relax 
 \contentsline {chapter}{\numberline {4}Conclusie}{16}{chapter.4}%
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{Appendices}{17}{section*.25}%
+\contentsline {chapter}{Appendices}{17}{section*.31}%
 \defcounter {refsection}{0}\relax 
 \contentsline {chapter}{\numberline {A}SWOT}{19}{appendix.1.A}%
 \defcounter {refsection}{0}\relax 

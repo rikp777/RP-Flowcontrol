@@ -1,7 +1,8 @@
 #Server properties
 server:
   port: 7070
-
+  servlet:
+    context-path: /api
 
 #Datasource properties
 spring:
@@ -27,12 +28,12 @@ spring:
   #Choose the correct property based on development / production role.
   jpa:
     hibernate:
-      dialect: org.hibernate.dialect.MySQLDialect
+      dialect: org.hibernate.dialect.MySQL5InnoDBDialect
       ddl-auto: create-drop
     show-sql: false
     properties:
       hibernate:
-        format_sql: false
+        format_sql: true
         jdbc:
           lob:
             non_contextual_creation: true
@@ -67,11 +68,11 @@ security:
     enable: false
 
   jwt:
-    uri: /authservice/**
+    uri: /auth/**
     header: Authorization
     prefix: Bearer
     expiration: 86400
-    secret: mySecret
+    secret: t!1fl0wC0NtrOlS3crEt$uP3rseCreTV3ryLong
 
   service:
     username: d245ef53-5ad5-4216-9c56-89fe0f8302a0
@@ -80,11 +81,11 @@ security:
 #JWT properties
 app:
   jwt:
-    uri: /authservice/**
+    uri: /auth/**
     header:
       title: Authorization
       prefix: Bearer
-    secret: mySecret
+    secret: t!1fl0wC0NtrOlS3crEt$uP3rseCreTV3ryLong
     expiration: 86400
 
   #Token properties

@@ -58,7 +58,7 @@ public class User extends DateAudit {
     @Column(name = "email_verified", nullable = false)
     private Boolean isEmailVerified;
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+    @ManyToMany(fetch = FetchType.EAGER, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
     @JoinTable(
             name = "user_authority",
             joinColumns = {
