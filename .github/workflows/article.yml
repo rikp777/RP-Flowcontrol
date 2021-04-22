@@ -25,7 +25,7 @@ jobs:
       - name: Compile code
         working-directory: ./article
         run: mvn compile
-Github
+Github:
   code_quality:
     name: SonarCloud code qualitity check
     runs-on: ubuntu-latest
