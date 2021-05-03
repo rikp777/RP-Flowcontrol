@@ -42,7 +42,7 @@ public class UserController {
         //mag production getall
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 
-        return ResponseEntity.ok("Hello. this is about me");
+        return ResponseEntity.ok("Hello. this is about me " + user.getUsername());
     }
 
 

@@ -59,8 +59,8 @@ security:
     enable: false
 
   jwt:
-    uri: /authservice/**
+    uri: /auth/**
     header: Authorization
     prefix: Bearer
     expiration: 86400
-    secret: !1fl0wC0NtrOlS3crEt$uP3rseCreTV3ryLong
+    secret: t!1fl0wC0NtrOlS3crEt$uP3rseCreTV3ryLong

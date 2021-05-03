@@ -1,7 +1,7 @@
 {
   "name": "client-app",
   "version": "0.1.0",
-  "description":  "School project semester 6",
+  "description": "School project semester 6",
   "author": "Rik Peeters",
   "private": true,
   "scripts": {

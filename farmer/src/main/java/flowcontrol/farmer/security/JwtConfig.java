@@ -22,7 +22,7 @@ public class JwtConfig {
     @Value("${security.jwt.expiration:#{86400}}")
     private int expiration;
 
-    @Value("${security.jwt.secret:!1fl0wC0NtrOlS3crEt$uP3rseCreTV3ryLong}")
+    @Value("${security.jwt.secret:t!1fl0wC0NtrOlS3crEt$uP3rseCreTV3ryLong}")
     private String secret;
 }
 

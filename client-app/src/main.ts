@@ -1,5 +1,4 @@
 import Vue from "vue";
-import "./plugins/fontawesome";
 import App from "./App.vue";
 import "./registerServiceWorker";
 import router from "./router";
