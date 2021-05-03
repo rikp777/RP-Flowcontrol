@@ -14,13 +14,13 @@ Vue.use(VueAxios, axios)
 import VueQrcodeReader from "vue-qrcode-reader";
 Vue.use(VueQrcodeReader);
 
-import "./assets/tailwind.css";
-import VueTailwind from 'vue-tailwind/dist/full'
+// import "./assets/tailwind.css";
+// import VueTailwind from 'vue-tailwind/dist/full'
 
-const settings = {
-}
-
-Vue.use(VueTailwind, settings)
+// const settings = {
+// }
+//
+// Vue.use(VueTailwind, settings)
 
 
 Vue.config.productionTip = false;

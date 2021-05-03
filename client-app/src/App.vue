@@ -671,7 +671,7 @@ const apiBaseUrl = "http://localhost:7073/api/v1/farmers/1";
     }
   }
 </script>
-<style>
+<style lang="scss">
 .nunito {
   font-family: "nunito", font-sans;
 }
