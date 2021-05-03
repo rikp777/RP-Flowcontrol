@@ -4,23 +4,23 @@ import "./registerServiceWorker";
 import router from "./router";
 import store from "./store";
 
+import "./assets/tailwind.css"
 
+// Axios
 import axios from 'axios'
 import VueAxios from 'vue-axios'
 Vue.use(VueAxios, axios)
 
-
+// QR Code
 // @ts-ignore
 import VueQrcodeReader from "vue-qrcode-reader";
 Vue.use(VueQrcodeReader);
 
-// import "./assets/tailwind.css";
-// import VueTailwind from 'vue-tailwind/dist/full'
 
-// const settings = {
-// }
-//
-// Vue.use(VueTailwind, settings)
+// Vue Tailwind Components
+import VueTailwind from 'vue-tailwind'
+import VueTailwindSettings from "../VueTailwindSettings";
+Vue.use(VueTailwind, VueTailwindSettings)
 
 
 Vue.config.productionTip = false;

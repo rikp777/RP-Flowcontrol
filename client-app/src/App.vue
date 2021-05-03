@@ -1,5 +1,6 @@
 <template>
   <body class="flex h-screen bg-gray-100 font-sans">
+
     <!-- Side bar-->
     <div
       id="sidebar"
