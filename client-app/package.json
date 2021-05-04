@@ -21,6 +21,7 @@
     "axios": "^0.21.1",
     "chalk": "^2.4.2",
     "core-js": "^3.6.5",
+    "jwt-decode": "^3.1.2",
     "node-sass": "^4.14.1",
     "ora": "^3.4.0",
     "portfinder": "^1.0.28",
@@ -68,7 +69,9 @@
     "typescript": "~4.1.5",
     "vue-cli-plugin-fontawesome": "~0.3.1",
     "vue-cli-plugin-tailwind": "~2.0.6",
-    "vue-template-compiler": "^2.6.11"
+    "vue-template-compiler": "^2.6.11",
+    "vuex-class": "^0.3.2",
+    "vuex-module-decorators": "^1.0.1"
   },
   "gitHooks": {
     "pre-commit": "lint-staged"
