@@ -65,15 +65,4 @@ public class UserController {
                 .orElseThrow(() -> new PasswordUpdateException("--Empty--", "No such user present"));
     }
 
-    @PostMapping("/logout")
-    public ResponseEntity logoutUser(@CurrentUser CustomUserDetails customUserDetails, @Valid @RequestBody LogOutRequest logOutRequest){
-        userService.logOutUser(customUserDetails, logOutRequest);
-
-        Object credentials = SecurityContextHolder.getContext().getAuthentication().getCredentials();
-
-        OnUserLogOutSuccessEvent onUserLogOutSuccessEvent = new OnUserLogOutSuccessEvent(customUserDetails.getEmail(), credentials.toString(), logOutRequest);
-        applicationEventPublisher.publishEvent(onUserLogOutSuccessEvent);
-
-        return ResponseEntity.ok(new ApiResponse("Log out successfully", true));
-    }
 }

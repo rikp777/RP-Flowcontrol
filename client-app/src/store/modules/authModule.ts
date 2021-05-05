@@ -1,160 +1,187 @@
-import { VuexModule, Module, Mutation, Action } from 'vuex-module-decorators'
-import api from "@/api"
+import { VuexModule, Module, Mutation, Action } from "vuex-module-decorators";
+import api from "@/api";
 import jwt_decode from "jwt-decode";
-import { store } from '@/store';
+import { store } from "@/store";
+import getMAC, { isMAC } from 'getmac'
 
 export interface AuthUser {
-    auth: string;
-    uid: string;
-    email: string
+  auth: string;
+  uid: string;
+  email: string;
 }
 interface Meta {
-    loggedIn: boolean
+  loggedIn: boolean;
 }
 interface AuthData {
-    token: string
-    refreshToken: string
-    expiryDuration: number
-    userId: number
-    email: string
+  token: string;
+  refreshToken: string;
+  expiryDuration: number;
+  userId: number;
+  email: string;
 }
 
 @Module({
-    namespaced: true,
-    // dynamic: true,
-    // stateFactory: true,
-    // store,
-    // name: "auth"
+  namespaced: true
+  // dynamic: true,
+  // stateFactory: true,
+  // store,
+  // name: "auth"
 })
 class Auth extends VuexModule {
-    public authUser: AuthUser = {
-        auth: "",
-        uid: "",
-        email: "",
-    }
+  public authUser: AuthUser = {
+    auth: "",
+    uid: "",
+    email: ""
+  };
 
-    public meta: Meta = {
-        loggedIn: false,
-    }
+  public meta: Meta = {
+    loggedIn: false
+  };
 
-    public authData: AuthData = {
-        token: "",
-        refreshToken: "",
-        expiryDuration: 0,
-        userId: 0,
-        email: "",
-    }
+  public authData: AuthData = {
+    token: "",
+    refreshToken: "",
+    expiryDuration: 0,
+    userId: 0,
+    email: ""
+  };
 
-    get getMetaData() {
-        return this.meta;
-    }
+  get getMetaData() {
+    return this.meta;
+  }
 
-    get getAuthData() {
-        return this.authData;
-    }
+  get getAuthData() {
+    return this.authData;
+  }
 
-    get getIsTokenActive(){
-        if(!this.authData.expiryDuration){
-            return false
+  get getIsTokenActive() {
+    if (!this.authData.expiryDuration) {
+      return false;
+    }
+    if (Date.now() >= this.authData.expiryDuration * 500) {
+      return false;
+    }
+    return true;
+  }
+
+  get getIsLoggedIn() {
+    return this.meta.loggedIn;
+  }
+
+  get getCurrentUser() {
+    console.log("current user email:", this.authData);
+    return this.authData.email;
+  }
+
+  @Action({ rawError: true })
+  public async login(credentials: any) {
+    // eslint-disable-next-line @typescript-eslint/no-var-requires
+    console.log("Login action");
+
+    //todo implement device info
+    const body = {
+      username: credentials.email,
+      email: credentials.email,
+      password: credentials.password,
+      deviceInfo: {
+        deviceId: "1234",
+        deviceType: "DEVICE_TYPE_LINUX",
+        notificationToken: "123456"
+      }
+    };
+    await api
+      .post("http://127.0.0.1:8762/auth/api/v1/auth/login", body)
+      .then(this.handleResponse)
+      .then(authResponse => {
+        console.log(authResponse.data);
+        if (authResponse.data.accessToken) {
+          // @ts-ignore
+          this.context.commit("loginSuccess", this.authUser);
+          // @ts-ignore
+          this.context.commit("saveTokenData", authResponse.data);
         }
-        if(Date.now() >= this.authData.expiryDuration * 1000){
-            return false
+
+        return authResponse;
+      });
+  }
+  @Action({ rawError: true })
+  public logout() {
+    this.context.commit("purgeData");
+  }
+
+  @Action
+  private handleResponse(response: any) {
+    return response.text().then((text: any) => {
+      const data = text && JSON.parse(text);
+      if (!response.ok) {
+        if (response.status === 401) {
+          this.logout();
         }
-        return true
+
+        const error = (data && data.message) || response.statusText;
+        return Promise.reject(error);
+      }
+
+      return data;
+    });
+  }
+
+  @Mutation
+  saveTokenData(data: any) {
+    console.log("save data", data);
+    localStorage.setItem("access_token", data.accessToken);
+    localStorage.setItem("refresh_token", data.refreshToken);
+
+    const jwtDecodedValue = jwt_decode(data.accessToken);
+
+    //Set fresh
+    // @ts-ignore
+    const newTokenData = {
+      token: data.accessToken,
+      refreshToken: data.refreshToken,
+      expiryDuration: jwtDecodedValue.exp
+    };
+    this.authData = newTokenData;
+    if (jwtDecodedValue.sub && jwtDecodedValue.aud) {
+      localStorage.setItem("uuid", jwtDecodedValue.sub);
+      localStorage.setItem("email", jwtDecodedValue.aud);
+      this.authData.userId = jwtDecodedValue.sub;
+      this.authData.email = jwtDecodedValue.aud;
+    } else {
+      this.authData.userId = Number(localStorage.getItem("uuid"));
+      this.authData.email = String(localStorage.getItem("email"));
     }
 
-    get getLoginStatus(){
-        return this.meta.loggedIn;
-    }
+    this.meta.loggedIn = true;
+  }
 
-    @Action({rawError: true})
-    public async login(credentials: any){
-        console.log('Login action')
-        const body = {
-            username: credentials.email,
-            email: credentials.email,
-            password: credentials.password,
-            deviceInfo: {
-                deviceId: "1234",
-                deviceType: "DEVICE_TYPE_LINUX",
-                notificationToken: "123456"
-            }
-        }
-        await api.post("http://127.0.0.1:8762/auth/api/v1/auth/login", body)
-            .then(this.handleResponse)
-            .then((authResponse) => {
-                console.log(authResponse.data)
-                if(authResponse.data.accessToken){
-                    // @ts-ignore
-                    this.context.commit('loginSuccess', this.authUser)
-                    // @ts-ignore
-                    this.context.commit('saveTokenData', authResponse.data)
-                }
+  @Mutation
+  loginSuccess(authUser: AuthUser) {
+    this.meta.loggedIn = true;
+    console.log("meta", this.meta);
+  }
 
-                return authResponse;
-            })
-    }
-    @Action({rawError: true})
-    public logout(){
-        localStorage.removeItem('user')
-    }
+  @Mutation
+  loginFailure() {
+    this.meta.loggedIn = false;
+  }
 
-    @Action
-    private handleResponse(response: any){
-        return response.text().then((text: any) => {
-            const data = text && JSON.parse(text);
-            if(!response.ok){
-                if(response.status === 401){
-                    this.logout()
-                }
-
-                const error = (data && data.message) || response.statusText;
-                return Promise.reject(error)
-            }
-
-            return data;
-        })
-    }
-
-
-    @Mutation
-    saveTokenData(data: any) {
-        console.log("save data", data)
-        localStorage.setItem("access_token", data.accessToken)
-        localStorage.setItem("refresh_token", data.refreshToken)
-
-        const jwtDecodedValue = jwt_decode(data.accessToken)
-
-        // @ts-ignore
-        const newTokenData = {
-            token: data.accessToken,
-            refreshToken: data.refreshToken,
-            expiryDuration: jwtDecodedValue.exp,
-            userId: jwtDecodedValue.sub,
-            email: jwtDecodedValue.aud
-        }
-        this.authData = newTokenData;
-        this.meta.loggedIn = true;
-        console.log('authData', this.authData)
-    }
-
-    @Mutation
-    loginSuccess(authUser: AuthUser){
-        this.meta.loggedIn = true;
-        console.log('meta', this.meta)
-    }
-
-    @Mutation
-    loginFailure(){
-        this.meta.loggedIn = false;
-    }
+  @Mutation
+  purgeData(){
+    this.authData.token = "";
+    this.authData.userId = 0;
+    this.authData.refreshToken = "";
+    this.authData.expiryDuration = 0;
+    this.authData.email = "";
+    this.meta.loggedIn = false;
+    localStorage.removeItem("uuid");
+    localStorage.removeItem("email");
+    localStorage.removeItem("access_token");
+    localStorage.removeItem("refresh_token");
+  }
 }
 
-
-
 export default Auth;
-
-
 
 // const userRaw = JSON.parse(<string>localStorage.getItem('user'));
 //

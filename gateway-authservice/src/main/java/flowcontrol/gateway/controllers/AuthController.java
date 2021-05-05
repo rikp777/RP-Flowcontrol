@@ -1,11 +1,9 @@
 package flowcontrol.gateway.controllers;
 
 
+import flowcontrol.gateway.annotation.CurrentUser;
 import flowcontrol.gateway.controllers.advise.AuthControllerAdvice;
-import flowcontrol.gateway.event.OnGenerateResetLinkEvent;
-import flowcontrol.gateway.event.OnRegenerateEmailVerificationEvent;
-import flowcontrol.gateway.event.OnUserAccountChangeEvent;
-import flowcontrol.gateway.event.OnUserRegistrationCompleteEvent;
+import flowcontrol.gateway.event.*;
 import flowcontrol.gateway.exception.*;
 import flowcontrol.gateway.model.entity.CustomUserDetails;
 import flowcontrol.gateway.model.entity.RefreshToken;
@@ -56,6 +54,18 @@ public class AuthController {
     public ResponseEntity checkUsernameInUse(@RequestParam("username") String username){
         Boolean usernameExists = authService.usernameAlreadyExists(username);
         return ResponseEntity.ok(new ApiResponse(usernameExists.toString(), true));
+    }
+
+    @PostMapping("/logout")
+    public ResponseEntity logoutUser(@CurrentUser CustomUserDetails customUserDetails, @Valid @RequestBody LogOutRequest logOutRequest){
+        authService.logOutUser(customUserDetails, logOutRequest);
+
+        Object credentials = SecurityContextHolder.getContext().getAuthentication().getCredentials();
+
+        OnUserLogOutSuccessEvent onUserLogOutSuccessEvent = new OnUserLogOutSuccessEvent(customUserDetails.getEmail(), credentials.toString(), logOutRequest);
+        applicationEventPublisher.publishEvent(onUserLogOutSuccessEvent);
+
+        return ResponseEntity.ok(new ApiResponse("Log out successfully", true));
     }
 
     @PostMapping("/login")

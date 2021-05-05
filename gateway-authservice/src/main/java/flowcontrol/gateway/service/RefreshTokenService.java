@@ -4,13 +4,18 @@ import flowcontrol.gateway.exception.TokenRefreshException;
 import flowcontrol.gateway.model.entity.RefreshToken;
 import flowcontrol.gateway.repository.RefreshTokenRepository;
 import flowcontrol.gateway.util.Uuid;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
+import java.util.Date;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class RefreshTokenService {

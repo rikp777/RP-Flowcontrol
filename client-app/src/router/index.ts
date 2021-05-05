@@ -32,10 +32,11 @@ router.beforeEach(async (to, from, next) => {
   }
 
   let auth = Store.getters["auth/getIsTokenActive"];
+  console.log('Token is still valid', auth)
 
   if(!auth){
     const authData = Store.getters["auth/getAuthData"];
-
+    console.log('Token is not valid make using refresh token to get new token')
     if(authData.token){
       const payload = {
         accessToken: authData.token,

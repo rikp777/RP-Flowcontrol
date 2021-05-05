@@ -41,6 +41,7 @@ api.interceptors.response.use(
                 ] = `bearer ${response.data.access_token}`;
             return axios(error.config);
         } else {
+            Store.dispatch('auth/logout')
             return Promise.reject(error);
         }
     }

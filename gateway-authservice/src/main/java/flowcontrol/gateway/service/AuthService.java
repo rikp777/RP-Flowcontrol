@@ -1,5 +1,6 @@
 package flowcontrol.gateway.service;
 
+import flowcontrol.gateway.annotation.CurrentUser;
 import flowcontrol.gateway.exception.*;
 import flowcontrol.gateway.model.entity.*;
 import flowcontrol.gateway.model.general.EmailVerificationToken;
@@ -141,7 +142,8 @@ public class AuthService {
                 })
                 .map(RefreshToken::getUserDevice)
                 .map(UserDevice::getUser)
-                .map(User::getId).map(this::generateTokenFromUserId))
+                .map(User::getId)
+                .map(this::generateTokenFromUserId))
                 .orElseThrow(() -> new TokenRefreshException(requestRefreshToken, "Missing refresh token in database.Please login again"));
     }
 
@@ -172,5 +174,16 @@ public class AuthService {
                     userService.save(user);
                     return user;
                 });
+    }
+
+    public void logOutUser(@CurrentUser CustomUserDetails currentUser, LogOutRequest logOutRequest){
+        String deviceId = logOutRequest.getDeviceInfo().getDeviceId();
+
+        UserDevice userDevice = userDeviceService.findByUserId(currentUser.getId())
+                .filter(device -> device.getDeviceId().equals(deviceId))
+                .orElseThrow(() -> new UserLogoutException(logOutRequest.getDeviceInfo().getDeviceId(), "Invalid device Id supplied. No matching device found for the given user"));
+
+        log.info("Removing refresh token associated with device [" + userDevice + "]");
+        refreshTokenService.deleteById(userDevice.getRefreshToken().getId());
     }
 }
