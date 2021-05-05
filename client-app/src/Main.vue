@@ -1,9 +1,9 @@
 <template>
   <div>
     <nav-bar />
-<!--    <div>-->
-<!--      <router-view />-->
-<!--    </div>-->
+    <div>
+      <router-view />
+    </div>
   </div>
 </template>
 

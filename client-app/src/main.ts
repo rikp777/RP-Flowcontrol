@@ -13,8 +13,8 @@ Vue.use(VueAxios, axios)
 
 // QR Code
 // @ts-ignore
-import VueQrcodeReader from "vue-qrcode-reader";
-Vue.use(VueQrcodeReader);
+// import VueQrcodeReader from "vue-qrcode-reader";
+// Vue.use(VueQrcodeReader);
 
 
 // Vue Tailwind Components

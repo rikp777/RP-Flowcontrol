@@ -8,6 +8,7 @@ import Api from "@/api";
 import Store from "@/store";
 
 import routes from "./routes";
+import axios from "axios";
 
 const router = new VueRouter({
   mode: "history",
@@ -15,32 +16,47 @@ const router = new VueRouter({
   routes
 });
 
-router.beforeEach((to, from, next) => {
-  // @ts-ignore
-  if (to.redirectedFrom?.path === "/auth/gh") {
-    delete to.query.code;
-    to.fullPath = to.fullPath.replace(/\?code(.*)/, "");
+router.beforeEach(async (to, from, next) => {
+  console.log(Store.getters["auth/getAuthData"].token);
 
-    Api.post(
-        "/signin",
-        {},
-        {
-          params: {
-            // @ts-ignore
-            client_id: "test",
-            // @ts-ignore
-            code: to.redirectedFrom.query.code,
-          },
-        },
-    ).then((res) => {
-      Store.dispatch("user/setTokens", {
-        apiToken: res?.data?.apiToken,
-      });
-      next();
-    });
-  } else {
-    next();
+  if (!Store.getters["auth/getAuthData"].token) {
+    const accessToken = localStorage.getItem("access_token")
+    const refreshToken = localStorage.getItem("refresh_token")
+    if(accessToken) {
+      const data = {
+        accessToken: accessToken,
+        refreshToken: refreshToken
+      }
+      Store.commit("auth/saveTokenData", data)
+    }
   }
+
+  let auth = Store.getters["auth/getIsTokenActive"];
+
+  if(!auth){
+    const authData = Store.getters["auth/getAuthData"];
+
+    if(authData.token){
+      const payload = {
+        accessToken: authData.token,
+        refreshToken: authData.refreshToken
+      }
+      const refreshResponse = await axios.post(
+          "http://127.0.0.1:8762/auth/api/v1/auth/refresh",
+          payload
+      );
+      Store.commit("auth/saveTokenData", refreshResponse.data)
+      auth = true;
+    }
+  }
+
+  if(to.fullPath == "/"){
+    return next();
+  } else if(!auth && to.fullPath != "/login"){
+    console.log("not logged in", to.fullPath)
+    return next({ path: "/login" });
+  }
+  return next();
 });
 
 

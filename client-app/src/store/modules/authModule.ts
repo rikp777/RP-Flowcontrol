@@ -45,8 +45,31 @@ class Auth extends VuexModule {
         email: "",
     }
 
+    get getMetaData() {
+        return this.meta;
+    }
+
+    get getAuthData() {
+        return this.authData;
+    }
+
+    get getIsTokenActive(){
+        if(!this.authData.expiryDuration){
+            return false
+        }
+        if(Date.now() >= this.authData.expiryDuration * 1000){
+            return false
+        }
+        return true
+    }
+
+    get getLoginStatus(){
+        return this.meta.loggedIn;
+    }
+
     @Action({rawError: true})
-    public login(credentials: any){
+    public async login(credentials: any){
+        console.log('Login action')
         const body = {
             username: credentials.email,
             email: credentials.email,
@@ -57,7 +80,7 @@ class Auth extends VuexModule {
                 notificationToken: "123456"
             }
         }
-        api.post("http://127.0.0.1:8762/auth/api/v1/auth/login", body)
+        await api.post("http://127.0.0.1:8762/auth/api/v1/auth/login", body)
             .then(this.handleResponse)
             .then((authResponse) => {
                 console.log(authResponse.data)
@@ -94,17 +117,9 @@ class Auth extends VuexModule {
     }
 
 
-    @Action
-    private tokenAlive(exp: number){
-        if(Date.now() >= exp * 1000){
-            return false
-        }
-        return true
-    }
-
-
     @Mutation
     saveTokenData(data: any) {
+        console.log("save data", data)
         localStorage.setItem("access_token", data.accessToken)
         localStorage.setItem("refresh_token", data.refreshToken)
 
@@ -118,14 +133,15 @@ class Auth extends VuexModule {
             userId: jwtDecodedValue.sub,
             email: jwtDecodedValue.aud
         }
-        console.log(newTokenData);
-
         this.authData = newTokenData;
+        this.meta.loggedIn = true;
+        console.log('authData', this.authData)
     }
 
     @Mutation
     loginSuccess(authUser: AuthUser){
         this.meta.loggedIn = true;
+        console.log('meta', this.meta)
     }
 
     @Mutation

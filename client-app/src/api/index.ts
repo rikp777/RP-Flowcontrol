@@ -9,17 +9,41 @@ const api = axios.create({
     baseURL: url,
 })
 
-axios.interceptors.request.use(
-    (config) => {
-        if(!config.headers.Authorization){
-            const apiToken = Store?.getters?.["user/token"];
-            if(apiToken){
-                config.headers.common["Authorization"] = apiToken;
-            }
-        }
+api.interceptors.request.use((config) => {
+    const authData = Store.getters["auth/getAuthData"];
+    if (authData == null) {
         return config;
+    }
+
+    config.headers.common["Authorization"] = `bearer ${authData.token}`;
+    return config;
+});
+
+api.interceptors.response.use(
+    (response) => {
+        return response;
     },
-    (error) => Promise.reject(error)
-)
+    async (error) => {
+        if (error.response.status === 401) {
+            const authData = Store.getters["auth/getAuthData"];
+            const payload = {
+                accessToken: authData.token,
+                refreshToken: authData.refreshToken,
+            };
+
+            let response = await axios.post(
+                "http://127.0.0.1:8762/auth/api/v1/auth/refresh",
+                payload
+            );
+            await Store.dispatch("auth/saveTokenData", response.data);
+            error.config.headers[
+                "Authorization"
+                ] = `bearer ${response.data.access_token}`;
+            return axios(error.config);
+        } else {
+            return Promise.reject(error);
+        }
+    }
+);
 
 export default api

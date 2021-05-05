@@ -2,7 +2,7 @@
   <div>
 <!--    <div v-if="apiToken && user">Logged in</div>-->
 <!--    <div v-else>Not logged in</div>-->
-
+    Dashboard
 
 
   </div>
