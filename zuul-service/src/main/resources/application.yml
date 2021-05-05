@@ -40,6 +40,11 @@ zuul:
       path: /transport/**
       service-id: transport-service
       sensitive-headers: Cookie, Set-Cookie
+
+    production:
+      path: /production/**
+      service-id: production-service
+      sensitive-headers: Cookie, Set-Cookie
   retryable: true #for devs only
 
 ribbon:
