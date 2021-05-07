@@ -2,12 +2,15 @@ package flowcontrol.transport.repository.impl;
 
 import flowcontrol.transport.exception.AppException;
 import flowcontrol.transport.exception.ResourceNotFoundException;
+import flowcontrol.transport.model.general.BearerTokenWrapper;
 import flowcontrol.transport.model.general.Cell;
 import flowcontrol.transport.model.general.Farmer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Repository;
+import org.springframework.web.reactive.function.client.ClientRequest;
+import org.springframework.web.reactive.function.client.ExchangeFilterFunction;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
@@ -20,10 +23,15 @@ public class FarmerRepository {
     @Autowired
     private WebClient.Builder webClientBuilder;
 
+    @Autowired
+    private BearerTokenWrapper tokenWrapper;
+
     public Farmer findById(Long id) {
-        Farmer farmer = webClientBuilder.build() //Gives you a client
+        Farmer farmer = webClientBuilder
+                .filter(authHeader(tokenWrapper.getToken()))
+                .build() //Gives you a client
                 .get() // Method for the request
-                .uri("http://localhost:7071/api/v1/farmers/" + id) // Url that you need to access
+                .uri("http://127.0.0.1:7071/api/v1/farmers/" + id) // Url that you need to access
                 .retrieve() // Go do the fetch
                 .onStatus(HttpStatus::is4xxClientError,
                         error -> Mono.error(new ResourceNotFoundException("Farmer", "Id", id)))
@@ -45,5 +53,11 @@ public class FarmerRepository {
                 .block();
 
         return farmers;
+    }
+
+    private ExchangeFilterFunction authHeader(String token) {
+        return (request, next) -> next.exchange(ClientRequest.from(request).headers((headers) -> {
+            headers.setBearerAuth(token);
+        }).build());
     }
 }

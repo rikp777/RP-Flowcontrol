@@ -1,5 +1,6 @@
 package flowcontrol.transport.controllers;
 
+import flowcontrol.transport.config.security.JwtConfig;
 import flowcontrol.transport.exception.PalletLabelException;
 import flowcontrol.transport.exception.ResourceNotFoundException;
 import flowcontrol.transport.model.entity.PalletLabel;
@@ -20,6 +21,8 @@ import java.util.List;
 @RequestMapping("/v1/farmers/{farmerId}/palletlabels")
 @AllArgsConstructor
 public class PalletLabelController {
+
+    private final JwtConfig jwtConfig;
 
     @Autowired
     private final PalletLabelService palletLabelService;
