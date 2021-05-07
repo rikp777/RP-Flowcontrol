@@ -7,7 +7,7 @@ import store from "./store";
 import "./assets/tailwind.css"
 
 // Axios
-import axios from 'axios'
+import axios from './api/index'
 import VueAxios from 'vue-axios'
 Vue.use(VueAxios, axios)
 

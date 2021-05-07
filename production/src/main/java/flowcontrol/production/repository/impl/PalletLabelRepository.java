@@ -2,11 +2,14 @@ package flowcontrol.production.repository.impl;
 
 import flowcontrol.production.exception.AppException;
 import flowcontrol.production.exception.ResourceNotFoundException;
+import flowcontrol.production.model.general.BearerTokenWrapper;
 import flowcontrol.production.model.general.PalletLabel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Repository;
+import org.springframework.web.reactive.function.client.ClientRequest;
+import org.springframework.web.reactive.function.client.ExchangeFilterFunction;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
@@ -19,8 +22,13 @@ public class PalletLabelRepository {
     @Autowired
     private WebClient.Builder webClientBuilder;
 
+    @Autowired
+    private BearerTokenWrapper tokenWrapper;
+
     public Optional<PalletLabel> findById(Long farmerId, Long id) {
-        PalletLabel palletLabel = webClientBuilder.build() //Gives you a client
+        PalletLabel palletLabel = webClientBuilder
+                .filter(authHeader(tokenWrapper.getToken()))
+                .build() //Gives you a client
                 .get() // Method for the request
                 .uri("http://localhost:7072/api/v1/farmers/" + farmerId + "/palletlabels/" + id)
                 .retrieve() // Go do the fetch
@@ -35,7 +43,9 @@ public class PalletLabelRepository {
     }
 
     public List<PalletLabel> findAll(Long farmerId) {
-        List<PalletLabel> palletLabel = webClientBuilder.build()
+        List<PalletLabel> palletLabel = webClientBuilder
+                .filter(authHeader(tokenWrapper.getToken()))
+                .build()
                 .get()
                 .uri("http://localhost:7072/api/v1/farmers/"+ farmerId + "/palletlabels")
                 .retrieve()
@@ -43,5 +53,11 @@ public class PalletLabelRepository {
                 .block();
 
         return palletLabel;
+    }
+
+    private ExchangeFilterFunction authHeader(String token) {
+        return (request, next) -> next.exchange(ClientRequest.from(request).headers((headers) -> {
+            headers.setBearerAuth(token);
+        }).build());
     }
 }

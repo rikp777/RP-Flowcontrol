@@ -4,6 +4,8 @@ import jwt_decode from "jwt-decode";
 import { store } from "@/store";
 import getMAC, { isMAC } from 'getmac'
 
+
+
 export interface AuthUser {
   auth: string;
   uid: string;
@@ -28,6 +30,7 @@ interface AuthData {
   // name: "auth"
 })
 class Auth extends VuexModule {
+
   public authUser: AuthUser = {
     auth: "",
     uid: "",
@@ -58,7 +61,7 @@ class Auth extends VuexModule {
     if (!this.authData.expiryDuration) {
       return false;
     }
-    if (Date.now() >= this.authData.expiryDuration * 500) {
+    if (Date.now() >= this.authData.expiryDuration * 2000) {
       return false;
     }
     return true;
@@ -69,14 +72,14 @@ class Auth extends VuexModule {
   }
 
   get getCurrentUser() {
-    console.log("current user email:", this.authData);
     return this.authData.email;
   }
+
+
 
   @Action({ rawError: true })
   public async login(credentials: any) {
     // eslint-disable-next-line @typescript-eslint/no-var-requires
-    console.log("Login action");
 
     //todo implement device info
     const body = {
@@ -93,7 +96,6 @@ class Auth extends VuexModule {
       .post("http://127.0.0.1:8762/auth/api/v1/auth/login", body)
       .then(this.handleResponse)
       .then(authResponse => {
-        console.log(authResponse.data);
         if (authResponse.data.accessToken) {
           // @ts-ignore
           this.context.commit("loginSuccess", this.authUser);
@@ -107,6 +109,10 @@ class Auth extends VuexModule {
   @Action({ rawError: true })
   public logout() {
     this.context.commit("purgeData");
+  }
+  @Action({rawError: true})
+  public saveTokenDataAction(data: any){
+    this.context.commit("saveTokenData", data);
   }
 
   @Action
@@ -128,7 +134,6 @@ class Auth extends VuexModule {
 
   @Mutation
   saveTokenData(data: any) {
-    console.log("save data", data);
     localStorage.setItem("access_token", data.accessToken);
     localStorage.setItem("refresh_token", data.refreshToken);
 
@@ -158,7 +163,6 @@ class Auth extends VuexModule {
   @Mutation
   loginSuccess(authUser: AuthUser) {
     this.meta.loggedIn = true;
-    console.log("meta", this.meta);
   }
 
   @Mutation

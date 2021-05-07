@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -31,6 +32,7 @@ public class AuthService {
     private final EmailVerificationTokenService emailVerificationTokenService;
     private final UserDeviceService userDeviceService;
     private final PasswordResetTokenService passwordResetTokenService;
+    private final CustomUserDetailsService customUserDetailsService;
 
     public Optional<User> registerUser(RegistrationRequest newRegistrationRequest){
         String newRegistrationRequestEmail = newRegistrationRequest.getEmail();
@@ -133,18 +135,36 @@ public class AuthService {
     public Optional<String> refreshJwtToken(TokenRefreshRequest tokenRefreshRequest){
         String requestRefreshToken = tokenRefreshRequest.getRefreshToken();
 
-        return Optional.of(refreshTokenService.findByToken(requestRefreshToken)
-                .map(refreshToken -> {
-                    refreshTokenService.verifyExpiration(refreshToken);
-                    userDeviceService.verifyRefreshAvailability(refreshToken);
-                    refreshTokenService.increaseCount(refreshToken);
-                    return refreshToken;
-                })
-                .map(RefreshToken::getUserDevice)
-                .map(UserDevice::getUser)
-                .map(User::getId)
-                .map(this::generateTokenFromUserId))
-                .orElseThrow(() -> new TokenRefreshException(requestRefreshToken, "Missing refresh token in database.Please login again"));
+        Optional<RefreshToken> refreshToken = refreshTokenService.findByToken(requestRefreshToken);
+
+        if(refreshToken.isPresent()){
+            refreshTokenService.verifyExpiration(refreshToken.get());
+            userDeviceService.verifyRefreshAvailability(refreshToken.get());
+            refreshTokenService.increaseCount(refreshToken.get());
+
+            UserDevice userDevice = refreshToken.get().getUserDevice();
+            User user = userDevice.getUser();
+
+//            UserDetails userDetails = customUserDetailsService.loadUserById(user.getId());
+
+            CustomUserDetails userDetails = new CustomUserDetails(user);
+            return Optional.of(this.generateToken(userDetails));
+        }else{
+            new TokenRefreshException(requestRefreshToken, "Missing refresh token in database.Please login again");
+        }
+
+        return null;
+
+//        return Optional.of(refreshTokenService.findByToken(requestRefreshToken)
+//                .map(refreshToken -> {
+//                    refreshTokenService.verifyExpiration(refreshToken);
+//                    userDeviceService.verifyRefreshAvailability(refreshToken);
+//                    refreshTokenService.increaseCount(refreshToken);
+//                    return refreshToken;
+//                })
+//
+//                .map(this::generateToken)
+//                .orElseThrow(() -> new TokenRefreshException(requestRefreshToken, "Missing refresh token in database.Please login again"));
     }
 
     public Optional<PasswordResetToken> generatePasswordResetToken(PasswordResetLinkRequest passwordResetLinkRequest) {

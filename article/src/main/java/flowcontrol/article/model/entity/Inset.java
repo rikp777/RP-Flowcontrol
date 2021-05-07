@@ -35,10 +35,11 @@ public class Inset extends AbstractBaseEntity {
     @JsonIgnore
     private Set<Article> articles = new HashSet<>();
 
-    @ManyToOne()
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(
             name = "color_id", referencedColumnName = "id",
-            foreignKey = @ForeignKey(name="color_fk_in_inset")
+            foreignKey = @ForeignKey(name="color_fk_in_article")
     )
+    @JsonIgnore
     private Color color;
 }

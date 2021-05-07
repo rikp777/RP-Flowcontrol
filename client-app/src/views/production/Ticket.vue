@@ -362,7 +362,7 @@ export default {
     getInterruptions(palletLabelId, ticketId){
       if(this.tickets.length > 0){
         const apiUrl =
-            `http://127.0.0.1:8762/api/v1/farmers/1/palletlabels/${palletLabelId}/tickets/${ticketId}/interruptions`
+            `http://127.0.0.1:8762/production/api/v1/farmers/1/palletlabels/${palletLabelId}/tickets/${ticketId}/interruptions`
         this.axios.get(apiUrl).then((response) => {
           this.interruptions = response.data;
         })
@@ -370,24 +370,24 @@ export default {
     },
     getTickets(){
       this.getPalletLabel(this.form.palletLabelId);
-      this.error = null;
-      const apiUrl = `http://127.0.0.1:8762/api/v1/farmers/1/palletlabels/${this.form.palletLabelId}/tickets`
-      this.axios.get(apiUrl).then((response) => {
-        this.tickets = response.data;
-        if(response.data.length > 0){
-          this.form.lineId = this.tickets[0].lineId
-          this.getPalletLabel(this.tickets[0].palletLabelId);
-          this.getInterruptions(this.tickets[0].palletLabelId, this.tickets[this.tickets.length -1].id)
-        }else{
-          this.article = null;
-          this.stillRemaining = null;
-          this.interruptions = null;
-        }
-      })
+      // this.error = null;
+      // const apiUrl = `http://127.0.0.1:8762/production/api/v1/farmers/1/palletlabels/${this.form.palletLabelId}/tickets`
+      // this.axios.get(apiUrl).then((response) => {
+      //   this.tickets = response.data;
+      //   if(response.data.length > 0){
+      //     this.form.lineId = this.tickets[0].lineId
+      //     // this.getPalletLabel(this.tickets[0].palletLabelId);
+      //     // this.getInterruptions(this.tickets[0].palletLabelId, this.tickets[this.tickets.length -1].id)
+      //   }else{
+      //     this.article = null;
+      //     this.stillRemaining = null;
+      //     this.interruptions = null;
+      //   }
+      // })
     },
     getPalletLabel(palletLabelId){
       this.error = null;
-      const apiUrl = `http://127.0.0.1:8762/api/v1/farmers/1/palletlabels/${palletLabelId}`
+      const apiUrl = `http://127.0.0.1:8762/transport/api/v1/farmers/1/palletlabels/${palletLabelId}`
       this.axios.get(apiUrl).then((response) => {
         console.log(response)
         this.palletLabel = response.data;
@@ -405,7 +405,7 @@ export default {
       }
       const data = {}
       const headers = this.request.headers
-      const apiUrl = `http://127.0.0.1:8762/api/v1/farmers/1/palletlabels/${this.form.palletLabelId}/tickets`
+      const apiUrl = `http://127.0.0.1:8762/production/api/v1/farmers/1/palletlabels/${this.form.palletLabelId}/tickets`
       this.axios.post(apiUrl, data, { params, headers }).then((response) => {
         this.ticket = response.data;
         this.getTickets();
@@ -429,7 +429,7 @@ export default {
       }
 
       const headers = this.request.headers
-      const apiUrl = `http://127.0.0.1:8762/api/v1/farmers/1/palletlabels/${this.form.palletLabelId}/tickets/${this.tickets[this.tickets.length -1].id}/interruptions`
+      const apiUrl = `http://127.0.0.1:8762/production/api/v1/farmers/1/palletlabels/${this.form.palletLabelId}/tickets/${this.tickets[this.tickets.length -1].id}/interruptions`
       this.axios.post(apiUrl, data, { params, headers }).then((response) => {
 
         this.interruption = response.data;
@@ -439,7 +439,7 @@ export default {
     closeTicket(){
       const data = {}
       const headers = this.request.headers
-      const apiUrl = `http://127.0.0.1:8762/api/v1/farmers/1/palletlabels/${this.form.palletLabelId}/tickets/${this.tickets[this.tickets.length -1].id}`
+      const apiUrl = `http://127.0.0.1:8762/production/api/v1/farmers/1/palletlabels/${this.form.palletLabelId}/tickets/${this.tickets[this.tickets.length -1].id}`
       this.axios.post(apiUrl, data, { headers }).then((response) => {
         console.log(response.data)
         this.ticket = response.data;
@@ -450,7 +450,7 @@ export default {
       const data = {}
       const headers = this.request.headers
       const apiUrl =
-          `http://127.0.0.1:8762/api/v1/farmers/1/palletlabels/${this.form.palletLabelId}/tickets/${this.tickets[this.tickets.length -1].id}/interruptions/${this.interruptions[this.interruptions.length -1].id}`
+          `http://127.0.0.1:8762/production/api/v1/farmers/1/palletlabels/${this.form.palletLabelId}/tickets/${this.tickets[this.tickets.length -1].id}/interruptions/${this.interruptions[this.interruptions.length -1].id}`
       this.axios.post(apiUrl, data, {  headers }).then((response) => {
 
         this.interruption = response.data;
