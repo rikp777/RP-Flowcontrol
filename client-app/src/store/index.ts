@@ -7,6 +7,7 @@ Vue.use(Vuex);
 // import user from "@/store/modules/userModule";
 // import apiRequest from "@/store/modules/apiRequestModule";
 import authModule from "@/store/modules/authModule";
+import ticketModule from "@/store/modules/ticketModule";
 
 
 
@@ -20,7 +21,8 @@ export default new Vuex.Store({
 
 
   modules: {
-    auth: authModule
+    auth: authModule,
+    ticket: ticketModule
   },
 
   strict: debug,

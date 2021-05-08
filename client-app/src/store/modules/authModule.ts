@@ -61,7 +61,7 @@ class Auth extends VuexModule {
     if (!this.authData.expiryDuration) {
       return false;
     }
-    if (Date.now() >= this.authData.expiryDuration * 2000) {
+    if (Date.now() >= this.authData.expiryDuration * 1000) {
       return false;
     }
     return true;

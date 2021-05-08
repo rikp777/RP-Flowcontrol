@@ -11,9 +11,17 @@
               <h5 class="font-bold text-black">Productie</h5>
             </div>
             <div class="p-5 bg-white">
-              <div v-if="form.lineId">Lijn nr.: {{form.lineId}}</div>
-              <div v-if="form.palletLabelId">Pallet label nr.: {{form.palletLabelId}}</div>
-              <div v-if="article">Artikel: {{article}}</div>
+              <div>
+                <div v-if="form.lineId">Lijn nr.: {{form.lineId}}</div>
+                <div v-else-if="tickets[0]">Lijn nr.: {{tickets[this.tickets.length -1].line.id}}</div>
+              </div>
+              <div>
+                <div v-if="form.palletLabelId">Pallet label nr.: {{form.palletLabelId}}</div>
+                <div v-else-if="palletLabel">Pallet label nr.: {{palletLabel.id}}</div>
+              </div>
+
+              <div v-if="palletLabel.article">Artikel: {{palletLabel.article.name}}</div>
+              <div v-if="palletLabelIsFullyUsed">Status: Verwerkt</div>
             </div>
           </div>
 
@@ -22,6 +30,7 @@
           <!--Table Card-->
           <!--                      :headers="['Ticket Nr.', 'Pallet label Nr.', 'Start tijd', 'Eind tijd', 'Verbruikt aantal',-->
           <!--                      'Bijvul aantal', 'Interruptie aantal']"-->
+<!--          {{tickets}}-->
           <div class="p-3" v-if="tickets.length > 0">
             <div class="border-b p-3">
               <h5 class="font-bold text-black">Ticket Data</h5>
@@ -77,7 +86,7 @@
 
           <div class="p-3" v-if="tickets.length > 0">
             <div class="border-b p-3">
-              <h5 class="font-bold text-black">Interruptie data</h5>
+              <h5 class="font-bold text-black">Interruptie data current ticket: {{tickets[this.tickets.length -1].id}}</h5>
             </div>
             <div class="p-5 bg-white">
               <t-table
@@ -111,7 +120,7 @@
         <form v-on:submit.prevent>
           <div class="shadow sm:rounded-md">
             <div class="px-4 py-5 bg-white space-y-6 sm:p-6 ">
-              <div v-if="stillRemaining ===0">Palletlabel is op!</div>
+              <div v-if="palletLabelIsFullyUsed">Palletlabel is op! scan aub een ander id</div>
               <!-- First block-->
               <div class="grid grid-cols-6 gap-6">
                 <div class="col-span-6 sm:col-span-3">
@@ -131,7 +140,7 @@
                     Kan zowel gescand worden als met de hand ingevoerd worden.
                   </p>
                 </div>
-                <div class="col-span-6 sm:col-span-3" v-if="canCreateNewTicket || !lastTicketIsOpen">
+                <div class="col-span-6 sm:col-span-3" v-if="!palletLabelIsFullyUsed">
                   <label for="pallet_label_id" class="block text-sm font-medium text-gray-700">
                     Lijn Nr.:
                   </label>
@@ -146,7 +155,7 @@
                     Kan zowel gescand worden als met de hand ingevoerd worden.
                   </p>
                 </div>
-                <div class="col-span-3  " v-if="canCreateNewTicket || !lastTicketIsOpen">
+                <div class="col-span-3  " v-if="!palletLabelIsFullyUsed && canCreateNewTicket">
                   <div class="" >
                     <t-button @click="createTicket" v-bind:class="{
                           'text-opacity-25 w-full h-full cursor-not-allowed transition duration-100 ease-in-out':
@@ -154,6 +163,8 @@
                       nieuw ticket'</t-button>
                   </div>
                 </div>
+                {{palletLabelIsFullyUsed}}
+                last ticket open :{{canCreateNewTicket}}
                 <div class="col-span-3" v-if="!canCreateNewTicket && lastTicketIsOpen">
                   <label for="pallet_label_id" class="block text-sm font-medium text-gray-700">
                     Wanneer ticket is afgerond
@@ -223,12 +234,17 @@
 
 
             </div>
+            {{form}}
+            <br><br>
 
-            <div class="px-4 py-3 bg-gray-50 text-right sm:px-6">
-              <t-alert variant="error" show>
-                Afgehandeld
-              </t-alert>
-            </div>
+
+            {{tickets}}
+
+<!--            <div class="px-4 py-3 bg-gray-50 text-right sm:px-6">-->
+<!--              <t-alert variant="error" show>-->
+<!--                Afgehandeld-->
+<!--              </t-alert>-->
+<!--            </div>-->
           </div>
         </form>
       </div>
@@ -238,16 +254,18 @@
 
 <script>
 
+import {mapActions, mapGetters} from "vuex";
+
 const apiBaseUrl = "http://localhost:7073/api/v1/farmers/1";
 export default {
   data() {
     return {
       article: null,
-      palletLabel: null,
-      ticket: [],
-      tickets: [],
-      interruption: [],
-      interruptions: [],
+      // palletLabel: null,
+      // ticket: [],
+      // tickets: [],
+      // interruption: [],
+      // interruptions: [],
       stillRemaining: 0,
       lastTicketIsOpen: true,
       form: {
@@ -306,6 +324,11 @@ export default {
     }
   },
   computed: {
+    ...mapGetters("ticket", {
+      tickets: "getTickets",
+      interruptions: "getInterruptions",
+      palletLabel: "getPalletLabel"
+    }),
     // lastTicketIsOpen: function () {
     //   if(this.canCreateNewTicket){
     //     console.log(this.tickets)
@@ -313,13 +336,39 @@ export default {
     //   }
     //   return false;
     // },
+    palletLabelIsFullyUsed() {
+      console.log(this.tickets)
+      if(this.tickets.length > 0 && this.palletLabel) {
+        const hasEnd = this.tickets[this.tickets.length -1].endAt != null
+        let usedAmount = 0
+        this.tickets.forEach(ticket => {
+            usedAmount = usedAmount + ticket.articleAmountUsed
+        })
+
+        if(this.palletLabel.articleAmount >= usedAmount && hasEnd){
+          return true
+        }
+      }
+      return false;
+    },
+    canCreateNewTicket(){
+      console.log(this.tickets)
+      if(this.tickets.length > 0 && this.palletLabel) {
+        if(this.tickets[this.tickets.length -1].endAt != null){
+          return true
+        }else {
+          return false
+        }
+      }
+      return true;
+    },
     processStops: function () {
       return  this.form.interruptionReasonId == 4 ||
           this.form.interruptionReasonId == 5 || this.form.interruptionReasonId == 6
     },
-    canCreateNewTicket: function () {
-      if(this.tickets.length == 0) return true;
-    },
+    // canCreateNewTicket: function () {
+    //   if(this.tickets.length == 0) return true;
+    // },
     isInterruptionOpen: function () {
       let success = false
       if(this.interruptions != null) {
@@ -335,6 +384,14 @@ export default {
     }
   },
   methods: {
+    ...mapActions("ticket", {
+      fetchPalletLabelAction: "fetchPalletLabel",
+      fetchTicketsAction: "fetchTickets",
+      fetchInterruptionssAction: "fetchInterruptions",
+      closeTicketAction: "closeTicket",
+      closeInterruptionAction: "closeInterruption",
+      purgeDataAction: "purgeData"
+    }),
     test(test){
       return test
     },
@@ -359,25 +416,37 @@ export default {
       })
       this.stillRemaining = leftOver;
     },
-    getInterruptions(palletLabelId, ticketId){
-      if(this.tickets.length > 0){
-        const apiUrl =
-            `http://127.0.0.1:8762/production/api/v1/farmers/1/palletlabels/${palletLabelId}/tickets/${ticketId}/interruptions`
-        this.axios.get(apiUrl).then((response) => {
-          this.interruptions = response.data;
-        })
-      }
+    getInterruptions(){
+      this.fetchInterruptionssAction(this.tickets[this.tickets.length -1].id)
+      // console.log("ticket lenght", this.tickets.length)
+      // if(this.tickets.length > 0){
+      //   const apiUrl =
+      //       `http://127.0.0.1:8762/production/api/v1/farmers/1/palletlabels/${palletLabelId}/tickets/${ticketId}/interruptions`
+      //   this.axios.get(apiUrl).then((response) => {
+      //     this.interruptions = response.data._embedded.interruptions;
+      //   })
+      // }
     },
-    getTickets(){
-      this.getPalletLabel(this.form.palletLabelId);
+    async getTickets(){
+      await this.purgeDataAction();
+      await this.fetchTicketsAction(this.form.palletLabelId)
+      await this.fetchPalletLabelAction(this.form.palletLabelId)
+      await this.fetchInterruptionssAction(this.tickets[this.tickets.length -1])
+
+      // this.getPalletLabel(this.form.palletLabelId);
       // this.error = null;
       // const apiUrl = `http://127.0.0.1:8762/production/api/v1/farmers/1/palletlabels/${this.form.palletLabelId}/tickets`
       // this.axios.get(apiUrl).then((response) => {
-      //   this.tickets = response.data;
-      //   if(response.data.length > 0){
-      //     this.form.lineId = this.tickets[0].lineId
-      //     // this.getPalletLabel(this.tickets[0].palletLabelId);
-      //     // this.getInterruptions(this.tickets[0].palletLabelId, this.tickets[this.tickets.length -1].id)
+      //   console.log("tickets", response)
+      //   const isDataAvailable = response.data && response.data.length;
+      //
+      //   console.log("isDataAvailable", isDataAvailable)
+      //
+      //   if(isDataAvailable){
+      //     this.tickets = response.data._embedded.tickets;
+      //     this.form.lineId = this.tickets[0].line.id
+      //     this.getPalletLabel(this.tickets[0].palletLabel.id);
+      //     this.getInterruptions(this.tickets[0].palletLabel.id, this.tickets[this.tickets.length -1].id)
       //   }else{
       //     this.article = null;
       //     this.stillRemaining = null;
@@ -403,6 +472,9 @@ export default {
       const params = {
         lineId: this.form.lineId
       }
+
+      console.log("lineId", params.lineId)
+      console.log("palletlabelId", this.form)
       const data = {}
       const headers = this.request.headers
       const apiUrl = `http://127.0.0.1:8762/production/api/v1/farmers/1/palletlabels/${this.form.palletLabelId}/tickets`
@@ -418,44 +490,36 @@ export default {
     createInterruption(){
       const data = {}
       const params = {}
-      if (this.form.usedArticleAmount != null || this.form.usedArticleAmount != ""){
-
+      if (this.form.usedArticleAmount != null && this.form.usedArticleAmount != ""){
+        console.log("dit kan niet", this.form.usedArticleAmount)
         params.interruptionReasonId = this.form.interruptionReasonId;
         params.usedArticleAmount = this.form.usedArticleAmount;
       }else {
-
+        console.log("raak")
         params.interruptionReasonId = this.form.interruptionReasonId;
-        params.usedArticleAmount = this.palletLabel.usedArticleAmount;
+        params.usedArticleAmount = this.palletLabel.articleAmount;
       }
 
+      console.log(this.form.usedArticleAmount)
       const headers = this.request.headers
       const apiUrl = `http://127.0.0.1:8762/production/api/v1/farmers/1/palletlabels/${this.form.palletLabelId}/tickets/${this.tickets[this.tickets.length -1].id}/interruptions`
       this.axios.post(apiUrl, data, { params, headers }).then((response) => {
 
         this.interruption = response.data;
-        this.getTickets();
+        this.fetchInterruptionssAction(this.tickets[this.tickets.length -1])
       })
     },
-    closeTicket(){
-      const data = {}
-      const headers = this.request.headers
-      const apiUrl = `http://127.0.0.1:8762/production/api/v1/farmers/1/palletlabels/${this.form.palletLabelId}/tickets/${this.tickets[this.tickets.length -1].id}`
-      this.axios.post(apiUrl, data, { headers }).then((response) => {
-        console.log(response.data)
-        this.ticket = response.data;
-        this.getTickets();
-      })
+    async closeTicket(){
+      console.log(this.tickets)
+      await this.closeTicketAction(this.tickets[this.tickets.length -1])
+      await this.fetchTicketsAction(this.form.palletLabelId)
     },
-    closeInterruption(){
-      const data = {}
-      const headers = this.request.headers
-      const apiUrl =
-          `http://127.0.0.1:8762/production/api/v1/farmers/1/palletlabels/${this.form.palletLabelId}/tickets/${this.tickets[this.tickets.length -1].id}/interruptions/${this.interruptions[this.interruptions.length -1].id}`
-      this.axios.post(apiUrl, data, {  headers }).then((response) => {
+    async closeInterruption(){
+      console.log(this.tickets)
+      await this.fetchTicketsAction(this.tickets[this.tickets.length -1].palletLabel.id)
+      await this.closeInterruptionAction(this.tickets[this.tickets.length -1])
 
-        this.interruption = response.data;
-        this.getTickets();
-      })
+      await this.fetchInterruptionssAction(this.tickets[this.tickets.length -1])
     }
   }
 }
