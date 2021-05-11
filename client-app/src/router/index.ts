@@ -45,7 +45,9 @@ router.beforeEach(async (to, from, next) => {
       const refreshResponse = await axios.post(
           "http://127.0.0.1:8762/auth/api/v1/auth/refresh",
           payload
-      );
+      ).catch(() => {
+        Store.dispatch("auth/logout")
+      })
       Store.commit("auth/saveTokenData", refreshResponse.data)
       auth = true;
     }

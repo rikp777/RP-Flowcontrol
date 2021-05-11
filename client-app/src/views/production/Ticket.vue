@@ -163,8 +163,6 @@
                       nieuw ticket'</t-button>
                   </div>
                 </div>
-                {{palletLabelIsFullyUsed}}
-                last ticket open :{{canCreateNewTicket}}
                 <div class="col-span-3" v-if="!canCreateNewTicket && lastTicketIsOpen">
                   <label for="pallet_label_id" class="block text-sm font-medium text-gray-700">
                     Wanneer ticket is afgerond
@@ -234,17 +232,8 @@
 
 
             </div>
-            {{form}}
+            Has been fully used: {{palletLabelIsFullyUsed}}
             <br><br>
-
-
-            {{tickets}}
-
-<!--            <div class="px-4 py-3 bg-gray-50 text-right sm:px-6">-->
-<!--              <t-alert variant="error" show>-->
-<!--                Afgehandeld-->
-<!--              </t-alert>-->
-<!--            </div>-->
           </div>
         </form>
       </div>
@@ -320,6 +309,22 @@ export default {
             this.lastTicketIsOpen = false
           }
         }
+        // console.log("watch id palletlabel is fully used")
+        // console.log(val.length)
+        // if(val.length > 0 && this.palletLabel) {
+        //   const hasEnd = val[val.length -1].endAt != null
+        //   let usedAmount = 0
+        //   val.forEach(ticket => {
+        //     usedAmount = usedAmount + ticket.articleAmountUsed
+        //   })
+        //   console.log("used amount ", usedAmount)
+        //   console.log("has end ", this.palletLabel.articleAmount <= usedAmount && hasEnd)
+        //   if(this.palletLabel.articleAmount <= usedAmount && hasEnd){
+        //     this.palletLabelIsFullyUsed = true;
+        //     console.log(this.palletLabelIsFullyUsed)
+        //   }
+        // }
+        // this.palletLabelIsFullyUsed = false;
       }
     }
   },
@@ -345,7 +350,7 @@ export default {
             usedAmount = usedAmount + ticket.articleAmountUsed
         })
 
-        if(this.palletLabel.articleAmount >= usedAmount && hasEnd){
+        if(this.palletLabel.articleAmount <= usedAmount && hasEnd){
           return true
         }
       }
@@ -502,17 +507,20 @@ export default {
 
       console.log(this.form.usedArticleAmount)
       const headers = this.request.headers
-      const apiUrl = `http://127.0.0.1:8762/production/api/v1/farmers/1/palletlabels/${this.form.palletLabelId}/tickets/${this.tickets[this.tickets.length -1].id}/interruptions`
+      const apiUrl = `http://127.0.0.1:8762/production/api/v1/farmers/1/palletlabels/${this.tickets[this.tickets.length -1].palletLabel.id}/tickets/${this.tickets[this.tickets.length -1].id}/interruptions`
       this.axios.post(apiUrl, data, { params, headers }).then((response) => {
 
         this.interruption = response.data;
         this.fetchInterruptionssAction(this.tickets[this.tickets.length -1])
+        this.fetchTicketsAction(this.form.palletLabelId);
       })
     },
     async closeTicket(){
       console.log(this.tickets)
       await this.closeTicketAction(this.tickets[this.tickets.length -1])
       await this.fetchTicketsAction(this.form.palletLabelId)
+      await this.fetchInterruptionssAction(this.tickets[this.tickets.length -1])
+      let isUsed = this.palletLabelIsFullyUsed;
     },
     async closeInterruption(){
       console.log(this.tickets)
