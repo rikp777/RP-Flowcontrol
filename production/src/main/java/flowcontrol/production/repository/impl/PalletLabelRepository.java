@@ -25,15 +25,15 @@ public class PalletLabelRepository {
     @Autowired
     private BearerTokenWrapper tokenWrapper;
 
-    public Optional<PalletLabel> findById(Long farmerId, Long id) {
+    public Optional<PalletLabel> findById(Long farmerId, Long palletLabelId) {
         PalletLabel palletLabel = webClientBuilder
                 .filter(authHeader(tokenWrapper.getToken()))
                 .build() //Gives you a client
                 .get() // Method for the request
-                .uri("http://localhost:7072/api/v1/farmers/" + farmerId + "/palletlabels/" + id)
+                .uri("http://localhost:7072/api/v1/farmers/" + farmerId + "/palletlabels/" + palletLabelId)
                 .retrieve() // Go do the fetch
                 .onStatus(HttpStatus::is4xxClientError,
-                        error -> Mono.error(new ResourceNotFoundException("PalletLabel", "Id", id)))
+                        error -> Mono.error(new ResourceNotFoundException("PalletLabel", "Id", palletLabelId)))
                 .onStatus(HttpStatus::is5xxServerError,
                         error -> Mono.error(new AppException("Server is not responding")))
                 .bodyToMono(PalletLabel.class) // Whatever body go get back map it to the class - Mono means you will get a object back but not right away "async" //empty page but you will need to wait but you know it will come and than you can do stuff "promise"

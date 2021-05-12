@@ -8,6 +8,7 @@ import flowcontrol.production.model.entity.Line;
 import flowcontrol.production.model.entity.Ticket;
 import flowcontrol.production.model.general.PalletLabel;
 import flowcontrol.production.model.request.FillRefillTrayRequest;
+import flowcontrol.production.repository.LineRepository;
 import flowcontrol.production.repository.TicketRepository;
 import flowcontrol.production.repository.impl.PalletLabelRepository;
 import lombok.AllArgsConstructor;
@@ -25,13 +26,10 @@ import java.util.Optional;
 @Slf4j
 public class TicketService {
 
-    @Autowired
     private final TicketRepository ticketRepository;
 
-    @Autowired
-    private final LineService lineService;
+    private final LineRepository lineRepository;
 
-    @Autowired
     private final PalletLabelRepository palletLabelRepository;
 
 
@@ -111,7 +109,7 @@ public class TicketService {
                 .orElseThrow(() -> new ResourceNotFoundException("Pallet label", "Pallet label not found", meta.getPalletLabelId()));
 
         // Get production line ?
-        Line line = this.lineService.getById(lineId)
+        Line line = this.lineRepository.findById(lineId)
                 .orElseThrow(() -> new AppException("Line is needed for the creation of a ticket"));
 
         // Instantiate new Ticket
