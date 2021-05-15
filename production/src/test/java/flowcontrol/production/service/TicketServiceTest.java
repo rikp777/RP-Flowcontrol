@@ -1,5 +1,6 @@
 package flowcontrol.production.service;
 
+import flowcontrol.production.exception.TicketException;
 import flowcontrol.production.model.entity.Line;
 import flowcontrol.production.model.entity.Ticket;
 import flowcontrol.production.model.general.Article;
@@ -9,31 +10,27 @@ import flowcontrol.production.model.meta.BasicMetaData;
 import flowcontrol.production.repository.LineRepository;
 import flowcontrol.production.repository.TicketRepository;
 import flowcontrol.production.repository.impl.PalletLabelRepository;
-import org.aspectj.lang.annotation.Before;
 import org.h2.tools.Server;
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
-import org.mockito.invocation.InvocationOnMock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.mockito.stubbing.Answer;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.event.annotation.BeforeTestClass;
 
-
 import java.sql.SQLException;
+import java.time.LocalDateTime;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 
-import static org.assertj.core.api.AssertionsForClassTypes.*;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.AssertionsForClassTypes.catchThrowable;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import static org.postgresql.hostchooser.HostRequirement.any;
-
 
 class MockData {
 
@@ -70,11 +67,19 @@ class MockData {
         palletLabel.setNote("Test note");
         return palletLabel;
     }
+
+    public Ticket getTicket(){
+        Ticket ticket = new Ticket();
+        ticket.setId(1l);
+        ticket.setFarmerId(getFarmer().getId());
+        ticket.setPalletLabelId(getPalletLabel().getId());
+        ticket.setStartAt(LocalDateTime.now());
+        return ticket;
+    }
 }
 
 @ExtendWith(MockitoExtension.class)
 class TicketServiceTest {
-    @Autowired
     MockData mockData;
 
 
@@ -82,7 +87,7 @@ class TicketServiceTest {
     private TicketRepository ticketRepository;
     @Mock
     private LineRepository lineRepository;
-    @MockBean
+    @Mock
     private PalletLabelRepository palletLabelRepository;
 
     private TicketService ticketService;
@@ -98,6 +103,7 @@ class TicketServiceTest {
     @BeforeEach
     void setUp() {
         ticketService = new TicketService(ticketRepository, lineRepository, palletLabelRepository);
+        mockData = new MockData();
     }
 
     @AfterEach
@@ -109,22 +115,57 @@ class TicketServiceTest {
     }
 
     @Test
-    void itShouldCreateNewTicket() {
-
-
-        when(palletLabelRepository.findById(1l,1l)).then((Answer<Optional<PalletLabel>>) invocation -> Optional.of(mockData.getPalletLabel()));
-        when(lineRepository.findById(anyLong())).then((Answer<Optional<Line>>) invocation -> Optional.of(mockData.getLine()));
-
+    void itShouldCreateNewTicket() throws Exception {
         //given
         BasicMetaData metaData = BasicMetaData.builder()
                 .farmerId(1l)
                 .palletLabelId(1l)
                 .build();
 
-        //when
-        Ticket ticket = ticketService.create(metaData, 1l).get();
+        when(
+                palletLabelRepository.findById(metaData.getFarmerId(),metaData.getPalletLabelId())
+        ).thenReturn(
+                Optional.of(mockData.getPalletLabel())
+        );
 
+        when(
+                lineRepository.findById(anyLong())
+        ).thenReturn(
+                Optional.of(mockData.getLine())
+        );
+
+
+        // First ticket for palletlabel
+        //when
+        Ticket firstTicket = ticketService.create(metaData, 1l).get();
         //then
-        verify(ticketRepository).save(ticket);
+        verify(ticketRepository).save(firstTicket);
+
+
+        // Second ticket with rest amount
+        //when
+        Ticket ticketToReturnWithRest = mockData.getTicket();
+        ticketToReturnWithRest.setArticleAmountUsed(160);
+        when(
+                ticketRepository.getTicketByFarmerIdAndPalletLabelId(anyLong(), anyLong())
+        ).then((Answer<List<Ticket>>) invocation -> Arrays.asList(ticketToReturnWithRest));
+        Ticket secondTicket = ticketService.create(metaData, 1l).get();
+        //then
+        verify(ticketRepository).save(secondTicket);
+
+        // third ticket with no rest amount
+        Ticket ticketToReturnNoRest = mockData.getTicket();
+        ticketToReturnNoRest.setArticleAmountUsed(180);
+        when(
+                ticketRepository.getTicketByFarmerIdAndPalletLabelId(anyLong(), anyLong())
+        ).then((Answer<List<Ticket>>) invocation -> Arrays.asList(ticketToReturnNoRest));
+        //then
+
+        Throwable thrown = catchThrowable(() -> {
+            ticketService.create(metaData, 1l);
+        });
+
+        assertThat(thrown)
+                .isInstanceOf(TicketException.class);
     }
 }

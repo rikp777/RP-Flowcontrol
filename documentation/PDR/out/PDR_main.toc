@@ -83,6 +83,10 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {section}{\numberline {2.6}Clouddiensten}{14}{section.2.6}%
 \defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {2.6.1}Ontwikkel process}{14}{subsection.2.6.1}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {2.6.2}Eind beoordeling / reflectie}{14}{subsection.2.6.2}%
+\defcounter {refsection}{0}\relax 
 \contentsline {section}{\numberline {2.7}Veiligheid door ontwerp}{15}{section.2.7}%
 \defcounter {refsection}{0}\relax 
 \contentsline {subsection}{\numberline {2.7.1}Ontwikkel process}{15}{subsection.2.7.1}%
@@ -98,6 +102,8 @@
 \contentsline {section}{\numberline {2.8}Gedistribueerde gegevens}{16}{section.2.8}%
 \defcounter {refsection}{0}\relax 
 \contentsline {subsection}{\numberline {2.8.1}Ontwikkel process}{16}{subsection.2.8.1}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {2.8.2}Eind beoordeling / reflectie}{16}{subsection.2.8.2}%
 \defcounter {refsection}{0}\relax 
 \contentsline {chapter}{\numberline {3}Retrospect}{18}{chapter.3}%
 \defcounter {refsection}{0}\relax 
