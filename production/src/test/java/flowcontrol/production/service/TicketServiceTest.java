@@ -81,7 +81,7 @@ class MockData {
 @ExtendWith(MockitoExtension.class)
 class TicketServiceTest {
     MockData mockData;
-
+    BasicMetaData metaData;
 
     @Mock
     private TicketRepository ticketRepository;
@@ -104,6 +104,10 @@ class TicketServiceTest {
     void setUp() {
         ticketService = new TicketService(ticketRepository, lineRepository, palletLabelRepository);
         mockData = new MockData();
+        metaData = BasicMetaData.builder()
+                .farmerId(1l)
+                .palletLabelId(1l)
+                .build();
     }
 
     @AfterEach
@@ -112,15 +116,24 @@ class TicketServiceTest {
 
     @Test
     void itShouldCloseTicket() {
+        when(
+                ticketRepository.getTicketsByFarmerIdAndPalletLabelIdAndId(anyLong(), anyLong(), anyLong())
+        ).thenReturn(
+                Optional.of(mockData.getTicket())
+        );
+
+        Ticket closedTicket = ticketService.close(metaData, mockData.getTicket().getId()).get();
+
+        verify(ticketRepository).save(closedTicket);
+
+        assertThat(closedTicket.getEndAt()).isNotNull();
+
+
     }
 
     @Test
     void itShouldCreateNewTicket() throws Exception {
         //given
-        BasicMetaData metaData = BasicMetaData.builder()
-                .farmerId(1l)
-                .palletLabelId(1l)
-                .build();
 
         when(
                 palletLabelRepository.findById(metaData.getFarmerId(),metaData.getPalletLabelId())
