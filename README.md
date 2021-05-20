@@ -21,4 +21,4 @@
 
 
 ### Docker 
-````docker build -t production .````
+````DOCKER_BUILDKIT=1 docker-compose up --build````

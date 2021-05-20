@@ -1,6 +1,22 @@
 version: '3'
 
 services:
+  redis:
+    image: redis:alpine
+    container_name: "redis"
+    command: redis-server --requirepass sOmE_sEcUrE_pAsS
+
+    ports:
+      - 6379:6379
+
+    volumes:
+      - ./docker-volumes/redis/data/:/var/lib/redis
+      - ./docker-volumes/redis/config/redis.conf/:/usr/local/etc/redis/redis.conf
+
+    environment:
+      - REDIS_REPLICATION_MODE=master
+
+
   kafka:
     image: confluentinc/cp-kafka:latest
     container_name: "kafka"
@@ -76,8 +92,6 @@ services:
     environment:
       eureka.client.serviceUrl.defaultZone: http://eureka-service:8761/eureka
 
-
-
   database:
     image: mariadb # or mysql they are basically the same
     container_name: flowcontrol_database
@@ -88,18 +102,56 @@ services:
       MYSQL_PASSWORD: user
       MYSQL_ROOT_PASSWORD: root
       MYSQL_ROOT_HOST: '%'
-      MYSQL_DATABASE: authservice
+
+    entrypoint:
+      sh -c "
+      echo 'CREATE DATABASE IF NOT EXISTS article; GRANT ALL PRIVILEGES ON article.* TO '\''user'\''@'\''%'\'';
+      CREATE DATABASE IF NOT EXISTS farmer; GRANT ALL PRIVILEGES ON farmer.* TO '\''user'\''@'\''%'\'';
+      CREATE DATABASE IF NOT EXISTS transport; GRANT ALL PRIVILEGES ON transport.* TO '\''user'\''@'\''%'\'';
+      CREATE DATABASE IF NOT EXISTS authservice; GRANT ALL PRIVILEGES ON authservice.* TO '\''user'\''@'\''%'\'';
+      CREATE DATABASE IF NOT EXISTS production; GRANT ALL PRIVILEGES ON production.* TO '\''user'\''@'\''%'\'';
+      CREATE DATABASE IF NOT EXISTS transport; GRANT ALL PRIVILEGES ON transport.* TO '\''user'\''@'\''%'\''; ' >> /docker-entrypoint-initdb.d/init.sql;
+      /usr/local/bin/docker-entrypoint.sh --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci --default-authentication-plugin=mysql_native_password
+      "
+
+    volumes:
+      - ./docker-volumes/database/init/:/docker-entrypoint-initdb.d
+      - ./docker-volumes/database/mariadb/:/var/lib/mysql
 
     ports:
       - 6073:3306
-
 
     healthcheck:
       test: mysqladmin ping -h 127.0.0.1 -u $$MYSQL_USER --password=$$MYSQL_PASSWORD
       timeout: 20s
       retries: 10
 
+  article-service:
+    container_name: article-service
+    build: ./article
+
+    ports:
+      - 7078:7078
+
+    depends_on:
+      eureka-service:
+        condition: service_healthy
+      database:
+        condition: service_healthy
+
+    environment:
+      eureka.client.serviceUrl.defaultZone: http://eureka-service:8761/eureka
+      WAIT_HOSTS=database: 6073
+      WAIT_HOSTS_TIMEOUT: 300
+      WAIT_SLEEP_INTERVAL: 30
+      WAIT_HOST_CONNECTION_TIMEOUT: 30
+      SPRING_DATASOURCE_URL: jdbc:mariadb://database:3306/article
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: root
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+
   gateway-authservice:
+    container_name: authservice-service
     build: ./gateway-authservice
 
     ports:
