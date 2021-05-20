@@ -1,10 +1,6 @@
 import { VuexModule, Module, Mutation, Action } from "vuex-module-decorators";
 import api from "@/api";
 import jwt_decode from "jwt-decode";
-import { store } from "@/store";
-import getMAC, { isMAC } from 'getmac'
-
-
 
 export interface AuthUser {
   auth: string;
@@ -144,13 +140,20 @@ class Auth extends VuexModule {
     const newTokenData = {
       token: data.accessToken,
       refreshToken: data.refreshToken,
+      // @ts-ignore
       expiryDuration: jwtDecodedValue.exp
     };
+    // @ts-ignore
     this.authData = newTokenData;
+    // @ts-ignore
     if (jwtDecodedValue.sub && jwtDecodedValue.aud) {
+      // @ts-ignore
       localStorage.setItem("uuid", jwtDecodedValue.sub);
+      // @ts-ignore
       localStorage.setItem("email", jwtDecodedValue.aud);
+      // @ts-ignore
       this.authData.userId = jwtDecodedValue.sub;
+      // @ts-ignore
       this.authData.email = jwtDecodedValue.aud;
     } else {
       this.authData.userId = Number(localStorage.getItem("uuid"));

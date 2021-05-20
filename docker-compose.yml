@@ -130,6 +130,10 @@ services:
     container_name: article-service
     build: ./article
 
+    mem_limit: 500m
+    mem_reservation: 100m
+    cpus: 0.8
+
     ports:
       - 7078:7078
 
@@ -150,9 +154,94 @@ services:
       SPRING_DATASOURCE_PASSWORD: root
       SPRING_JPA_HIBERNATE_DDL_AUTO: update
 
+  farmer-service:
+    container_name: farmer-service
+    build: ./farmer
+    mem_limit: 500m
+    mem_reservation: 100m
+    cpus: 0.8
+
+
+    ports:
+      - 7071:7071
+
+    depends_on:
+      eureka-service:
+        condition: service_healthy
+      database:
+        condition: service_healthy
+
+    environment:
+      eureka.client.serviceUrl.defaultZone: http://eureka-service:8761/eureka
+      WAIT_HOSTS=database: 6073
+      WAIT_HOSTS_TIMEOUT: 300
+      WAIT_SLEEP_INTERVAL: 30
+      WAIT_HOST_CONNECTION_TIMEOUT: 30
+      SPRING_DATASOURCE_URL: jdbc:mariadb://database:3306/farmer
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: root
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+
+  production-service:
+    container_name: production-service
+    build: ./production
+    mem_limit: 500m
+    mem_reservation: 100m
+    cpus: 0.8
+
+    ports:
+      - 7073:7073
+
+    depends_on:
+      eureka-service:
+        condition: service_healthy
+      database:
+        condition: service_healthy
+
+    environment:
+      eureka.client.serviceUrl.defaultZone: http://eureka-service:8761/eureka
+      WAIT_HOSTS=database: 6073
+      WAIT_HOSTS_TIMEOUT: 300
+      WAIT_SLEEP_INTERVAL: 30
+      WAIT_HOST_CONNECTION_TIMEOUT: 30
+      SPRING_DATASOURCE_URL: jdbc:mariadb://database:3306/production
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: root
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+
+  transport-service:
+    container_name: transport-service
+    build: ./transport
+    mem_limit: 500m
+    mem_reservation: 100m
+    cpus: 0.8
+
+    ports:
+      - 7072:7072
+
+    depends_on:
+      eureka-service:
+        condition: service_healthy
+      database:
+        condition: service_healthy
+
+    environment:
+      eureka.client.serviceUrl.defaultZone: http://eureka-service:8761/eureka
+      WAIT_HOSTS=database: 6073
+      WAIT_HOSTS_TIMEOUT: 300
+      WAIT_SLEEP_INTERVAL: 30
+      WAIT_HOST_CONNECTION_TIMEOUT: 30
+      SPRING_DATASOURCE_URL: jdbc:mariadb://database:3306/transport
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: root
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+
   gateway-authservice:
     container_name: authservice-service
     build: ./gateway-authservice
+    mem_limit: 500m
+    mem_reservation: 100m
+    cpus: 0.8
 
     ports:
       - 7070:7070
@@ -173,3 +262,19 @@ services:
       SPRING_DATASOURCE_USERNAME: root
       SPRING_DATASOURCE_PASSWORD: root
       SPRING_JPA_HIBERNATE_DDL_AUTO: update
+
+  client:
+    container_name: client
+    build: ./client-app
+    mem_limit: 500m
+    mem_reservation: 100m
+    cpus: 0.8
+
+    ports:
+      - 8080:80
+
+    depends_on:
+      eureka-service:
+        condition: service_healthy
+      database:
+        condition: service_healthy

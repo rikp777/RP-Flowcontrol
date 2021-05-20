@@ -20,14 +20,21 @@ interface Ticket {
 interface Interruption {
     id: number
 }
+
 @Module({
     namespaced: true
 })
 class Ticket extends VuexModule {
 
     public tickets = [];
-    public interruptions =[];
-    public palletLabel ={};
+    public interruptions: Array<Interruption> = [];
+    public palletLabel : PalletLabel = {
+        article: {name: ""}, 
+        articleAmount: 0,
+        cropDate: "",
+        id: 0,
+        generalId: 0
+    }
 
 
     get getTickets() {
@@ -49,7 +56,11 @@ class Ticket extends VuexModule {
     setPurgeData() {
         this.tickets = [];
         this.interruptions = [];
-        this.palletLabel = {};
+        this.palletLabel.id = 0;
+        this.palletLabel.article.name = ""
+        this.palletLabel.articleAmount = 0;
+        this.palletLabel.cropDate = ""
+        this.palletLabel.generalId = 0;
     }
 
     @Action({ rawError: true })

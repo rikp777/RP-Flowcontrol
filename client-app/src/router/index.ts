@@ -48,6 +48,7 @@ router.beforeEach(async (to, from, next) => {
       ).catch(() => {
         Store.dispatch("auth/logout")
       })
+      // @ts-ignore
       Store.commit("auth/saveTokenData", refreshResponse.data)
       auth = true;
     }

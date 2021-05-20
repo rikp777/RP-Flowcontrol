@@ -19,6 +19,30 @@ spec:
           ports:
             - containerPort: 7078
 
+          env:
+            - name: GET_HOSTS_FROM
+              value: dns
+            - name: SPRING_DATASOURCE_DRIVER_CLASS_NAME
+              valueFrom:
+                configMapKeyRef:
+                  name: springdatasourcedriverclassname
+                  key: SPRING_DATASOURCE_DRIVER_CLASS_NAME
+            - name: SPRING_DATASOURCE_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: springdatasourceurl
+                  key: SPRING_DATASOURCE_URL
+            - name: SPRING_DATASOURCE_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: springdatasourcepassword
+                  key: SPRING_DATASOURCE_PASSWORD
+            - name: SPRING_DATASOURCE_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: springdatasourceusername
+                  key: SPRING_DATASOURCE_USERNAME
+
           readinessProbe:
             httpGet:
               path: /actuator/health
@@ -40,9 +64,12 @@ metadata:
 spec:
   type: NodePort
   ports:
-    - port: 7078
-      targetPort: 7078
+    - name: http
       protocol: TCP
-      nodePort: 31000
+      port: 7078
+      targetPort: 7078
   selector:
     app: article-service
+
+  externalIPs:
+    - 127.0.0.1

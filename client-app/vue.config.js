@@ -2,6 +2,9 @@
 const fs = require("fs");
 
 module.exports = {
+  publicPath: process.env.NODE_ENV === 'production'
+      ? '/' + process.env.CI_PROJECT_NAME + '/'
+      : '/',
   lintOnSave: false,
   pluginOptions: {
     electronBuilder: {
