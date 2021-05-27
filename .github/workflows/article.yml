@@ -109,6 +109,21 @@ jobs:
         with:
           path: ~/.m2/repository
           key: ${{ runner.os }}-${{ hashFiles('**/pom.xml') }}
+      - uses: s4u/maven-settings-action@v2.4.0
+        with:
+          servers: |
+            [{
+                "id": "github",
+                "configuration": {
+                  "httpHeaders": {
+                    "property": {
+                      "name": "Authorization"
+                      "value": "Bearer ${{ secrets.GITHUB_ACTOR }}"
+                    }
+                  }
+                }
+            }]
+
       - name: Publish artifact on GitHub Packages
         working-directory: ./article
         run: mvn -B clean deploy -DskipTests
