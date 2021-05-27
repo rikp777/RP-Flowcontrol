@@ -17,5 +17,5 @@ COPY --from=build ${DEPENDENCY}/BOOT-INF/lib /app/lib
 COPY --from=build ${DEPENDENCY}/META-INF /app/META-INF
 COPY --from=build ${DEPENDENCY}/BOOT-INF/classes /app
 ENTRYPOINT ["java","-noverify","-XX:TieredStopAtLevel=1","-cp", "app:app/lib/*","-Dspring.main.lazy-initialization=true","flowcontrol.gateway.GatewayApplication"]
-EXPOSE 7070
+#EXPOSE 7070
 
