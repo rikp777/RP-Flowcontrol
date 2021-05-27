@@ -117,7 +117,7 @@ jobs:
                 "configuration": {
                   "httpHeaders": {
                     "property": {
-                      "name": "Authorization"
+                      "name": "Authorization",
                       "value": "Bearer ${{ secrets.GITHUB_ACTOR }}"
                     }
                   }
