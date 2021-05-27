@@ -8,7 +8,7 @@ on:
       - 'article/**'
 
 env:
-  IMAGE: article_microservice
+  IMAGE: article_service
   HOSTNAME: eu.gcr.io
   PROJECT_ID: ${{ secrets.PROJECT_ID }}
 
