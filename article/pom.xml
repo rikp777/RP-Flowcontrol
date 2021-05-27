@@ -141,13 +141,13 @@
         <repository>
             <id>releases</id>
             <name>Releases</name>
-            <url>https://github.com/rikp777/RP-Flowcontrol/</url>
+            <url>https://maven.pkg.github.com/rikp777/RP-Flowcontrol/</url>
         </repository>
 
         <snapshotRepository>
             <id>snapshots</id>
             <name>Snapshots</name>
-            <url>https://github.com/rikp777/RP-Flowcontrol/</url>
+            <url>https://maven.pkg.github.com/rikp777/RP-Flowcontrol/</url>
         </snapshotRepository>
     </distributionManagement>
 
