@@ -11,9 +11,9 @@ env:
   IMAGE: article_service
   HOSTNAME: eu.gcr.io
   PROJECT_ID: ${{ secrets.PROJECT_ID }}
-  GKE_CLUSTER: flowcontrol     # TODO: update to cluster name
-  GKE_ZONE: europe-west1-c    # TODO: update to cluster zone
-  DEPLOYMENT_NAME: gke-test # TODO: update to deployment name
+  GKE_CLUSTER: flowcontrol      # TODO: update to cluster name
+  GKE_ZONE: europe-west1-c      # TODO: update to cluster zone
+  DEPLOYMENT_NAME: gke-test     # TODO: update to deployment name
 
 
 jobs:
@@ -205,11 +205,7 @@ jobs:
       - name: Build
         working-directory: ./article
         run: |-
-          docker build \
-            --tag "gcr.io/$PROJECT_ID/$IMAGE:$GITHUB_SHA" \
-            --build-arg GITHUB_SHA="$GITHUB_SHA" \
-            --build-arg GITHUB_REF="$GITHUB_REF" \
-            .
+          docker build --tag "eu.gcr.io/$PROJECT_ID/$IMAGE:$GITHUB_SHA" .
 
       # Push the Docker image to Google Container Registry
       - name: Publish
