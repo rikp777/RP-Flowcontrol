@@ -10,7 +10,7 @@ on:
 env:
   IMAGE: article-service
   HOSTNAME: eu.gcr.io
-  PROJECT_ID: ${{ secrets.PROJECT_ID }}
+  PROJECT_ID: ${{ secrets.GKE_PROJECT }}
   GKE_CLUSTER: flowcontrol      # TODO: update to cluster name
   GKE_ZONE: europe-west1-c      # TODO: update to cluster zone
   DEPLOYMENT_NAME: gke-test     # TODO: update to deployment name
