@@ -12,6 +12,3 @@ spec:
       targetPort: 7078
   selector:
     app: article-service
-
-  externalIPs:
-    - 127.0.0.1
