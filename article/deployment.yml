@@ -54,22 +54,3 @@ spec:
               port: 7078
             initialDelaySeconds: 5
       restartPolicy: Always
-
----
-kind: Service
-apiVersion: v1
-metadata:
-  name: article-service
-
-spec:
-  type: NodePort
-  ports:
-    - name: http
-      protocol: TCP
-      port: 7078
-      targetPort: 7078
-  selector:
-    app: article-service
-
-  externalIPs:
-    - 127.0.0.1
