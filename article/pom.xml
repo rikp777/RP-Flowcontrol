@@ -27,7 +27,7 @@
 
 
     <dependencies>
-        <!-- Spring test 12 -->
+        <!-- Spring test 13 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>

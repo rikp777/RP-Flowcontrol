@@ -8,7 +8,7 @@ on:
       - 'article/**'
 
 env:
-  IMAGE: article_service
+  IMAGE: article-service
   HOSTNAME: eu.gcr.io
   PROJECT_ID: ${{ secrets.PROJECT_ID }}
   GKE_CLUSTER: flowcontrol      # TODO: update to cluster name
