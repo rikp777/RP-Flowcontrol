@@ -205,12 +205,12 @@ jobs:
       - name: Build
         working-directory: ./article
         run: |-
-          docker build --tag "eu.gcr.io/$PROJECT_ID/$IMAGE:$GITHUB_SHA" .
+          docker build --tag "$HOSTNAME/$PROJECT_ID/$IMAGE:$GITHUB_SHA" .
 
       # Push the Docker image to Google Container Registry
       - name: Publish
         run: |-
-          docker push "gcr.io/$PROJECT_ID/$IMAGE:$GITHUB_SHA"
+          docker push "$HOSTNAME/$PROJECT_ID/$IMAGE:$GITHUB_SHA"
 
       # Set up kustomize
       - name: Set up Kustomize
