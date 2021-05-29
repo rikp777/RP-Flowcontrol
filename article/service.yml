@@ -1,11 +1,11 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: gke-test-service
+  name: article-test-service
 spec:
   type: LoadBalancer
   ports:
     - port: 80
       targetPort: 7078
   selector:
-    app: gke-test
+    app: article-service
