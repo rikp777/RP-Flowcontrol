@@ -85,32 +85,32 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {subsection}{\numberline {2.6.1}Ontwikkel process}{14}{subsection.2.6.1}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {2.6.2}Eind beoordeling / reflectie}{14}{subsection.2.6.2}%
+\contentsline {subsection}{\numberline {2.6.2}Eind beoordeling / reflectie}{16}{subsection.2.6.2}%
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {2.7}Veiligheid door ontwerp}{15}{section.2.7}%
+\contentsline {section}{\numberline {2.7}Veiligheid door ontwerp}{17}{section.2.7}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {2.7.1}Ontwikkel process}{15}{subsection.2.7.1}%
+\contentsline {subsection}{\numberline {2.7.1}Ontwikkel process}{17}{subsection.2.7.1}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{JWT Tokens}{15}{section*.29}%
+\contentsline {subsubsection}{JWT Tokens}{17}{section*.29}%
 \defcounter {refsection}{0}\relax 
-\contentsline {paragraph}{Evaluatie: 20-04-2021}{15}{section*.30}%
+\contentsline {paragraph}{Evaluatie: 20-04-2021}{17}{section*.30}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{HATEOAS HAL}{15}{section*.31}%
+\contentsline {subsubsection}{HATEOAS HAL}{17}{section*.31}%
 \defcounter {refsection}{0}\relax 
-\contentsline {paragraph}{Evaluatie: 20-04-2021}{15}{section*.32}%
+\contentsline {paragraph}{Evaluatie: 20-04-2021}{17}{section*.32}%
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {2.8}Gedistribueerde gegevens}{16}{section.2.8}%
+\contentsline {section}{\numberline {2.8}Gedistribueerde gegevens}{18}{section.2.8}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {2.8.1}Ontwikkel process}{16}{subsection.2.8.1}%
+\contentsline {subsection}{\numberline {2.8.1}Ontwikkel process}{18}{subsection.2.8.1}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {2.8.2}Eind beoordeling / reflectie}{16}{subsection.2.8.2}%
+\contentsline {subsection}{\numberline {2.8.2}Eind beoordeling / reflectie}{18}{subsection.2.8.2}%
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{\numberline {3}Retrospect}{18}{chapter.3}%
+\contentsline {chapter}{\numberline {3}Retrospect}{20}{chapter.3}%
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{\numberline {4}Conclusie}{19}{chapter.4}%
+\contentsline {chapter}{\numberline {4}Conclusie}{21}{chapter.4}%
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{Appendices}{20}{section*.33}%
+\contentsline {chapter}{Appendices}{22}{section*.33}%
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{\numberline {A}SWOT}{22}{appendix.1.A}%
+\contentsline {chapter}{\numberline {A}SWOT}{24}{appendix.1.A}%
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{\numberline {B}Context based research}{28}{appendix.1.B}%
+\contentsline {chapter}{\numberline {B}Context based research}{30}{appendix.1.B}%

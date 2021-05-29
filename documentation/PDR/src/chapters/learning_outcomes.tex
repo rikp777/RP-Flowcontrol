@@ -79,10 +79,32 @@ Hierbij heb ik gekeken naar het verschillen tussen serverless (FAAS).
 Hierbij wordt het verschil duidelijk ook heb ik gekeken naar de voordelen en nadelen.
 Ook ben ik mij bewust van laadtijden en ken ik het onderscheid tussen een cold en warm start.
 Ook ben ik mij bewust over hoe de werking van een cloud dienst met containers en het health checken.
+Zelf heb ik ook een serverless function gemaakt die dient als een prototype.
+Iedereen kens het liedje "99 Bottles of Beer" wel hiervoor heb ik een scripje geschreven in javascript die ik vervolgens heb gedeployed hieronder het resultaat.\\
+\includegraphics[width=\textwidth,height=8cm,keepaspectratio]{Serverless_function_prototype.png}\label{fig:serverless_function_cost}\\
+
+Ook heb ik voor mijn eigen project een continuous deploy pipeline gemaakt naar het google cloud platform in een Kubernetes cluster.
+Deze pipeline heb ik gemaakt in github actions.
+De github actions is relatief nieuw maar een mooie oplossing voor een CI/CD module.
+Een github action workflow is makkelijk aan te maken en te configureren in een eigen yml file.
+Hieronder is mijn uitwerking:\\
+\includegraphics[width=\textwidth,height=8cm,keepaspectratio]{Google_Cloud_Github_Action_Workflow.png}\label{fig:serverless_function_cost}\\
+In deze afbeelding kunnen we zien dat we verschillende stages hebben eerst gaan we de app builden wanneer dit vervolgens is gelukt gaan we pushen naar een register.
+Er zijn verschillende register zoals docker hub in dit geval heb ik gebruik gemaakt van de google cloud register.
+Wanneer het pushen vervolgens is gelukt gaan we de image deployen.
+Veel student hebben een account aangemaakt met hun eigen credit card gegevens waarbij je vervolgens 300 credit gratis kunt ontvangen helaas beschik ik niet over zon credit card.
+Daarrom heb via school een google cloud account aangevraagd hierbij heb ik 30 credits gekregen om te besteden en een uitwerking te maken.
+Hieronder is een afbeelding te zien van de workflow die naar de Kuberneters cluster pushed.\\
+\includegraphics[width=\textwidth,height=8cm,keepaspectratio]{Google_Cloud_Kubernetes_Cluster_Deploy.png}\label{fig:serverless_function_cost}\\
+Helaas kunnen we ook zien dat de deployment is mislukt.
+Wanneer we vervolgens naar de Kubernetes engine gaan kijken wat er mis is gegaan kunnen we zien dat de deployment is gefaald omdat hij niet de juiste Database parameters heeft en hierdoor niet volledig kan deployen.\\
+\includegraphics[width=\textwidth,height=8cm,keepaspectratio]{Google_Cloud_Kubernetes_Engine_Dashboard.png}\label{fig:serverless_function_cost}\\
+Om een database aan te maken in de google cloud omgeving kost credits om dat ik helaas gelimiteerd ben in het gebruik van deze credits heb ik de keuze gemaakt geen database aan te maken in de cloud.
 
 \subsection{Eind beoordeling / reflectie}
+Ondankt het niet volledig online zetten van de applicatie op een Kuberneters cluster heb ik aangetoond dat ik dit in de praktijk wel kan doormiddel van de juiste parameters mee te geven, helaas waren hier te weinig credits en tijd voor.
 Door het uitwerken van verschillende trends binnen zowel het individueel als het groepsproject oriënteer ik mijzelf
-als:\\
+als:\
 \par\vspace{10pt}\textbf{\uppercase{"Proficient"}}\\
 
 
