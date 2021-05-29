@@ -13,7 +13,7 @@ env:
   PROJECT_ID: ${{ secrets.GKE_PROJECT }}
   GKE_CLUSTER: flowcontrol      # TODO: update to cluster name
   GKE_ZONE: europe-west1-c      # TODO: update to cluster zone
-  DEPLOYMENT_NAME: gke-test     # TODO: update to deployment name
+  DEPLOYMENT_NAME: article-service    # TODO: update to deployment name
 
 
 jobs:
