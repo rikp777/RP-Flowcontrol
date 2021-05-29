@@ -3,7 +3,7 @@ apiVersion: apps/v1
 metadata:
   name: article-service
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: article-service
@@ -14,10 +14,14 @@ spec:
     spec:
       containers:
         - name: article-service
-          image: rikp777/article-service
-          imagePullPolicy: Always
+          image: eu.gcr.io/PROJECT_ID/IMAGE:TAG
           ports:
             - containerPort: 7078
+          resources:
+            requests:
+              cpu: 100m
+            limits:
+              cpu: 100m
 
           env:
             - name: GET_HOSTS_FROM
@@ -26,22 +30,22 @@ spec:
               valueFrom:
                 configMapKeyRef:
                   name: springdatasourcedriverclassname
-                  key: SPRING_DATASOURCE_DRIVER_CLASS_NAME
+                  key: com.mysql.jdbc.Driver
             - name: SPRING_DATASOURCE_URL
               valueFrom:
                 configMapKeyRef:
                   name: springdatasourceurl
-                  key: SPRING_DATASOURCE_URL
+                  key: studmysql01.fhict.local
             - name: SPRING_DATASOURCE_PASSWORD
               valueFrom:
                 secretKeyRef:
                   name: springdatasourcepassword
-                  key: SPRING_DATASOURCE_PASSWORD
+                  key: Egt4gTSMOK
             - name: SPRING_DATASOURCE_USERNAME
               valueFrom:
                 secretKeyRef:
                   name: springdatasourceusername
-                  key: SPRING_DATASOURCE_USERNAME
+                  key: dbi409059
 
           readinessProbe:
             httpGet:

@@ -27,7 +27,11 @@
 
 
     <dependencies>
-        <!-- Spring test 20 -->
+        <!-- Spring test 21 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
