@@ -11,15 +11,15 @@ import java.util.ArrayList;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ApiResponse {
 
-    private final String data;
+    private final String message;
     private final Boolean success;
     private final ZonedDateTime timeStamp;
     private final String cause;
     private final String path;
     private final ArrayList<CustomFieldError> errors;
 
-    public ApiResponse(Boolean success, String data, String cause, String path){
-        this.data = data;
+    public ApiResponse(Boolean success, String message, String cause, String path){
+        this.message = message;
         this.success = success;
         this.cause = cause;
         this.path = path;
@@ -28,7 +28,15 @@ public class ApiResponse {
     }
 
     public ApiResponse(Boolean success, ArrayList<CustomFieldError> errors, String cause, String path){
-        this.data = null;
+        this.message = null;
+        this.errors = errors;
+        this.success = success;
+        this.cause = cause;
+        this.path = path;
+        this.timeStamp = this.getZonedDateTime();
+    }
+    public ApiResponse(Boolean success, String message, ArrayList<CustomFieldError> errors, String cause, String path){
+        this.message = message;
         this.errors = errors;
         this.success = success;
         this.cause = cause;
@@ -37,7 +45,7 @@ public class ApiResponse {
     }
 
     public ApiResponse(Boolean success, String data){
-        this.data = data;
+        this.message = data;
         this.success = success;
         this.cause = null;
         this.path = null;

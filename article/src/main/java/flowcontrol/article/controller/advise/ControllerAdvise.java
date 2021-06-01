@@ -73,7 +73,7 @@ public class ControllerAdvise {
 
     private String resolvePathFromWebRequest(WebRequest request) {
         try {
-            return ((ServletWebRequest) request).getRequest().getAttribute("javax.servlet.forward.request_uri").toString();
+            return ((ServletWebRequest)request).getRequest().getRequestURI().toString();
         } catch (Exception ex) {
             return null;
         }
@@ -130,6 +130,8 @@ public class ControllerAdvise {
             BindException exception, WebRequest request, HttpServletResponse response, @Nullable Object handler)
             throws IOException {
 
+        final String defaultMessage = "Validation error";
+
         final List<FieldError> fieldErrors = exception.getBindingResult().getFieldErrors();
         final ArrayList<CustomFieldError> customFieldErrors = new ArrayList<>();
 
@@ -140,6 +142,6 @@ public class ControllerAdvise {
             customFieldErrors.add(customFieldError);
         }
 
-        return new ApiResponse( false, customFieldErrors, exception.getClass().getName(), resolvePathFromWebRequest(request));
+        return new ApiResponse( false, defaultMessage, customFieldErrors, exception.getClass().getName(), resolvePathFromWebRequest(request));
     }
 }

@@ -17,27 +17,27 @@ public class CreateArticle {
     private String excelCode;
 
 
-    @NotNull(message = "insetGram is mandatory")
-    @Min(value = 20 , message = "insetGram should be greater then equal to {value}")
-    @Max(value = 180 , message = "insetGram should be less then equal to {value}")
+    @NotNull(message = "'${validatedValue}' is mandatory")
+    @Min(value = 20 , message = "'${validatedValue}' should be greater then equal to {value}")
+    @Max(value = 180 , message = "'${validatedValue}' should be less then equal to {value}")
     private Integer insetGram;
 
-    @NotNull(message = "insetLimit is mandatory")
+    @NotNull(message = "'${validatedValue}' is mandatory")
     private Integer insetLimit;
 
-    @NotNull(message = "palletLimit is mandatory")
+    @NotNull(message = "'${validatedValue}' is mandatory")
     private Integer palletLimit;
 
-    @NotBlank(message = "origin is mandatory")
+    @NotBlank(message = "'${validatedValue}' is mandatory")
+    @Pattern(regexp = "[A-Z]+", message = "The '${validatedValue}' has not the correct syntax")
     private String origin;
 
     @NotNull(message = "biologic is mandatory")
     private boolean biologic;
 
-    @NotNull(message = "inactive is mandatory")
     private boolean inactive;
 
-    @NotBlank(message = "additionalInfo is mandatory")
+    @NotBlank(message = "'${validatedValue}' is mandatory")
     private String additionalInfo;
 
 }
