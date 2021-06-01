@@ -255,12 +255,11 @@ services:
       database:
         condition: service_healthy
 
+    links:
+      - zuul-service
+
     environment:
       eureka.client.serviceUrl.defaultZone: http://eureka-service:8761/eureka
-      WAIT_HOSTS=database: 6073
-      WAIT_HOSTS_TIMEOUT: 300
-      WAIT_SLEEP_INTERVAL: 30
-      WAIT_HOST_CONNECTION_TIMEOUT: 30
       SPRING_DATASOURCE_URL: jdbc:mariadb://database:3306/authservice
       SPRING_DATASOURCE_USERNAME: root
       SPRING_DATASOURCE_PASSWORD: root

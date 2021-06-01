@@ -21,7 +21,7 @@
         <sonar.projectKey>flowcontrol.article</sonar.projectKey>
         <sonar.organization>rikp777</sonar.organization>
         <sonar.host.url>https://sonarcloud.io</sonar.host.url>
-        <spring-cloud.version>Hoxton.RELEASE</spring-cloud.version>
+        <spring-cloud.version>Hoxton.SR11</spring-cloud.version>
         <jwwt.version>0.9.1</jwwt.version>
     </properties>
 
