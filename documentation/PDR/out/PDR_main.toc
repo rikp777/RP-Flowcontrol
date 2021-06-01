@@ -105,12 +105,12 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {subsection}{\numberline {2.8.2}Eind beoordeling / reflectie}{18}{subsection.2.8.2}%
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{\numberline {3}Retrospect}{20}{chapter.3}%
+\contentsline {chapter}{\numberline {3}Retrospect}{21}{chapter.3}%
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{\numberline {4}Conclusie}{21}{chapter.4}%
+\contentsline {chapter}{\numberline {4}Conclusie}{22}{chapter.4}%
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{Appendices}{22}{section*.33}%
+\contentsline {chapter}{Appendices}{23}{section*.33}%
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{\numberline {A}SWOT}{24}{appendix.1.A}%
+\contentsline {chapter}{\numberline {A}SWOT}{25}{appendix.1.A}%
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{\numberline {B}Context based research}{30}{appendix.1.B}%
+\contentsline {chapter}{\numberline {B}Context based research}{31}{appendix.1.B}%

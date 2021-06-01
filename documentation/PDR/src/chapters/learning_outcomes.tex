@@ -206,11 +206,22 @@ Mijn applicatie zal in deze geen gevoelige data van gebruikers opslaan om dat di
 Wel zorg ik ervoor dat gevoelige bedrijfs- informatie veilig wordt verwerkt.
 Dit ga ik doen door verschillende technieken toe te passen die standaard zijn binnen de OWASP top 10.
 Daarmee zorg ik dat mijn applicatie tot zekere hoogte niet kan worden gehackt en daarmee geen gevoelige bedrijfs- gegevens kan lekken.
+De framework die worden toegepast nemen een groot deel van de OWASP top 10 weg omdat zei ervoor zorgen dat hun systeem standaard aan deze lijst voldoet.
+Het is altijd mogelijk dat een developer per ongeluk een onveilige functionaliteit in bouwt,
+hierbij zal het framework dit dan ook aangeven in zijn benamingen van functies die je probeert toe te passen.
 
-Ook heb ik contextueel onderzoek gedaan naar caching wat ook goed aansluit bij het onderwerp gedistribueerde gegevens.
+Voorafgaant bij het ontwikkelen van mijn applicatie heb ik rekening gehouden met de stroom die data gaat lopen hierbij heb ik voor een synchronous data stroom gekozen.
+Door dat een synchronous stroom afhankelijkheid creëert onder verschillende services wou ik caching gaan toepassen.
+Hierbij contextueel onderzoek gedaan naar caching wat ook goed aansluit bij het onderwerp gedistribueerde gegevens.
 Caching is het tijdelijk opslaan van gegevens op een service die deze nodig heeft wat voor grote voordelen kan zorgen.
 Deze voordelen kunnen worden gelezen in het onderzoeks- document.
 Tijdens het onderzoek heb ik verschillende prototypes gemaakt die caching uitwerkt op een microservice architectuur.
+
+Verder begrijp ik de theorie achter het hosten in de cloud en gedeeltelijk het verleggen van de GDPR-verantwoordelijkheden.
+Ook begrijp ik de theorie over het omgaan met gevoelige gegevens van gebruikers.
+Voor mijn stage heb ik de wetgeving "FDA 21 CFR Part 11 Subpart B, Conformiteit" toegepast voor het betreffende bedrijf.
+Deze wetgeving is de Amerikaanse versie, maar staat "gedeeltelijk/soortgelijk" aan de GDPR-wetgeving.
+Ook zijn deze topics behandeld bij de specialisatie die ik heb gevolgd in Cyber Security en de ethiek achter gevoelige data.
 
 \subsection{Eind beoordeling / reflectie}
 Met het onderzoeken en het toepassen van de hierboven beschreven topics,
@@ -226,5 +237,5 @@ GDPR - De Algemene verordening gegevensbescherming is een Europese verordening d
 persoonsgegevens door particuliere bedrijven en overheidsinstanties in de hele Europese Unie standaardiseert.
 https://nl.wikipedia.org/wiki/Algemene\_verordenin\_gegevensbescherming
 
-Casestudy -  Een casestudy is een gedetailleerde studie van een enkel onderzoeksobject.
+Casestudy - Een casestudy is een gedetailleerde studie van een enkel onderzoeksobject.
 
