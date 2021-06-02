@@ -2,27 +2,22 @@ package flowcontrol.article.service;
 
 import flowcontrol.article.model.entity.Article;
 import flowcontrol.article.repository.ArticleRepository;
-import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import javax.transaction.Transactional;
 
-@AllArgsConstructor
 @Service
-public class ArticleService {
+public class ArticleService extends BaseService<Article> {
 
     private final ArticleRepository articleRepository;
 
-
-    public Iterable<Article> getAll(){
-        return articleRepository.findAll();
+    public ArticleService(ArticleRepository articleRepository) {
+        super(articleRepository);
+        this.articleRepository = articleRepository;
     }
 
-    public Optional<Article> getById(Long id){
-        return articleRepository.findById(id);
+    @Transactional
+    public boolean isAlreadyPresentByExcelCode(String excelCode){
+        return articleRepository.findByExcelCode(excelCode).isPresent();
     }
 }

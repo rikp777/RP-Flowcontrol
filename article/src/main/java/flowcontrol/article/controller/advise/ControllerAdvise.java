@@ -141,6 +141,7 @@ public class ControllerAdvise {
             final CustomFieldError customFieldError = CustomFieldError.builder().field(field).message(message).build();
             customFieldErrors.add(customFieldError);
         }
+        log.info(defaultMessage + " " + customFieldErrors.toString());
 
         return new ApiResponse( false, defaultMessage, customFieldErrors, exception.getClass().getName(), resolvePathFromWebRequest(request));
     }

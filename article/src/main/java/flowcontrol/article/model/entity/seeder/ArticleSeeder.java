@@ -1,15 +1,13 @@
 package flowcontrol.article.model.entity.seeder;
 
-import flowcontrol.article.exception.ResourceNotFoundException;
-import flowcontrol.article.model.entity.*;
+import flowcontrol.article.model.entity.Article;
+import flowcontrol.article.model.entity.Cask;
+import flowcontrol.article.model.entity.Color;
+import flowcontrol.article.model.entity.PalletType;
 import flowcontrol.article.repository.ArticleRepository;
-import flowcontrol.article.repository.CaskRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
-
-import java.util.List;
-import java.util.Set;
 
 @Configuration
 @Slf4j
@@ -40,7 +38,7 @@ public class ArticleSeeder {
 
             // region Wit
             Article A1 = new Article(); //1
-            A1.setExcelCode("WI0000NL");
+            A1.setExcelCode("WI0001NL");
             A1.setInsetLimit(1);
             A1.setInsetGram(2500);
             A1.setPalletLimit(170);
@@ -52,7 +50,7 @@ public class ArticleSeeder {
             articleRepo.save(A1);
 
             Article A2 = new Article(); //2
-            A2.setExcelCode("WI0000NL");
+            A2.setExcelCode("WI0002NL");
             A2.setInsetLimit(1);
             A2.setPalletLimit(170);
             A2.setOrigin("NL");
@@ -64,7 +62,7 @@ public class ArticleSeeder {
             articleRepo.save(A2);
 
             Article W3 = new Article(); //32
-            W3.setExcelCode("WF0000NL");
+            W3.setExcelCode("WF0003NL");
             W3.setInsetLimit(6);
             W3.setInsetGram(250);
             W3.setPalletLimit(170);
@@ -77,7 +75,7 @@ public class ArticleSeeder {
             articleRepo.save(W3);
 
             Article W4 = new Article(); //33
-            W4.setExcelCode("WF0000NL");
+            W4.setExcelCode("WF0004NL");
             W4.setInsetLimit(6);
             W4.setInsetGram(250);
             W4.setPalletLimit(170);
@@ -90,7 +88,7 @@ public class ArticleSeeder {
             articleRepo.save(W4);
 
             Article W5 = new Article(); //34
-            W5.setExcelCode("WF0000NL");
+            W5.setExcelCode("WF0005NL");
             W5.setInsetLimit(4);
             W5.setInsetGram(400);
             W5.setPalletLimit(170);
@@ -103,7 +101,7 @@ public class ArticleSeeder {
             articleRepo.save(W5);
 
             Article W6 = new Article(); //35
-            W6.setExcelCode("WF0000NL");
+            W6.setExcelCode("WF0006NL");
             W6.setInsetLimit(4);
             W6.setInsetGram(400);
             W6.setPalletLimit(170);
@@ -116,7 +114,7 @@ public class ArticleSeeder {
             articleRepo.save(W6);
 
             Article W7 = new Article(); //36
-            W7.setExcelCode("WF0000NL");
+            W7.setExcelCode("WF0007NL");
             W7.setInsetLimit(2);
             W7.setInsetGram(1000);
             W7.setPalletLimit(170);
@@ -129,7 +127,7 @@ public class ArticleSeeder {
             articleRepo.save(W7);
 
             Article W8 = new Article(); //37
-            W8.setExcelCode("WF0000NL");
+            W8.setExcelCode("WF0008NL");
             W8.setInsetLimit(3);
             W8.setInsetGram(600);
             W8.setPalletLimit(170);
@@ -142,7 +140,7 @@ public class ArticleSeeder {
             articleRepo.save(W8);
 
             Article W9 = new Article(); //38
-            W9.setExcelCode("WF0000NL");
+            W9.setExcelCode("WF0009NL");
             W9.setInsetLimit(1);
             W9.setPalletLimit(170);
             W9.setOrigin("NL");
@@ -153,7 +151,7 @@ public class ArticleSeeder {
             articleRepo.save(W9);
 
             Article W10 = new Article(); //38
-            W10.setExcelCode("WF0000NL");
+            W10.setExcelCode("WF0010NL");
             W10.setInsetLimit(1);
             W10.setInsetGram(2500);
             W10.setPalletLimit(170);
@@ -165,7 +163,7 @@ public class ArticleSeeder {
             articleRepo.save(W10);
 
             Article W11 = new Article(); //39
-            W11.setExcelCode("WF0000NL");
+            W11.setExcelCode("WF0011NL");
             W11.setInsetLimit(1);
             W11.setInsetGram(2500);
             W11.setPalletLimit(170);
@@ -177,7 +175,7 @@ public class ArticleSeeder {
             articleRepo.save(W11);
 
             Article W12 = new Article(); //40
-            W12.setExcelCode("WF0000NL");
+            W12.setExcelCode("WF0012NL");
             W12.setInsetLimit(1);
             W12.setInsetGram(3000);
             W12.setPalletLimit(170);
@@ -189,7 +187,7 @@ public class ArticleSeeder {
             articleRepo.save(W12);
 
             Article W13 = new Article(); //41
-            W13.setExcelCode("WM0000NL");
+            W13.setExcelCode("WM0013NL");
             W13.setInsetLimit(4);
             W13.setInsetGram(150);
             W13.setPalletLimit(170);
@@ -202,7 +200,7 @@ public class ArticleSeeder {
             articleRepo.save(W13);
 
             Article W14 = new Article(); //42
-            W14.setExcelCode("WM0000NL");
+            W14.setExcelCode("WM0014NL");
             W14.setInsetLimit(6);
             W14.setInsetGram(250);
             W14.setPalletLimit(170);
@@ -215,7 +213,7 @@ public class ArticleSeeder {
             articleRepo.save(W14);
 
             Article W15 = new Article(); //43
-            W15.setExcelCode("WM0000NL");
+            W15.setExcelCode("WM0015NL");
             W15.setInsetLimit(6);
             W15.setInsetGram(250);
             W15.setPalletLimit(170);
@@ -228,7 +226,7 @@ public class ArticleSeeder {
             articleRepo.save(W15);
 
             Article W16 = new Article(); //44
-            W16.setExcelCode("WM0000NL");
+            W16.setExcelCode("WM0016NL");
             W16.setInsetLimit(4);
             W16.setInsetGram(400);
             W16.setPalletLimit(170);
@@ -241,7 +239,7 @@ public class ArticleSeeder {
             articleRepo.save(W16);
 
             Article W17 = new Article(); //45
-            W17.setExcelCode("WM0000NL");
+            W17.setExcelCode("WM0017NL");
             W17.setInsetLimit(4);
             W17.setInsetGram(400);
             W17.setPalletLimit(170);
@@ -254,7 +252,7 @@ public class ArticleSeeder {
             articleRepo.save(W17);
 
             Article W18 = new Article(); //46
-            W18.setExcelCode("WM0000NL");
+            W18.setExcelCode("WM0018NL");
             W18.setInsetLimit(4);
             W18.setInsetGram(400);
             W18.setPalletLimit(170);
@@ -267,7 +265,7 @@ public class ArticleSeeder {
             articleRepo.save(W18);
 
             Article W19 = new Article(); //47
-            W19.setExcelCode("WM0000NL");
+            W19.setExcelCode("WM0019NL");
             W19.setInsetLimit(2);
             W19.setInsetGram(1000);
             W19.setPalletLimit(170);
@@ -280,7 +278,7 @@ public class ArticleSeeder {
             articleRepo.save(W19);
 
             Article W20 = new Article(); //48
-            W20.setExcelCode("WM0000NL");
+            W20.setExcelCode("WM0020NL");
             W20.setInsetLimit(3);
             W20.setInsetGram(600);
             W20.setPalletLimit(170);
@@ -293,7 +291,7 @@ public class ArticleSeeder {
             articleRepo.save(W20);
 
             Article W21 = new Article(); //49
-            W21.setExcelCode("WM0000NL");
+            W21.setExcelCode("WM0021NL");
             W21.setInsetLimit(4);
             W21.setInsetGram(500);
             W21.setPalletLimit(170);
@@ -306,7 +304,7 @@ public class ArticleSeeder {
             articleRepo.save(W21);
 
             Article W22 = new Article(); //50
-            W22.setExcelCode("WM0000NL");
+            W22.setExcelCode("WM0022NL");
             W22.setInsetLimit(4);
             W22.setInsetGram(500);
             W22.setPalletLimit(170);
@@ -319,7 +317,7 @@ public class ArticleSeeder {
             articleRepo.save(W22);
 
             Article W23 = new Article(); //51
-            W23.setExcelCode("WM0000NL");
+            W23.setExcelCode("WM0023NL");
             W23.setInsetLimit(4);
             W23.setInsetGram(100);
             W23.setPalletLimit(170);
@@ -331,7 +329,7 @@ public class ArticleSeeder {
             articleRepo.save(W23);
 
             Article W24 = new Article(); //52
-            W24.setExcelCode("WM0000NL");
+            W24.setExcelCode("WM0024NL");
             W24.setInsetLimit(1);
             W24.setPalletLimit(170);
             W24.setOrigin("NL");
@@ -342,7 +340,7 @@ public class ArticleSeeder {
             articleRepo.save(W24);
 
             Article W25 = new Article(); //53
-            W25.setExcelCode("WM0000NL");
+            W25.setExcelCode("WM0025NL");
             W25.setInsetLimit(1);
             W25.setInsetGram(2500);
             W25.setPalletLimit(170);
@@ -354,7 +352,7 @@ public class ArticleSeeder {
             articleRepo.save(W25);
 
             Article W26 = new Article(); //54
-            W26.setExcelCode("WM0000NL");
+            W26.setExcelCode("WM0026NL");
             W26.setInsetLimit(1);
             W26.setInsetGram(3000);
             W26.setPalletLimit(170);
@@ -366,7 +364,7 @@ public class ArticleSeeder {
             articleRepo.save(W26);
 
             Article W27 = new Article(); //55
-            W27.setExcelCode("WM0000PL");
+            W27.setExcelCode("WM0027PL");
             W27.setInsetLimit(8);
             W27.setInsetGram(400);
             W27.setPalletLimit(170);
@@ -378,7 +376,7 @@ public class ArticleSeeder {
             articleRepo.save(W27);
 
             Article W28 = new Article(); //56
-            W28.setExcelCode("WR0000NL");
+            W28.setExcelCode("WR0028NL");
             W28.setInsetLimit(6);
             W28.setInsetGram(250);
             W28.setPalletLimit(170);
@@ -392,7 +390,7 @@ public class ArticleSeeder {
 
 
             Article W29 = new Article(); //57
-            W29.setExcelCode("WR0000NL");
+            W29.setExcelCode("WR0029NL");
             W29.setInsetLimit(4);
             W29.setInsetGram(400);
             W29.setPalletLimit(170);
@@ -405,7 +403,7 @@ public class ArticleSeeder {
             articleRepo.save(W29);
 
             Article W30 = new Article(); //58
-            W30.setExcelCode("WR0000NL");
+            W30.setExcelCode("WR0030NL");
             W30.setInsetLimit(2);
             W30.setInsetGram(1000);
             W30.setPalletLimit(170);
@@ -418,7 +416,7 @@ public class ArticleSeeder {
             articleRepo.save(W30);
 
             Article W31 = new Article(); //59
-            W31.setExcelCode("WR0000NL");
+            W31.setExcelCode("WR0031NL");
             W31.setInsetLimit(1);
             W31.setPalletLimit(170);
             W31.setOrigin("NL");
@@ -429,7 +427,7 @@ public class ArticleSeeder {
             articleRepo.save(W31);
 
             Article W32 = new Article(); //60
-            W32.setExcelCode("WR0000NL");
+            W32.setExcelCode("WR0032NL");
             W32.setInsetLimit(1);
             W32.setInsetGram(2000);
             W32.setPalletLimit(170);
@@ -441,7 +439,7 @@ public class ArticleSeeder {
             articleRepo.save(W32);
 
             Article W33 = new Article(); //61
-            W33.setExcelCode("WR0000NLBL");
+            W33.setExcelCode("WR0033NLBL");
             W33.setInsetLimit(1);
             W33.setInsetGram(2000);
             W33.setPalletLimit(170);
@@ -453,7 +451,7 @@ public class ArticleSeeder {
             articleRepo.save(W33);
 
             Article W34 = new Article(); //62
-            W34.setExcelCode("WR0000NLGR");
+            W34.setExcelCode("WR0034NLGR");
             W34.setInsetLimit(1);
             W34.setInsetGram(2000);
             W34.setPalletLimit(170);
@@ -465,7 +463,7 @@ public class ArticleSeeder {
             articleRepo.save(W34);
 
             Article W35 = new Article(); //63
-            W35.setExcelCode("WEF0000NL");
+            W35.setExcelCode("WEF0035NL");
             W35.setInsetLimit(2);
             W35.setInsetGram(1000);
             W35.setPalletLimit(170);
@@ -478,7 +476,7 @@ public class ArticleSeeder {
             articleRepo.save(W35);
 
             Article W36 = new Article(); //64
-            W36.setExcelCode("WEF0000NL");
+            W36.setExcelCode("WEF0036NL");
             W36.setInsetLimit(1);
             W36.setPalletLimit(170);
             W36.setOrigin("NL");
@@ -489,7 +487,7 @@ public class ArticleSeeder {
             articleRepo.save(W36);
 
             Article W37 = new Article(); //65
-            W37.setExcelCode("WEF0000NL");
+            W37.setExcelCode("WEF0037NL");
             W37.setInsetLimit(1);
             W37.setInsetGram(2500);
             W37.setPalletLimit(170);
@@ -501,7 +499,7 @@ public class ArticleSeeder {
             articleRepo.save(W37);
 
             Article W38 = new Article(); //66
-            W38.setExcelCode("WEF0000NL");
+            W38.setExcelCode("WEF0038NL");
             W38.setInsetLimit(1);
             W38.setInsetGram(3000);
             W38.setPalletLimit(170);
@@ -513,7 +511,7 @@ public class ArticleSeeder {
             articleRepo.save(W38);
 
             Article W39 = new Article(); //71
-            W39.setExcelCode("WM0000NL");
+            W39.setExcelCode("WM0039NL");
             W39.setInsetLimit(4);
             W39.setInsetGram(250);
             W39.setPalletLimit(170);
@@ -526,7 +524,7 @@ public class ArticleSeeder {
             articleRepo.save(W39);
 
             Article W40 = new Article(); //73
-            W40.setExcelCode("WM0000NL");
+            W40.setExcelCode("WM0040NL");
             W40.setInsetLimit(4);
             W40.setInsetGram(400);
             W40.setPalletLimit(170);
@@ -539,7 +537,7 @@ public class ArticleSeeder {
             articleRepo.save(W40);
 
             Article W41 = new Article(); //75
-            W41.setExcelCode("WM0000NL");
+            W41.setExcelCode("WM0041NL");
             W41.setInsetLimit(1);
             W41.setInsetGram(2500);
             W41.setPalletLimit(170);
@@ -552,7 +550,7 @@ public class ArticleSeeder {
             articleRepo.save(W41);
 
             Article W42 = new Article(); //78
-            W42.setExcelCode("WF0000NL");
+            W42.setExcelCode("WF0042NL");
             W42.setInsetLimit(6);
             W42.setInsetGram(250);
             W42.setPalletLimit(170);
@@ -565,7 +563,7 @@ public class ArticleSeeder {
             articleRepo.save(W42);
 
             Article W43 = new Article(); //79
-            W43.setExcelCode("WM0000NL");
+            W43.setExcelCode("WM0043NL");
             W43.setInsetLimit(4);
             W43.setInsetGram(400);
             W43.setPalletLimit(170);
@@ -578,7 +576,7 @@ public class ArticleSeeder {
             articleRepo.save(W43);
 
             Article W44 = new Article(); //89
-            W44.setExcelCode("WF0000NL");
+            W44.setExcelCode("WF0044NL");
             W44.setInsetLimit(4);
             W44.setInsetGram(400);
             W44.setPalletLimit(170);
@@ -591,7 +589,7 @@ public class ArticleSeeder {
             articleRepo.save(W44);
 
             Article W45 = new Article(); //90
-            W45.setExcelCode("WF0000NL");
+            W45.setExcelCode("WF0045NL");
             W45.setInsetLimit(4);
             W45.setInsetGram(175);
             W45.setPalletLimit(170);
@@ -604,7 +602,7 @@ public class ArticleSeeder {
             articleRepo.save(W45);
 
             Article W46 = new Article(); //91
-            W46.setExcelCode("WF0000NL");
+            W46.setExcelCode("WF0046NL");
             W46.setInsetLimit(1);
             W46.setInsetGram(1250);
             W46.setPalletLimit(170);
@@ -616,7 +614,7 @@ public class ArticleSeeder {
             articleRepo.save(W46);
 
             Article W47 = new Article(); //92
-            W47.setExcelCode("WM0000NL");
+            W47.setExcelCode("WM0047NL");
             W47.setInsetLimit(1);
             W47.setInsetGram(1250);
             W47.setPalletLimit(170);
@@ -628,7 +626,7 @@ public class ArticleSeeder {
             articleRepo.save(W47);
 
             Article W48 = new Article(); //93
-            W48.setExcelCode("WF0000NL");
+            W48.setExcelCode("WF0048NL");
             W48.setInsetLimit(1);
             W48.setInsetGram(3000);
             W48.setPalletLimit(170);
@@ -641,7 +639,7 @@ public class ArticleSeeder {
             articleRepo.save(W48);
 
             Article W49 = new Article(); //94
-            W49.setExcelCode("WM0000NL");
+            W49.setExcelCode("WM0049NL");
             W49.setInsetLimit(1);
             W49.setInsetGram(3000);
             W49.setPalletLimit(170);
@@ -654,7 +652,7 @@ public class ArticleSeeder {
             articleRepo.save(W49);
 
             Article W50 = new Article(); //95
-            W50.setExcelCode("WR0000NL");
+            W50.setExcelCode("WR0050NL");
             W50.setInsetLimit(2);
             W50.setInsetGram(750);
             W50.setPalletLimit(170);
@@ -667,7 +665,7 @@ public class ArticleSeeder {
             articleRepo.save(W50);
 
             Article W51 = new Article(); //96
-            W51.setExcelCode("WS0000NL");
+            W51.setExcelCode("WS0060NL");
             W51.setInsetLimit(1);
             W51.setInsetGram(2500);
             W51.setPalletLimit(170);
@@ -679,7 +677,7 @@ public class ArticleSeeder {
             articleRepo.save(W51);
 
             Article W52 = new Article(); //99
-            W52.setExcelCode("WM0000NL");
+            W52.setExcelCode("WM0061NL");
             W52.setInsetLimit(3);
             W52.setInsetGram(250);
             W52.setPalletLimit(170);
@@ -692,7 +690,7 @@ public class ArticleSeeder {
             articleRepo.save(W52);
 
             Article W53 = new Article(); //102
-            W53.setExcelCode("WFL0000NL");
+            W53.setExcelCode("WFL0062NL");
             W53.setInsetLimit(1);
             W53.setInsetGram(1800);
             W53.setPalletLimit(170);
@@ -704,7 +702,7 @@ public class ArticleSeeder {
             articleRepo.save(W53);
 
             Article W54 = new Article(); //104
-            W54.setExcelCode("WF0000NL");
+            W54.setExcelCode("WF0063NL");
             W54.setInsetLimit(4);
             W54.setInsetGram(300);
             W54.setPalletLimit(170);
@@ -717,7 +715,7 @@ public class ArticleSeeder {
             articleRepo.save(W54);
 
             Article W55 = new Article(); //105
-            W55.setExcelCode("WM0000NL");
+            W55.setExcelCode("WM0064NL");
             W55.setInsetLimit(4);
             W55.setInsetGram(300);
             W55.setPalletLimit(170);
@@ -730,7 +728,7 @@ public class ArticleSeeder {
             articleRepo.save(W55);
 
             Article W56 = new Article(); //106
-            W56.setExcelCode("WM0000NL");
+            W56.setExcelCode("WM0065NL");
             W56.setInsetLimit(4);
             W56.setInsetGram(350);
             W56.setPalletLimit(170);
@@ -743,7 +741,7 @@ public class ArticleSeeder {
             articleRepo.save(W56);
 
             Article W57 = new Article(); //107
-            W57.setExcelCode("WM0000NL");
+            W57.setExcelCode("WM0066NL");
             W57.setInsetLimit(2);
             W57.setInsetGram(400);
             W57.setPalletLimit(170);
@@ -756,7 +754,7 @@ public class ArticleSeeder {
             articleRepo.save(W57);
 
             Article W58 = new Article(); //108
-            W58.setExcelCode("WM0000NL");
+            W58.setExcelCode("WM0067NL");
             W58.setInsetLimit(4);
             W58.setInsetGram(500);
             W58.setPalletLimit(170);
@@ -769,7 +767,7 @@ public class ArticleSeeder {
             articleRepo.save(W58);
 
             Article W59 = new Article(); //109
-            W59.setExcelCode("WM0000NL");
+            W59.setExcelCode("WM0068NL");
             W59.setInsetLimit(4);
             W59.setInsetGram(500);
             W59.setPalletLimit(170);
@@ -782,7 +780,7 @@ public class ArticleSeeder {
             articleRepo.save(W59);
 
             Article W60 = new Article(); //110
-            W60.setExcelCode("WM0000NL");
+            W60.setExcelCode("WM0069NL");
             W60.setInsetLimit(1);
             W60.setInsetGram(3000);
             W60.setPalletLimit(170);
@@ -794,7 +792,7 @@ public class ArticleSeeder {
             articleRepo.save(W60);
 
             Article W61 = new Article(); //111
-            W61.setExcelCode("WM0000NL");
+            W61.setExcelCode("WM0070NL");
             W61.setInsetLimit(1);
             W61.setInsetGram(3000);
             W61.setPalletLimit(170);
@@ -806,7 +804,7 @@ public class ArticleSeeder {
             articleRepo.save(W61);
 
             Article W62 = new Article(); //112
-            W62.setExcelCode("WM0000NL");
+            W62.setExcelCode("WM0071NL");
             W62.setInsetLimit(1);
             W62.setInsetGram(2500);
             W62.setPalletLimit(170);
@@ -818,7 +816,7 @@ public class ArticleSeeder {
             articleRepo.save(W62);
 
             Article W63 = new Article(); //113
-            W63.setExcelCode("WR0000DE");
+            W63.setExcelCode("WR0072DE");
             W63.setInsetLimit(1);
             W63.setInsetGram(2500);
             W63.setPalletLimit(170);
@@ -830,7 +828,7 @@ public class ArticleSeeder {
             articleRepo.save(W63);
 
             Article W64 = new Article(); //114
-            W64.setExcelCode("WR0000NL");
+            W64.setExcelCode("WR0073NL");
             W64.setInsetLimit(3);
             W64.setInsetGram(400);
             W64.setPalletLimit(170);
@@ -842,7 +840,7 @@ public class ArticleSeeder {
             articleRepo.save(W64);
 
             Article W65 = new Article(); //115
-            W65.setExcelCode("WM0000NL");
+            W65.setExcelCode("WM0074NL");
             W65.setInsetLimit(1);
             W65.setInsetGram(3000);
             W65.setPalletLimit(170);
@@ -854,7 +852,7 @@ public class ArticleSeeder {
             articleRepo.save(W65);
 
             Article W66 = new Article(); //116
-            W66.setExcelCode("WF0000NL");
+            W66.setExcelCode("WF0075NL");
             W66.setInsetLimit(4);
             W66.setInsetGram(500);
             W66.setPalletLimit(170);
@@ -867,7 +865,7 @@ public class ArticleSeeder {
             articleRepo.save(W66);
 
             Article W67 = new Article(); //117
-            W67.setExcelCode("WF0000NL");
+            W67.setExcelCode("WF0076NL");
             W67.setInsetLimit(4);
             W67.setInsetGram(500);
             W67.setPalletLimit(170);
@@ -880,7 +878,7 @@ public class ArticleSeeder {
             articleRepo.save(W67);
 
             Article W68 = new Article(); //118
-            W68.setExcelCode("WM0000NL");
+            W68.setExcelCode("WM0077NL");
             W68.setInsetLimit(4);
             W68.setInsetGram(500);
             W68.setPalletLimit(200);
@@ -1012,7 +1010,7 @@ public class ArticleSeeder {
             articleRepo.save(K9);
 
             Article K10 = new Article(); //13
-            K10.setExcelCode("IN00011NL");
+            K10.setExcelCode("IN00012NL");
             K10.setInsetLimit(6);
             K10.setInsetGram(250);
             K10.setPalletLimit(170);
@@ -1025,7 +1023,7 @@ public class ArticleSeeder {
             articleRepo.save(K10);
 
             Article K11 = new Article(); //14
-            K11.setExcelCode("IN00011NL");
+            K11.setExcelCode("IN00013NL");
             K11.setInsetLimit(6);
             K11.setInsetGram(250);
             K11.setPalletLimit(170);
@@ -1038,7 +1036,7 @@ public class ArticleSeeder {
             articleRepo.save(K11);
 
             Article K12 = new Article(); //15
-            K12.setExcelCode("IN00011NL");
+            K12.setExcelCode("IN00014NL");
             K12.setInsetLimit(4);
             K12.setInsetGram(400);
             K12.setPalletLimit(170);
@@ -1051,7 +1049,7 @@ public class ArticleSeeder {
             articleRepo.save(K12);
 
             Article K13 = new Article(); //15
-            K13.setExcelCode("IN00011NL");
+            K13.setExcelCode("IN00015NL");
             K13.setInsetLimit(4);
             K13.setInsetGram(400);
             K13.setPalletLimit(170);
@@ -1064,7 +1062,7 @@ public class ArticleSeeder {
             articleRepo.save(K13);
 
             Article K14 = new Article(); //16
-            K14.setExcelCode("IN00011NL");
+            K14.setExcelCode("IN00016NL");
             K14.setInsetLimit(4);
             K14.setInsetGram(250);
             K14.setPalletLimit(170);
@@ -1077,7 +1075,7 @@ public class ArticleSeeder {
             articleRepo.save(K14);
 
             Article K15 = new Article(); //17
-            K15.setExcelCode("IN00011NL");
+            K15.setExcelCode("IN00017NL");
             K15.setInsetLimit(4);
             K15.setInsetGram(350);
             K15.setPalletLimit(170);
@@ -1090,7 +1088,7 @@ public class ArticleSeeder {
             articleRepo.save(K15);
 
             Article K16 = new Article(); //18
-            K16.setExcelCode("IN00011NL");
+            K16.setExcelCode("IN00018NL");
             K16.setInsetLimit(3);
             K16.setInsetGram(600);
             K16.setPalletLimit(170);
@@ -1103,7 +1101,7 @@ public class ArticleSeeder {
             articleRepo.save(K16);
 
             Article K17 = new Article(); //19
-            K17.setExcelCode("IN00011NL");
+            K17.setExcelCode("IN00019NL");
             K17.setInsetLimit(4);
             K17.setInsetGram(120);
             K17.setPalletLimit(170);
@@ -1116,7 +1114,7 @@ public class ArticleSeeder {
             articleRepo.save(K17);
 
             Article K18 = new Article(); //20
-            K18.setExcelCode("IN00011NL");
+            K18.setExcelCode("IN00020NL");
             K18.setInsetLimit(1);
             K18.setPalletLimit(170);
             K18.setOrigin("NL");
@@ -1127,7 +1125,7 @@ public class ArticleSeeder {
             articleRepo.save(K18);
 
             Article K19 = new Article(); //21
-            K19.setExcelCode("IN00011NL");
+            K19.setExcelCode("IN00021NL");
             K19.setInsetLimit(1);
             K19.setInsetGram(2500);
             K19.setPalletLimit(170);
@@ -1139,7 +1137,7 @@ public class ArticleSeeder {
             articleRepo.save(K19);
 
             Article K20 = new Article(); //22
-            K20.setExcelCode("IN00011NL");
+            K20.setExcelCode("IN00022NL");
             K20.setInsetLimit(1);
             K20.setInsetGram(3000);
             K20.setPalletLimit(170);
@@ -1151,7 +1149,7 @@ public class ArticleSeeder {
             articleRepo.save(K20);
 
             Article K21 = new Article(); //70
-            K21.setExcelCode("IN00011NL");
+            K21.setExcelCode("IN00023NL");
             K21.setInsetLimit(1);
             K21.setInsetGram(1000);
             K21.setPalletLimit(170);
@@ -1163,7 +1161,7 @@ public class ArticleSeeder {
             articleRepo.save(K21);
 
             Article K22 = new Article(); //74
-            K22.setExcelCode("IN00011NL");
+            K22.setExcelCode("IN00024NL");
             K22.setInsetLimit(4);
             K22.setInsetGram(250);
             K22.setPalletLimit(170);
@@ -1176,7 +1174,7 @@ public class ArticleSeeder {
             articleRepo.save(K22);
 
             Article K23 = new Article(); //76
-            K23.setExcelCode("IN00011NL");
+            K23.setExcelCode("IN00025NL");
             K23.setInsetLimit(1);
             K23.setInsetGram(3000);
             K23.setPalletLimit(170);
@@ -1188,7 +1186,7 @@ public class ArticleSeeder {
             articleRepo.save(K23);
 
             Article K24 = new Article(); //85
-            K24.setExcelCode("KMI0000NL");
+            K24.setExcelCode("KMI0001NL");
             K24.setInsetLimit(1);
             K24.setInsetGram(175);
             K24.setPalletLimit(170);
@@ -1201,7 +1199,7 @@ public class ArticleSeeder {
             articleRepo.save(K24);
 
             Article K25 = new Article(); //86
-            K25.setExcelCode("KF0000NL");
+            K25.setExcelCode("KF0002NL");
             K25.setInsetLimit(1);
             K25.setInsetGram(1250);
             K25.setPalletLimit(170);
@@ -1213,7 +1211,7 @@ public class ArticleSeeder {
             articleRepo.save(K25);
 
             Article K26 = new Article(); //87
-            K26.setExcelCode("KF0000NL");
+            K26.setExcelCode("KF0003NL");
             K26.setInsetLimit(1);
             K26.setInsetGram(2500);
             K26.setPalletLimit(170);
@@ -1225,7 +1223,7 @@ public class ArticleSeeder {
             articleRepo.save(K26);
 
             Article K27 = new Article(); //88
-            K27.setExcelCode("KM0000NL");
+            K27.setExcelCode("KM0004NL");
             K27.setInsetLimit(2);
             K27.setInsetGram(1000);
             K27.setPalletLimit(170);
@@ -1238,7 +1236,7 @@ public class ArticleSeeder {
             articleRepo.save(K27);
 
             Article K28 = new Article(); //100
-            K28.setExcelCode("KF0000NL");
+            K28.setExcelCode("KF0005NL");
             K28.setInsetLimit(6);
             K28.setInsetGram(250);
             K28.setPalletLimit(170);
@@ -1266,7 +1264,7 @@ public class ArticleSeeder {
 
             // region Oesterzwam
             Article OE1 = new Article(); //23
-            OE1.setExcelCode("OE0000NL");
+            OE1.setExcelCode("OE0006NL");
             OE1.setInsetLimit(4);
             OE1.setInsetGram(250);
             OE1.setPalletLimit(170);
@@ -1278,7 +1276,7 @@ public class ArticleSeeder {
             articleRepo.save(OE1);
 
             Article OE2 = new Article(); //24
-            OE2.setExcelCode("OE0000NL");
+            OE2.setExcelCode("OE0007NL");
             OE2.setInsetLimit(4);
             OE2.setInsetGram(200);
             OE2.setPalletLimit(170);
@@ -1290,7 +1288,7 @@ public class ArticleSeeder {
             articleRepo.save(OE2);
 
             Article OE3 = new Article(); //25
-            OE3.setExcelCode("OE0000NL");
+            OE3.setExcelCode("OE0009NL");
             OE3.setInsetLimit(1);
             OE3.setInsetGram(1500);
             OE3.setPalletLimit(170);
@@ -1301,7 +1299,7 @@ public class ArticleSeeder {
             articleRepo.save(OE3);
 
             Article OE4 = new Article(); //26
-            OE4.setExcelCode("OE0000NL");
+            OE4.setExcelCode("OE0010NL");
             OE4.setInsetLimit(1);
             OE4.setInsetGram(1500);
             OE4.setPalletLimit(170);
@@ -1312,7 +1310,7 @@ public class ArticleSeeder {
             articleRepo.save(OE4);
 
             Article OE5 = new Article(); //27
-            OE5.setExcelCode("OE0000NL");
+            OE5.setExcelCode("OE0011NL");
             OE5.setInsetLimit(1);
             OE5.setInsetGram(1500);
             OE5.setPalletLimit(170);
@@ -1324,7 +1322,7 @@ public class ArticleSeeder {
             articleRepo.save(OE5);
 
             Article OE6 = new Article(); //67
-            OE6.setExcelCode("OE0000NL");
+            OE6.setExcelCode("OE0012NL");
             OE6.setInsetLimit(1);
             OE6.setInsetGram(1000);
             OE6.setPalletLimit(170);
@@ -1336,7 +1334,7 @@ public class ArticleSeeder {
             articleRepo.save(OE6);
 
             Article OE7 = new Article(); //72
-            OE7.setExcelCode("OE0000NL");
+            OE7.setExcelCode("OE0013NL");
             OE7.setInsetLimit(1);
             OE7.setInsetGram(2000);
             OE7.setPalletLimit(170);
@@ -1347,7 +1345,7 @@ public class ArticleSeeder {
             articleRepo.save(OE7);
 
             Article OE8 = new Article(); //80
-            OE8.setExcelCode("OE0000NL");
+            OE8.setExcelCode("OE0014NL");
             OE8.setInsetLimit(4);
             OE8.setInsetGram(200);
             OE8.setPalletLimit(170);
@@ -1361,7 +1359,7 @@ public class ArticleSeeder {
 
             // region Portabella
             Article PO1 = new Article(); //28
-            PO1.setExcelCode("IN00011NL");
+            PO1.setExcelCode("IN00055NL");
             PO1.setInsetLimit(4);
             PO1.setInsetGram(2);
             PO1.setPalletLimit(170);
@@ -1373,7 +1371,7 @@ public class ArticleSeeder {
             articleRepo.save(PO1);
 
             Article PO2 = new Article(); //29
-            PO2.setExcelCode("IN00011NL");
+            PO2.setExcelCode("IN00056NL");
             PO2.setInsetLimit(1);
             PO2.setInsetGram(1500);
             PO2.setPalletLimit(170);
@@ -1386,7 +1384,7 @@ public class ArticleSeeder {
 
             // region Shiitake
             Article SHB1 = new Article(); //30
-            SHB1.setExcelCode("SH0000NL");
+            SHB1.setExcelCode("SH0057NL");
             SHB1.setInsetLimit(6);
             SHB1.setInsetGram(150);
             SHB1.setPalletLimit(170);
@@ -1400,7 +1398,7 @@ public class ArticleSeeder {
             articleRepo.save(SHB1);
 
             Article SHB2 = new Article(); //31
-            SHB2.setExcelCode("SH0000NL");
+            SHB2.setExcelCode("SH0058NL");
             SHB2.setInsetLimit(1);
             SHB2.setInsetGram(1500);
             SHB2.setPalletLimit(170);
@@ -1413,7 +1411,7 @@ public class ArticleSeeder {
             articleRepo.save(SHB2);
 
             Article SHB3 = new Article(); //81
-            SHB3.setExcelCode("SH0000NL");
+            SHB3.setExcelCode("SH0059NL");
             SHB3.setInsetLimit(4);
             SHB3.setInsetGram(150);
             SHB3.setPalletLimit(170);
@@ -1427,7 +1425,7 @@ public class ArticleSeeder {
             articleRepo.save(SHB2);
 
             Article SHB4 = new Article(); //82
-            SHB4.setExcelCode("SH0000NL");
+            SHB4.setExcelCode("SH0060NL");
             SHB4.setInsetLimit(4);
             SHB4.setInsetGram(100);
             SHB4.setPalletLimit(170);
@@ -1441,7 +1439,7 @@ public class ArticleSeeder {
             articleRepo.save(SHB4);
 
             Article SHB5 = new Article(); //103
-            SHB5.setExcelCode("WFL0000NL");
+            SHB5.setExcelCode("WFL0061NL");
             SHB5.setInsetLimit(1);
             SHB5.setInsetGram(1500);
             SHB5.setPalletLimit(170);
@@ -1454,7 +1452,7 @@ public class ArticleSeeder {
 
             // region Beukenzwam
             Article BEU1 = new Article(); //68
-            BEU1.setExcelCode("IN0002NL");
+            BEU1.setExcelCode("IN0062NL");
             BEU1.setInsetLimit(1);
             BEU1.setInsetGram(1000);
             BEU1.setPalletLimit(170);
@@ -1466,7 +1464,7 @@ public class ArticleSeeder {
             articleRepo.save(BEU1);
 
             Article BEU2 = new Article(); //69
-            BEU2.setExcelCode("IN0002NL");
+            BEU2.setExcelCode("IN0063NL");
             BEU2.setInsetLimit(1);
             BEU2.setInsetGram(1500);
             BEU2.setPalletLimit(170);
@@ -1480,7 +1478,7 @@ public class ArticleSeeder {
 
             // region Oyster
             Article OM1 = new Article(); //83
-            OM1.setExcelCode("OM0000HU");
+            OM1.setExcelCode("OM0064HU");
             OM1.setInsetLimit(1);
             OM1.setInsetGram(1500);
             OM1.setPalletLimit(170);
@@ -1494,7 +1492,7 @@ public class ArticleSeeder {
             articleRepo.save(OM1);
 
             Article OM2 = new Article(); //84
-            OM2.setExcelCode("OM0000HU");
+            OM2.setExcelCode("OM0065HU");
             OM2.setInsetLimit(1);
             OM2.setInsetGram(1500);
             OM2.setPalletLimit(170);
@@ -1510,7 +1508,7 @@ public class ArticleSeeder {
 
             // region Afkeur
             Article AF1 = new Article(); //97
-            AF1.setExcelCode("AF0000NL");
+            AF1.setExcelCode("AF0066NL");
             AF1.setInsetLimit(1);
             AF1.setInsetGram(10000);
             AF1.setPalletLimit(170);
@@ -1522,7 +1520,7 @@ public class ArticleSeeder {
             articleRepo.save(AF1);
 
             Article AF2 = new Article(); //98
-            AF2.setExcelCode("AF0000NL");
+            AF2.setExcelCode("AF0067NL");
             AF2.setInsetLimit(1);
             AF2.setInsetGram(10000);
             AF2.setPalletLimit(170);
@@ -1536,7 +1534,7 @@ public class ArticleSeeder {
 
             // region Industrie
             Article IN1 = new Article(); //119
-            IN1.setExcelCode("WM0000NL");
+            IN1.setExcelCode("WM0168NL");
             IN1.setInsetLimit(1);
             IN1.setInsetGram(10000);
             IN1.setPalletLimit(45);

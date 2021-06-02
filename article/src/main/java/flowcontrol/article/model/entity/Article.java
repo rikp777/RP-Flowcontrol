@@ -1,7 +1,6 @@
 package flowcontrol.article.model.entity;
 
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import flowcontrol.article.repository.Generic.AbstractBaseEntity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,8 +10,6 @@ import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
-
-import static javax.persistence.GenerationType.SEQUENCE;
 
 @Entity(name = "Article")
 @SQLDelete(sql =
@@ -27,6 +24,7 @@ import static javax.persistence.GenerationType.SEQUENCE;
 @NoArgsConstructor
 public class Article extends AbstractBaseEntity {
 
+    @Column(unique = true)
     private String excelCode;
     private Integer insetGram;
     private Integer insetLimit;
