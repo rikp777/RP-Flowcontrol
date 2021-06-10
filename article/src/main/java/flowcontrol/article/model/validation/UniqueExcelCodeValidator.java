@@ -15,6 +15,9 @@ public class UniqueExcelCodeValidator implements ConstraintValidator<UniqueExcel
 
     @Override
     public boolean isValid(String value, ConstraintValidatorContext context){
+        if(value == null || value == "" || value.isBlank() || value.isEmpty()){
+            return true;
+        }
         return value != null && !articleService.isAlreadyPresentByExcelCode(value);
     }
 }

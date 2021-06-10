@@ -10,7 +10,7 @@ import java.io.Serializable;
 @Getter
 @Setter
 //@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-public class BaseEntity  implements Serializable {
+public class BaseEntity implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

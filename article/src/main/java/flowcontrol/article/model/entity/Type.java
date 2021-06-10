@@ -2,9 +2,7 @@ package flowcontrol.article.model.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import flowcontrol.article.repository.Generic.AbstractBaseEntity;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.Entity;
@@ -19,6 +17,7 @@ import java.util.Set;
 @Setter
 @ToString
 @Transactional
+@NoArgsConstructor
 public class Type extends AbstractBaseEntity {
     private String name;
 

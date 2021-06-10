@@ -16,6 +16,12 @@ public class SortTypeExistsValidator implements ConstraintValidator<SortTypeExis
     @SneakyThrows
     @Override
     public boolean isValid(String value, ConstraintValidatorContext context){
+        if(value == null || value == "" || value.isBlank() || value.isEmpty()){
+            return true;
+        }
+
+        if(value.equals("0")) return true;
+
         return value != null && sortTypeService.isAlreadyPresentById(value);
     }
 }

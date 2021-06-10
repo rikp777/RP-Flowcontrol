@@ -215,3 +215,4 @@ sysinfo.txt
 *.symbols.zip
 
 # Crashlytics generated file
+./docker-volumes

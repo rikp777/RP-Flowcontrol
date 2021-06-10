@@ -2,16 +2,17 @@ package flowcontrol.article.model.entity;
 
 
 import flowcontrol.article.repository.Generic.AbstractBaseEntity;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
+import lombok.experimental.Accessors;
+import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 
 @Entity(name = "Article")
+@DynamicUpdate(true)
 @SQLDelete(sql =
         "UPDATE article " +
                 "SET inactive = true " +
@@ -20,8 +21,10 @@ import javax.persistence.*;
 @Table(name = "article")
 @Getter
 @Setter
+@Accessors(chain = true)
 @ToString
 @NoArgsConstructor
+@EntityListeners(AuditingEntityListener.class)
 public class Article extends AbstractBaseEntity {
 
     @Column(unique = true)
@@ -86,6 +89,61 @@ public class Article extends AbstractBaseEntity {
             foreignKey = @ForeignKey(name="color_fk_in_group")
     )
     private Color color;
+
+
+    private String name;
+
+    public String getFullName() {
+        String name = "";
+
+        if(this.getColor() != null){
+            if(!this.getColor().getName().isEmpty()){
+                name = name + this.getColor().getName() + " ";
+            }
+        }
+        if(this.getGroup() != null){
+            if(!this.getGroup().getName().isEmpty()){
+                name = name + this.getGroup().getName() + " ";
+            }
+        }
+        if(this.getType() != null){
+            if(!this.getType().getName().isEmpty()){
+                name = name + this.getType().getName() + " ";
+            }
+        }
+        if(this.getSortType() != null){
+            if(!this.getSortType().getName().isEmpty()){
+                name = name + this.getSortType().getName() + " ";
+            }
+        }
+        if(this.getInsetLimit() != null){
+            name = name + this.getInsetLimit() + " x ";
+        }
+        if(this.getInsetGram() != null){
+            name = name + this.getInsetGram() + " ";
+        }
+        if(this.getInset() != null){
+            if(!this.getInset().getName().isEmpty()){
+                name = name + this.getInset().getName() + " ";
+            }
+        }
+        if(this.origin != null){
+            name = name + this.origin + " ";
+        }
+        if(this.isBiologic()){
+            name = name + "BIO ";
+        }
+
+        if(this.getExcelCode() != null){
+            name = name + "(" + this.getExcelCode() + ") ";
+        }
+
+        if(this.additionalInfo != null){
+            name = name + this.additionalInfo;
+        }
+
+        return name.trim().substring(0, name.length() -1).trim();
+    }
 
 
     @Override

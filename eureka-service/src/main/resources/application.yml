@@ -1,4 +1,3 @@
-
 spring:
   application:
     name: eureka-service
@@ -8,9 +7,15 @@ server:
 
 
 eureka:
+  instance:
+    hostname: localhost
   client:
     register-with-eureka: false
     fetch-registry: false
     healthcheck.enabled: true
+    defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
   server:
     wait-time-in-ms-when-sync-empty: 0
+
+ribbon:
+  ServerListRefreshInterval: 5000

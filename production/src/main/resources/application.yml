@@ -1,6 +1,8 @@
 #============SERVER============
 # HTTP server port
 
+
+
 server:
   port: 7073
 
@@ -32,7 +34,7 @@ spring:
       #      ddl-auto: create-drop
       dialect: org.hibernate.dialect.MySQLDialect
       ddl-auto: create-drop
-    show-sql: true
+    show-sql: false
     properties:
       hibernate:
         format_sql: true
@@ -40,6 +42,10 @@ spring:
           lob:
             non_contextual_creation: true
 
+  redis:
+    hostname: localhost
+    port: 6379
+    password: sOmE_sEcUrE_pAsS
 
 swagger:
   host:

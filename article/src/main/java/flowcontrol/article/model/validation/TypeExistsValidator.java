@@ -17,6 +17,11 @@ public class TypeExistsValidator implements ConstraintValidator<TypeExists, Stri
     @SneakyThrows
     @Override
     public boolean isValid(String value, ConstraintValidatorContext context){
+        if(value == null || value == "" || value.isBlank() || value.isEmpty()){
+            return true;
+        }
+        if(value.equals("0")) return true;
+
         return value != null && typeService.isAlreadyPresentById(value);
     }
 }

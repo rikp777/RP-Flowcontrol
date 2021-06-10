@@ -20,7 +20,7 @@ public abstract class BaseService<T extends AbstractBaseEntity> {
         try {
             return repository.findById(Long.parseLong(value)).isPresent();
         } catch (Exception exception){
-            throw new BadRequestException("Syntax error [" + value + "] is not a number");
+            return true;
         }
     }
 
@@ -32,4 +32,17 @@ public abstract class BaseService<T extends AbstractBaseEntity> {
         return repository.findById(id);
     }
 
+
+    public Optional<T> createOrUpdate(T entity){
+        return Optional.of(repository.save(entity));
+    }
+
+    public void delete(T entity){
+        try{
+            repository.delete(entity);
+        }catch (Exception exception){
+            log.error(exception.getMessage());
+            throw new BadRequestException("It is possible that the data you want to delete has relational data, Delete that data first!");
+        }
+    }
 }

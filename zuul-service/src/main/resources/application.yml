@@ -1,7 +1,9 @@
 spring:
   application:
     name: zuul-service
-
+  data:
+    rest:
+      basePath: /api
 
 server:
   port: 8762
@@ -10,46 +12,45 @@ server:
 eureka:
   client:
     serviceUrl:
-      defaultZone: http://localhost:8761/eureka
+      defaultZone: http://${eureka.address:localhost:8761}/eureka/
 
   instance:
-    appname: zuul-service
+    leaseRenewalIntervalInSeconds: 5
+    hostname: ${vcap.application.uris[0]:localhost}
     metadataMap:
-      instanceId: ${spring.application.name}:${spring.application.instance_id:${server.port}:${random.value}}
+      instanceId: ${spring.application.name}:${spring.application.instance_id:${random.value}}
 
 
 zuul:
   ignored-services: '*'
+  sensitive-headers: Cookie, Set-Cookie
   routes:
     gateway-authservice:
       path: /auth/**
       service-id: gateway-authservice
-      sensitive-headers: Cookie, Set-Cookie
+
 
     article:
       path: /article/**
       service-id: article-service
-      sensitive-headers: Cookie, Set-Cookie
+#      stripprefix: false
 
     farmer:
       path: /farmer/**
       service-id: farmer-service
-      sensitive-headers: Cookie, Set-Cookie
 
     transport:
       path: /transport/**
       service-id: transport-service
-      sensitive-headers: Cookie, Set-Cookie
 
     production:
       path: /production/**
       service-id: production-service
-      sensitive-headers: Cookie, Set-Cookie
   retryable: true #for devs only
 
 ribbon:
-  ConnectTimeout: 60000
-  ReadTimeout: 600000
+  ConnectTimeout: 3000
+  ReadTimeout: 60000
 
 
 hystrix:
@@ -58,7 +59,7 @@ hystrix:
       execution:
         isolation:
           thread:
-            timeoutInMilliseconds: 600000
+            timeoutInMilliseconds: 60000
 
 
 security:

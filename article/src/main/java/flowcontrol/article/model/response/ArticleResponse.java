@@ -1,48 +1,44 @@
 package flowcontrol.article.model.response;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import org.springframework.hateoas.RepresentationModel;
 import flowcontrol.article.model.entity.Article;
 import flowcontrol.article.model.entity.Inset;
 import lombok.*;
+import org.springframework.hateoas.server.core.Relation;
 
 @Builder
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class ArticleResponse {
-    private String name;
+@Relation(itemRelation = "article", collectionRelation = "articles")
+public class ArticleResponse extends RepresentationModel<ArticleResponse> {
+    @JsonProperty("full_name")
+    private String fullName;
 
-    public void setName(Article article) {
-        String name = "";
+    @JsonProperty("excel_code")
+    private String excelCode;
 
-        if(article.getColor() != null){
-            name = name + article.getColor().getName() + " ";
-        }
-        if(article.getGroup() != null){
-            if(!article.getGroup().getName().isEmpty()){
-                name = name + article.getGroup().getName() + " ";
-            }
-        }
-        if(article.getType() != null){
-            name = name + article.getType().getName() + " ";
-        }
-        if(article.getSortType() != null){
-            name = name + article.getSortType().getName() + " ";
-        }
-        if(article.getInsetLimit() != null){
-            name = name + article.getInsetLimit() + " x ";
-        }
-        if(article.getInsetGram() != null){
-            name = name + article.getInsetGram() + " ";
-        }
-        if(article.getInset() != null){
-            Inset inset = article.getInset();
-            name = name + inset.getColor().getName() + " ";
-        }
-        if(article.getExcelCode() != null){
-            name = name + "(" + article.getExcelCode() + ")";
-        }
+    @JsonProperty("inset_gram")
+    private Integer insetGram;
 
-        this.name = name;
-    }
+    @JsonProperty("inset_limit")
+    private Integer insetLimit;
+
+    @JsonProperty("pallet_limit")
+    private Integer palletLimit;
+
+    @JsonProperty("origin")
+    private String origin;
+
+    @JsonProperty("biologic")
+    private boolean biologic;
+
+    @JsonProperty("inactive")
+    private boolean inactive;
+
+    @JsonProperty("additional_info")
+    private String additionalInfo;
+
 }
