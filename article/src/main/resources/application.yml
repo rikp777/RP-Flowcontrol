@@ -8,7 +8,7 @@ server:
 
   # Context path of the application
   servlet:
-#    context-path: /api
+    context-path: /article/api
 
     # Default HTTP session time out
     session:
@@ -17,11 +17,11 @@ server:
 
 spring:
   application:
-    name: article-service
+    name: ARTICLE-SERVICE
 
-  data:
-    rest:
-      basePath: /api
+#  data:
+#    rest:
+#      basePath: /api
 
   jackson:
     serialization:
@@ -56,14 +56,12 @@ swagger:
 
 eureka:
   client:
-    service-url:
-      default-zone: http://${eureka.address:localhost:8761}/eureka/
+    register-with-eureka: true
+    fetch-registry: true
+    serviceUrl:
+      defaultZone: http://${eureka.address:localhost:8761}/eureka
   instance:
-    leaseRenewalIntervalInSeconds: 5
-    hostname: ${vcap.application.uris[0]:localhost}
-    metadataMap:
-      instanceId: ${spring.application.name}:${spring.application.instance_id:${random.value}}
-
+    prefer-ip-address: true
 security:
   basic:
     enable: false

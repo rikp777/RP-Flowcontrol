@@ -5,9 +5,12 @@ import flowcontrol.article.repository.generic.AbstractBaseEntity;
 import flowcontrol.article.repository.generic.AbstractBaseRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import javax.transaction.Transactional;
 import java.util.Optional;
+import java.util.function.Predicate;
 
 @AllArgsConstructor
 @Slf4j
@@ -24,6 +27,9 @@ public abstract class BaseService<T extends AbstractBaseEntity> {
         }
     }
 
+    public Page<T> getAll(Pageable pageable){
+        return repository.findAll(pageable);
+    }
     public Iterable<T> getAll(){
         return repository.findAll();
     }
