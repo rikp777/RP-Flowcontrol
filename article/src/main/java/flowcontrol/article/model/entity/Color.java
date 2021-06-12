@@ -1,7 +1,7 @@
 package flowcontrol.article.model.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import flowcontrol.article.repository.Generic.AbstractBaseEntity;
+import flowcontrol.article.repository.generic.AbstractBaseEntity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

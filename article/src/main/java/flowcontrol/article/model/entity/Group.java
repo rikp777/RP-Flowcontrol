@@ -1,7 +1,7 @@
 package flowcontrol.article.model.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import flowcontrol.article.repository.Generic.AbstractBaseEntity;
+import flowcontrol.article.repository.generic.AbstractBaseEntity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -10,12 +10,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.*;
 
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
-
-import static javax.persistence.GenerationType.SEQUENCE;
 
 @Entity(name = "Group")
 @Table(name = "article_groups")

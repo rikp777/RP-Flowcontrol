@@ -8,6 +8,8 @@ import flowcontrol.article.repository.*;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import java.util.Objects;
+
 @AllArgsConstructor
 @Component
 public class ArticleMapper extends BaseMapper<Article> {
@@ -122,27 +124,27 @@ public class ArticleMapper extends BaseMapper<Article> {
         Article article = new Article();
         article.setId(original.getId());
 
-        if(updateArticle.getExcelCode() != null){
+        if(Objects.nonNull(updateArticle.getExcelCode())){
             original.setExcelCode(updateArticle.getExcelCode());
         }
-        if(updateArticle.getInsetGram() != null){
+        if(Objects.nonNull(updateArticle.getInsetGram())){
             original.setInsetGram(updateArticle.getInsetGram());
         }
-        if(updateArticle.getInsetLimit() != null){
+        if(Objects.nonNull(updateArticle.getInsetLimit())){
             original.setInsetLimit(updateArticle.getInsetLimit());
         }
-        if(updateArticle.getPalletLimit() != null){
+        if(Objects.nonNull(updateArticle.getPalletLimit())){
             original.setPalletLimit(updateArticle.getPalletLimit());
         }
-        if(updateArticle.getOrigin() != null){
+        if(Objects.nonNull(updateArticle.getOrigin())){
             original.setOrigin(updateArticle.getOrigin());
         }
-        if(updateArticle.getAdditionalInfo() != null){
+        if(Objects.nonNull(updateArticle.getAdditionalInfo())){
             original.setAdditionalInfo(updateArticle.getAdditionalInfo());
         }
 
         // Relationships
-        if(updateArticle.getTypeId() != null){
+        if(Objects.nonNull(updateArticle.getTypeId())){
             Type type = new Type();
             type.setId(toLong(updateArticle.getTypeId()));
             if(type.getId() == 0){
@@ -214,6 +216,8 @@ public class ArticleMapper extends BaseMapper<Article> {
         }
         return original;
     }
+
+
 
 //    public Article DtoToEntity(UpdateArticleRequest article, String id){
 //        Article mappedArticle = new Article();

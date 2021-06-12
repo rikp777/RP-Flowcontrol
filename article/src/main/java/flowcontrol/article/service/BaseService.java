@@ -1,8 +1,8 @@
 package flowcontrol.article.service;
 
 import flowcontrol.article.exception.BadRequestException;
-import flowcontrol.article.repository.Generic.AbstractBaseEntity;
-import flowcontrol.article.repository.Generic.AbstractBaseRepository;
+import flowcontrol.article.repository.generic.AbstractBaseEntity;
+import flowcontrol.article.repository.generic.AbstractBaseRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 

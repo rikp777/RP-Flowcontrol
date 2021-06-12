@@ -1,7 +1,7 @@
 package flowcontrol.article.model.entity;
 
 
-import flowcontrol.article.repository.Generic.AbstractBaseEntity;
+import flowcontrol.article.repository.generic.AbstractBaseEntity;
 import lombok.*;
 import lombok.experimental.Accessors;
 import org.hibernate.annotations.DynamicUpdate;
@@ -94,57 +94,62 @@ public class Article extends AbstractBaseEntity {
     private String name;
 
     public String getFullName() {
-        String name = "";
-
-        if(this.getColor() != null){
-            if(!this.getColor().getName().isEmpty()){
-                name = name + this.getColor().getName() + " ";
-            }
+        var returnName = "";
+        if(isColorEmpty()){
+            returnName = returnName + this.getColor().getName() + " ";
         }
-        if(this.getGroup() != null){
-            if(!this.getGroup().getName().isEmpty()){
-                name = name + this.getGroup().getName() + " ";
-            }
+        if(isGroupEmpty()){
+            returnName = returnName + this.getGroup().getName() + " ";
         }
-        if(this.getType() != null){
-            if(!this.getType().getName().isEmpty()){
-                name = name + this.getType().getName() + " ";
-            }
+        if(isTypeEmpty()){
+            returnName = returnName + this.getType().getName() + " ";
         }
-        if(this.getSortType() != null){
-            if(!this.getSortType().getName().isEmpty()){
-                name = name + this.getSortType().getName() + " ";
-            }
+        if(isSortTypeEmpty()){
+            returnName = returnName + this.getSortType().getName() + " ";
         }
         if(this.getInsetLimit() != null){
-            name = name + this.getInsetLimit() + " x ";
+            returnName = returnName + this.getInsetLimit() + " x ";
         }
         if(this.getInsetGram() != null){
-            name = name + this.getInsetGram() + " ";
+            returnName = returnName + this.getInsetGram() + " ";
         }
-        if(this.getInset() != null){
-            if(!this.getInset().getName().isEmpty()){
-                name = name + this.getInset().getName() + " ";
-            }
+        if(isInsetEmpty()){
+            returnName = returnName + this.getInset().getName() + " ";
         }
         if(this.origin != null){
-            name = name + this.origin + " ";
+            returnName = returnName + this.origin + " ";
         }
         if(this.isBiologic()){
-            name = name + "BIO ";
+            returnName = returnName + "BIO ";
         }
 
         if(this.getExcelCode() != null){
-            name = name + "(" + this.getExcelCode() + ") ";
+            returnName = returnName + "(" + this.getExcelCode() + ") ";
         }
 
         if(this.additionalInfo != null){
-            name = name + this.additionalInfo;
+            returnName = returnName + this.additionalInfo;
         }
 
-        return name.trim().substring(0, name.length() -1).trim();
+        return returnName.trim().substring(0, returnName.length() -1).trim();
     }
 
+
+    public boolean isColorEmpty(){
+        return this.getColor() != null && !this.getColor().getName().isEmpty();
+    }
+    public boolean isGroupEmpty(){
+        return this.getGroup() != null && !this.getGroup().getName().isEmpty();
+    }
+    public boolean isTypeEmpty(){
+        return this.getType() != null && !this.getType().getName().isEmpty();
+    }
+    public boolean isSortTypeEmpty(){
+        return this.getSortType() != null && !this.getSortType().getName().isEmpty();
+    }
+    public boolean isInsetEmpty(){
+        return this.getInset() != null && !this.getInset().getName().isEmpty();
+    }
 
     @Override
     public String toString() {

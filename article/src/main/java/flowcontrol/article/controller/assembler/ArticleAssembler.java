@@ -3,9 +3,7 @@ package flowcontrol.article.controller.assembler;
 import flowcontrol.article.controller.*;
 import flowcontrol.article.model.entity.Article;
 import flowcontrol.article.model.response.ArticleResponse;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.CollectionModel;
-import org.springframework.hateoas.server.RepresentationModelAssembler;
 import org.springframework.stereotype.Component;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
@@ -99,8 +97,6 @@ public class ArticleAssembler extends BaseAssembler<Article, ArticleResponse> {
     public CollectionModel<ArticleResponse> toCollectionModel(Iterable<? extends Article> entities) {
         CollectionModel<ArticleResponse> articleResponse = collection(entities);
         if(articleResponse.getContent() != null && articleResponse.getContent().size() > 0){
-//            Long farmerId = articleResponse.getContent().iterator().next().get().getId();
-//            Long palletLabelId = articleResponse.getContent().iterator().next().getPalletLabel().getId();
             articleResponse.add(linkTo(methodOn(ArticleController.class).getAll()).withSelfRel());
         }
 

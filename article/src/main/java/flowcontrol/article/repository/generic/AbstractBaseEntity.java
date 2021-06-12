@@ -1,4 +1,4 @@
-package flowcontrol.article.repository.Generic;
+package flowcontrol.article.repository.generic;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;

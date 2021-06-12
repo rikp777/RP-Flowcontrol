@@ -1,26 +1,16 @@
 package flowcontrol.article.controller;
 
-import com.netflix.discovery.converters.Auto;
 import flowcontrol.article.controller.assembler.BaseAssembler;
 import flowcontrol.article.exception.ResourceNotFoundException;
-import flowcontrol.article.model.entity.Cask;
-import flowcontrol.article.model.request.cask.CreateCaskRequest;
-import flowcontrol.article.repository.Generic.AbstractBaseEntity;
+import flowcontrol.article.repository.generic.AbstractBaseEntity;
 import flowcontrol.article.service.BaseService;
-import lombok.AllArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import net.bytebuddy.description.type.TypeDescription;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.RepresentationModel;
-import org.springframework.hateoas.server.RepresentationModelAssembler;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 
-import javax.validation.Valid;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 

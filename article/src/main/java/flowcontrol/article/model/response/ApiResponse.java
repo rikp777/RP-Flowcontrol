@@ -5,7 +5,7 @@ import lombok.Data;
 
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
-import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -16,7 +16,7 @@ public class ApiResponse {
     private final ZonedDateTime timeStamp;
     private final String cause;
     private final String path;
-    private final ArrayList<CustomFieldError> errors;
+    private final List<CustomFieldError> errors;
 
     public ApiResponse(Boolean success, String message, String cause, String path){
         this.message = message;
@@ -27,7 +27,7 @@ public class ApiResponse {
         this.errors = null;
     }
 
-    public ApiResponse(Boolean success, ArrayList<CustomFieldError> errors, String cause, String path){
+    public ApiResponse(Boolean success, List<CustomFieldError> errors, String cause, String path){
         this.message = null;
         this.errors = errors;
         this.success = success;
@@ -35,7 +35,7 @@ public class ApiResponse {
         this.path = path;
         this.timeStamp = this.getZonedDateTime();
     }
-    public ApiResponse(Boolean success, String message, ArrayList<CustomFieldError> errors, String cause, String path){
+    public ApiResponse(Boolean success, String message, List<CustomFieldError> errors, String cause, String path){
         this.message = message;
         this.errors = errors;
         this.success = success;
