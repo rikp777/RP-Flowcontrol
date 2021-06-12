@@ -3,6 +3,7 @@ package flowcontrol.article.model.mapper;
 import flowcontrol.article.model.entity.Cask;
 import flowcontrol.article.model.entity.Color;
 import flowcontrol.article.model.request.cask.CreateCaskRequest;
+import flowcontrol.article.model.request.cask.UpdateCaskRequest;
 import flowcontrol.article.repository.ColorRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -10,7 +11,7 @@ import org.springframework.stereotype.Component;
 
 @AllArgsConstructor
 @Component
-public class CaskMapper extends BaseMapper<Cask> {
+public class CaskMapper extends BaseMapper<Cask, CreateCaskRequest, UpdateCaskRequest> {
 
     private final ColorRepository colorRepository;
 

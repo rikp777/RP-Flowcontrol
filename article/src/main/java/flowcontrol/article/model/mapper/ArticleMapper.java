@@ -12,7 +12,7 @@ import java.util.Objects;
 
 @AllArgsConstructor
 @Component
-public class ArticleMapper extends BaseMapper<Article> {
+public class ArticleMapper extends BaseMapper<Article, CreateArticleRequest, UpdateArticleRequest> {
 
     private final ArticleRepository articleRepository;
     private final TypeRepository typeRepository;

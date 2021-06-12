@@ -6,6 +6,9 @@ import flowcontrol.article.controller.assembler.InsetAssembler;
 import flowcontrol.article.exception.ResourceNotFoundException;
 import flowcontrol.article.model.entity.Group;
 import flowcontrol.article.model.entity.Inset;
+import flowcontrol.article.model.mapper.InsetMapper;
+import flowcontrol.article.model.request.inset.CreateInsetRequest;
+import flowcontrol.article.model.request.inset.UpdateInsetRequest;
 import flowcontrol.article.model.response.GroupResponse;
 import flowcontrol.article.model.response.InsetResponse;
 import flowcontrol.article.service.GroupService;
@@ -20,7 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/v1/insets")
-public class InsetController extends BaseController<InsetResponse, Inset>{
+public class InsetController extends BaseController<InsetResponse, Inset, CreateInsetRequest, UpdateInsetRequest, InsetMapper>{
 
     //Assembler
     private final InsetAssembler insetAssembler;
@@ -32,8 +35,8 @@ public class InsetController extends BaseController<InsetResponse, Inset>{
 
     //Constructor
     @Autowired
-    InsetController(InsetService insetService, InsetAssembler insetAssembler){
-        super(insetService, insetAssembler);
+    InsetController(InsetService insetService, InsetAssembler insetAssembler, InsetMapper insetMapper){
+        super(insetService, insetAssembler, insetMapper);
         this.insetService = insetService;
         this.insetAssembler = insetAssembler;
     }

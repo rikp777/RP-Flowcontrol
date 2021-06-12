@@ -19,7 +19,7 @@ import javax.validation.Valid;
 @RestController
 @RequestMapping("/v1/articles")
 @Validated
-public class ArticleController extends BaseController<ArticleResponse, Article>{
+public class ArticleController extends BaseController<ArticleResponse, Article, CreateArticleRequest, UpdateArticleRequest, ArticleMapper>{
 
     //Assemblers
     private final ArticleAssembler articleAssembler;
@@ -35,7 +35,7 @@ public class ArticleController extends BaseController<ArticleResponse, Article>{
     //Constructor
     @Autowired
     public ArticleController(ArticleService articleService, ArticleAssembler articleAssembler, ArticleMapper articleMapper) {
-        super(articleService, articleAssembler);
+        super(articleService, articleAssembler, articleMapper);
         this.articleAssembler = articleAssembler;
         this.articleMapper = articleMapper;
         this.articleService = articleService;
@@ -44,61 +44,61 @@ public class ArticleController extends BaseController<ArticleResponse, Article>{
 
 
     //region CRUD
-    @PostMapping(
-            consumes = {
-                    MediaType.APPLICATION_JSON_VALUE,
-                    MediaType.APPLICATION_XML_VALUE,
-                    "multipart/form-data"
-            }
-    )//CREATE
-    public ResponseEntity<ArticleResponse> create(@Valid @ModelAttribute("article") CreateArticleRequest articleRequest){
-        Article mappedArticle = articleMapper.toEntity(articleRequest);
-        return articleService.createOrUpdate(mappedArticle)
-                .map(article -> ResponseEntity.ok(articleAssembler.toModel(article)))
-                .orElseThrow(() ->
-                        new IllegalArgumentException("Something went wrong")
-                );
-    }
+//    @PostMapping(
+//            consumes = {
+//                    MediaType.APPLICATION_JSON_VALUE,
+//                    MediaType.APPLICATION_XML_VALUE,
+//                    "multipart/form-data"
+//            }
+//    )//CREATE
+//    public ResponseEntity<ArticleResponse> create(@Valid @ModelAttribute("article") CreateArticleRequest articleRequest){
+//        Article mappedArticle = articleMapper.toEntity(articleRequest);
+//        return articleService.createOrUpdate(mappedArticle)
+//                .map(article -> ResponseEntity.ok(articleAssembler.toModel(article)))
+//                .orElseThrow(() ->
+//                        new IllegalArgumentException("Something went wrong")
+//                );
+//    }
 
-    @PutMapping(
-            path = "/{articleId}",
-            consumes = {
-                    MediaType.APPLICATION_JSON_VALUE,
-                    MediaType.APPLICATION_XML_VALUE,
-                    "multipart/form-data"
-            }
-    ) //UPDATE
-    public ResponseEntity<ArticleResponse> update(@PathVariable String articleId, @Valid @ModelAttribute("article") UpdateArticleRequest articleRequest){
-        return articleService.getById(Long.parseLong(articleId))
-                .map(cask -> {
-                    Article mappedArticle = articleMapper.mapUpdatesToOriginal(articleRequest, cask);
-                    return articleService.createOrUpdate(mappedArticle)
-                            .map(updatedArticle -> ResponseEntity.ok(articleAssembler.toModel(updatedArticle)))
-                            .orElseThrow(() ->
-                                    new IllegalArgumentException("Something went wrong")
-                            );
-                })
-                .orElseThrow(() ->
-                        new ResourceNotFoundException("Article", "Id", articleId)
-                );
-    }
-    @DeleteMapping(
-            path = "/{articleId}",
-            consumes = {
-                    MediaType.APPLICATION_JSON_VALUE,
-                    MediaType.APPLICATION_XML_VALUE,
-            }
-    )//DELETE
-    public ResponseEntity<String> delete(@PathVariable String articleId){
-        return articleService.getById(Long.parseLong(articleId))
-                .map(article -> {
-                    articleService.delete(article);
-                    return ResponseEntity.ok("Deleted article [" + articleId + "]");
-                })
-                .orElseThrow(() ->
-                        new ResourceNotFoundException("Article", "Id", articleId)
-                );
-    }
+//    @PutMapping(
+//            path = "/{articleId}",
+//            consumes = {
+//                    MediaType.APPLICATION_JSON_VALUE,
+//                    MediaType.APPLICATION_XML_VALUE,
+//                    "multipart/form-data"
+//            }
+//    ) //UPDATE
+//    public ResponseEntity<ArticleResponse> update(@PathVariable String articleId, @Valid @ModelAttribute("article") UpdateArticleRequest articleRequest){
+//        return articleService.getById(Long.parseLong(articleId))
+//                .map(cask -> {
+//                    Article mappedArticle = articleMapper.mapUpdatesToOriginal(articleRequest, cask);
+//                    return articleService.createOrUpdate(mappedArticle)
+//                            .map(updatedArticle -> ResponseEntity.ok(articleAssembler.toModel(updatedArticle)))
+//                            .orElseThrow(() ->
+//                                    new IllegalArgumentException("Something went wrong")
+//                            );
+//                })
+//                .orElseThrow(() ->
+//                        new ResourceNotFoundException("Article", "Id", articleId)
+//                );
+//    }
+//    @DeleteMapping(
+//            path = "/{articleId}",
+//            consumes = {
+//                    MediaType.APPLICATION_JSON_VALUE,
+//                    MediaType.APPLICATION_XML_VALUE,
+//            }
+//    )//DELETE
+//    public ResponseEntity<String> delete(@PathVariable String articleId){
+//        return articleService.getById(Long.parseLong(articleId))
+//                .map(article -> {
+//                    articleService.delete(article);
+//                    return ResponseEntity.ok("Deleted article [" + articleId + "]");
+//                })
+//                .orElseThrow(() ->
+//                        new ResourceNotFoundException("Article", "Id", articleId)
+//                );
+//    }
     //endregion
 
     //region Relations

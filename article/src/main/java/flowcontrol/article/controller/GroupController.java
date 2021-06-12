@@ -2,20 +2,14 @@ package flowcontrol.article.controller;
 
 
 import flowcontrol.article.controller.assembler.ArticleAssembler;
-import flowcontrol.article.controller.assembler.CaskAssembler;
 import flowcontrol.article.controller.assembler.GroupAssembler;
 import flowcontrol.article.exception.ResourceNotFoundException;
-import flowcontrol.article.model.entity.Cask;
-import flowcontrol.article.model.entity.Color;
 import flowcontrol.article.model.entity.Group;
 import flowcontrol.article.model.mapper.GroupMapper;
-import flowcontrol.article.model.request.cask.CreateCaskRequest;
 import flowcontrol.article.model.request.group.CreateGroupRequest;
-import flowcontrol.article.model.response.ColorResponse;
+import flowcontrol.article.model.request.group.UpdateGroupRequest;
 import flowcontrol.article.model.response.GroupResponse;
-import flowcontrol.article.service.CaskService;
 import flowcontrol.article.service.GroupService;
-import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -25,7 +19,7 @@ import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/v1/groups")
-public class GroupController extends BaseController<GroupResponse, Group>{
+public class GroupController extends BaseController<GroupResponse, Group, CreateGroupRequest, UpdateGroupRequest, GroupMapper>{
 
     //Assemblers
     private final GroupAssembler groupAssembler;
@@ -42,7 +36,7 @@ public class GroupController extends BaseController<GroupResponse, Group>{
     //Constructor
     @Autowired
     GroupController(GroupService groupService, GroupAssembler groupAssembler, GroupMapper groupMapper, ArticleAssembler articleAssembler){
-        super(groupService, groupAssembler);
+        super(groupService, groupAssembler, groupMapper);
         this.groupService = groupService;
         this.groupAssembler = groupAssembler;
         this.groupMapper = groupMapper;

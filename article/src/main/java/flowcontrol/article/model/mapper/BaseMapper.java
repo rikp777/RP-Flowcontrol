@@ -1,8 +1,28 @@
 package flowcontrol.article.model.mapper;
 
-public abstract class BaseMapper<T> {
+import flowcontrol.article.model.entity.Article;
+import flowcontrol.article.model.request.article.UpdateArticleRequest;
+import flowcontrol.article.repository.generic.AbstractBaseEntity;
+import lombok.extern.slf4j.Slf4j;
 
-    public T toEntity(){
+@Slf4j
+public abstract class BaseMapper<T extends AbstractBaseEntity, C, U> {
+
+    public T toEntity(C createEntity){
+        try{
+            throw new Exception("No to entity implementation");
+        }catch (Exception exception){
+            log.error(exception.getMessage());
+        }
+        return null;
+    }
+
+    public T mapUpdatesToOriginal(U updateEntity, T original){
+        try{
+            throw new Exception("No to mapUpdatesToOriginal implementation");
+        }catch (Exception exception){
+            log.error(exception.getMessage());
+        }
         return null;
     }
 

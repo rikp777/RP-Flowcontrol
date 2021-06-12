@@ -7,6 +7,11 @@ import flowcontrol.article.controller.assembler.InsetAssembler;
 import flowcontrol.article.exception.ResourceNotFoundException;
 import flowcontrol.article.model.entity.Cask;
 import flowcontrol.article.model.entity.Color;
+import flowcontrol.article.model.mapper.ColorMapper;
+import flowcontrol.article.model.request.article.CreateArticleRequest;
+import flowcontrol.article.model.request.article.UpdateArticleRequest;
+import flowcontrol.article.model.request.color.CreateColorRequest;
+import flowcontrol.article.model.request.color.UpdateColorRequest;
 import flowcontrol.article.model.response.CaskResponse;
 import flowcontrol.article.model.response.ColorResponse;
 import flowcontrol.article.service.CaskService;
@@ -21,7 +26,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/v1/colors")
-public class ColorController extends BaseController<ColorResponse, Color>{
+public class ColorController extends BaseController<ColorResponse, Color, CreateColorRequest, UpdateColorRequest, ColorMapper>{
 
     //Assemblers
     private final ColorAssembler colorAssembler;
@@ -36,8 +41,8 @@ public class ColorController extends BaseController<ColorResponse, Color>{
 
     //Constructor
     @Autowired
-    ColorController(ColorService colorService, ColorAssembler colorAssembler, ArticleAssembler articleAssembler, InsetAssembler insetAssembler, CaskAssembler caskAssembler){
-        super(colorService, colorAssembler);
+    ColorController(ColorService colorService, ColorAssembler colorAssembler, ColorMapper colorMapper, ArticleAssembler articleAssembler, InsetAssembler insetAssembler, CaskAssembler caskAssembler){
+        super(colorService, colorAssembler, colorMapper);
         this.colorService = colorService;
         this.colorAssembler = colorAssembler;
         this.articleAssembler = articleAssembler;

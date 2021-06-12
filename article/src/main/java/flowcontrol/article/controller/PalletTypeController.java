@@ -1,30 +1,19 @@
 package flowcontrol.article.controller;
 
-import flowcontrol.article.controller.assembler.BaseAssembler;
 import flowcontrol.article.controller.assembler.PalletTypeAssembler;
-import flowcontrol.article.exception.ResourceNotFoundException;
-import flowcontrol.article.model.entity.Article;
-import flowcontrol.article.model.entity.Inset;
 import flowcontrol.article.model.entity.PalletType;
-import flowcontrol.article.model.response.ArticleResponse;
-import flowcontrol.article.model.response.InsetResponse;
+import flowcontrol.article.model.mapper.PalletTypeMapper;
+import flowcontrol.article.model.request.palletType.CreatePalletTypeRequest;
+import flowcontrol.article.model.request.palletType.UpdatePalletTypeRequest;
 import flowcontrol.article.model.response.PalletTypeResponse;
-import flowcontrol.article.service.ArticleService;
-import flowcontrol.article.service.BaseService;
 import flowcontrol.article.service.PalletTypeService;
-import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Optional;
-
 @RestController
 @RequestMapping("/v1/pallettypes")
-public class PalletTypeController extends BaseController<PalletTypeResponse, PalletType>{
+public class PalletTypeController extends BaseController<PalletTypeResponse, PalletType, CreatePalletTypeRequest, UpdatePalletTypeRequest, PalletTypeMapper>{
 
     //Assemblers
     private final PalletTypeAssembler palletTypeAssembler;
@@ -36,8 +25,8 @@ public class PalletTypeController extends BaseController<PalletTypeResponse, Pal
 
     //Constructor
     @Autowired
-    public PalletTypeController(PalletTypeService palletTypeService, PalletTypeAssembler palletTypeAssembler) {
-        super(palletTypeService, palletTypeAssembler);
+    public PalletTypeController(PalletTypeService palletTypeService, PalletTypeAssembler palletTypeAssembler, PalletTypeMapper palletTypeMapper) {
+        super(palletTypeService, palletTypeAssembler, palletTypeMapper);
         this.palletTypeAssembler = palletTypeAssembler;
         this.palletTypeService = palletTypeService;
     }

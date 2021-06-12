@@ -10,6 +10,7 @@ import flowcontrol.article.model.entity.PalletType;
 import flowcontrol.article.model.mapper.CaskMapper;
 import flowcontrol.article.model.request.article.CreateArticleRequest;
 import flowcontrol.article.model.request.cask.CreateCaskRequest;
+import flowcontrol.article.model.request.cask.UpdateCaskRequest;
 import flowcontrol.article.model.response.CaskResponse;
 import flowcontrol.article.model.response.PalletTypeResponse;
 import flowcontrol.article.service.CaskService;
@@ -27,7 +28,7 @@ import javax.validation.Valid;
 @RestController
 @RequestMapping("/v1/casks")
 @EqualsAndHashCode(callSuper = true)
-public class CaskController extends BaseController<CaskResponse, Cask>{
+public class CaskController extends BaseController<CaskResponse, Cask, CreateCaskRequest, UpdateCaskRequest, CaskMapper>{
 
     //Assemblers
     private final CaskAssembler caskAssembler;
@@ -44,7 +45,7 @@ public class CaskController extends BaseController<CaskResponse, Cask>{
     //Constructor
     @Autowired
     public CaskController(CaskService caskService, CaskAssembler caskAssembler, ArticleAssembler articleAssembler, CaskMapper caskMapper){
-        super(caskService, caskAssembler);
+        super(caskService, caskAssembler, caskMapper);
         this.caskAssembler = caskAssembler;
         this.articleAssembler = articleAssembler;
         this.caskMapper = caskMapper;
