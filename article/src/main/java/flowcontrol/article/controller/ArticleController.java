@@ -1,20 +1,15 @@
 package flowcontrol.article.controller;
 
 import flowcontrol.article.controller.assembler.ArticleAssembler;
-import flowcontrol.article.exception.ResourceNotFoundException;
 import flowcontrol.article.model.entity.Article;
 import flowcontrol.article.model.mapper.ArticleMapper;
 import flowcontrol.article.model.request.article.CreateArticleRequest;
 import flowcontrol.article.model.request.article.UpdateArticleRequest;
 import flowcontrol.article.model.response.ArticleResponse;
 import flowcontrol.article.service.ArticleService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
+import org.springframework.data.web.PagedResourcesAssembler;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-
-import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/v1/articles")
@@ -30,10 +25,7 @@ public class ArticleController extends BaseController<ArticleResponse, Article, 
     //Services
     private final ArticleService articleService;
 
-
-
     //Constructor
-    @Autowired
     public ArticleController(ArticleService articleService, ArticleAssembler articleAssembler, ArticleMapper articleMapper) {
         super(articleService, articleAssembler, articleMapper);
         this.articleAssembler = articleAssembler;

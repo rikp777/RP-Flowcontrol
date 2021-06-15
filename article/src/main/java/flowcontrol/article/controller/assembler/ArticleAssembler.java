@@ -3,6 +3,7 @@ package flowcontrol.article.controller.assembler;
 import flowcontrol.article.controller.*;
 import flowcontrol.article.model.entity.Article;
 import flowcontrol.article.model.response.ArticleResponse;
+import org.springframework.data.web.PagedResourcesAssembler;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.stereotype.Component;
 
@@ -11,7 +12,6 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @Component
 public class ArticleAssembler extends BaseAssembler<Article, ArticleResponse> {
-
 
     @Override
     public ArticleResponse toModel(Article article) {
@@ -95,11 +95,12 @@ public class ArticleAssembler extends BaseAssembler<Article, ArticleResponse> {
 
     @Override
     public CollectionModel<ArticleResponse> toCollectionModel(Iterable<? extends Article> entities) {
-        CollectionModel<ArticleResponse> articleResponse = collection(entities);
-        if(articleResponse.getContent() != null && articleResponse.getContent().size() > 0){
-            articleResponse.add(linkTo(methodOn(ArticleController.class).getAll()).withSelfRel());
-        }
-
-        return articleResponse;
+//        CollectionModel<ArticleResponse> articleResponse = collection(entities);
+//        if(articleResponse.getContent() != null && articleResponse.getContent().size() > 0){
+//            articleResponse.add(linkTo(methodOn(ArticleController.class).getAll()).withSelfRel());
+//        }
+//
+//        return articleResponse;
+        return null;
     }
 }

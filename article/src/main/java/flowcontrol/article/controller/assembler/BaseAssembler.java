@@ -3,6 +3,7 @@ package flowcontrol.article.controller.assembler;
 import flowcontrol.article.model.entity.Article;
 import flowcontrol.article.model.response.ArticleResponse;
 import org.springframework.hateoas.CollectionModel;
+import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.RepresentationModel;
 import org.springframework.hateoas.server.RepresentationModelAssembler;
 

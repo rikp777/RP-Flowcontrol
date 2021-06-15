@@ -9,9 +9,18 @@ import flowcontrol.article.model.response.ArticleResponse;
 import flowcontrol.article.repository.generic.AbstractBaseEntity;
 import flowcontrol.article.service.BaseService;
 import net.bytebuddy.description.type.TypeDescription;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.querydsl.binding.QuerydslPredicate;
+import org.springframework.data.web.PagedResourcesAssembler;
+import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.RepresentationModel;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -23,6 +32,10 @@ public abstract class BaseController<R extends RepresentationModel<?>, T extends
     private BaseService<T> service;
     private BaseAssembler<T, R> assembler;
     private BaseMapper<T, C, U> mapper;
+
+    @Autowired
+    @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
+    private PagedResourcesAssembler<T> pagedResourcesAssembler;
 
     BaseController(BaseService<T> baseService, BaseAssembler<T,R> baseAssembler, BaseMapper<T, C, U> baseMapper){
         service = baseService;
@@ -50,8 +63,24 @@ public abstract class BaseController<R extends RepresentationModel<?>, T extends
 
 
     @GetMapping()//READ ALL
-    public ResponseEntity getAll(){
-        return ResponseEntity.ok(assembler.toCollectionModel(service.getAll()));
+    public CollectionModel<R> getAll(@RequestParam(required = false, defaultValue = "0") Integer page,
+                                     @RequestParam(required = false, defaultValue = "3") Integer size,
+                                     @RequestParam(required = false) String[] sort,
+                                     @RequestParam(required = false, defaultValue = "asc") String dir){
+        PageRequest pageRequest;
+        Sort.Direction direction;
+        if(sort == null) {
+            pageRequest = PageRequest.of(page, size);
+        }
+        else {
+            if(dir.equalsIgnoreCase("asc")) direction = Sort.Direction.ASC;
+            else direction = Sort.Direction.DESC;
+            pageRequest = PageRequest.of(page, size, Sort.by(direction, sort));
+        }
+
+        Page<T> entities = service.getAll(pageRequest);
+        if(! CollectionUtils.isEmpty(entities.getContent())) return pagedResourcesAssembler.toModel(entities, assembler);
+        return null;
     }
 
 
