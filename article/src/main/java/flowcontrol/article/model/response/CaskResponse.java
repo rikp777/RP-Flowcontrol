@@ -1,16 +1,9 @@
 package flowcontrol.article.model.response;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import flowcontrol.article.model.entity.Article;
-import flowcontrol.article.model.entity.Color;
 import lombok.*;
 import org.springframework.hateoas.RepresentationModel;
 import org.springframework.hateoas.server.core.Relation;
-
-import javax.persistence.*;
-import java.util.HashSet;
-import java.util.Set;
 
 @Builder
 @Getter

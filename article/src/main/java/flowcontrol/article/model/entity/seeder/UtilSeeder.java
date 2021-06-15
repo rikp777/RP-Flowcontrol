@@ -4,11 +4,13 @@ import flowcontrol.article.exception.ResourceNotFoundException;
 import flowcontrol.article.model.entity.*;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.Set;
 
 @Getter
 @Setter
+@Slf4j
 public class UtilSeeder {
     private Set<Color> colors;
     private Set<PalletType> palletTypes;
@@ -25,7 +27,7 @@ public class UtilSeeder {
                             item.getName().equals(color)).findFirst()
                     .orElseThrow(() -> new ResourceNotFoundException("Color", "Name", color));
         }else {
-            new Exception("Colors not set yet");
+            log.error("Colors not set yet");
             return null;
         }
     }
@@ -36,7 +38,7 @@ public class UtilSeeder {
                             item.getName().equals(palletType)).findFirst()
                     .orElseThrow(() -> new ResourceNotFoundException("PalletType", "Name", palletType));
         }else {
-            new Exception("Pallet types not set yet");
+            log.error("Pallet types not set yet");
             return null;
         }
     }
@@ -48,7 +50,7 @@ public class UtilSeeder {
                             item.getName().equals(cask)).findFirst()
                     .orElseThrow(() -> new ResourceNotFoundException("Cask", "Name", cask));
         }else {
-            new Exception("Casks not set yet");
+            log.error("Casks not set yet");
             return null;
         }
     }
@@ -60,7 +62,7 @@ public class UtilSeeder {
                             item.getName().equals(group)).findFirst()
                     .orElseThrow(() -> new ResourceNotFoundException("Group", "Name", group));
         }else {
-            new Exception("Groups not set yet");
+            log.error("Groups not set yet");
             return null;
         }
     }
@@ -71,7 +73,7 @@ public class UtilSeeder {
                             item.getName().equals(type)).findFirst()
                     .orElseThrow(() -> new ResourceNotFoundException("Type", "Name", type));
         }else {
-            new Exception("Types not set yet");
+            log.error("Types not set yet");
             return null;
         }
     }
@@ -83,7 +85,7 @@ public class UtilSeeder {
                             item.getName().equals(sortType)).findFirst()
                     .orElseThrow(() -> new ResourceNotFoundException("SortType", "Name", sortType));
         }else {
-            new Exception("SortType not set yet");
+            log.error("SortType not set yet");
             return null;
         }
     }
@@ -95,7 +97,7 @@ public class UtilSeeder {
                             item.getExcelCode().equals(insetExcelCode)).findFirst()
                     .orElseThrow(() -> new ResourceNotFoundException("Inset", "ExcelCode", insetExcelCode));
         }else {
-            new Exception("Insets not set yet");
+            log.error("Insets not set yet");
             return null;
         }
     }

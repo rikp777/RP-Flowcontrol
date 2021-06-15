@@ -1,17 +1,9 @@
 package flowcontrol.article.controller.assembler;
 
 
-import flowcontrol.article.controller.CaskController;
-import flowcontrol.article.controller.ColorController;
 import flowcontrol.article.controller.GroupController;
-import flowcontrol.article.model.entity.Cask;
-import flowcontrol.article.model.entity.Color;
 import flowcontrol.article.model.entity.Group;
-import flowcontrol.article.model.response.CaskResponse;
-import flowcontrol.article.model.response.ColorResponse;
 import flowcontrol.article.model.response.GroupResponse;
-import flowcontrol.article.repository.GroupRepository;
-import org.springframework.hateoas.server.RepresentationModelAssembler;
 import org.springframework.stereotype.Component;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;

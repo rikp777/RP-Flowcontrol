@@ -1,8 +1,6 @@
 package flowcontrol.article.service;
 
-import flowcontrol.article.model.entity.Color;
 import flowcontrol.article.model.entity.Group;
-import flowcontrol.article.repository.ColorRepository;
 import flowcontrol.article.repository.GroupRepository;
 import org.springframework.stereotype.Service;
 

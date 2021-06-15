@@ -3,7 +3,6 @@ package flowcontrol.article.controller.assembler;
 import flowcontrol.article.controller.*;
 import flowcontrol.article.model.entity.Article;
 import flowcontrol.article.model.response.ArticleResponse;
-import org.springframework.data.web.PagedResourcesAssembler;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.stereotype.Component;
 

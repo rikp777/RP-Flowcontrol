@@ -2,28 +2,26 @@ package flowcontrol.article.controller;
 
 import flowcontrol.article.controller.assembler.BaseAssembler;
 import flowcontrol.article.exception.ResourceNotFoundException;
-import flowcontrol.article.model.entity.Article;
 import flowcontrol.article.model.mapper.BaseMapper;
-import flowcontrol.article.model.request.article.UpdateArticleRequest;
-import flowcontrol.article.model.response.ArticleResponse;
 import flowcontrol.article.repository.generic.AbstractBaseEntity;
 import flowcontrol.article.service.BaseService;
 import net.bytebuddy.description.type.TypeDescription;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
-import org.springframework.data.querydsl.binding.QuerydslPredicate;
 import org.springframework.data.web.PagedResourcesAssembler;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.RepresentationModel;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PostAuthorize;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import javax.validation.constraints.Max;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 
@@ -52,7 +50,8 @@ public abstract class BaseController<R extends RepresentationModel<?>, T extends
                     MediaType.APPLICATION_XML_VALUE
             }
     ) //READ BY ID
-    public ResponseEntity getById(@PathVariable Long id){
+    @PreAuthorize("hasRole('ADMIN') || hasRole('PLANNING') || hasRole('ICT') || hasRole('USER') ")
+    public ResponseEntity<R> getById(@PathVariable Long id){
         return service.getById(id)
                 .map(entity -> ResponseEntity.ok(assembler.toModel(entity)))
                 .orElseThrow(() ->
@@ -63,10 +62,13 @@ public abstract class BaseController<R extends RepresentationModel<?>, T extends
 
 
     @GetMapping()//READ ALL
-    public CollectionModel<R> getAll(@RequestParam(required = false, defaultValue = "0") Integer page,
-                                     @RequestParam(required = false, defaultValue = "3") Integer size,
-                                     @RequestParam(required = false) String[] sort,
-                                     @RequestParam(required = false, defaultValue = "asc") String dir){
+    @PreAuthorize("hasRole('ADMIN') || hasRole('PLANNING') || hasRole('ICT')")
+    public CollectionModel<R> getAll(
+            @RequestParam(required = false, defaultValue = "0") Integer page,
+            @RequestParam(required = false, defaultValue = "3") @Max(7) Integer size,
+            @RequestParam(required = false) String[] sort,
+            @RequestParam(required = false, defaultValue = "asc") String dir
+    ){
         PageRequest pageRequest;
         Sort.Direction direction;
         if(sort == null) {
@@ -93,8 +95,9 @@ public abstract class BaseController<R extends RepresentationModel<?>, T extends
                 "multipart/form-data"
         }
     )//CREATE
+    @PreAuthorize("hasRole('ADMIN') || hasRole('PLANNING') || hasRole('ICT')")
     public ResponseEntity<R> create(@Valid C createRequest){
-        T mappedEntity = mapper.toEntity(createRequest);
+        var mappedEntity = mapper.toEntity(createRequest);
         return service.createOrUpdate(mappedEntity)
                 .map(entity -> ResponseEntity.ok(assembler.toModel(entity)))
                 .orElseThrow(() ->
@@ -112,10 +115,11 @@ public abstract class BaseController<R extends RepresentationModel<?>, T extends
                     "multipart/form-data"
             }
     ) //UPDATE
+    @PreAuthorize("hasRole('ADMIN') || hasRole('PLANNING') || hasRole('ICT')")
     public ResponseEntity<R> update(@PathVariable Long id, @Valid @ModelAttribute("article") U updateEntity){
         return service.getById(id)
                 .map(entity -> {
-                    T mappedEntity = mapper.mapUpdatesToOriginal(updateEntity, entity);
+                    var mappedEntity = mapper.mapUpdatesToOriginal(updateEntity, entity);
                     return service.createOrUpdate(mappedEntity)
                             .map(updatedEntity -> ResponseEntity.ok(assembler.toModel(updatedEntity)))
                             .orElseThrow(() ->
@@ -136,6 +140,7 @@ public abstract class BaseController<R extends RepresentationModel<?>, T extends
                     MediaType.APPLICATION_XML_VALUE,
             }
     )//DELETE
+    @PreAuthorize("hasRole('ADMIN') || hasRole('PLANNING') || hasRole('ICT')")
     public ResponseEntity<String> delete(@PathVariable Long id){
         return service.getById(id)
                 .map(entity -> {

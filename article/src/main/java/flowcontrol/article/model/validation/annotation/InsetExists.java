@@ -1,6 +1,5 @@
 package flowcontrol.article.model.validation.annotation;
 
-import flowcontrol.article.model.validation.GroupExistsValidator;
 import flowcontrol.article.model.validation.InsetExistsValidator;
 
 import javax.validation.Constraint;

@@ -29,6 +29,18 @@ public class UtilSeeder {
         }
     }
 
+    public Certificate findCertificateInSet(String certificate){
+        if(this.certificates.stream().count() > 0) {
+            return this.certificates.stream()
+                    .filter(item ->
+                            item.getName().equals(certificate)).findFirst()
+                    .orElseThrow(() -> new ResourceNotFoundException("Certificats", "Name", certificates));
+        }else {
+            new Exception("Farmers not set yet");
+            return null;
+        }
+    }
+
     public Farmer findFarmerInSet(String farmer){
         if(this.farmers.stream().count() > 0) {
             return this.farmers.stream()

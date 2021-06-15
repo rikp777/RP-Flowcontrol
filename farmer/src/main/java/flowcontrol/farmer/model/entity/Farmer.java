@@ -34,7 +34,8 @@ public class Farmer extends BaseEntity{
 
     @OneToMany(fetch = FetchType.EAGER)
     @JoinColumn(name = "farmer_id")
-    private Set<FarmerCertificate> farmerCertificates = new HashSet<>();
+    @JsonManagedReference
+    private List<FarmerCertificate> farmerCertificates;
 
     @OneToMany(
             mappedBy = "farmer",

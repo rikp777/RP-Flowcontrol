@@ -16,12 +16,12 @@ public class GroupExistsValidator implements ConstraintValidator<GroupExists, St
     @SneakyThrows
     @Override
     public boolean isValid(String value, ConstraintValidatorContext context){
-        if(value == null || value == "" || value.isBlank() || value.isEmpty()){
+        if(value == null || value.equals("") || value.isBlank() || value.isEmpty()){
             return true;
         }
 
         if(value.equals("0")) return true;
 
-        return value != null && groupService.isAlreadyPresentById(value);
+        return groupService.isAlreadyPresentById(value);
     }
 }

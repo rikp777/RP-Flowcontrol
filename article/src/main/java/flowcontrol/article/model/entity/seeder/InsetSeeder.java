@@ -1,18 +1,12 @@
 package flowcontrol.article.model.entity.seeder;
 
 import com.google.common.collect.Sets;
-import flowcontrol.article.exception.ResourceNotFoundException;
-import flowcontrol.article.model.entity.Cask;
-import flowcontrol.article.model.entity.Color;
 import flowcontrol.article.model.entity.Inset;
-import flowcontrol.article.repository.CaskRepository;
 import flowcontrol.article.repository.InsetRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
-import org.yaml.snakeyaml.events.Event;
 
-import java.util.HashSet;
 import java.util.Set;
 
 @Configuration

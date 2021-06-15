@@ -2,7 +2,10 @@ package flowcontrol.article.model.entity;
 
 
 import flowcontrol.article.repository.generic.AbstractBaseEntity;
-import lombok.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 import lombok.experimental.Accessors;
 import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.SQLDelete;

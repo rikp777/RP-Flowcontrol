@@ -49,21 +49,21 @@ public class JwtTokenAuthenticationFilter extends OncePerRequestFilter {
         try {	// exceptions might be thrown in creating the claims if for example the token is expired
 
             // 4. Validate the token
-            Claims claims = Jwts.parser()
+            var claims = Jwts.parser()
                     .setSigningKey(jwtConfig.getSecret())
                     .parseClaimsJws(token)
                     .getBody();
 
             String username = claims.getSubject();
             if(username != null) {
-                List<String> authorities = (List<String>) claims.get("authorities");
+                List<String> roles = (List<String>) claims.get("authorities");
 
                 // 5. Create auth object
                 // UsernamePasswordAuthenticationToken: A built-in object, used by spring to represent the current authenticated / being authenticated user.
                 // It needs a list of authorities, which has type of GrantedAuthority interface, where SimpleGrantedAuthority is an implementation of that interface
-                UsernamePasswordAuthenticationToken auth =
+                var auth =
                         new UsernamePasswordAuthenticationToken(username, null,
-                                authorities
+                                roles
                                         .stream()
                                         .map(SimpleGrantedAuthority::new)
                                         .collect(toList()));

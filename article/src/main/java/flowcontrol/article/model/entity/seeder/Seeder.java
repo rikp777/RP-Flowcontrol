@@ -1,7 +1,6 @@
 package flowcontrol.article.model.entity.seeder;
 
 import flowcontrol.article.model.entity.*;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -23,7 +22,7 @@ public class Seeder {
             InsetSeeder insetSeeder
     ) {
         return arts -> {
-            UtilSeeder util = new UtilSeeder();
+            var util = new UtilSeeder();
 
             // Pallet type
             Set<PalletType> palletTypes = palletTypeSeeder.run();
@@ -57,10 +56,6 @@ public class Seeder {
             // Types
             Set<Type> types = typeSeeder.run();
             util.setTypes(types);
-
-
-
-
 
             articleSeeder.run(util);
 

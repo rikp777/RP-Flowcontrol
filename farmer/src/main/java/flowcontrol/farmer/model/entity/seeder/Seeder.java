@@ -19,6 +19,9 @@ public class Seeder {
     ) {
         return arts -> {
             UtilSeeder util = new UtilSeeder();
+            // Certificate
+            Set<Certificate> certificates = certificateSeeder.run();
+            util.setCertificates(certificates);
 
             // Farmer
             Set<Farmer> farmers = farmerSeeder.run(util);
@@ -28,9 +31,7 @@ public class Seeder {
             Set<Cell> cells = cellSeeder.run(util);
             util.setCells(cells);
 
-            // Certificate
-            Set<Certificate> certificates = certificateSeeder.run();
-            util.setCertificates(certificates);
+
         };
     }
 }

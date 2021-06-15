@@ -8,17 +8,12 @@ import org.springframework.stereotype.Service;
 import java.util.Optional;
 
 @Service
-@AllArgsConstructor
-public class FarmerService {
+public class FarmerService extends BaseService<Farmer> {
 
     private final FarmerRepository farmerRepository;
 
-
-    public Iterable<Farmer>  getAll(){
-        return farmerRepository.findAll();
-    }
-
-    public Optional<Farmer> getById(Long id){
-        return farmerRepository.findById(id);
+    public FarmerService(FarmerRepository farmerRepository) {
+        super(farmerRepository);
+        this.farmerRepository = farmerRepository;
     }
 }

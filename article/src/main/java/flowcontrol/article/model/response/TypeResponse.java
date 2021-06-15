@@ -8,6 +8,7 @@ import org.springframework.hateoas.server.core.Relation;
 @Builder
 @Getter
 @Setter
+@EqualsAndHashCode
 @AllArgsConstructor
 @NoArgsConstructor
 @Relation(itemRelation = "type", collectionRelation = "types")

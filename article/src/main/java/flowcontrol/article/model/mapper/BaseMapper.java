@@ -1,7 +1,5 @@
 package flowcontrol.article.model.mapper;
 
-import flowcontrol.article.model.entity.Article;
-import flowcontrol.article.model.request.article.UpdateArticleRequest;
 import flowcontrol.article.repository.generic.AbstractBaseEntity;
 import lombok.extern.slf4j.Slf4j;
 

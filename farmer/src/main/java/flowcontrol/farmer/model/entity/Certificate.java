@@ -1,5 +1,6 @@
 package flowcontrol.farmer.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -17,5 +18,6 @@ public class Certificate extends BaseEntity {
     private String name;
 
     @OneToMany(mappedBy = "certificate", fetch = FetchType.EAGER)
+    @JsonIgnore
     Set<FarmerCertificate> farmerCertificates = new HashSet<>();
 }

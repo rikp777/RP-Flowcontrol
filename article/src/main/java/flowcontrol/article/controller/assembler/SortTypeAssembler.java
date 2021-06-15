@@ -1,14 +1,8 @@
 package flowcontrol.article.controller.assembler;
 
-import flowcontrol.article.controller.PalletTypeController;
 import flowcontrol.article.controller.SortTypeController;
-import flowcontrol.article.model.entity.Group;
-import flowcontrol.article.model.entity.PalletType;
 import flowcontrol.article.model.entity.SortType;
-import flowcontrol.article.model.response.GroupResponse;
-import flowcontrol.article.model.response.PalletTypeResponse;
 import flowcontrol.article.model.response.SortTypeResponse;
-import org.springframework.hateoas.server.RepresentationModelAssembler;
 import org.springframework.stereotype.Component;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;

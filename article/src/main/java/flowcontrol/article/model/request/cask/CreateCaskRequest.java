@@ -1,13 +1,10 @@
 package flowcontrol.article.model.request.cask;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import flowcontrol.article.model.entity.Color;
 import flowcontrol.article.model.request.SequenceFirstOrder;
 import flowcontrol.article.model.request.SequenceSecondOrder;
-import flowcontrol.article.model.request.article.CreateArticleRequest;
 import flowcontrol.article.model.validation.annotation.ColorExists;
 import flowcontrol.article.model.validation.annotation.NullOrNotBlank;
-import flowcontrol.article.model.validation.annotation.UniqueExcelCode;
 import lombok.Data;
 import lombok.experimental.Accessors;
 

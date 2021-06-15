@@ -10,6 +10,7 @@ import org.springframework.hateoas.server.core.Relation;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@EqualsAndHashCode
 @Relation(itemRelation = "pallet_type", collectionRelation = "pallet_types")
 public class PalletTypeResponse extends RepresentationModel<PalletTypeResponse> {
 

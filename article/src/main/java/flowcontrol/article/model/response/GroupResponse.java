@@ -6,10 +6,7 @@ import org.springframework.hateoas.RepresentationModel;
 import org.springframework.hateoas.server.core.Relation;
 
 @Builder
-@Getter
-@Setter
-@AllArgsConstructor
-@NoArgsConstructor
+@Data
 @Relation(itemRelation = "group", collectionRelation = "groups")
 public class GroupResponse extends RepresentationModel<GroupResponse> {
 

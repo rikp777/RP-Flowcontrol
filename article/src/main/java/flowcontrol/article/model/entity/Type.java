@@ -2,7 +2,10 @@ package flowcontrol.article.model.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import flowcontrol.article.repository.generic.AbstractBaseEntity;
-import lombok.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.Entity;

@@ -3,7 +3,7 @@ package flowcontrol.article.model.request.article;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import flowcontrol.article.model.request.SequenceFirstOrder;
 import flowcontrol.article.model.request.SequenceSecondOrder;
-import flowcontrol.article.model.validation.annotation.*;
+import flowcontrol.article.model.validation.annotation.NullOrNotBlank;
 import lombok.Data;
 
 import javax.validation.GroupSequence;

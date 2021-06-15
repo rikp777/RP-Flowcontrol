@@ -1,5 +1,7 @@
 package flowcontrol.farmer.model.entity.seeder;
 
+import com.google.common.collect.Iterables;
+import com.google.common.collect.Sets;
 import flowcontrol.farmer.model.entity.Certificate;
 import flowcontrol.farmer.model.entity.Farmer;
 import flowcontrol.farmer.repository.CertificateRepository;
@@ -40,11 +42,11 @@ public class CertificateSeeder {
                         .build()
         );
 
-        if(certificateRepo.findAll().size() == 0){
+        if(Iterables.size(certificateRepo.findAll()) == 0){
             log.info("Certificate done seeding");
             certificateRepo.saveAll(certificates);
         }
 
-        return new HashSet<>(certificateRepo.findAll());
+        return Sets.newHashSet(certificateRepo.findAll());
     }
 }

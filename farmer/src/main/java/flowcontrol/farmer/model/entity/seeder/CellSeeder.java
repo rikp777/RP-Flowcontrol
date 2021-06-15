@@ -1,5 +1,7 @@
 package flowcontrol.farmer.model.entity.seeder;
 
+import com.google.common.collect.Iterables;
+import com.google.common.collect.Sets;
 import flowcontrol.farmer.model.entity.Cell;
 import flowcontrol.farmer.model.entity.Certificate;
 import flowcontrol.farmer.repository.CellRepository;
@@ -26,6 +28,7 @@ public class CellSeeder {
     }
 
     public Set<Cell> run(UtilSeeder util) {
+
         List<Cell> certificates = Arrays.asList(
                 Cell.builder()
                         .name("1")
@@ -39,12 +42,11 @@ public class CellSeeder {
                         .build()
         );
 
-        if(cellRepo.findAll().size() == 0){
+        if(Iterables.size(cellRepo.findAll()) == 0){
             log.info("Cells done seeding");
             cellRepo.saveAll(certificates);
         }
 
-        List<Cell> cellss = cellRepo.findAll();
-        return new HashSet<>(cellss);
+        return Sets.newHashSet(cellRepo.findAll());
     }
 }

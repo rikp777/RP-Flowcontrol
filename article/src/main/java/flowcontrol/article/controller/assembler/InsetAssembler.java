@@ -1,13 +1,9 @@
 package flowcontrol.article.controller.assembler;
 
 import flowcontrol.article.controller.ColorController;
-import flowcontrol.article.controller.GroupController;
 import flowcontrol.article.controller.InsetController;
-import flowcontrol.article.model.entity.Group;
 import flowcontrol.article.model.entity.Inset;
-import flowcontrol.article.model.response.GroupResponse;
 import flowcontrol.article.model.response.InsetResponse;
-import org.springframework.hateoas.server.RepresentationModelAssembler;
 import org.springframework.stereotype.Component;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;

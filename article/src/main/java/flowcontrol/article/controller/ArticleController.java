@@ -7,9 +7,9 @@ import flowcontrol.article.model.request.article.CreateArticleRequest;
 import flowcontrol.article.model.request.article.UpdateArticleRequest;
 import flowcontrol.article.model.response.ArticleResponse;
 import flowcontrol.article.service.ArticleService;
-import org.springframework.data.web.PagedResourcesAssembler;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/v1/articles")
@@ -33,64 +33,7 @@ public class ArticleController extends BaseController<ArticleResponse, Article, 
         this.articleService = articleService;
     }
 
-
-
-    //region CRUD
-//    @PostMapping(
-//            consumes = {
-//                    MediaType.APPLICATION_JSON_VALUE,
-//                    MediaType.APPLICATION_XML_VALUE,
-//                    "multipart/form-data"
-//            }
-//    )//CREATE
-//    public ResponseEntity<ArticleResponse> create(@Valid @ModelAttribute("article") CreateArticleRequest articleRequest){
-//        Article mappedArticle = articleMapper.toEntity(articleRequest);
-//        return articleService.createOrUpdate(mappedArticle)
-//                .map(article -> ResponseEntity.ok(articleAssembler.toModel(article)))
-//                .orElseThrow(() ->
-//                        new IllegalArgumentException("Something went wrong")
-//                );
-//    }
-
-//    @PutMapping(
-//            path = "/{articleId}",
-//            consumes = {
-//                    MediaType.APPLICATION_JSON_VALUE,
-//                    MediaType.APPLICATION_XML_VALUE,
-//                    "multipart/form-data"
-//            }
-//    ) //UPDATE
-//    public ResponseEntity<ArticleResponse> update(@PathVariable String articleId, @Valid @ModelAttribute("article") UpdateArticleRequest articleRequest){
-//        return articleService.getById(Long.parseLong(articleId))
-//                .map(cask -> {
-//                    Article mappedArticle = articleMapper.mapUpdatesToOriginal(articleRequest, cask);
-//                    return articleService.createOrUpdate(mappedArticle)
-//                            .map(updatedArticle -> ResponseEntity.ok(articleAssembler.toModel(updatedArticle)))
-//                            .orElseThrow(() ->
-//                                    new IllegalArgumentException("Something went wrong")
-//                            );
-//                })
-//                .orElseThrow(() ->
-//                        new ResourceNotFoundException("Article", "Id", articleId)
-//                );
-//    }
-//    @DeleteMapping(
-//            path = "/{articleId}",
-//            consumes = {
-//                    MediaType.APPLICATION_JSON_VALUE,
-//                    MediaType.APPLICATION_XML_VALUE,
-//            }
-//    )//DELETE
-//    public ResponseEntity<String> delete(@PathVariable String articleId){
-//        return articleService.getById(Long.parseLong(articleId))
-//                .map(article -> {
-//                    articleService.delete(article);
-//                    return ResponseEntity.ok("Deleted article [" + articleId + "]");
-//                })
-//                .orElseThrow(() ->
-//                        new ResourceNotFoundException("Article", "Id", articleId)
-//                );
-//    }
+    //region API endpoints
     //endregion
 
     //region Relations

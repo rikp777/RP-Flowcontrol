@@ -9,6 +9,7 @@ import org.springframework.hateoas.server.core.Relation;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@EqualsAndHashCode
 @Relation(itemRelation = "sort_type", collectionRelation = "sort_types")
 public class SortTypeResponse extends RepresentationModel<SortTypeResponse> {
     private String name;

@@ -10,7 +10,6 @@ import org.springframework.data.domain.Pageable;
 
 import javax.transaction.Transactional;
 import java.util.Optional;
-import java.util.function.Predicate;
 
 @AllArgsConstructor
 @Slf4j
@@ -19,11 +18,11 @@ public abstract class BaseService<T extends AbstractBaseEntity> {
     private AbstractBaseRepository<T, Long> repository;
 
     @Transactional
-    public boolean isAlreadyPresentById(String value) throws Exception {
+    public boolean isAlreadyPresentById(String value){
         try {
             return repository.findById(Long.parseLong(value)).isPresent();
         } catch (Exception exception){
-            return true;
+            throw new BadRequestException("Something went wrong");
         }
     }
 

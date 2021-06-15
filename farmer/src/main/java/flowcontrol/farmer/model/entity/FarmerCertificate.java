@@ -1,9 +1,7 @@
 package flowcontrol.farmer.model.entity;
 
-        import lombok.Getter;
-        import lombok.NoArgsConstructor;
-        import lombok.Setter;
-        import lombok.ToString;
+        import com.fasterxml.jackson.annotation.JsonBackReference;
+        import lombok.*;
 
         import javax.persistence.*;
 
@@ -11,13 +9,16 @@ package flowcontrol.farmer.model.entity;
 @Table(name = "farmer_cerfiticate")
 @Getter
 @Setter
-@ToString
+@Builder
 @NoArgsConstructor
+@AllArgsConstructor
 public class FarmerCertificate extends BaseEntity {
     private String code;
 
     @ManyToOne
     @JoinColumn(name="farmer_id", nullable = false)
+    @JsonBackReference
+
     private Farmer farmer;
 
     @ManyToOne(fetch = FetchType.LAZY)

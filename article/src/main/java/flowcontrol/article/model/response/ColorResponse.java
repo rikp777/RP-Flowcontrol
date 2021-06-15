@@ -5,10 +5,7 @@ import org.springframework.hateoas.RepresentationModel;
 import org.springframework.hateoas.server.core.Relation;
 
 @Builder
-@Getter
-@Setter
-@AllArgsConstructor
-@NoArgsConstructor
+@Data
 @Relation(itemRelation = "color", collectionRelation = "colors")
 public class ColorResponse extends RepresentationModel<ColorResponse> {
 

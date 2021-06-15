@@ -8,11 +8,12 @@ server:
 
   # Context path of the application
   servlet:
-    context-path: /api
+    context-path: /farmer/api
 
     # Default HTTP session time out
     session:
       timeout: 15m
+  forward-headers-strategy: FRAMEWORK
 
 spring:
   application:
@@ -51,8 +52,12 @@ swagger:
 
 eureka:
   client:
-    service-url:
-      default-zone: http://localhost:8761/eureka
+    register-with-eureka: true
+    fetch-registry: true
+    serviceUrl:
+      defaultZone: http://${eureka.address:localhost:8761}/eureka
+  instance:
+    prefer-ip-address: true
 
 security:
   basic:

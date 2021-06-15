@@ -1,12 +1,10 @@
 package flowcontrol.article.controller.assembler;
 
 
-import flowcontrol.article.controller.*;
-import flowcontrol.article.model.entity.Article;
+import flowcontrol.article.controller.CaskController;
+import flowcontrol.article.controller.ColorController;
 import flowcontrol.article.model.entity.Cask;
-import flowcontrol.article.model.response.ArticleResponse;
 import flowcontrol.article.model.response.CaskResponse;
-import org.springframework.hateoas.server.RepresentationModelAssembler;
 import org.springframework.stereotype.Component;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;

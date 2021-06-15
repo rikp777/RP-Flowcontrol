@@ -8,7 +8,9 @@ import lombok.Data;
 import lombok.experimental.Accessors;
 
 import javax.validation.GroupSequence;
-import javax.validation.constraints.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
 @Data
 @Accessors(chain = true)

@@ -40,7 +40,7 @@ public class ControllerAdvise {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ResponseBody
     public ApiResponse processValidationError(MethodArgumentNotValidException exception, WebRequest request) {
-        BindingResult result = exception.getBindingResult();
+        var result = exception.getBindingResult();
         List<ObjectError> allErrors = result.getAllErrors();
         String data = processAllErrors(allErrors).stream().collect(Collectors.joining("\n"));
 
@@ -65,7 +65,7 @@ public class ControllerAdvise {
      * @return the string
      */
     private String resolveLocalizedErrorMessage(ObjectError objectError) {
-        Locale currentLocale = LocaleContextHolder.getLocale();
+        var currentLocale = LocaleContextHolder.getLocale();
         String localizedErrorMessage = messageSource.getMessage(objectError, currentLocale);
         log.info(localizedErrorMessage);
         return localizedErrorMessage;
@@ -73,7 +73,7 @@ public class ControllerAdvise {
 
     private String resolvePathFromWebRequest(WebRequest request) {
         try {
-            return ((ServletWebRequest)request).getRequest().getRequestURI().toString();
+            return ((ServletWebRequest)request).getRequest().getRequestURI();
         } catch (Exception ex) {
             return null;
         }
@@ -130,7 +130,7 @@ public class ControllerAdvise {
             BindException exception, WebRequest request, HttpServletResponse response, @Nullable Object handler)
             throws IOException {
 
-        final String defaultMessage = "Validation error";
+        final var defaultMessage = "Validation error";
 
         final List<FieldError> fieldErrors = exception.getBindingResult().getFieldErrors();
         final ArrayList<CustomFieldError> customFieldErrors = new ArrayList<>();
@@ -138,7 +138,7 @@ public class ControllerAdvise {
         for(FieldError fieldError : fieldErrors) {
             final String field = fieldError.getField();
             final String message = fieldError.getDefaultMessage();
-            final CustomFieldError customFieldError = CustomFieldError.builder().field(field).message(message).build();
+            final var customFieldError = CustomFieldError.builder().field(field).message(message).build();
             customFieldErrors.add(customFieldError);
         }
         log.info(defaultMessage + " " + customFieldErrors.toString());

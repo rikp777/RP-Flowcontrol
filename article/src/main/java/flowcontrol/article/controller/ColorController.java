@@ -5,19 +5,16 @@ import flowcontrol.article.controller.assembler.CaskAssembler;
 import flowcontrol.article.controller.assembler.ColorAssembler;
 import flowcontrol.article.controller.assembler.InsetAssembler;
 import flowcontrol.article.exception.ResourceNotFoundException;
-import flowcontrol.article.model.entity.Cask;
 import flowcontrol.article.model.entity.Color;
 import flowcontrol.article.model.mapper.ColorMapper;
-import flowcontrol.article.model.request.article.CreateArticleRequest;
-import flowcontrol.article.model.request.article.UpdateArticleRequest;
 import flowcontrol.article.model.request.color.CreateColorRequest;
 import flowcontrol.article.model.request.color.UpdateColorRequest;
-import flowcontrol.article.model.response.CaskResponse;
+import flowcontrol.article.model.response.ArticleResponse;
 import flowcontrol.article.model.response.ColorResponse;
-import flowcontrol.article.service.CaskService;
+import flowcontrol.article.model.response.InsetResponse;
 import flowcontrol.article.service.ColorService;
-import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.CollectionModel;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -60,20 +57,20 @@ public class ColorController extends BaseController<ColorResponse, Color, Create
 
     //region Relations
     @GetMapping("/{colorId}/articles")//READ ALL
-    public ResponseEntity getAllBelongingArticles(@PathVariable Long colorId){
+    public ResponseEntity<CollectionModel<ArticleResponse>> getAllBelongingArticles(@PathVariable Long colorId){
         return colorService.getById(colorId)
                 .map(color -> ResponseEntity.ok(articleAssembler.toCollectionModel(color.getArticles())))
                 .orElseThrow(() ->
-                        new ResourceNotFoundException("Color", "Id", colorId)
+                        new ResourceNotFoundException(Color.class.getName(), "Id", colorId)
                 );
     }
 
     @GetMapping("/{colorId}/insets")
-    public ResponseEntity getAllBelongingInsets(@PathVariable Long colorId){
+    public ResponseEntity<CollectionModel<InsetResponse>> getAllBelongingInsets(@PathVariable Long colorId){
         return colorService.getById(colorId)
                 .map(color -> ResponseEntity.ok(insetAssembler.toCollectionModel(color.getInsets())))
                 .orElseThrow(() ->
-                        new ResourceNotFoundException("Color", "Id", colorId)
+                        new ResourceNotFoundException(Color.class.getName(), "Id", colorId)
                 );
     }
 
@@ -82,7 +79,7 @@ public class ColorController extends BaseController<ColorResponse, Color, Create
         return colorService.getById(colorId)
                 .map(color -> ResponseEntity.ok(caskAssembler.toCollectionModel(color.getCasks())))
                 .orElseThrow(() ->
-                        new ResourceNotFoundException("Color", "Id", colorId)
+                        new ResourceNotFoundException(Color.class.getName(), "Id", colorId)
                 );
     }
     //endregion

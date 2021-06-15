@@ -1,17 +1,12 @@
 package flowcontrol.article.model.response;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.springframework.hateoas.RepresentationModel;
-import flowcontrol.article.model.entity.Article;
-import flowcontrol.article.model.entity.Inset;
 import lombok.*;
+import org.springframework.hateoas.RepresentationModel;
 import org.springframework.hateoas.server.core.Relation;
 
 @Builder
-@Getter
-@Setter
-@AllArgsConstructor
-@NoArgsConstructor
+@Data
 @Relation(itemRelation = "article", collectionRelation = "articles")
 public class ArticleResponse extends RepresentationModel<ArticleResponse> {
     @JsonProperty("full_name")
