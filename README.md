@@ -17,6 +17,9 @@
 ### transport
     Registration of transport from production to the production center based on pallet label and waybill with enumeration of pallet labels.
 
+Time spend developing this repo by dev [Rikp777](https://github.com/rikp777):
+
+[![wakatime](https://wakatime.com/badge/github/rikp777/RP-Flowcontrol.svg)](https://wakatime.com/badge/github/rikp777/RP-Flowcontrol)
 
 
 
