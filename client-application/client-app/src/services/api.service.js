@@ -21,11 +21,14 @@ class ApiService {
     }
 
     setHeader(){
-        const authToken = this.jwtService.getToken()
+        // const authToken = this.jwtService.getToken()
+        //
+        // if(authToken){
+        //     requestSender.defaults.headers.common["Authorization"] = `Bearer ${authToken}`
+        // }
 
-        if(authToken){
-            requestSender.defaults.headers.common["Authorization"] = `Bearer ${authToken}`
-        }
+        //demo
+        requestSender.defaults.headers.common["Authorization"] = `Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiYXV0aG9yaXRpZXMiOlsiUk9MRV9BRE1JTiJdLCJpYXQiOjE2MjMwNTgxNDEsImV4cCI6MTk5OTk5OTk5NywiYXVkIjoidGVzdEBmbG93Y29udHJvbC5jb20ifQ.yXx2fU3NWFCg5ETbZy6zo1_oVaN2xUa_yOE27VuOYiYQ27T1fmb72y8mJFPTxnFnfXDEqtRubcTI1gGENzFZTA`
     }
 
     query(params = "") {
@@ -104,10 +107,10 @@ class ApiService {
         return request
     }
 
-    getId(){
+    static getId(resource){
         let id = 0
-        if(this.resource){
-            let segments = this.resource.split("/")
+        if(resource){
+            let segments = resource.split("/")
             return segments[segments.length - 1];
         }
         return id

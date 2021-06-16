@@ -8,7 +8,8 @@ class articleEndpoint {
     }
 
     getAll(){
-        return this.api.get()
+        return this.api
+            .get()
     }
 
     getById(id){
