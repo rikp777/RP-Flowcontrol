@@ -1,8 +1,15 @@
 #Server properties
 server:
   port: 7070
+
+  # Context path of the application
   servlet:
-    context-path: /api
+    context-path: /auth/api
+
+    # Default HTTP session time out
+    session:
+      timeout: 15m
+  forward-headers-strategy: FRAMEWORK
 
 #Datasource properties
 spring:

@@ -17,6 +17,6 @@
     name: "Dashboard",
     computed: {
       // ...mapGetters("user", ["apiToken", "user"])
-    }
+    },
   }
 </script>
