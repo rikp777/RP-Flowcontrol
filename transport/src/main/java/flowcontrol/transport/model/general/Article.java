@@ -1,8 +1,10 @@
 package flowcontrol.transport.model.general;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 @Data
 public class Article {
-    private String name;
+    @JsonProperty("full_name")
+    private String fullName;
 }

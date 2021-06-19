@@ -31,7 +31,7 @@ public class FarmerRepository {
                 .filter(authHeader(tokenWrapper.getToken()))
                 .build() //Gives you a client
                 .get() // Method for the request
-                .uri("http://127.0.0.1:7071/api/v1/farmers/" + id) // Url that you need to access
+                .uri("http://127.0.0.1:7071/farmer/api/v1/farmers/" + id) // Url that you need to access
                 .retrieve() // Go do the fetch
                 .onStatus(HttpStatus::is4xxClientError,
                         error -> Mono.error(new ResourceNotFoundException("Farmer", "Id", id)))

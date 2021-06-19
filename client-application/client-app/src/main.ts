@@ -13,7 +13,10 @@ const access = new AccessControl();
 access.router(store, router)
 
 import Buefy from 'buefy'
-Vue.use(Buefy)
+Vue.use(Buefy, {
+    defaultIconComponent: 'r-icon',
+    defaultIconPack: 'fas',
+})
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore

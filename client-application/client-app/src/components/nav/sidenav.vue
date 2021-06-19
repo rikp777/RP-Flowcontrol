@@ -43,11 +43,12 @@
     <b-menu-list label="Modules">
       <b-menu-item>
         <template #label="props">
-          <r-icon icon="pallet" /> Production
+          <router-link :to="{ name: 'productionDashboard'}" tag="div"><r-icon icon="pallet" /> Production</router-link>
           <b-icon class="is-pulled-right" :icon="props.expanded ? 'menu-down' : 'menu-up'"></b-icon>
         </template>
-        <b-menu-item icon="account" label="Users"></b-menu-item>
-        <b-menu-item icon="cash-multiple" label="Payments" disabled></b-menu-item>
+        <router-link :to="{ name: 'createTicket'}">
+          <b-menu-item icon="account" label="Ticket"></b-menu-item>
+        </router-link>
       </b-menu-item>
       <b-menu-item>
         <template #label="props">
@@ -67,7 +68,7 @@
       </b-menu-item>
       <b-menu-item>
         <template #label="props">
-          <r-icon icon="boxes" /> Article
+          <router-link :to="{ name: 'listArticle'}" tag="div"><r-icon icon="boxes" /> Article</router-link>
           <b-icon class="is-pulled-right" :icon="props.expanded ? 'menu-down' : 'menu-up'"></b-icon>
         </template>
         <b-menu-item icon="account" label="Users"></b-menu-item>

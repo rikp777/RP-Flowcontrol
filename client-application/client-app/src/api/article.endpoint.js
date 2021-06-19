@@ -9,7 +9,8 @@ class articleEndpoint {
 
     getAll(page){
         let params = {
-            page: page
+            page: page,
+            size: 6
         }
         return this.api
             .getByParams(params)

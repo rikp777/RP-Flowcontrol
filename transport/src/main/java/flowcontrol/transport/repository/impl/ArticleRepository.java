@@ -31,7 +31,7 @@ public class ArticleRepository {
                 .filter(authHeader(tokenWrapper.getToken()))
                 .build() //Gives you a client
                 .get() // Method for the request
-                .uri("http://localhost:7078/api/v1/articles/" + id) // Url that you need to access
+                .uri("http://localhost:7078/article/api/v1/articles/" + id) // Url that you need to access
                 .retrieve() // Go do the fetch
                 .onStatus(HttpStatus::is4xxClientError,
                         error -> Mono.error(new ResourceNotFoundException("Article", "Id", id)))
