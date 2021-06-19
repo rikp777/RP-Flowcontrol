@@ -1,8 +1,17 @@
-import { createStore, createLogger } from 'vuex'
-const debug = process.env.NODE_ENV !== "production";
-import articleModule from "@/store/modules/article.module";
+import Vue from "vue";
+import Vuex from "vuex";
 
-export default createStore({
+Vue.use(Vuex);
+
+const debug = false
+
+import articleModule from "@/store/modules/article.module";
+import ticketModule from "@/store/modules/ticket.module";
+import farmerModule from "@/store/modules/farmer.module";
+import authModule from "@/store/modules/auth.module";
+
+
+export default new Vuex.Store({
   state: {
   },
   mutations: {
@@ -10,8 +19,14 @@ export default createStore({
   actions: {
   },
   modules: {
-    article: articleModule
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    article: articleModule,
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    auth: authModule,
+    farmer: farmerModule,
+    ticket: ticketModule
   },
   strict: debug,
-  plugins: debug ? [createLogger()] : []
 })

@@ -1,21 +1,23 @@
-import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
-import Home from '../views/Home.vue'
+import Vue from "vue";
+import VueRouter, { RouteConfig } from "vue-router";
+
+Vue.use(VueRouter);
 
 
 import article from '@/router/routes/article.route'
+import auth from '@/router/routes/auth.route'
+import production from '@/router/routes/production.route'
 
-const routes: Array<RouteRecordRaw> = [
-  // {
-  //   path: '/',
-  //   name: 'Home',
-  //   component: Home
-  // },
-  ...article
+const routes: Array<RouteConfig> = [
+    ...article,
+    ...auth,
+    ...production
 ]
 
-const router = createRouter({
-  history: createWebHistory(process.env.BASE_URL),
-  routes
-})
+const router = new VueRouter({
+    mode: "history",
+    base: process.env.BASE_URL,
+    routes,
+});
 
 export default router

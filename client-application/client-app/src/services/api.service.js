@@ -6,11 +6,56 @@ const baseDomainPort = 8762
 
 
 import axios from "axios";
+
 const baseURL = `${baseDomain}:${baseDomainPort}`;
 const requestSender = axios.create({
     baseURL: `${baseURL}`,
     /* other custom settings */
 });
+
+requestSender.interceptors.request.use((config) => {
+    const debug = false;
+    let token = new jwtService().getAuthToken()
+    if(debug) console.log("token is", token)
+    if ( token == null){
+        console.log("token is null");
+        return config;
+    }
+    config.headers.common["Accept"] = "application/json"
+    config.headers.common["Content-Type"] = "application/json"
+    //config.headers.common["Authorization"] = `Bearer ${token}`;
+
+    if(debug) console.log("Authorization Header", config.headers.common["Authorization"]);
+    return config;
+});
+
+requestSender.interceptors.response.use(
+    (response) => {
+        console.log("Request interceptor");
+        return response;
+    },
+    async (error) => {
+        if (error.response.status === 401) {
+            const authData = this.$store.getters["auth/getAuthData"];
+            const payload = {
+                accessToken: authData.token,
+                refreshToken: authData.refreshToken,
+            };
+
+            let response = await axios.post(
+                "http://127.0.0.1:8762/auth/api/v1/auth/refresh",
+                payload
+            );
+            await this.$store.dispatch("auth/saveTokenDataAction", response.data);
+            // error.config.headers[
+            //     "Authorization"
+            //     ] = `bearer ${response.data.access_token}`;
+            return axios(error.config);
+        } else {
+            return Promise.reject(error);
+        }
+    }
+);
 
 
 class ApiService {
@@ -21,8 +66,8 @@ class ApiService {
     }
 
     setHeader(){
-        // const authToken = this.jwtService.getToken()
-        //
+        const authToken = this.jwtService.getAuthToken()
+
         // if(authToken){
         //     requestSender.defaults.headers.common["Authorization"] = `Bearer ${authToken}`
         // }
@@ -42,10 +87,10 @@ class ApiService {
         return request;
     }
 
-    getByParam(param = "") {
-        console.log(`[Flowcontrol] getByParam ${this.resource} with param ${JSON.stringify(param)}`)
+    getByParams(params = {}) {
+        console.log(`[Flowcontrol] getByParam ${this.resource} with param ${JSON.stringify(params)}`)
         const request = applyConverters(requestSender)
-            .get(`${this.resource}${param}`)
+            .get(`${this.resource}`, { params })
             .catch(error => {
                 throw `[Flowcontrol] ApiService ${this.resource} \n ${error}`;
             });
@@ -57,9 +102,14 @@ class ApiService {
         if(slug != ""){
             message = message + `with slug ${slug}`
         }
+        let final_resouce = `${this.resource}`
+        if(slug != ""){
+            final_resouce = `${this.resource}/${slug}`
+        }
+
         console.log(message)
         const request = applyConverters(requestSender)
-            .get(`${this.resource}/${slug}`)
+            .get(final_resouce)
             .catch(error => {
                 throw `[Flowcontrol] ApiService ${this.resource} \n ${error}`;
             });
@@ -68,12 +118,12 @@ class ApiService {
 
     post(params) {
         console.log(`[Flowcontrol] post ${this.resource} with params ${JSON.stringify(params)}`)
-
         const request = applyConverters(requestSender)
-            .post(`${this.resource}`, params[0])
+            .post(`${this.resource}`, params)
             .catch((error) => {
                 throw `[Flowcontrol] ApiService ${this.resource} \n ${error}`;
             });
+        console.log(request)
         return request;
     }
 

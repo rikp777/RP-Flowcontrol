@@ -7,13 +7,16 @@ class articleEndpoint {
         this.api = new ApiService(this.resource);
     }
 
-    getAll(){
+    getAll(page){
+        let params = {
+            page: page
+        }
         return this.api
-            .get()
+            .getByParams(params)
     }
 
     getById(id){
-        return this.api.getByParam(id);
+        return this.api.get(id);
     }
 
     create(payload) {

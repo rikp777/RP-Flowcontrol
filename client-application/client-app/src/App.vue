@@ -1,30 +1,47 @@
 <template>
-  <div id="nav">
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
+<!--  <div id="nav">-->
+<!--&lt;!&ndash;    <auth-navbar/>&ndash;&gt;-->
+<!--    <navbar />-->
+<!--  </div>-->
+<!--  <router-view/>-->
+  <div>
+    <div class="container is-widescreen" v-if="isLoggedIn">
+      <navbar />
+      <section class="section">
+        <div class="container">
+          <div class="columns">
+            <div class="column is-3">
+              <sidenav />
+            </div>
+            <div class="column is-9">
+              <div class="content is-medium">
+                <router-view/>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+    <div v-else>
+      <router-view></router-view>
+    </div>
   </div>
-  <router-view/>
+
 </template>
-
-<style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-
-#nav {
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
+<script>
+import navbar from "@/components/nav/navbar";
+import sidenav from "@/components/nav/sidenav";
+import {mapGetters} from "vuex";
+export default {
+  components: {navbar, sidenav},
+  computed: {
+    ...mapGetters("auth", {
+      isLoggedIn: "getIsLoggedIn",
+      authData: "getAuthData"
+    }),
+    loginPageLoaded(){
+      return this.$route.path === "/auth/login"
     }
-  }
+  },
 }
-</style>
+</script>

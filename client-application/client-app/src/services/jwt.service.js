@@ -1,23 +1,44 @@
 class JwtService {
     constructor() {
-        this.ID_TOKEN_KEY = "authToken";
+        this.debug = false;
+        this.AuthTokenKey = "authToken";
+        this.AuthRefreshTokenKey = "AuthRefreshToken";
     }
 
-    getToken() {
-        console.log(`[Flowcontrol-Jwt] getToken ${this.ID_TOKEN_KEY} `);
-        return localStorage.getItem(this.ID_TOKEN_KEY);
+    getAuthToken() {
+        if(this.debug) console.log(`[Flowcontrol-Jwt] getToken ${this.AuthTokenKey} `);
+        return localStorage.getItem(this.AuthTokenKey);
     }
 
-    saveToken(token) {
-        console.log(`[Flowcontrol-Jwt] saveToken ${this.ID_TOKEN_KEY} token ${token} `);
-        localStorage.setItem(this.ID_TOKEN_KEY, token);
+    saveAuthToken(token) {
+        if(this.debug) console.log(`[Flowcontrol-Jwt] saveToken ${this.AuthTokenKey} token ${token} `);
+        localStorage.setItem(this.AuthTokenKey, token);
     }
 
-    destroyToken() {
-        console.log(`[Flowcontrol-Jwt] destroyToken ${this.ID_TOKEN_KEY} `);
-
-        localStorage.removeItem(this.ID_TOKEN_KEY);
+    destroyAuthToken() {
+        if(this.debug) console.log(`[Flowcontrol-Jwt] destroyToken ${this.AuthTokenKey} `);
+        localStorage.removeItem(this.AuthTokenKey);
     }
 
+    getRefreshToken() {
+        if(this.debug) console.log(`[Flowcontrol-Jwt] getToken ${this.AuthRefreshTokenKey} `);
+        return localStorage.getItem(this.AuthRefreshTokenKey);
+    }
+
+    saveRefreshToken(token) {
+        if(this.debug) console.log(`[Flowcontrol-Jwt] saveToken ${this.AuthRefreshTokenKey} token ${token} `);
+        localStorage.setItem(this.AuthRefreshTokenKey, token);
+    }
+
+    destroyRefreshToken() {
+        if(this.debug) console.log(`[Flowcontrol-Jwt] destroyToken ${this.AuthRefreshTokenKey} `);
+        localStorage.removeItem(this.AuthRefreshTokenKey);
+    }
+
+    destroyAllTokens(){
+        localStorage.removeItem(this.AuthTokenKey);
+        localStorage.removeItem(this.AuthRefreshTokenKey);
+        localStorage.removeItem("farmer");
+    }
 }
 export default JwtService;

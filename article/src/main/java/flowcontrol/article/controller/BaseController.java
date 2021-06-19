@@ -43,13 +43,7 @@ public abstract class BaseController<R extends RepresentationModel<?>, T extends
 
 
     //region CRUD
-    @GetMapping(
-            path = "/{id}",
-            consumes = {
-                    MediaType.APPLICATION_JSON_VALUE,
-                    MediaType.APPLICATION_XML_VALUE
-            }
-    ) //READ BY ID
+    @GetMapping("/{id}") //READ BY ID
     @PreAuthorize("hasRole('ADMIN') || hasRole('PLANNING') || hasRole('ICT') || hasRole('USER') ")
     public ResponseEntity<R> getById(@PathVariable Long id){
         return service.getById(id)
