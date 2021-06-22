@@ -1,6 +1,7 @@
 package flowcontrol.article.model.entity.seeder;
 
 import com.google.common.collect.Sets;
+import flowcontrol.article.model.entity.PalletType;
 import flowcontrol.article.model.entity.SortType;
 import flowcontrol.article.repository.SortTypeRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -12,6 +13,7 @@ import java.util.Set;
 @Configuration
 @Slf4j
 public class SortTypeSeeder {
+    private int id = 0;
 
     @Autowired
     private final SortTypeRepository sortTypeRepo;
@@ -20,81 +22,147 @@ public class SortTypeSeeder {
         this.sortTypeRepo = sortTypeRepo;
     }
 
-
+    private void message(SortType sortType){
+        boolean debug = true;
+        if(debug)
+            log.info("Sort type seeder insert: " + this.id++ + " - " + sortType.getName());
+    }
 
     public Set<SortType> run() {
-        if(!sortTypeRepo.findById(1L).isPresent()) {
-            var mini = new SortType();
-            mini.setName("Mini");
-            mini.setDescription("Mini");
-            sortTypeRepo.save(mini);
+        boolean seed = true;
+        if(seed) {
 
-            var fijn = new SortType();
-            fijn.setName("Fijn");
-            fijn.setDescription("Fijn");
-            sortTypeRepo.save(fijn);
+            log.info("Sort type seeding starting...");
 
-            var small = new SortType();
-            small.setName("Small");
-            small.setDescription("Small");
-            sortTypeRepo.save(small);
+            if (sortTypeRepo.findByName("Mini").isEmpty()) {
+                var sortType = new SortType();
+                sortType.setName("Mini");
+                sortType.setDescription("Mini");
+                sortTypeRepo.save(sortType);
 
-            var middel = new SortType();
-            middel.setName("Middel");
-            middel.setDescription("Middel");
-            sortTypeRepo.save(middel);
+                this.message(sortType);
+            }
 
-            var medium = new SortType();
-            medium.setName("Medium");
-            medium.setDescription("Medium");
-            sortTypeRepo.save(medium);
+            if (sortTypeRepo.findByName("Fijn").isEmpty()) {
+                var sortType = new SortType();
+                sortType.setName("Fijn");
+                sortType.setDescription("Fijn");
+                sortTypeRepo.save(sortType);
 
-            var reuze = new SortType();
-            reuze.setName("Reuzen");
-            reuze.setDescription("Reuzen");
-            sortTypeRepo.save(reuze);
+                this.message(sortType);
+            }
 
-            var industrie = new SortType();
-            industrie.setName("Industrie");
-            industrie.setDescription("Industrie");
-            sortTypeRepo.save(industrie);
+            if (sortTypeRepo.findByName("Small").isEmpty()) {
+                var sortType = new SortType();
+                sortType.setName("Small");
+                sortType.setDescription("Small");
+                sortTypeRepo.save(sortType);
 
-            var industrie3 = new SortType();
-            industrie3.setName("Industrie (3.3.100)");
-            industrie3.setDescription("Industrie (3.3.100)");
-            sortTypeRepo.save(industrie3);
+                this.message(sortType);
+            }
 
-            var industrie2 = new SortType();
-            industrie2.setName("Industrie (2.3.80)");
-            industrie2.setDescription("Industrie (2.3.80)");
-            sortTypeRepo.save(industrie2);
+            if (sortTypeRepo.findByName("Middel").isEmpty()) {
+                var sortType = new SortType();
+                sortType.setName("Middel");
+                sortType.setDescription("Middel");
+                sortTypeRepo.save(sortType);
 
-            var extraFijn = new SortType();
-            extraFijn.setName("Extra fijn");
-            extraFijn.setDescription("Extra fijn");
-            sortTypeRepo.save(extraFijn);
+                this.message(sortType);
+            }
 
-            var gesneden = new SortType();
-            gesneden.setName("Gesneden");
-            gesneden.setDescription("Gesneden");
-            sortTypeRepo.save(gesneden);
+            if (sortTypeRepo.findByName("Medium").isEmpty()) {
+                var sortType = new SortType();
+                sortType.setName("Medium");
+                sortType.setDescription("Medium");
+                sortTypeRepo.save(sortType);
 
-            var gesneden35 = new SortType();
-            gesneden35.setName("Gesneden (35-45 mm)");
-            gesneden35.setDescription("Gesneden (35-45 mm)");
-            sortTypeRepo.save(gesneden35);
+                this.message(sortType);
+            }
 
-            var gesneden45 = new SortType();
-            gesneden45.setName("Gesneden (45-55 mm)");
-            gesneden45.setDescription("Gesneden (45-55 mm)");
-            sortTypeRepo.save(gesneden45);
+            if (sortTypeRepo.findByName("Reuzen").isEmpty()) {
+                var sortType = new SortType();
+                sortType.setName("Reuzen");
+                sortType.setDescription("Reuzen");
+                sortTypeRepo.save(sortType);
 
-            var flats = new SortType();
-            flats.setName("Flats");
-            flats.setDescription("Flats");
-            sortTypeRepo.save(flats);
+                this.message(sortType);
+            }
 
-            log.info("Sort types done seeding");
+            if (sortTypeRepo.findByName("Industrie").isEmpty()) {
+                var sortType = new SortType();
+                sortType.setName("Industrie");
+                sortType.setDescription("Industrie");
+                sortTypeRepo.save(sortType);
+
+                this.message(sortType);
+            }
+
+            if (sortTypeRepo.findByName("Industrie (3.3.100)").isEmpty()) {
+                var sortType = new SortType();
+                sortType.setName("Industrie (3.3.100)");
+                sortType.setDescription("Industrie (3.3.100)");
+                sortTypeRepo.save(sortType);
+
+                this.message(sortType);
+            }
+
+            if (sortTypeRepo.findByName("Industrie (2.3.80)").isEmpty()) {
+                var sortType = new SortType();
+                sortType.setName("Industrie (2.3.80)");
+                sortType.setDescription("Industrie (2.3.80)");
+                sortTypeRepo.save(sortType);
+
+                this.message(sortType);
+            }
+
+            if (sortTypeRepo.findByName("Extra fijn").isEmpty()) {
+                var sortType = new SortType();
+                sortType.setName("Extra fijn");
+                sortType.setDescription("Extra fijn");
+                sortTypeRepo.save(sortType);
+
+                this.message(sortType);
+            }
+
+            if (sortTypeRepo.findByName("Gesneden").isEmpty()) {
+                var sortType = new SortType();
+                sortType.setName("Gesneden");
+                sortType.setDescription("Gesneden");
+                sortTypeRepo.save(sortType);
+
+                this.message(sortType);
+            }
+
+            if (sortTypeRepo.findByName("Gesneden (35-45 mm)").isEmpty()) {
+                var sortType = new SortType();
+                sortType.setName("Gesneden (35-45 mm)");
+                sortType.setDescription("Gesneden (35-45 mm)");
+                sortTypeRepo.save(sortType);
+
+                this.message(sortType);
+            }
+
+            if (sortTypeRepo.findByName("Gesneden (45-55 mm)").isEmpty()) {
+                var sortType = new SortType();
+                sortType.setName("Gesneden (45-55 mm)");
+                sortType.setDescription("Gesneden (45-55 mm)");
+                sortTypeRepo.save(sortType);
+
+                this.message(sortType);
+            }
+
+            if (sortTypeRepo.findByName("Flats").isEmpty()) {
+                var sortType = new SortType();
+                sortType.setName("Flats");
+                sortType.setDescription("Flats");
+                sortTypeRepo.save(sortType);
+
+                this.message(sortType);
+            }
+
+            log.info("Sort type seeding done, seeded: " +  this.id + " sort types.");
+        }else {
+            log.info("Sort type seeding not required");
         }
 
         return Sets.newHashSet(sortTypeRepo.findAll());

@@ -47,14 +47,14 @@ public class PalletLabelRepository {
 
     public Optional<PalletLabel> findById(Long farmerId, Long palletLabelId) {
 //        palletLabelRedisTemplate.delete(getRedisKey(palletLabelId.toString()));
-        PalletLabel cachedPalletLabel = getValueOperations().get(getRedisKey(palletLabelId.toString()));
+        //PalletLabel cachedPalletLabel = getValueOperations().get(getRedisKey(palletLabelId.toString()));
 
-        if(cachedPalletLabel == null) {
+        //if(cachedPalletLabel == null) {
             PalletLabel palletLabel = webClientBuilder
                     .filter(authHeader(tokenWrapper.getToken()))
                     .build() //Gives you a client
                     .get() // Method for the request
-                    .uri("http://localhost:7072/api/v1/farmers/" + farmerId + "/palletlabels/" + palletLabelId)
+                    .uri("http://localhost:7072/transport/api/v1/farmers/" + farmerId + "/palletlabels/" + palletLabelId)
                     .retrieve() // Go do the fetch
                     .onStatus(HttpStatus::is4xxClientError,
                             error -> Mono.error(new ResourceNotFoundException("PalletLabel", "Id", palletLabelId)))
@@ -62,13 +62,13 @@ public class PalletLabelRepository {
                             error -> Mono.error(new AppException("Server is not responding")))
                     .bodyToMono(PalletLabel.class) // Whatever body go get back map it to the class - Mono means you will get a object back but not right away "async" //empty page but you will need to wait but you know it will come and than you can do stuff "promise"
                     .block();  // converts async to sync
-            getValueOperations().set(getRedisKey(palletLabelId.toString()), palletLabel);
-            log.info("Saved pallet label [" + palletLabelId + "] to cache");
-            palletLabelRedisTemplate.expire(getRedisKey(palletLabelId.toString()), 10, TimeUnit.SECONDS);
+            //getValueOperations().set(getRedisKey(palletLabelId.toString()), palletLabel);
+            //log.info("Saved pallet label [" + palletLabelId + "] to cache");
+            //palletLabelRedisTemplate.expire(getRedisKey(palletLabelId.toString()), 10, TimeUnit.SECONDS);
             return Optional.of(palletLabel);
-        }
-        log.info("Got pallet label: [" + palletLabelId + "] from cache");
-        return Optional.of(cachedPalletLabel);
+        //}
+        //log.info("Got pallet label: [" + palletLabelId + "] from cache");
+        //return Optional.of(cachedPalletLabel);
     }
 
     public List<PalletLabel> findAll(Long farmerId) {
@@ -76,7 +76,7 @@ public class PalletLabelRepository {
                 .filter(authHeader(tokenWrapper.getToken()))
                 .build()
                 .get()
-                .uri("http://localhost:7072/api/v1/farmers/"+ farmerId + "/palletlabels")
+                .uri("http://localhost:7072/transport/api/v1/farmers/"+ farmerId + "/palletlabels")
                 .retrieve()
                 .bodyToMono(new ParameterizedTypeReference<List<PalletLabel>>() {})
                 .block();

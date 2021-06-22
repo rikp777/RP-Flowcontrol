@@ -20,10 +20,6 @@ interface AuthData {
 
 @Module({
   namespaced: true
-  // dynamic: true,
-  // stateFactory: true,
-  // store,
-  // name: "auth"
 })
 class Auth extends VuexModule {
 
@@ -104,11 +100,7 @@ class Auth extends VuexModule {
   }
   @Action({ rawError: true })
   public logout() {
-    this.context.commit("purgeData");
-  }
-  @Action({rawError: true})
-  public saveTokenDataAction(data: any){
-    this.context.commit("saveTokenData", data);
+    console.log("delete data")
   }
 
   @Action

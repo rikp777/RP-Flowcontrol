@@ -116,10 +116,11 @@ class ApiService {
         return request;
     }
 
-    post(params) {
+    post(data, params = null) {
+        console.log(params)
         console.log(`[Flowcontrol] post ${this.resource} with params ${JSON.stringify(params)}`)
         const request = applyConverters(requestSender)
-            .post(`${this.resource}`, params)
+            .post(`${this.resource}`,data, { params })
             .catch((error) => {
                 throw `[Flowcontrol] ApiService ${this.resource} \n ${error}`;
             });

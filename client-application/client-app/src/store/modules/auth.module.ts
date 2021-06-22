@@ -31,7 +31,7 @@ class AuthModule extends VuexModule {
         email: ""
     };
 
-    public hasError = true
+    public hasError = false
     public isLoading = false
 
     public authData: IAuthData = {
@@ -41,6 +41,10 @@ class AuthModule extends VuexModule {
         userId: 0,
         email: ""
     };
+
+    get getHasError() : boolean {
+        return this.hasError
+    }
 
     get getIsLoggedIn() : boolean {
         return this.authData.token !== ""

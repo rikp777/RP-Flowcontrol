@@ -2,7 +2,7 @@
 import ApiService from "@/services/api.service";
 
 class TicketEndpoint {
-    constructor(palletLabelId : number) {
+    constructor(palletLabelId) {
         //get farmer id from cookies
         let farmerId = 1
         this.resource = `/production/api/v1/farmers/${farmerId}/palletlabels/${palletLabelId}/tickets`

@@ -1,6 +1,7 @@
 package flowcontrol.article.model.entity.seeder;
 
 import com.google.common.collect.Sets;
+import flowcontrol.article.model.entity.Color;
 import flowcontrol.article.model.entity.Group;
 import flowcontrol.article.repository.GroupRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -12,98 +13,173 @@ import java.util.Set;
 @Configuration
 @Slf4j
 public class GroupSeeder {
+    private int id = 0;
 
     @Autowired
     private final GroupRepository groupRepo;
-
 
     public GroupSeeder(GroupRepository groupRepo) {
         this.groupRepo = groupRepo;
     }
 
+    private void message(Group group){
+        boolean debug = true;
+        if(debug)
+            log.info("Group seeder insert: " + this.id++ + " - " + group.getName());
+    }
+
     public Set<Group> run() {
-        if(!groupRepo.findById(1L).isPresent()) {
-            var AFK60 = new Group();
-            AFK60.setName("Afk(2-2-60)");
-            AFK60.setDescription("Afk(2-2-60)");
-            groupRepo.save(AFK60);
 
-            var AFK80 = new Group();
-            AFK80.setName("Afk(2-3-80)");
-            AFK80.setDescription("Afk(2-3-80)");
-            groupRepo.save(AFK80);
+        boolean seed = true;
+        if(seed) {
+            log.info("Group seeding starting...");
 
-            var kastanje = new Group();
-            kastanje.setName("Kastanje");
-            kastanje.setDescription("Kastanje");
-            groupRepo.save(kastanje);
+            if (groupRepo.findByName("Afk(2-2-60)").isEmpty()) {
+                var group = new Group();
+                group.setName("Afk(2-2-60)");
+                group.setDescription("Afk(2-2-60)");
+                groupRepo.save(group);
 
-            var wit = new Group();
-            wit.setName("Wit");
-            wit.setDescription("Wit");
-            groupRepo.save(wit);
+                this.message(group);
+            }
 
-            var shiitake = new Group();
-            shiitake.setName("Shiitake");
-            shiitake.setDescription("Shiitake");
-            groupRepo.save(shiitake);
+            if (groupRepo.findByName("Afk(2-3-80)").isEmpty()) {
+                var group = new Group();
+                group.setName("Afk(2-3-80)");
+                group.setDescription("Afk(2-3-80)");
+                groupRepo.save(group);
 
-            var oesterzwam = new Group();
-            oesterzwam.setName("Oesterzwam");
-            oesterzwam.setDescription("Oesterzwam");
-            groupRepo.save(oesterzwam);
+                this.message(group);
+            }
 
-            var portabella = new Group();
-            portabella.setName("Portabella");
-            portabella.setDescription("Portabella");
-            groupRepo.save(portabella);
+            if (groupRepo.findByName("Kastanje").isEmpty()) {
+                var group = new Group();
+                group.setName("Kastanje");
+                group.setDescription("Kastanje");
+                groupRepo.save(group);
 
-            var beukenzwam = new Group();
-            beukenzwam.setName("Beukenzwam");
-            beukenzwam.setDescription("Beukenzwam");
-            groupRepo.save(beukenzwam);
+                this.message(group);
+            }
 
-            var oysterMushroomBunches = new Group();
-            oysterMushroomBunches.setName("Oyster Mushroom");
-            oysterMushroomBunches.setDescription("Oyster Mushroom");
-            groupRepo.save(oysterMushroomBunches);
+            if (groupRepo.findByName("Wit").isEmpty()) {
+                var group = new Group();
+                group.setName("Wit");
+                group.setDescription("Wit");
+                groupRepo.save(group);
+                this.message(group);
+            }
 
-            var pioppino = new Group();
-            pioppino.setName("Pioppino");
-            pioppino.setDescription("Pioppino");
-            groupRepo.save(pioppino);
+            if (groupRepo.findByName("Shiitake").isEmpty()) {
+                var group = new Group();
+                group.setName("Shiitake");
+                group.setDescription("Shiitake");
+                groupRepo.save(group);
 
-            var nameco = new Group();
-            nameco.setName("Nameco");
-            nameco.setDescription("Nameco");
-            groupRepo.save(nameco);
+                this.message(group);
+            }
 
-            var eryngii = new Group();
-            eryngii.setName("Eryngii");
-            eryngii.setDescription("Eryngii");
-            groupRepo.save(eryngii);
+            if (groupRepo.findByName("Oesterzwam").isEmpty()) {
+                var group = new Group();
+                group.setName("Oesterzwam");
+                group.setDescription("Oesterzwam");
+                groupRepo.save(group);
 
-            var koraalzwam = new Group();
-            koraalzwam.setName("Koraalzwam");
-            koraalzwam.setDescription("Koraalzwam");
-            groupRepo.save(koraalzwam);
+                this.message(group);
+            }
 
-            var pomPom = new Group();
-            pomPom.setName("Pom Pom Blanc");
-            pomPom.setDescription("Pom Pom Blanc");
-            groupRepo.save(pomPom);
+            if (groupRepo.findByName("Portabella").isEmpty()) {
+                var group = new Group();
+                group.setName("Portabella");
+                group.setDescription("Portabella");
+                groupRepo.save(group);
 
-            var akkerpaddenstoelen = new Group();
-            akkerpaddenstoelen.setName("Akkerpaddenstoelen");
-            akkerpaddenstoelen.setDescription("Akkerpaddenstoelen");
-            groupRepo.save(akkerpaddenstoelen);
+                this.message(group);
+            }
 
-            var shiiMeji = new Group();
-            shiiMeji.setName("Shii-meji ");
-            shiiMeji.setDescription("Shii-meji ");
-            groupRepo.save(shiiMeji);
+            if (groupRepo.findByName("Beukenzwam").isEmpty()) {
+                var group = new Group();
+                group.setName("Beukenzwam");
+                group.setDescription("Beukenzwam");
+                groupRepo.save(group);
 
-            log.info("Groups done seeding");
+                this.message(group);
+            }
+
+            if (groupRepo.findByName("Oyster Mushroom").isEmpty()) {
+                var group = new Group();
+                group.setName("Oyster Mushroom");
+                group.setDescription("Oyster Mushroom");
+                groupRepo.save(group);
+
+                this.message(group);
+            }
+
+            if (groupRepo.findByName("Pioppino").isEmpty()) {
+                var group = new Group();
+                group.setName("Pioppino");
+                group.setDescription("Pioppino");
+                groupRepo.save(group);
+
+                this.message(group);
+            }
+
+            if (groupRepo.findByName("Nameco").isEmpty()) {
+                var group = new Group();
+                group.setName("Nameco");
+                group.setDescription("Nameco");
+                groupRepo.save(group);
+
+                this.message(group);
+            }
+
+            if (groupRepo.findByName("Eryngii").isEmpty()) {
+                var group = new Group();
+                group.setName("Eryngii");
+                group.setDescription("Eryngii");
+                groupRepo.save(group);
+
+                this.message(group);
+            }
+
+            if (groupRepo.findByName("Koraalzwam").isEmpty()) {
+                var group = new Group();
+                group.setName("Koraalzwam");
+                group.setDescription("Koraalzwam");
+                groupRepo.save(group);
+
+                this.message(group);
+            }
+
+            if (groupRepo.findByName("Pom Pom Blanc").isEmpty()) {
+                var group = new Group();
+                group.setName("Pom Pom Blanc");
+                group.setDescription("Pom Pom Blanc");
+                groupRepo.save(group);
+
+                this.message(group);
+            }
+
+            if (groupRepo.findByName("Akkerpaddenstoelen").isEmpty()) {
+                var group = new Group();
+                group.setName("Akkerpaddenstoelen");
+                group.setDescription("Akkerpaddenstoelen");
+                groupRepo.save(group);
+
+                this.message(group);
+            }
+
+            if (groupRepo.findByName("Shii-meji").isEmpty()) {
+                var group = new Group();
+                group.setName("Shii-meji");
+                group.setDescription("Shii-meji ");
+                groupRepo.save(group);
+
+                this.message(group);
+            }
+
+            log.info("Group seeding done, seeded: " +  this.id + " groups.");
+        }else {
+            log.info("Group seeding not required");
         }
 
         return Sets.newHashSet(groupRepo.findAll());

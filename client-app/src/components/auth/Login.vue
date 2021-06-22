@@ -8,7 +8,7 @@
             variant="error"
             value="test@flowcontrol.com"
             type="email"
-            v-model="username"
+            v-model="form.username"
         />
       </t-input-group>
     </div>
@@ -21,7 +21,7 @@
             variant="error"
             value="password"
             type="password"
-            v-model="password"
+            v-model="form.password"
         />
       </t-input-group>
     </div>
@@ -39,8 +39,10 @@ export default {
   name: "Login",
   data(){
     return {
-      username: '',
-      password: ''
+      form: {
+        username: '',
+        password: ''
+      }
     }
   },
   computed: {
@@ -54,7 +56,7 @@ export default {
     }),
 
     async login(){
-      await this.loginAction({ email: this.username, password: this.password });
+      await this.loginAction({ email: this.form.username, password: this.form.password });
       console.log(this.metaGetter.loggedIn)
       if(this.metaGetter.loggedIn){
         await this.$router.push("/dashboard");

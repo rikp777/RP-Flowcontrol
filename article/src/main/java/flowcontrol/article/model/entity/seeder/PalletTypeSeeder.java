@@ -1,6 +1,7 @@
 package flowcontrol.article.model.entity.seeder;
 
 import com.google.common.collect.Sets;
+import flowcontrol.article.model.entity.Inset;
 import flowcontrol.article.model.entity.PalletType;
 import flowcontrol.article.repository.PalletTypeRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -12,6 +13,8 @@ import java.util.Set;
 @Configuration
 @Slf4j
 public class PalletTypeSeeder {
+    private int id = 0;
+
     @Autowired
     private final PalletTypeRepository palletTypeRepo;
 
@@ -19,35 +22,57 @@ public class PalletTypeSeeder {
         this.palletTypeRepo = palletTypeRepo;
     }
 
-
+    private void message(PalletType palletType){
+        boolean debug = true;
+        if(debug)
+            log.info("Pallet type seeder insert: " + this.id++ + " - " + palletType.getName());
+    }
 
     public Set<PalletType> run() {
-        if(!palletTypeRepo.findById(1L).isPresent()) {
-            var ww = new PalletType();
-            ww.setName("WW");
-            ww.setWeight(0);
-            ww.setPrice(0d);
-            palletTypeRepo.save(ww);
+        boolean seed = true;
+        if(seed) {
+            log.info("Pallet type seeding starting...");
+            if (palletTypeRepo.findByName("WW").isEmpty()) {
+                var palletType = new PalletType();
+                palletType.setName("WW");
+                palletType.setWeight(0);
+                palletType.setPrice(0d);
+                palletTypeRepo.save(palletType);
 
-            var euro = new PalletType();
-            euro.setName("Euro");
-            euro.setWeight(25000);
-            euro.setPrice(8.6d);
-            palletTypeRepo.save(euro);
+                this.message(palletType);
+            }
 
-            var dpa = new PalletType();
-            dpa.setName("DPA");
-            dpa.setWeight(15500);
-            dpa.setPrice(9d);
-            palletTypeRepo.save(dpa);
+            if (palletTypeRepo.findByName("Euro").isEmpty()) {
+                var palletType = new PalletType();
+                palletType.setName("Euro");
+                palletType.setWeight(25000);
+                palletType.setPrice(8.6d);
+                palletTypeRepo.save(palletType);
 
-            var plastic = new PalletType();
-            plastic.setName("Plastic");
-            plastic.setWeight(23000);
-            plastic.setPrice(70d);
-            palletTypeRepo.save(plastic);
+                this.message(palletType);
+            }
 
-            log.info("Pallet types done seeding");
+            if (palletTypeRepo.findByName("DPA").isEmpty()) {
+                var palletType = new PalletType();
+                palletType.setName("DPA");
+                palletType.setWeight(15500);
+                palletType.setPrice(9d);
+                palletTypeRepo.save(palletType);
+
+                this.message(palletType);
+            }
+
+            if (palletTypeRepo.findByName("Plastic").isEmpty()) {
+                var palletType = new PalletType();
+                palletType.setName("Plastic");
+                palletType.setWeight(23000);
+                palletType.setPrice(70d);
+                palletTypeRepo.save(palletType);
+            }
+
+            log.info("Pallet type seeding done, seeded: " +  this.id + " pallet types.");
+        }else {
+            log.info("Pallet type seeding not required");
         }
 
         return Sets.newHashSet(palletTypeRepo.findAll());

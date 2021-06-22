@@ -60,6 +60,7 @@ router.beforeEach(async (to, from, next) => {
     console.log("not logged in", to.fullPath)
     return next({ path: "/login" });
   }
+
   return next();
 });
 

@@ -112,5 +112,3 @@
 \contentsline {chapter}{Appendices}{23}{section*.33}%
 \defcounter {refsection}{0}\relax 
 \contentsline {chapter}{\numberline {A}SWOT}{25}{appendix.1.A}%
-\defcounter {refsection}{0}\relax 
-\contentsline {chapter}{\numberline {B}Context based research}{31}{appendix.1.B}%

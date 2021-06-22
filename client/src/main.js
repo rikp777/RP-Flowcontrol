@@ -4,7 +4,7 @@ import App from './App.vue'
 // import './assets/tailwind.css'
 
 // import Element from 'element-ui'
-// import 'element-ui/lib/theme-chalk/index.css';
+// import 'element-ui/lib/theme-chalk/index.scss';
 // Vue.use(Element)
 
 import VueTailwind from 'vue-tailwind/dist/full'

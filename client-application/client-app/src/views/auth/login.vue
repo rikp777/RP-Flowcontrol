@@ -5,6 +5,13 @@
         <div class="columns is-centered">
           <div class="column is-5-tablet is-4-desktop is-3-widescreen">
             <div class="box">
+              <b-notification
+                  v-if="hasError"
+                  type="is-danger"
+                  aria-close-label="Close notification"
+                  role="alert">
+                Something went wrong
+              </b-notification>
               <div class="field">
                 <label for="" class="label">Email</label>
                 <div class="control has-icons-left">
@@ -91,7 +98,8 @@ export default {
   },
   computed: {
     ...mapGetters("auth", {
-      isLoggedIn: "getIsLoggedIn"
+      isLoggedIn: "getIsLoggedIn",
+      hasError: "getHasError"
     })
   },
   methods: {

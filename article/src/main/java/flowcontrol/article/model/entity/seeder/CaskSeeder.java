@@ -2,6 +2,7 @@ package flowcontrol.article.model.entity.seeder;
 
 import com.google.common.collect.Sets;
 import flowcontrol.article.exception.ResourceNotFoundException;
+import flowcontrol.article.model.entity.Article;
 import flowcontrol.article.model.entity.Cask;
 import flowcontrol.article.model.entity.Color;
 import flowcontrol.article.repository.CaskRepository;
@@ -17,6 +18,7 @@ public class CaskSeeder {
 
     @Autowired
     private final CaskRepository caskRepo;
+    private int id = 0;
 
     public CaskSeeder(CaskRepository caskRepo) {
         this.caskRepo = caskRepo;
@@ -29,8 +31,16 @@ public class CaskSeeder {
                 .orElseThrow(() -> new ResourceNotFoundException("Color", "Name", color));
     }
 
+    private void message(Cask cask){
+        boolean debug = true;
+        if(debug)
+            log.info("Cask seeder insert: " + this.id++ + " - " + cask.getExcelCode());
+    }
+
     public Set<Cask> run(UtilSeeder util) {
-        if (!caskRepo.findById(104L).isPresent()) {
+        boolean seed = true;
+        if(seed) {
+
             Color brown = util.findColorInSet("Brown");
             Color transparent = util.findColorInSet("Transparent");
             Color styro = util.findColorInSet("Styro");
@@ -38,168 +48,212 @@ public class CaskSeeder {
             Color green = util.findColorInSet("Green");
             Color black = util.findColorInSet("Black");
 
+            log.info("Cask seeding starting...");
 
-            // Multi
-            Cask emballageMulti = new Cask();
-            emballageMulti.setExcelCode("EM0001XX");
-            emballageMulti.setName("Emballage multi");
-            emballageMulti.setDescription("Emballage multi");
-            emballageMulti.setWeight(null);
-            emballageMulti.setMaxFillingQuantity(null);
-            emballageMulti.setMaterial("Wood");
+            //region Multi
+            if (caskRepo.findByExcelCode("EM0001XX").isEmpty()) {
+                Cask cask = new Cask();
+                cask.setExcelCode("EM0001XX");
+                cask.setName("Emballage multi");
+                cask.setDescription("Emballage multi");
+                cask.setWeight(null);
+                cask.setMaxFillingQuantity(null);
+                cask.setMaterial("Wood");
+                cask.setColor(brown);
+                caskRepo.save(cask);
 
-            emballageMulti.setColor(brown);
-            caskRepo.save(emballageMulti);
+                this.message(cask);
+            }
 
-            Cask emballageIndustrie = new Cask();
-            emballageIndustrie.setExcelCode("EM0002XX");
-            emballageIndustrie.setName("Emballage industrie");
-            emballageIndustrie.setDescription("Emballage industrie 10KG");
-            emballageIndustrie.setWeight(10000);
-            emballageIndustrie.setMaxFillingQuantity(null);
-            emballageIndustrie.setMaterial("Wood");
+            if (caskRepo.findByExcelCode("EM0002XX").isEmpty()) {
+                Cask cask = new Cask();
+                cask.setExcelCode("EM0002XX");
+                cask.setName("Emballage industrie");
+                cask.setDescription("Emballage industrie 10KG");
+                cask.setWeight(10000);
+                cask.setMaxFillingQuantity(null);
+                cask.setMaterial("Wood");
+                cask.setColor(brown);
+                caskRepo.save(cask);
 
-            emballageIndustrie.setColor(brown);
-            caskRepo.save(emballageIndustrie);
+                this.message(cask);
+            }
 
-            Cask emballageSemiMulti = new Cask();
-            emballageSemiMulti.setExcelCode("EM0004XX");
-            emballageSemiMulti.setName("Emballage semi-multi");
-            emballageSemiMulti.setDescription("Emballage semi-multi");
-            emballageSemiMulti.setWeight(null);
-            emballageSemiMulti.setMaxFillingQuantity(null);
-            emballageSemiMulti.setMaterial("Wood");
+            if (caskRepo.findByExcelCode("EM0004XX").isEmpty()) {
+                Cask cask = new Cask();
+                cask.setExcelCode("EM0004XX");
+                cask.setName("Emballage semi-multi");
+                cask.setDescription("Emballage semi-multi");
+                cask.setWeight(null);
+                cask.setMaxFillingQuantity(null);
+                cask.setMaterial("Wood");
+                cask.setColor(brown);
+                caskRepo.save(cask);
 
-            emballageSemiMulti.setColor(brown);
-            caskRepo.save(emballageSemiMulti);
+                this.message(cask);
+            }
+            
+            if (caskRepo.findByExcelCode("EM0009XX").isEmpty()) {
+                Cask cask = new Cask();
+                cask.setExcelCode("EM0009XX");
+                cask.setName("Emballage doos CHEF");
+                cask.setDescription("Emballage doos CHEF");
+                cask.setWeight(null);
+                cask.setMaxFillingQuantity(null);
+                cask.setMaterial("Karton");
+                cask.setColor(brown);
+                caskRepo.save(cask);
 
-            Cask EmballageDoos = new Cask();
-            EmballageDoos.setExcelCode("EM0009XX");
-            EmballageDoos.setName("Emballage doos CHEF");
-            EmballageDoos.setDescription("Emballage doos CHEF");
-            EmballageDoos.setWeight(null);
-            EmballageDoos.setMaxFillingQuantity(null);
-            EmballageDoos.setMaterial("Karton");
+                this.message(cask);
+            }
+            //endregion
 
-            EmballageDoos.setColor(brown);
-            caskRepo.save(EmballageDoos);
+            //region Actie
+            if (caskRepo.findByExcelCode("EM0009XX").isEmpty()) {
+                Cask cask = new Cask();
+                cask.setExcelCode("EM0009XX");
+                cask.setName("Doos");
+                cask.setDescription("Doos");
+                cask.setWeight(null);
+                cask.setMaxFillingQuantity(null);
+                cask.setMaterial("Karton");
+                cask.setColor(brown);
+                caskRepo.save(cask);
 
+                this.message(cask);
+            }
+            //endregion
 
-            // Actie
-            Cask doos = new Cask();
-            doos.setExcelCode("EM0009XX");
-            doos.setName("Doos");
-            doos.setDescription("Doos");
-            doos.setWeight(null);
-            doos.setMaxFillingQuantity(null);
-            doos.setMaterial("Karton");
+            //region CH
+            if (caskRepo.findByExcelCode("EM0003XX").isEmpty()) {
+                Cask cask = new Cask();
+                cask.setExcelCode("EM0003XX");
+                cask.setName("CH705");
+                cask.setDescription("CH705");
+                cask.setWeight(null);
+                cask.setMaxFillingQuantity(640);
+                cask.setMaterial("Plastic");
+                cask.setColor(styro);
+                caskRepo.save(cask);
 
-            doos.setColor(brown);
-            caskRepo.save(doos);
+                this.message(cask);
+            }
 
+            if (caskRepo.findByExcelCode("EM0004XX").isEmpty()) {
+                Cask cask = new Cask();
+                cask.setExcelCode("EM0004XX");
+                cask.setName("CH052");
+                cask.setDescription("CH052");
+                cask.setWeight(null);
+                cask.setMaxFillingQuantity(770);
+                cask.setMaterial("Plastic");
+                cask.setColor(styro);
+                caskRepo.save(cask);
 
-            // CH
-            Cask CH705 = new Cask();
-            CH705.setExcelCode("EM0003XX");
-            CH705.setName("CH705");
-            CH705.setDescription("CH705");
-            CH705.setWeight(null);
-            CH705.setMaxFillingQuantity(640);
-            CH705.setMaterial("Plastic");
+                this.message(cask);
+            }
 
-            CH705.setColor(styro);
-            caskRepo.save(CH705);
+            if (caskRepo.findByExcelCode("EM0005XX").isEmpty()) {
+                Cask cask = new Cask();
+                cask.setExcelCode("EM0005XX");
+                cask.setName("CH050");
+                cask.setDescription("CH050");
+                cask.setWeight(null);
+                cask.setMaxFillingQuantity(756);
+                cask.setMaterial("Pet");
+                cask.setColor(blue);
+                caskRepo.save(cask);
 
-            Cask CH052 = new Cask();
-            CH052.setExcelCode("EM0004XX");
-            CH052.setName("CH052");
-            CH052.setDescription("CH052");
-            CH052.setWeight(null);
-            CH052.setMaxFillingQuantity(770);
-            CH052.setMaterial("Plastic");
+                this.message(cask);
+            }
 
-            CH052.setColor(styro);
-            caskRepo.save(CH052);
+            if (caskRepo.findByExcelCode("EM0008XX").isEmpty()) {
+                Cask cask = new Cask();
+                cask.setExcelCode("EM0008XX");
+                cask.setName("CH050");
+                cask.setDescription("CH050");
+                cask.setWeight(null);
+                cask.setMaxFillingQuantity(770);
+                cask.setMaterial("Plastic");
+                cask.setColor(blue);
+                caskRepo.save(cask);
 
-            Cask CH050 = new Cask();
-            CH050.setExcelCode("EM0005XX");
-            CH050.setName("CH050");
-            CH050.setDescription("CH050");
-            CH050.setWeight(null);
-            CH050.setMaxFillingQuantity(756);
-            CH050.setMaterial("Pet");
+                this.message(cask);
+            }
 
-            CH050.setColor(blue);
-            caskRepo.save(CH050);
+            if (caskRepo.findByExcelCode("EM0006XX").isEmpty()) {
+                Cask cask = new Cask();
+                cask.setExcelCode("EM0006XX");
+                cask.setName("CH051");
+                cask.setDescription("CH051");
+                cask.setWeight(null);
+                cask.setMaxFillingQuantity(770);
+                cask.setMaterial("Plastic");
+                cask.setColor(green);
+                caskRepo.save(cask);
 
-            Cask CH050B = new Cask();
-            CH050B.setExcelCode("EM0008XX");
-            CH050B.setName("CH050");
-            CH050B.setDescription("CH050");
-            CH050B.setWeight(null);
-            CH050B.setMaxFillingQuantity(770);
-            CH050B.setMaterial("Plastic");
+                this.message(cask);
+            }
 
-            CH050B.setColor(blue);
-            caskRepo.save(CH050B);
+            if (caskRepo.findByExcelCode("EM0007XX").isEmpty()) {
+                Cask cask = new Cask();
+                cask.setExcelCode("EM0007XX");
+                cask.setName("CH051");
+                cask.setDescription("CH051");
+                cask.setWeight(null);
+                cask.setMaxFillingQuantity(770);
+                cask.setMaterial("Plastic");
+                cask.setColor(black);
+                caskRepo.save(cask);
 
-            Cask CH051G = new Cask();
-            CH051G.setExcelCode("EM0006XX");
-            CH051G.setName("CH051");
-            CH051G.setDescription("CH051");
-            CH051G.setWeight(null);
-            CH051G.setMaxFillingQuantity(770);
-            CH051G.setMaterial("Plastic");
+                this.message(cask);
+            }
 
-            CH051G.setColor(green);
-            caskRepo.save(CH051G);
+            if (caskRepo.findByExcelCode("EM0008XX").isEmpty()) {
+                Cask cask = new Cask();
+                cask.setExcelCode("EM0008XX");
+                cask.setName("CH190");
+                cask.setDescription("CH190");
+                cask.setWeight(null);
+                cask.setMaxFillingQuantity(640);
+                cask.setMaterial("Pet");
+                cask.setColor(transparent);
+                caskRepo.save(cask);
 
-            Cask CH051Z = new Cask();
-            CH051Z.setExcelCode("EM0007XX");
-            CH051Z.setName("CH051");
-            CH051Z.setDescription("CH051");
-            CH051Z.setWeight(null);
-            CH051Z.setMaxFillingQuantity(770);
-            CH051Z.setMaterial("Plastic");
+                this.message(cask);
+            }
 
-            CH051Z.setColor(black);
-            caskRepo.save(CH051Z);
+            if (caskRepo.findByExcelCode("EM0009XX").isEmpty()) {
+                Cask cask = new Cask();
+                cask.setExcelCode("EM0009XX");
+                cask.setName("CH093");
+                cask.setDescription("CH093");
+                cask.setWeight(null);
+                cask.setMaxFillingQuantity(700);
+                cask.setMaterial("Pet");
+                cask.setColor(transparent);
+                caskRepo.save(cask);
 
-            Cask CH190 = new Cask();
-            CH190.setExcelCode("EM0008XX");
-            CH190.setName("CH190");
-            CH190.setDescription("CH190");
-            CH190.setWeight(null);
-            CH190.setMaxFillingQuantity(640);
-            CH190.setMaterial("Pet");
+                this.message(cask);
+            }
 
-            CH190.setColor(transparent);
-            caskRepo.save(CH190);
+            if (caskRepo.findByExcelCode("EM0010XX").isEmpty()) {
+                Cask cask = new Cask();
+                cask.setExcelCode("EM0010XX");
+                cask.setName("M6 Holland Crates");
+                cask.setDescription("M6 Holland Crates");
+                cask.setWeight(null);
+                cask.setMaxFillingQuantity(700);
+                cask.setMaterial("Wood");
+                cask.setColor(brown);
+                caskRepo.save(cask);
 
-            Cask CH193 = new Cask();
-            CH193.setExcelCode("EM0008XX");
-            CH193.setName("CH093");
-            CH193.setDescription("CH093");
-            CH193.setWeight(null);
-            CH193.setMaxFillingQuantity(700);
-            CH193.setMaterial("Pet");
+                this.message(cask);
+            }
 
-            CH193.setColor(transparent);
-            caskRepo.save(CH193);
-
-
-            Cask M6 = new Cask();
-            M6.setExcelCode("EM0008XX");
-            M6.setName("M6 Holland Crates");
-            M6.setDescription("M6 Holland Crates");
-            M6.setWeight(null);
-            M6.setMaxFillingQuantity(700);
-            M6.setMaterial("Wood");
-
-            M6.setColor(brown);
-            caskRepo.save(M6);
-
-            log.info("Casks done seeding");
+            log.info("Cask seeding done, seeded: " +  this.id + " casks.");
+        }else {
+            log.info("Cask seeding not required");
         }
         return Sets.newHashSet(caskRepo.findAll());
     }

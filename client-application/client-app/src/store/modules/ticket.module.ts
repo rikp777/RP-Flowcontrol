@@ -21,29 +21,36 @@ class PalletLabelModule extends VuexModule {
     public interruptionReasons: any = [
         {
             value: 1,
-            label: "Break"
+            label: "Break",
+            stopProcess: false
         },
         {
             value: 2,
-            label: "New foil"
+            label: "New foil",
+            stopProcess: false
         },
         {
             value: 3,
-            label: "Sticker change"
+            label: "Sticker change",
+            stopProcess: false
         },
         {
             value: 4,
-            label: "Product swap"
+            label: "Product swap",
+            stopProcess: true
         },
         {
             value: 5,
-            label: "Product disapproval"
+            label: "Product disapproval",
+            stopProcess: true
         },
         {
             value: 6,
-            label: "Production line error"
+            label: "Production line error",
+            stopProcess: true
         }
     ]
+
 
     private debug = true;
     private palletLabel_endpoint = new PalletLabelEndpoint()
@@ -51,6 +58,17 @@ class PalletLabelModule extends VuexModule {
     public hasError = true
     public isLoading = false
 
+
+    get getItemsToStillProcess() : any{
+        if(this.tickets != null && this.palletLabel != null){
+            let leftOver = this.palletLabel.articleAmount;
+            this.tickets.forEach((ticket : any) => {
+                console.log(ticket.articleAmountUsed)
+                leftOver = leftOver - ticket.articleAmountUsed
+            })
+            return leftOver
+        }
+    }
 
     get getPalletLabel() : any {
         return this.palletLabel
@@ -88,20 +106,42 @@ class PalletLabelModule extends VuexModule {
 
     @Action({ rawError: true })
     public async getAllTicketsBelongingToPalletLabelId(palletLabelId: number) {
+        this.context.commit("startLoading")
         const farmerId = localStorage.getItem('farmer')
         const api = new Api(`/production/api/v1/farmers/${farmerId}/palletlabels/${palletLabelId}/tickets`)
         await api.get()
             .then((response:any ) => {
-                if(response.data && response.data._embedded && response.data._embedded.tickets){
-                    const isDataAvailable = response.data._embedded.tickets && response.data._embedded.tickets.length;
-                    const data = isDataAvailable ? response.data._embedded.tickets : [];
-                    if(data.length > 0){
-                        console.log("Set tickets", data)
-                        this.context.commit("setTickets", response.data._embedded.tickets);
-                    }
+                console.log(response)
+                if(response.data.embedded && response.data.embedded.tickets){
+                    this.context.commit("setTickets", response.data.embedded.tickets);
                 }
+                this.context.commit("endLoading")
+            })
+            .catch((error) => {
+                this.context.commit("setError", true)
             })
     }
+    @Action({ rawError: true })
+    public async createTicket(lineId : number){
+        console.log(lineId)
+        if(lineId == null) return
+        this.context.commit("startLoading")
+        const params : any = {
+            lineId: lineId
+        }
+        const farmerId = localStorage.getItem('farmer')
+        const data = {}
+        const api = new Api(`/production/api/v1/farmers/${farmerId}/palletlabels/${this.palletLabel.id}/tickets`)
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        await api.post(data, params).then((response) => {
+            this.context.commit("setTicket", response.data);
+            this.context.commit("endLoading")
+        }).catch((error) => {
+            this.context.commit("setError", true)
+        })
+    }
+
     @Action({ rawError: true })
     public async closeTicket(ticket: any) {
         const farmerId = localStorage.getItem('farmer')

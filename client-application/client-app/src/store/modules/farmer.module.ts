@@ -53,6 +53,7 @@ class TicketModule extends VuexModule {
         if(userId){
             if(this.entities != null && this.entities.length > 0) {
                 if(this.debug) console.log("[FarmerModule] data was already fetched", this.entities)
+                this.context.commit("setCurrentFarmer", Api.getId(this.entities[0].farmer.links.self.href))
                 this.context.commit("endLoading")
                 return
             }
@@ -88,6 +89,7 @@ class TicketModule extends VuexModule {
     private setCurrentFarmer(id : number) : void{
         if(this.debug) console.log("[FarmerModule] setCurrentFarmer()", id)
         this.currentFarmer = id;
+        localStorage.setItem('farmer', id.toString());
         console.log(this.currentFarmer)
     }
 

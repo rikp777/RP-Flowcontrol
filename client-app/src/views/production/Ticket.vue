@@ -391,7 +391,7 @@ export default {
   methods: {
     ...mapActions("ticket", {
       fetchPalletLabelAction: "fetchPalletLabel",
-      fetchTicketsAction: "fetchTickets",
+      getAllTicketsBelongingToPalletLabelId: "getAllTicketsBelongingToPalletLabelId",
       fetchInterruptionssAction: "fetchInterruptions",
       closeTicketAction: "closeTicket",
       closeInterruptionAction: "closeInterruption",
@@ -434,7 +434,7 @@ export default {
     },
     async getTickets(){
       await this.purgeDataAction();
-      await this.fetchTicketsAction(this.form.palletLabelId)
+      await this.getAllTicketsBelongingToPalletLabelId(this.form.palletLabelId)
       await this.fetchPalletLabelAction(this.form.palletLabelId)
       await this.fetchInterruptionssAction(this.tickets[this.tickets.length -1])
 

@@ -8,7 +8,7 @@ server:
 
   # Context path of the application
   servlet:
-    context-path: /api
+    context-path: /production/api
 
     # Default HTTP session time out
     session:
@@ -53,8 +53,12 @@ swagger:
 
 eureka:
   client:
-    service-url:
-      default-zone: http://localhost:8761/eureka
+    register-with-eureka: true
+    fetch-registry: true
+    serviceUrl:
+      defaultZone: http://${eureka.address:localhost:8761}/eureka
+  instance:
+    prefer-ip-address: true
 
 #kafka:
 #  bootstrapAdress: localhost:9092

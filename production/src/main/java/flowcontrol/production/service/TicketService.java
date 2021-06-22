@@ -117,12 +117,12 @@ public class TicketService {
 
         // Instantiate new Ticket
         Ticket ticket = new Ticket();
-        ticket.setFarmerId(palletLabel.getFarmer().getId());
+        ticket.setFarmerId(meta.getFarmerId());
 
         // Get List of tickets that belong to pallet label by id
         List<Ticket> ticketList =
                 ticketRepository.getTicketByFarmerIdAndPalletLabelId(
-                        palletLabel.getFarmer().getId(),
+                        meta.getFarmerId(),
                         palletLabel.getId()
                 );
 

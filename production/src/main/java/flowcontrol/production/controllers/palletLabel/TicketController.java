@@ -89,16 +89,11 @@ public class TicketController {
      * @param palletLabelId
      * @param lineId
      */
-    @PostMapping(
-            produces = {
-                    MediaType.APPLICATION_JSON_VALUE,
-                    MediaTypes.HAL_JSON_VALUE
-            }
-    )
+    @PostMapping()
     public ResponseEntity<EntityModel<TicketResponse>> createTicket(
             @PathVariable Long farmerId,
             @PathVariable Long palletLabelId,
-            @RequestParam Long lineId
+            @RequestParam("line_id") Long lineId
     ){
         BasicMetaData metaData = BasicMetaData.builder()
                 .farmerId(farmerId)

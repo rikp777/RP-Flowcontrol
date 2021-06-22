@@ -5,22 +5,24 @@
 <!--  </div>-->
 <!--  <router-view/>-->
   <div>
-    <div class="container is-widescreen" v-if="isLoggedIn">
+    <div class="container is-fluid" v-if="isLoggedIn">
       <navbar />
-      <section class="section">
-        <div class="container">
-          <div class="columns">
-            <div class="column is-3">
+    </div>
+    <div v-if="isLoggedIn">
+      <div class="container is-fluid">
+        <div class="columns">
+          <div class="column is-3">
+            <section class="section">
               <sidenav />
-            </div>
-            <div class="column is-9">
-              <div class="content is-medium">
-                <router-view/>
-              </div>
+            </section>
+          </div>
+          <div class="column is-9">
+            <div class="content is-medium">
+              <router-view/>
             </div>
           </div>
         </div>
-      </section>
+      </div>
     </div>
     <div v-else>
       <router-view></router-view>

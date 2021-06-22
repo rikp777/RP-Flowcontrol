@@ -106,7 +106,7 @@ class Ticket extends VuexModule {
     @Action({ rawError: true })
     public async fetchInterruptions(ticket: Ticket) {
         await api.get(`${baseUrl}/palletlabels/${ticket.palletLabel.id}/tickets/${ticket.id}/interruptions`)
-            .then((response) => {
+            .then((response: any) => {
                 if(response.data && response.data._embedded && response.data._embedded.interruptions){
                     const isDataAvailable = response.data._embedded.interruptions && response.data._embedded.interruptions.length;
                     const data = isDataAvailable ? response.data._embedded.interruptions : [];
@@ -121,7 +121,7 @@ class Ticket extends VuexModule {
     @Action({ rawError: true })
     public async closeInterruption(ticket: Ticket) {
         await api.post(`${baseUrl}/palletlabels/${ticket.palletLabel.id}/tickets/${ticket.id}/interruptions/${ticket.interruptions[ticket.interruptions.length -1].id}/close`)
-            .then((response) => {
+            .then((response : any) => {
                 console.log("Close interruption", ticket.interruptions[ticket.interruptions.length -1].id)
             })
     }

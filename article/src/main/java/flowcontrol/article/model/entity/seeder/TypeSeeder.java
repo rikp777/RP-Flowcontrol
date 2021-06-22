@@ -1,6 +1,7 @@
 package flowcontrol.article.model.entity.seeder;
 
 import com.google.common.collect.Sets;
+import flowcontrol.article.model.entity.SortType;
 import flowcontrol.article.model.entity.Type;
 import flowcontrol.article.repository.TypeRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -12,6 +13,7 @@ import java.util.Set;
 @Configuration
 @Slf4j
 public class TypeSeeder {
+    private int id = 0;
 
     @Autowired
     private final TypeRepository typeRepo;
@@ -20,33 +22,68 @@ public class TypeSeeder {
         this.typeRepo = typeRepo;
     }
 
+    private void message(Type type){
+        boolean debug = true;
+        if(debug)
+            log.info("Type seeder insert: " + this.id++ + " - " + type.getName());
+    }
+
     public Set<Type> run() {
-        if(!typeRepo.findById(1L).isPresent()) {
-            var bunches = new Type();
-            bunches.setName("Bunches");
-            typeRepo.save(bunches);
+        boolean seed = true;
+        if(seed) {
+            log.info("Type seeding starting...");
 
-            var leaves = new Type();
-            leaves.setName("Leaves");
-            typeRepo.save(leaves);
+            if (typeRepo.findByName("Bunches").isEmpty()) {
+                var type = new Type();
+                type.setName("Bunches");
+                typeRepo.save(type);
 
-            var stem = new Type();
-            stem.setName("Stem");
-            typeRepo.save(stem);
+                this.message(type);
+            }
 
-            var stemless = new Type();
-            stemless.setName("Stemless");
-            typeRepo.save(stemless);
+            if (typeRepo.findByName("Leaves").isEmpty()) {
+                var type = new Type();
+                type.setName("Leaves");
+                typeRepo.save(type);
 
-            var tros = new Type();
-            tros.setName("Tros");
-            typeRepo.save(tros);
+                this.message(type);
+            }
 
-            var air = new Type();
-            air.setName("Air");
-            typeRepo.save(air);
+            if (typeRepo.findByName("Stem").isEmpty()) {
+                var type = new Type();
+                type.setName("Stem");
+                typeRepo.save(type);
 
-            log.info("Types done seeding");
+                this.message(type);
+            }
+
+            if (typeRepo.findByName("Stemless").isEmpty()) {
+                var type = new Type();
+                type.setName("Stemless");
+                typeRepo.save(type);
+
+                this.message(type);
+            }
+
+            if (typeRepo.findByName("Tros").isEmpty()) {
+                var type = new Type();
+                type.setName("Tros");
+                typeRepo.save(type);
+
+                this.message(type);
+            }
+
+            if (typeRepo.findByName("Air").isEmpty()) {
+                var type = new Type();
+                type.setName("Air");
+                typeRepo.save(type);
+
+                this.message(type);
+            }
+
+            log.info("Sort type seeding done, seeded: " +  this.id + " sort types.");
+        }else {
+            log.info("Sort type seeding not required");
         }
 
         return Sets.newHashSet(typeRepo.findAll());
