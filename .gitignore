@@ -216,3 +216,4 @@ sysinfo.txt
 
 # Crashlytics generated file
 ./docker-volumes
+/docker-volumes/
