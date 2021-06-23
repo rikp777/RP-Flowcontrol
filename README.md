@@ -1,5 +1,9 @@
 # Flowcontrol
 
+## Deployment 
+For deployment or development please download the _DEPLOYMENT_ folder.
+Please read the readme in the folder.
+
 ## Modules
 ### Article
 [![Article](https://github.com/rikp777/RP-Flowcontrol/actions/workflows/article.yml/badge.svg)](https://github.com/rikp777/RP-Flowcontrol/actions/workflows/article.yml)
