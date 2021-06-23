@@ -6,6 +6,7 @@
 docker --version
 docker-compose --version
 docker ps
+docker-compose down --rmi all
 
 @echo Pulled Flowcontrol application...
 cd RP-Flowcontrol

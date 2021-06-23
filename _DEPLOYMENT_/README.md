@@ -3,4 +3,6 @@ Before running any of the scripts,
 please make sure you have installed docker on your OS. 
 
 ## Windows
-Run: Install.bat 
+First initialization run: win_install_&_run.bat 
+
+Run existing initialization run: win_run.bat
