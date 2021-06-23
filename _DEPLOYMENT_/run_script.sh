@@ -1,5 +1,6 @@
 cd deployment
 
+docker-compose down
 
 echo Building Flowcontrol application...
 docker-compose build
