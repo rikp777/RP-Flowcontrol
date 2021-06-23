@@ -17,6 +17,8 @@ Run existing initialization run: run_script.sh
 
 This script will automatically close all existing running containers before starting.
 
+To check the services that are up check your docker containers or visit eureka service.
+
 ## Site
 ### Frontend client
 - [Flowcontrol client | http://localhost:8080](http://localhost:8080)
