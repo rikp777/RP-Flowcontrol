@@ -246,7 +246,7 @@ services:
 
   client:
     container_name: client
-    build: ./client-application/client-app
+    build: ./client
     mem_limit: 500m
     mem_reservation: 100m
     cpus: 0.8

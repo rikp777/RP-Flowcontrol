@@ -1,9 +1,9 @@
 
 
-git git clone https://github.com/rikp777/RP-Flowcontrol
+git clone https://github.com/rikp777/RP-Flowcontrol
 echo Pulled Flowcontrol deployment
 
-cd deployment
+cd RP-Flowcontrol
 
 
 echo Building Flowcontrol application...

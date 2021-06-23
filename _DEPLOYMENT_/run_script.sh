@@ -1,4 +1,4 @@
-cd deployment
+cd RP-Flowcontrol
 
 docker-compose down
 
