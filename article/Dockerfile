@@ -9,6 +9,9 @@ FROM maven:3.8.1-openjdk-15 as build
 LABEL maintainer="RIK PEETERS"
 WORKDIR /app
 COPY pom.xml .
+
+RUN echo "'Article-service build stage..'"
+
 # Install maven dependency packages, this takes about a minute.
 RUN mvn dependency:go-offline
 # Then we copy in all source and build splitting out dependencies and source
@@ -38,6 +41,8 @@ CMD ["mvn", "spring-boot:run"]
 # This stage starts fresh with a minimal debian image and only copying over
 # source code.
 FROM adoptopenjdk/openjdk15:ubi as prod
+
+RUN echo "'Article-service production stage..'"
 
 # Don't run as root, create a new `java` user here.
 RUN groupadd --gid 1000 java \

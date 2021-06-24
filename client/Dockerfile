@@ -7,9 +7,12 @@
 FROM node:latest as build-stage
 WORKDIR /flowcontrol/app
 COPY package*.json ./
-RUN npm install
+
+RUN echo "'Client-service build stage..'"
+
+RUN yarn install
 COPY ./ .
-RUN npm run build
+RUN yarn build
 
 # ____                _       _
 #|  _ \ _ __ ___   __| |  ___| |_ __ _  __ _  ___
@@ -18,6 +21,9 @@ RUN npm run build
 #|_|   |_|  \___/ \__,_| |___/\__\__,_|\__, |\___|
 #
 FROM nginx as production-stage
+
+RUN echo "'Client-service production stage..'"
+
 RUN mkdir -p /flowcontrol/app
 COPY --from=build-stage /flowcontrol/app/dist /flowcontrol/app
 COPY nginx.conf /etc/nginx/nginx.conf

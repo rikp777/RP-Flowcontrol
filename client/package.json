@@ -13,6 +13,7 @@
     "@fortawesome/fontawesome-svg-core": "^1.2.35",
     "@fortawesome/free-solid-svg-icons": "^5.15.3",
     "@fortawesome/vue-fontawesome": "^2.0.2",
+    "@vue/babel-preset-app": "^4.5.13",
     "autoprefixer": "^9",
     "axios": "^0.19.2",
     "axios-case-converter": "^0.6.0",
