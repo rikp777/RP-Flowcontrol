@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 import java.util.Optional;
 
 @Slf4j
-@AllArgsConstructor(onConstructor = @__(@Autowired))
+@AllArgsConstructor
 @Service
 public class CustomUserDetailsService implements UserDetailsService {
 
