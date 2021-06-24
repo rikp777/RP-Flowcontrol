@@ -5,7 +5,7 @@
 #|____/ \__,_|_|_|\__,_| |___/\__\__,_|\__, |\___|
 #                                      |___/
 # First we build the jar with maven in a fat image with all the tools.
-FROM maven:3.6.3-openjdk-11 as build
+FROM maven:3.8.1-openjdk-15 as build
 LABEL maintainer="RIK PEETERS"
 WORKDIR /app
 COPY pom.xml .
@@ -37,7 +37,7 @@ CMD ["mvn", "spring-boot:run"]
 #                                      |___/
 # This stage starts fresh with a minimal debian image and only copying over
 # source code.
-FROM openjdk:11-jre-slim as prod
+FROM adoptopenjdk/openjdk15:ubi as prod
 
 # Don't run as root, create a new `java` user here.
 RUN groupadd --gid 1000 java \

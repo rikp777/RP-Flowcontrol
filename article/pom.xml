@@ -17,7 +17,7 @@
     <description>School Project Semester 4 Fontys</description>
 
     <properties>
-        <java.version>11</java.version>
+        <java.version>15</java.version>
         <sonar.projectKey>flowcontrol.article</sonar.projectKey>
         <sonar.organization>rikp777</sonar.organization>
         <sonar.host.url>https://sonarcloud.io</sonar.host.url>
@@ -26,8 +26,8 @@
         <org.mapstruct.version>1.4.2.Final</org.mapstruct.version>
 
         <maven.compiler.version>3.8.1</maven.compiler.version>
-        <maven.compiler.source>1.11</maven.compiler.source>
-        <maven.compiler.target>1.11</maven.compiler.target>
+        <maven.compiler.source>${java.version}</maven.compiler.source>
+        <maven.compiler.target>${java.version}</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     </properties>
@@ -114,7 +114,6 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <version>1.18.16</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
