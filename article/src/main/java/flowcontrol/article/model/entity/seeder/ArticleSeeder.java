@@ -1,43 +1,41 @@
 package flowcontrol.article.model.entity.seeder;
 
+import flowcontrol.article.config.seeder.SeederConfig;
 import flowcontrol.article.model.entity.Article;
 import flowcontrol.article.model.entity.Cask;
 import flowcontrol.article.model.entity.Color;
 import flowcontrol.article.model.entity.PalletType;
 import flowcontrol.article.repository.ArticleRepository;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.stereotype.Component;
 
 import java.util.UUID;
 
 @Configuration
 @Slf4j
+@Component
 public class ArticleSeeder {
-    @Autowired
     private final ArticleRepository articleRepo;
-
+    private SeederConfig seederConfig;
 
     private int id = 1;
 
-    public ArticleSeeder(ArticleRepository articleRepo) {
+    public ArticleSeeder(ArticleRepository articleRepo, SeederConfig seederConfig) {
         this.articleRepo = articleRepo;
+        this.seederConfig = seederConfig;
     }
 
-
     private void message(Article article){
-        boolean debug = true;
-        if(debug)
-            log.info(
-                    "Article seeder insert: " + this.id++ + " - " + article.getExcelCode() + " | " +
-                            "UUID: " + article.getId()
-
-            );
+        if(this.seederConfig.isInDebugMode())
+            UtilSeeder.sendMessage("Article seeder", this.id, article.getExcelCode(), article.getId());
+        this.id++;
     }
 
     public void run(UtilSeeder util) {
-        boolean seed = true;
-        if(seed) {
+        if(this.seederConfig.isInInsetDataMode()) {
             Color brown = util.findColorInSet("Brown");
             Color white = util.findColorInSet("White");
             Color grey = util.findColorInSet("Grey");
@@ -2036,7 +2034,7 @@ public class ArticleSeeder {
             }
             // endregion
 
-            log.info("Articles seeding done, seeded: " +  this.id + " articles.");
+            log.info("Articles seeding done, seeded: " +  (this.id - 1) + " articles.");
         }else {
             log.info("Article seeding not required");
         }

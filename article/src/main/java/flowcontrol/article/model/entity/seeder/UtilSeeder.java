@@ -7,6 +7,7 @@ import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.Set;
+import java.util.UUID;
 
 @Getter
 @Setter
@@ -19,6 +20,12 @@ public class UtilSeeder {
     private Set<SortType> sortTypes;
     private Set<Inset> insets;
     private Set<Type> types;
+
+    public static void sendMessage(String seederName, int insertNumber, String identifier, UUID id){
+        log.info(seederName + " insert: " + insertNumber + " - " + identifier + " | " +
+                "UUID: " + id
+        );
+    }
 
     public Color findColorInSet(String color){
         if(this.colors.stream().count() > 0) {

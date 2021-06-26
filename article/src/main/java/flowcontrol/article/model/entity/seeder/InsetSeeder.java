@@ -1,9 +1,11 @@
 package flowcontrol.article.model.entity.seeder;
 
 import com.google.common.collect.Sets;
+import flowcontrol.article.config.seeder.SeederConfig;
 import flowcontrol.article.model.entity.Group;
 import flowcontrol.article.model.entity.Inset;
 import flowcontrol.article.repository.InsetRepository;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
@@ -14,27 +16,24 @@ import java.util.UUID;
 @Configuration
 @Slf4j
 public class InsetSeeder {
+    private final InsetRepository insetRepository;
+    private final SeederConfig seederConfig;
+
     private int id = 1;
 
-    @Autowired
-    private final InsetRepository insetRepository;
-
-    public InsetSeeder(InsetRepository insetRepository) {
+    public InsetSeeder(InsetRepository insetRepository, SeederConfig seederConfig) {
         this.insetRepository = insetRepository;
+        this.seederConfig = seederConfig;
     }
 
     private void message(Inset inset){
-        boolean debug = true;
-        if(debug)
-            log.info("Inset seeder insert: " + this.id++ + " - " + inset.getName() + " | " +
-                    "UUID: " + inset.getId()
-            );
+        if(this.seederConfig.isInDebugMode())
+            UtilSeeder.sendMessage("Inset seeder", this.id, inset.getExcelCode(), inset.getId());
+        this.id++;
     }
 
     public Set<Inset> run(UtilSeeder util) {
-
-        boolean seed = true;
-        if(seed) {
+        if(this.seederConfig.isInInsetDataMode()) {
             log.info("Inset seeding starting...");
             //region CH050
             if (insetRepository.findByExcelCode("ID0050TR").isEmpty()) {
@@ -544,7 +543,7 @@ public class InsetSeeder {
                 this.message(inset);
             }
 
-            log.info("Inset seeding done, seeded: " +  this.id + " insets.");
+            log.info("Inset seeding done, seeded: " +  (this.id - 1) + " insets.");
         }else {
             log.info("Inset seeding not required");
         }

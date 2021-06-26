@@ -1,11 +1,13 @@
 package flowcontrol.article.model.entity.seeder;
 
 import com.google.common.collect.Sets;
+import flowcontrol.article.config.seeder.SeederConfig;
 import flowcontrol.article.exception.ResourceNotFoundException;
 import flowcontrol.article.model.entity.Article;
 import flowcontrol.article.model.entity.Cask;
 import flowcontrol.article.model.entity.Color;
 import flowcontrol.article.repository.CaskRepository;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
@@ -17,13 +19,14 @@ import java.util.UUID;
 @Configuration
 @Slf4j
 public class CaskSeeder {
-
-    @Autowired
     private final CaskRepository caskRepo;
+    private final SeederConfig seederConfig;
+
     private int id = 1;
 
-    public CaskSeeder(CaskRepository caskRepo) {
+    public CaskSeeder(CaskRepository caskRepo, SeederConfig seederConfig) {
         this.caskRepo = caskRepo;
+        this.seederConfig = seederConfig;
     }
 
     private Color findColorInSet(Set<Color> colors, String color){
@@ -34,16 +37,13 @@ public class CaskSeeder {
     }
 
     private void message(Cask cask){
-        boolean debug = true;
-        if(debug)
-            log.info("Cask seeder insert: " + this.id++ + " - " + cask.getExcelCode() + " | " +
-                    "UUID: " + cask.getId()
-            );
+        if(this.seederConfig.isInDebugMode())
+            UtilSeeder.sendMessage("Cask seeder", this.id, cask.getExcelCode(), cask.getId());
+        this.id++;
     }
 
     public Set<Cask> run(UtilSeeder util) {
-        boolean seed = true;
-        if(seed) {
+        if(this.seederConfig.isInInsetDataMode()) {
 
             Color brown = util.findColorInSet("Brown");
             Color transparent = util.findColorInSet("Transparent");
@@ -255,7 +255,7 @@ public class CaskSeeder {
                 this.message(cask);
             }
 
-            log.info("Cask seeding done, seeded: " +  this.id + " casks.");
+            log.info("Cask seeding done, seeded: " +  (this.id - 1) + " casks.");
         }else {
             log.info("Cask seeding not required");
         }

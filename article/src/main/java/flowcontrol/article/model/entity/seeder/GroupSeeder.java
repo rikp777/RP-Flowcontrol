@@ -1,9 +1,11 @@
 package flowcontrol.article.model.entity.seeder;
 
 import com.google.common.collect.Sets;
+import flowcontrol.article.config.seeder.SeederConfig;
 import flowcontrol.article.model.entity.Color;
 import flowcontrol.article.model.entity.Group;
 import flowcontrol.article.repository.GroupRepository;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
@@ -14,27 +16,24 @@ import java.util.UUID;
 @Configuration
 @Slf4j
 public class GroupSeeder {
+    private final GroupRepository groupRepo;
+    private final SeederConfig seederConfig;
+
     private int id = 1;
 
-    @Autowired
-    private final GroupRepository groupRepo;
-
-    public GroupSeeder(GroupRepository groupRepo) {
+    public GroupSeeder(GroupRepository groupRepo, SeederConfig seederConfig) {
         this.groupRepo = groupRepo;
+        this.seederConfig = seederConfig;
     }
 
     private void message(Group group){
-        boolean debug = true;
-        if(debug)
-            log.info("Group seeder insert: " + this.id++ + " - " + group.getName() + " | " +
-                    "UUID: " + group.getId()
-            );
+        if(this.seederConfig.isInDebugMode())
+            UtilSeeder.sendMessage("Group seeder", this.id, group.getName(), group.getId());
+        this.id++;
     }
 
     public Set<Group> run() {
-
-        boolean seed = true;
-        if(seed) {
+        if(this.seederConfig.isInInsetDataMode()) {
             log.info("Group seeding starting...");
 
             if (groupRepo.findByName("Afk(2-2-60)").isEmpty()) {
@@ -180,7 +179,7 @@ public class GroupSeeder {
                 this.message(group);
             }
 
-            log.info("Group seeding done, seeded: " +  this.id + " groups.");
+            log.info("Group seeding done, seeded: " +  (this.id - 1) + " groups.");
         }else {
             log.info("Group seeding not required");
         }

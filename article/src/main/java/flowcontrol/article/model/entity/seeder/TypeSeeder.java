@@ -1,9 +1,11 @@
 package flowcontrol.article.model.entity.seeder;
 
 import com.google.common.collect.Sets;
+import flowcontrol.article.config.seeder.SeederConfig;
 import flowcontrol.article.model.entity.SortType;
 import flowcontrol.article.model.entity.Type;
 import flowcontrol.article.repository.TypeRepository;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
@@ -14,26 +16,25 @@ import java.util.UUID;
 @Configuration
 @Slf4j
 public class TypeSeeder {
-    private int id = 1;
-
-    @Autowired
     private final TypeRepository typeRepo;
+    private final SeederConfig seederConfig;
 
-    public TypeSeeder(TypeRepository typeRepo) {
+    private int id = 1;
+    private boolean override = false;
+
+    public TypeSeeder(TypeRepository typeRepo, SeederConfig seederConfig) {
         this.typeRepo = typeRepo;
+        this.seederConfig = seederConfig;
     }
 
     private void message(Type type){
-        boolean debug = true;
-        if(debug)
-            log.info("Type seeder insert: " + this.id++ + " - " + type.getName() + " | " +
-                    "UUID: " + type.getId()
-            );
+        if(this.seederConfig.isInDebugMode())
+            UtilSeeder.sendMessage("Type seeder", this.id, type.getName(), type.getId());
+        this.id++;
     }
 
     public Set<Type> run() {
-        boolean seed = true;
-        if(seed) {
+        if(this.seederConfig.isInInsetDataMode() || override) {
             log.info("Type seeding starting...");
 
             if (typeRepo.findByName("Bunches").isEmpty()) {
@@ -84,7 +85,7 @@ public class TypeSeeder {
                 this.message(type);
             }
 
-            log.info("Sort type seeding done, seeded: " +  this.id + " sort types.");
+            log.info("Sort type seeding done, seeded: " +  (this.id - 1) + " sort types.");
         }else {
             log.info("Sort type seeding not required");
         }

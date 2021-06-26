@@ -1,9 +1,11 @@
 package flowcontrol.article.model.entity.seeder;
 
 import com.google.common.collect.Sets;
+import flowcontrol.article.config.seeder.SeederConfig;
 import flowcontrol.article.model.entity.Cask;
 import flowcontrol.article.model.entity.Color;
 import flowcontrol.article.repository.ColorRepository;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
@@ -15,26 +17,24 @@ import java.util.UUID;
 @Configuration
 @Slf4j
 public class ColorSeeder {
+    private final ColorRepository colorRepo;
+    private final SeederConfig seederConfig;
+
     private int id = 1;
 
-    @Autowired
-    private final ColorRepository colorRepo;
-
-    public ColorSeeder(ColorRepository colorRepo) {
+    public ColorSeeder(ColorRepository colorRepo, SeederConfig seederConfig) {
         this.colorRepo = colorRepo;
+        this.seederConfig = seederConfig;
     }
 
     private void message(Color color){
-        boolean debug = true;
-        if(debug)
-            log.info("Color seeder insert: " + this.id++ + " - " + color.getName()+ " | " +
-                    "UUID: " + color.getId()
-            );
+        if(this.seederConfig.isInDebugMode())
+            UtilSeeder.sendMessage("Color seeder", this.id, color.getName(), color.getId());
+        this.id++;
     }
 
     public Set<Color> run() {
-        boolean seed = true;
-        if(seed) {
+        if(this.seederConfig.isInInsetDataMode()) {
             log.info("Color seeding starting...");
 
             if (colorRepo.findByName("Brown").isEmpty()) {
@@ -125,7 +125,7 @@ public class ColorSeeder {
                 this.message(color);
             }
 
-            log.info("Color seeding done, seeded: " +  this.id + " colors.");
+            log.info("Color seeding done, seeded: " +  (this.id - 1) + " colors.");
         }else {
             log.info("Color seeding not required");
         }

@@ -1,4 +1,4 @@
-package flowcontrol.article.security;
+package flowcontrol.article.config.security;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;

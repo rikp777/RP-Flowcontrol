@@ -1,6 +1,6 @@
 package flowcontrol.article.security;
 
-import io.jsonwebtoken.Claims;
+import flowcontrol.article.config.security.JwtConfig;
 import io.jsonwebtoken.Jwts;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

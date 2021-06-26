@@ -1,9 +1,11 @@
 package flowcontrol.article.model.entity.seeder;
 
 import com.google.common.collect.Sets;
+import flowcontrol.article.config.seeder.SeederConfig;
 import flowcontrol.article.model.entity.PalletType;
 import flowcontrol.article.model.entity.SortType;
 import flowcontrol.article.repository.SortTypeRepository;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
@@ -14,26 +16,24 @@ import java.util.UUID;
 @Configuration
 @Slf4j
 public class SortTypeSeeder {
+    private final SortTypeRepository sortTypeRepo;
+    private final SeederConfig seederConfig;
+
     private int id = 1;
 
-    @Autowired
-    private final SortTypeRepository sortTypeRepo;
-
-    public SortTypeSeeder(SortTypeRepository sortTypeRepo) {
+    public SortTypeSeeder(SortTypeRepository sortTypeRepo, SeederConfig seederConfig) {
         this.sortTypeRepo = sortTypeRepo;
+        this.seederConfig = seederConfig;
     }
 
     private void message(SortType sortType){
-        boolean debug = true;
-        if(debug)
-            log.info("Sort type seeder insert: " + this.id++ + " - " + sortType.getName() + " | " +
-                    "UUID: " + sortType.getId()
-            );
+        if(this.seederConfig.isInDebugMode())
+            UtilSeeder.sendMessage("Sort seeder", this.id, sortType.getName(), sortType.getId());
+        this.id++;
     }
 
     public Set<SortType> run() {
-        boolean seed = true;
-        if(seed) {
+        if(this.seederConfig.isInInsetDataMode()) {
 
             log.info("Sort type seeding starting...");
 
@@ -163,7 +163,7 @@ public class SortTypeSeeder {
                 this.message(sortType);
             }
 
-            log.info("Sort type seeding done, seeded: " +  this.id + " sort types.");
+            log.info("Sort type seeding done, seeded: " +  (this.id - 1) + " sort types.");
         }else {
             log.info("Sort type seeding not required");
         }

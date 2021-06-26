@@ -1,9 +1,6 @@
 #============SERVER============
-# HTTP server port
-
-
-
 server:
+  # HTTP server port
   port: 7078
 
   # Context path of the application
@@ -13,19 +10,19 @@ server:
     # Default HTTP session time out
     session:
       timeout: 15m
+
+  # Which baseurl:port to show in response
   forward-headers-strategy: FRAMEWORK
 
 spring:
   application:
     name: ARTICLE-SERVICE
 
-#  data:
-#    rest:
-#      basePath: /api
-
+  #============Jackson============
   jackson:
     serialization:
       fail_on_empty_beans: false
+
   #============JDBC============
   datasource:
     url: jdbc:mariadb://localhost:3306/article
@@ -38,7 +35,7 @@ spring:
     hibernate:
       # ddl-auto: create-drop
       dialect: org.hibernate.dialect.MySQLDialect
-      ddl-auto: create-drop
+      ddl-auto: update
     show-sql: false
     properties:
       hibernate:
@@ -46,14 +43,15 @@ spring:
         jdbc:
           lob:
             non_contextual_creation: true
-hibernate:
-  auto_quote_keyword=true:
-
-swagger:
-  host:
-    url: http://localhost:7078
 
 
+#============Springdoc============
+springdoc:
+  swagger-ui:
+    path: /swagger-ui-custom.html
+
+
+#============Eureka============
 eureka:
   client:
     register-with-eureka: true
@@ -62,6 +60,9 @@ eureka:
       defaultZone: http://${eureka.address:localhost:8761}/eureka
   instance:
     prefer-ip-address: true
+
+
+#============Security============
 security:
   basic:
     enable: false
@@ -72,3 +73,8 @@ security:
     prefix: Bearer
     expiration: 86400
     secret: t!1fl0wC0NtrOlS3crEt$uP3rseCreTV3ryLong
+
+
+seeder:
+  debug: true
+  insert-data: false

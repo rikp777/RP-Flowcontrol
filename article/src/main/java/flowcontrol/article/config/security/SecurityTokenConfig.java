@@ -1,5 +1,6 @@
-package flowcontrol.article.security;
+package flowcontrol.article.config.security;
 
+import flowcontrol.article.security.JwtTokenAuthenticationFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -33,6 +34,11 @@ public class SecurityTokenConfig extends WebSecurityConfigurerAdapter {
                 // Add a filter to validate the tokens with every request
                 .addFilterAfter(new JwtTokenAuthenticationFilter(jwtConfig), UsernamePasswordAuthenticationFilter.class)
                 .authorizeRequests()
+                .antMatchers("/**/swagger-ui-custom.html").permitAll()
+                .antMatchers("/**/swagger-ui/**").permitAll()
+                .antMatchers("/**/v3/api-docs/swagger-config/**").permitAll()
+                .antMatchers("/**/v3/api-docs/**").permitAll()
                 .anyRequest().authenticated();
+
     }
 }

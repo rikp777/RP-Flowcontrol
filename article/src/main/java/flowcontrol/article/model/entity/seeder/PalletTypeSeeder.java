@@ -1,9 +1,11 @@
 package flowcontrol.article.model.entity.seeder;
 
 import com.google.common.collect.Sets;
+import flowcontrol.article.config.seeder.SeederConfig;
 import flowcontrol.article.model.entity.Inset;
 import flowcontrol.article.model.entity.PalletType;
 import flowcontrol.article.repository.PalletTypeRepository;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
@@ -14,26 +16,24 @@ import java.util.UUID;
 @Configuration
 @Slf4j
 public class PalletTypeSeeder {
+    private final PalletTypeRepository palletTypeRepo;
+    private final SeederConfig seederConfig;
+
     private int id = 1;
 
-    @Autowired
-    private final PalletTypeRepository palletTypeRepo;
-
-    public PalletTypeSeeder(PalletTypeRepository palletTypeRepo) {
+    public PalletTypeSeeder(PalletTypeRepository palletTypeRepo, SeederConfig seederConfig) {
         this.palletTypeRepo = palletTypeRepo;
+        this.seederConfig = seederConfig;
     }
 
     private void message(PalletType palletType){
-        boolean debug = true;
-        if(debug)
-            log.info("Pallet type seeder insert: " + this.id++ + " - " + palletType.getName() + " | " +
-                    "UUID: " + palletType.getId()
-            );
+        if(this.seederConfig.isInDebugMode())
+            UtilSeeder.sendMessage("Pallet seeder", this.id, palletType.getName(), palletType.getId());
+        this.id++;
     }
 
     public Set<PalletType> run() {
-        boolean seed = true;
-        if(seed) {
+        if(this.seederConfig.isInInsetDataMode()) {
             log.info("Pallet type seeding starting...");
             if (palletTypeRepo.findByName("WW").isEmpty()) {
                 var palletType = new PalletType(UUID.fromString("43f8d9ba-d66b-11eb-b8bc-0242ac130003"));
@@ -73,7 +73,7 @@ public class PalletTypeSeeder {
                 palletTypeRepo.save(palletType);
             }
 
-            log.info("Pallet type seeding done, seeded: " +  this.id + " pallet types.");
+            log.info("Pallet type seeding done, seeded: " +  (this.id - 1) + " pallet types.");
         }else {
             log.info("Pallet type seeding not required");
         }
