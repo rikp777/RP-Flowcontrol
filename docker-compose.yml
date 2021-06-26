@@ -254,12 +254,12 @@ services:
       SPRING_DATASOURCE_PASSWORD: root
       SPRING_JPA_HIBERNATE_DDL_AUTO: create-drop
 
-  client:
-    container_name: client
-    build: ./client
-    mem_limit: 500m
-    mem_reservation: 100m
-    cpus: 0.8
-
-    ports:
-      - 8080:80
+#  client:
+#    container_name: client
+#    build: ./client
+#    mem_limit: 500m
+#    mem_reservation: 100m
+#    cpus: 0.8
+#
+#    ports:
+#      - 8080:80

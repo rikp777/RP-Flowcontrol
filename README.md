@@ -11,8 +11,12 @@ Please read the readme in the folder.
 [![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=flowcontrol.article&metric=vulnerabilities)](https://sonarcloud.io/dashboard?id=flowcontrol.article)
 
     Registration of items that a producer/farmer can supply to the distribution center.
+
+
 ### Farmer
     Keep records of affiliated farmers at the distribution center and which farmer is delivering product.
+
+
 ### Financial
     
 ### production
@@ -21,11 +25,26 @@ Please read the readme in the folder.
 ### transport
     Registration of transport from production to the production center based on pallet label and waybill with enumeration of pallet labels.
 
-Time spend developing this repo by dev [Rikp777](https://github.com/rikp777):
+# Development 
+This repo has been developed by [Rik Peeters](https://www.linkedin.com/in/rikpeeters-nl/)
 
+Time spend developing this repo by dev: [Rikp777](https://github.com/rikp777)
 [![wakatime](https://wakatime.com/badge/github/rikp777/RP-Flowcontrol.svg)](https://wakatime.com/badge/github/rikp777/RP-Flowcontrol)
 
+Inters:
+- null
 
+#API Documentation 
+How to set up your postman to accept OpenApi can be fount here [postman setup](https://learning.postman.com/docs/integrations/available-integrations/working-with-openAPI/)
 
-### Docker 
-````DOCKER_BUILDKIT=1 docker-compose up --build````
+To visit and inspect the following links you need to run the docker-compose
+- [Article | REST API Endpoints](http://127.0.0.1:8762/article/api/docs.html) 
+- [Farmer | REST API Endpoints](http://127.0.0.1:8762/farmer/api/docs.html)
+
+# Install/Setup 
+To run all the service run the following command
+- Linux: `DOCKER_BUILDKIT=1 docker-compose up --build`
+- Windows: `docker-compose up --build`
+
+## Docker 
+To run the above command you need to install [docker](https://docs.docker.com/)

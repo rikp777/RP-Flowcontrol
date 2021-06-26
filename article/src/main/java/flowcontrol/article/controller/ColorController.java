@@ -13,6 +13,7 @@ import flowcontrol.article.model.response.ArticleResponse;
 import flowcontrol.article.model.response.ColorResponse;
 import flowcontrol.article.model.response.InsetResponse;
 import flowcontrol.article.service.ColorService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.http.ResponseEntity;
@@ -25,6 +26,7 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/v1/colors")
+@SecurityRequirement(name = "bearerAuth")
 public class ColorController extends BaseController<ColorResponse, Color, CreateColorRequest, UpdateColorRequest, ColorMapper>{
 
     //Assemblers

@@ -7,12 +7,14 @@ import flowcontrol.article.model.request.inset.CreateInsetRequest;
 import flowcontrol.article.model.request.inset.UpdateInsetRequest;
 import flowcontrol.article.model.response.InsetResponse;
 import flowcontrol.article.service.InsetService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/v1/insets")
+@SecurityRequirement(name = "bearerAuth")
 public class InsetController extends BaseController<InsetResponse, Inset, CreateInsetRequest, UpdateInsetRequest, InsetMapper>{
 
     //Assembler

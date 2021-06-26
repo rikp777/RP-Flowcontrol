@@ -7,12 +7,14 @@ import flowcontrol.article.model.request.sortType.CreateSortTypeRequest;
 import flowcontrol.article.model.request.sortType.UpdateSortTypeRequest;
 import flowcontrol.article.model.response.SortTypeResponse;
 import flowcontrol.article.service.SortTypeService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/v1/sorttypes")
+@SecurityRequirement(name = "bearerAuth")
 public class SortTypeController extends BaseController<SortTypeResponse, SortType, CreateSortTypeRequest, UpdateSortTypeRequest, SortTypeMapper>{
 
     //Assemblers

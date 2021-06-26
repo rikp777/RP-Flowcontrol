@@ -10,6 +10,7 @@ import flowcontrol.article.model.request.cask.CreateCaskRequest;
 import flowcontrol.article.model.request.cask.UpdateCaskRequest;
 import flowcontrol.article.model.response.CaskResponse;
 import flowcontrol.article.service.CaskService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.EqualsAndHashCode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -22,6 +23,7 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/v1/casks")
 @EqualsAndHashCode(callSuper = true)
+@SecurityRequirement(name = "bearerAuth")
 public class CaskController extends BaseController<CaskResponse, Cask, CreateCaskRequest, UpdateCaskRequest, CaskMapper>{
 
     //Assemblers

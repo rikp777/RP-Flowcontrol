@@ -7,12 +7,14 @@ import flowcontrol.article.model.request.type.CreateTypeRequest;
 import flowcontrol.article.model.request.type.UpdateTypeRequest;
 import flowcontrol.article.model.response.TypeResponse;
 import flowcontrol.article.service.TypeService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/v1/types")
+@SecurityRequirement(name = "bearerAuth")
 public class TypeController extends BaseController<TypeResponse, Type, CreateTypeRequest, UpdateTypeRequest, TypeMapper>{
 
     //Assemblers

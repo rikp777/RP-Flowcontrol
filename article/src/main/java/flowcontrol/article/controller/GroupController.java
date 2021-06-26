@@ -11,6 +11,7 @@ import flowcontrol.article.model.request.group.UpdateGroupRequest;
 import flowcontrol.article.model.response.ArticleResponse;
 import flowcontrol.article.model.response.GroupResponse;
 import flowcontrol.article.service.GroupService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +21,7 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/v1/groups")
+@SecurityRequirement(name = "bearerAuth")
 public class GroupController extends BaseController<GroupResponse, Group, CreateGroupRequest, UpdateGroupRequest, GroupMapper>{
 
     //Assemblers

@@ -8,6 +8,8 @@ import flowcontrol.article.model.request.article.CreateArticleRequest;
 import flowcontrol.article.model.request.article.UpdateArticleRequest;
 import flowcontrol.article.model.response.ArticleResponse;
 import flowcontrol.article.service.ArticleService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -19,9 +21,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.UUID;
 
+
 @RestController
 @RequestMapping("/v1/articles")
 @Validated
+@SecurityRequirement(name = "bearerAuth")
 public class ArticleController extends BaseController<ArticleResponse, Article, CreateArticleRequest, UpdateArticleRequest, ArticleMapper>{
 
     //Assemblers
