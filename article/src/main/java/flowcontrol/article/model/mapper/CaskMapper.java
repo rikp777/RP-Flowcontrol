@@ -38,8 +38,8 @@ public class CaskMapper extends BaseMapper<Cask, CreateCaskRequest, UpdateCaskRe
         }
         if(createCaskRequest.getColorId() != null){
             Color color = new Color();
-            color.setId(toLong(createCaskRequest.getColorId()));
-            if(color.getId() == 0){
+            color.setId(createCaskRequest.getColorId());
+            if(color.getId() != null){
                 color = null;
             }else{
                 color = colorRepository.findById(color.getId()).get();
@@ -71,8 +71,8 @@ public class CaskMapper extends BaseMapper<Cask, CreateCaskRequest, UpdateCaskRe
         }
         if(updateCask.getColorId() != null){
             Color color = new Color();
-            color.setId(toLong(updateCask.getColorId()));
-            if(color.getId() == 0){
+            color.setId(updateCask.getColorId());
+            if(color.getId() == null){
                 color = null;
             }else{
                 color = colorRepository.findById(color.getId()).get();

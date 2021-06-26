@@ -21,6 +21,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.UUID;
+
 @RestController
 @RequestMapping("/v1/colors")
 public class ColorController extends BaseController<ColorResponse, Color, CreateColorRequest, UpdateColorRequest, ColorMapper>{
@@ -57,7 +59,7 @@ public class ColorController extends BaseController<ColorResponse, Color, Create
 
     //region Relations
     @GetMapping("/{colorId}/articles")//READ ALL
-    public ResponseEntity<CollectionModel<ArticleResponse>> getAllBelongingArticles(@PathVariable Long colorId){
+    public ResponseEntity<CollectionModel<ArticleResponse>> getAllBelongingArticles(@PathVariable UUID colorId){
         return colorService.getById(colorId)
                 .map(color -> ResponseEntity.ok(articleAssembler.toCollectionModel(color.getArticles())))
                 .orElseThrow(() ->
@@ -66,7 +68,7 @@ public class ColorController extends BaseController<ColorResponse, Color, Create
     }
 
     @GetMapping("/{colorId}/insets")
-    public ResponseEntity<CollectionModel<InsetResponse>> getAllBelongingInsets(@PathVariable Long colorId){
+    public ResponseEntity<CollectionModel<InsetResponse>> getAllBelongingInsets(@PathVariable UUID colorId){
         return colorService.getById(colorId)
                 .map(color -> ResponseEntity.ok(insetAssembler.toCollectionModel(color.getInsets())))
                 .orElseThrow(() ->
@@ -75,7 +77,7 @@ public class ColorController extends BaseController<ColorResponse, Color, Create
     }
 
     @GetMapping("/{colorId}/casks")
-    public ResponseEntity getAllBelongingCasks(@PathVariable Long colorId){
+    public ResponseEntity getAllBelongingCasks(@PathVariable UUID colorId){
         return colorService.getById(colorId)
                 .map(color -> ResponseEntity.ok(caskAssembler.toCollectionModel(color.getCasks())))
                 .orElseThrow(() ->

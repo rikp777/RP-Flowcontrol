@@ -6,8 +6,9 @@ import flowcontrol.article.repository.generic.AbstractBaseRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
+import java.util.UUID;
 
 @Repository
-public interface PalletTypeRepository extends AbstractBaseRepository<PalletType, Long> {
+public interface PalletTypeRepository extends AbstractBaseRepository<PalletType, UUID> {
     Optional<PalletType> findByName(String name);
 }

@@ -7,16 +7,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
+import java.util.UUID;
 
-public class InsetExistsValidator implements ConstraintValidator<InsetExists, String> {
+public class InsetExistsValidator implements ConstraintValidator<InsetExists, UUID> {
 
     @Autowired
     private InsetService insetService;
 
     @SneakyThrows
     @Override
-    public boolean isValid(String value, ConstraintValidatorContext context){
-        if(value == null || value.equals("") || value.isBlank() || value.isEmpty()){
+    public boolean isValid(UUID value, ConstraintValidatorContext context){
+        if(value == null || value.equals("")){
             return true;
         }
 

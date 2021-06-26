@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.UUID;
+
 @RestController
 @RequestMapping("/v1/articles")
 @Validated
@@ -48,7 +50,7 @@ public class ArticleController extends BaseController<ArticleResponse, Article, 
             }
     ) //READ BY ID
     @PreAuthorize("hasRole('ADMIN') || hasRole('PLANNING') || hasRole('ICT') || hasRole('USER') ")
-    public ResponseEntity<String> getNameById(@PathVariable Long id){
+    public ResponseEntity<String> getNameById(@PathVariable UUID id){
         return articleService.getById(id)
                 .map(entity -> ResponseEntity.ok(entity.getFullName()))
                 .orElseThrow(() ->

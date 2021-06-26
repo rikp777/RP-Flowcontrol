@@ -13,6 +13,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.UUID;
 
 @Entity(name = "Color")
 @Table(name = "color")
@@ -22,8 +23,11 @@ import java.util.Set;
 @NoArgsConstructor
 public class Color extends AbstractBaseEntity {
 
-    private String name;
+    public Color(UUID id){
+        super(id);
+    }
 
+    private String name;
 
     // Relations
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "color")

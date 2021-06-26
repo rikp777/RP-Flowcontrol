@@ -11,6 +11,7 @@ import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
+import java.util.UUID;
 
 @Data
 @GroupSequence({UpdateArticleRequest.class, SequenceFirstOrder.class, SequenceSecondOrder.class})
@@ -57,40 +58,40 @@ public class UpdateArticleRequest {
     @NullOrNotBlank(message = "is mandatory", groups = SequenceFirstOrder.class)
     @TypeExists(groups = SequenceSecondOrder.class)
     @JsonProperty("type_id")
-    private String typeId;
+    private UUID typeId;
 
 
     @NullOrNotBlank(message = "is mandatory", groups = SequenceFirstOrder.class)
     @PalletTypeExists(groups = SequenceSecondOrder.class)
     @JsonProperty("pallet_type_id")
-    private String palletTypeId;
+    private UUID palletTypeId;
 
     @NullOrNotBlank(message = "is mandatory", groups = SequenceFirstOrder.class)
     @CaskExists(groups = SequenceSecondOrder.class)
     @JsonProperty("cask_id")
-    private String caskId;
+    private UUID caskId;
 
     @NullOrNotBlank(message = "is mandatory", groups = SequenceFirstOrder.class)
     @InsetExists(groups = SequenceSecondOrder.class)
     @JsonProperty("inset_id")
-    private String insetId;
+    private UUID insetId;
 
 
     @NullOrNotBlank(message = "is mandatory", groups = SequenceFirstOrder.class)
     @GroupExists(groups = SequenceSecondOrder.class)
     @JsonProperty("group_id")
-    private String groupId;
+    private UUID groupId;
 
 
     @NullOrNotBlank(message = "is mandatory", groups = SequenceFirstOrder.class)
     @SortTypeExists(groups = SequenceSecondOrder.class)
     @JsonProperty("sort_type_id")
-    private String sortTypeId;
+    private UUID sortTypeId;
 
 
     @Pattern(regexp = "[0-9]|NULL+", message = "The '${validatedValue}' has not the correct syntax", groups = SequenceFirstOrder.class)
     @NullOrNotBlank(message = "is mandatory", groups = SequenceFirstOrder.class)
     @ColorExists(groups = SequenceSecondOrder.class)
     @JsonProperty("color_id")
-    private String colorId;
+    private UUID colorId;
 }

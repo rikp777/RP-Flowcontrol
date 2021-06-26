@@ -10,6 +10,7 @@ import lombok.experimental.Accessors;
 
 import javax.validation.GroupSequence;
 import javax.validation.constraints.*;
+import java.util.UUID;
 
 
 @Data
@@ -54,5 +55,5 @@ public class CreateCaskRequest {
     @NullOrNotBlank(message = "is mandatory", groups = SequenceFirstOrder.class)
     @ColorExists(groups = SequenceSecondOrder.class)
     @JsonProperty("color_id")
-    private String colorId;
+    private UUID colorId;
 }

@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 @Slf4j
@@ -38,7 +39,7 @@ public class ArticleService extends BaseService<Article> {
     }
 
     @Async
-    public Optional<Article> getById(String id){
-        return articleRepository.findById(Long.parseLong(id));
+    public Optional<Article> getById(UUID id){
+        return articleRepository.findById(id);
     }
 }

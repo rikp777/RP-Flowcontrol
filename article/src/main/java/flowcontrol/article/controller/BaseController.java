@@ -24,6 +24,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.Max;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
+import java.util.UUID;
 
 public abstract class BaseController<R extends RepresentationModel<?>, T extends AbstractBaseEntity, C, U, M extends BaseMapper<T, C, U>> {
 
@@ -45,7 +46,7 @@ public abstract class BaseController<R extends RepresentationModel<?>, T extends
     //region CRUD
     @GetMapping("/{id}") //READ BY ID
     @PreAuthorize("hasRole('ADMIN') || hasRole('PLANNING') || hasRole('ICT') || hasRole('USER') ")
-    public ResponseEntity<R> getById(@PathVariable Long id){
+    public ResponseEntity<R> getById(@PathVariable UUID id){
         return service.getById(id)
                 .map(entity -> ResponseEntity.ok(assembler.toModel(entity)))
                 .orElseThrow(() ->
@@ -110,7 +111,7 @@ public abstract class BaseController<R extends RepresentationModel<?>, T extends
             }
     ) //UPDATE
     @PreAuthorize("hasRole('ADMIN') || hasRole('PLANNING') || hasRole('ICT')")
-    public ResponseEntity<R> update(@PathVariable Long id, @Valid @ModelAttribute("article") U updateEntity){
+    public ResponseEntity<R> update(@PathVariable UUID id, @Valid @ModelAttribute("article") U updateEntity){
         return service.getById(id)
                 .map(entity -> {
                     var mappedEntity = mapper.mapUpdatesToOriginal(updateEntity, entity);
@@ -135,7 +136,7 @@ public abstract class BaseController<R extends RepresentationModel<?>, T extends
             }
     )//DELETE
     @PreAuthorize("hasRole('ADMIN') || hasRole('PLANNING') || hasRole('ICT')")
-    public ResponseEntity<String> delete(@PathVariable Long id){
+    public ResponseEntity<String> delete(@PathVariable UUID id){
         return service.getById(id)
                 .map(entity -> {
                     service.delete(entity);

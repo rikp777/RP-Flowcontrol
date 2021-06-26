@@ -6,6 +6,8 @@ import flowcontrol.article.model.response.ArticleResponse;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.stereotype.Component;
 
+import java.util.UUID;
+
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
@@ -33,14 +35,14 @@ public class ArticleAssembler extends BaseAssembler<Article, ArticleResponse> {
 
         //region relationships
         if(article.getPalletType() != null){
-            Long id = article.getPalletType().getId();
+            UUID id = article.getPalletType().getId();
             response
                     .add(linkTo(methodOn(PalletTypeController.class)
                             .getById(id))
                             .withRel("pallet_type"));
         }
         if(article.getCask() != null){
-            Long id = article.getCask().getId();
+            UUID id = article.getCask().getId();
             response
                     .add(linkTo(methodOn(CaskController.class)
                             .getById(id))
@@ -48,7 +50,7 @@ public class ArticleAssembler extends BaseAssembler<Article, ArticleResponse> {
         }
 
         if(article.getGroup() != null){
-            Long id = article.getGroup().getId();
+            UUID id = article.getGroup().getId();
             response
                     .add(linkTo(methodOn(GroupController.class)
                             .getById(id))
@@ -56,7 +58,7 @@ public class ArticleAssembler extends BaseAssembler<Article, ArticleResponse> {
         }
 
         if(article.getColor() != null){
-            Long id = article.getColor().getId();
+            UUID id = article.getColor().getId();
             response
                     .add(linkTo(methodOn(ColorController.class)
                             .getById(id))
@@ -64,14 +66,14 @@ public class ArticleAssembler extends BaseAssembler<Article, ArticleResponse> {
         }
 
         if(article.getInset() != null){
-            Long id = article.getInset().getId();
+            UUID id = article.getInset().getId();
             response
                     .add(linkTo(methodOn(InsetController.class)
                             .getById(id))
                             .withRel("inset"));
         }
         if(article.getType() != null){
-            Long id = article.getType().getId();
+            UUID id = article.getType().getId();
             response
                     .add(linkTo(methodOn(TypeController.class)
                             .getById(id))
@@ -79,7 +81,7 @@ public class ArticleAssembler extends BaseAssembler<Article, ArticleResponse> {
         }
 
         if(article.getSortType() != null){
-            Long id = article.getSortType().getId();
+            UUID id = article.getSortType().getId();
             response
                     .add(linkTo(methodOn(SortTypeController.class)
                             .getById(id))

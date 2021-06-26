@@ -10,6 +10,7 @@ import lombok.ToString;
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.UUID;
 
 @Entity(name = "Cask")
 @Table(name = "casks")
@@ -18,6 +19,10 @@ import java.util.Set;
 @ToString
 @NoArgsConstructor
 public class Cask extends AbstractBaseEntity {
+
+    public Cask(UUID id){
+        super(id);
+    }
 
     private String excelCode;
     private String name;

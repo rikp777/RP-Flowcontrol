@@ -13,6 +13,7 @@ import org.hibernate.annotations.Where;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
+import java.util.UUID;
 
 @Entity(name = "Article")
 @DynamicUpdate(true)
@@ -29,6 +30,10 @@ import javax.persistence.*;
 @NoArgsConstructor
 @EntityListeners(AuditingEntityListener.class)
 public class Article extends AbstractBaseEntity {
+
+    public Article(UUID id){
+        super(id);
+    }
 
     @Column(unique = true)
     private String excelCode;

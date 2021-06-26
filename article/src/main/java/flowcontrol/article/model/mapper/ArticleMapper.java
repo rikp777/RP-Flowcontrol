@@ -49,8 +49,8 @@ public class ArticleMapper extends BaseMapper<Article, CreateArticleRequest, Upd
         // Relationships
         if(updateArticle.getTypeId() != null){
             Type type = new Type();
-            type.setId(toLong(updateArticle.getTypeId()));
-            if(type.getId() == 0){
+            type.setId(updateArticle.getTypeId());
+            if(type.getId() == null){
                 type = null;
             }else{
                 type = typeRepository.findById(type.getId()).get();
@@ -59,8 +59,8 @@ public class ArticleMapper extends BaseMapper<Article, CreateArticleRequest, Upd
         }
         if(updateArticle.getInsetId() != null){
             Inset inset = new Inset();
-            inset.setId(toLong(updateArticle.getInsetId()));
-            if(inset.getId() == 0) {
+            inset.setId(updateArticle.getInsetId());
+            if(inset.getId() == null) {
                 inset = null;
             }else{
                 inset = insetRepository.findById(inset.getId()).get();
@@ -69,8 +69,8 @@ public class ArticleMapper extends BaseMapper<Article, CreateArticleRequest, Upd
         }
         if(updateArticle.getSortTypeId() != null){
             SortType sortType = new SortType();
-            sortType.setId(toLong(updateArticle.getSortTypeId()));
-            if(sortType.getId() == 0){
+            sortType.setId(updateArticle.getSortTypeId());
+            if(sortType.getId() == null){
                 sortType = null;
             }else{
                 sortType = sortTypeRepository.findById(sortType.getId()).get();
@@ -79,8 +79,8 @@ public class ArticleMapper extends BaseMapper<Article, CreateArticleRequest, Upd
         }
         if(updateArticle.getGroupId() != null){
             Group group = new Group();
-            group.setId(toLong(updateArticle.getGroupId()));
-            if(group.getId() == 0){
+            group.setId(updateArticle.getGroupId());
+            if(group.getId() == null){
                 group = null;
             }else{
                 group = groupRepository.findById(group.getId()).get();
@@ -89,8 +89,8 @@ public class ArticleMapper extends BaseMapper<Article, CreateArticleRequest, Upd
         }
         if(updateArticle.getPalletTypeId() != null){
             PalletType palletType = new PalletType();
-            palletType.setId(toLong(updateArticle.getPalletTypeId()));
-            if(palletType.getId() == 0){
+            palletType.setId(updateArticle.getPalletTypeId());
+            if(palletType.getId() == null){
                 palletType = null;
             }else{
                 palletType = palletTypeRepository.findById(palletType.getId()).get();
@@ -99,8 +99,8 @@ public class ArticleMapper extends BaseMapper<Article, CreateArticleRequest, Upd
         }
         if(updateArticle.getColorId() != null){
             Color color = new Color();
-            color.setId(toLong(updateArticle.getColorId()));
-            if(color.getId() == 0){
+            color.setId(updateArticle.getColorId());
+            if(color.getId() == null){
                 color = null;
             }else{
                 color = colorRepository.findById(color.getId()).get();
@@ -109,8 +109,8 @@ public class ArticleMapper extends BaseMapper<Article, CreateArticleRequest, Upd
         }
         if(updateArticle.getCaskId() != null){
             Cask cask = new Cask();
-            cask.setId(toLong(updateArticle.getCaskId()));
-            if(cask.getId() == 0){
+            cask.setId(updateArticle.getCaskId());
+            if(cask.getId() == null){
                 cask = null;
             }else{
                 cask = caskRepository.findById(cask.getId()).get();
@@ -146,8 +146,8 @@ public class ArticleMapper extends BaseMapper<Article, CreateArticleRequest, Upd
         // Relationships
         if(Objects.nonNull(updateArticle.getTypeId())){
             Type type = new Type();
-            type.setId(toLong(updateArticle.getTypeId()));
-            if(type.getId() == 0){
+            type.setId(updateArticle.getTypeId());
+            if(type.getId() == null){
                 type = null;
             }else{
                 type = typeRepository.findById(type.getId()).get();
@@ -156,8 +156,8 @@ public class ArticleMapper extends BaseMapper<Article, CreateArticleRequest, Upd
         }
         if(updateArticle.getInsetId() != null){
             Inset inset = new Inset();
-            inset.setId(toLong(updateArticle.getInsetId()));
-            if(inset.getId() == 0) {
+            inset.setId(updateArticle.getInsetId());
+            if(inset.getId() == null) {
                 inset = null;
             }else{
                 inset = insetRepository.findById(inset.getId()).get();
@@ -166,8 +166,8 @@ public class ArticleMapper extends BaseMapper<Article, CreateArticleRequest, Upd
         }
         if(updateArticle.getSortTypeId() != null){
             SortType sortType = new SortType();
-            sortType.setId(toLong(updateArticle.getSortTypeId()));
-            if(sortType.getId() == 0){
+            sortType.setId(updateArticle.getSortTypeId());
+            if(sortType.getId() == null){
                 sortType = null;
             }else{
                 sortType = sortTypeRepository.findById(sortType.getId()).get();
@@ -176,8 +176,8 @@ public class ArticleMapper extends BaseMapper<Article, CreateArticleRequest, Upd
         }
         if(updateArticle.getGroupId() != null){
             Group group = new Group();
-            group.setId(toLong(updateArticle.getGroupId()));
-            if(group.getId() == 0){
+            group.setId(updateArticle.getGroupId());
+            if(group.getId() == null){
                 group = null;
             }else{
                 group = groupRepository.findById(group.getId()).get();
@@ -186,8 +186,8 @@ public class ArticleMapper extends BaseMapper<Article, CreateArticleRequest, Upd
         }
         if(updateArticle.getPalletTypeId() != null){
             PalletType palletType = new PalletType();
-            palletType.setId(toLong(updateArticle.getPalletTypeId()));
-            if(palletType.getId() == 0){
+            palletType.setId(updateArticle.getPalletTypeId());
+            if(palletType.getId() == null){
                 palletType = null;
             }else{
                 palletType = palletTypeRepository.findById(palletType.getId()).get();
@@ -196,8 +196,8 @@ public class ArticleMapper extends BaseMapper<Article, CreateArticleRequest, Upd
         }
         if(updateArticle.getColorId() != null){
             Color color = new Color();
-            color.setId(toLong(updateArticle.getColorId()));
-            if(color.getId() == 0){
+            color.setId(updateArticle.getColorId());
+            if(color.getId() == null){
                 color = null;
             }else{
                 color = colorRepository.findById(color.getId()).get();
@@ -206,8 +206,8 @@ public class ArticleMapper extends BaseMapper<Article, CreateArticleRequest, Upd
         }
         if(updateArticle.getCaskId() != null){
             Cask cask = new Cask();
-            cask.setId(toLong(updateArticle.getCaskId()));
-            if(cask.getId() == 0){
+            cask.setId(updateArticle.getCaskId());
+            if(cask.getId() == null){
                 cask = null;
             }else{
                 cask = caskRepository.findById(cask.getId()).get();

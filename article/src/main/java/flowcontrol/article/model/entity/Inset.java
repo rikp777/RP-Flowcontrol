@@ -4,6 +4,7 @@ package flowcontrol.article.model.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import flowcontrol.article.repository.generic.AbstractBaseEntity;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import org.springframework.transaction.annotation.Transactional;
@@ -11,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.UUID;
 
 @Entity(name = "Inset")
 @Table(name = "inset")
@@ -18,7 +20,12 @@ import java.util.Set;
 @Setter
 @ToString
 @Transactional
+@NoArgsConstructor
 public class Inset extends AbstractBaseEntity {
+
+    public Inset(UUID id){
+        super(id);
+    }
 
     private String excelCode;
     private String name;

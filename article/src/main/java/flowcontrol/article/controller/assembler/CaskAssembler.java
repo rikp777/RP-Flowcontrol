@@ -7,6 +7,8 @@ import flowcontrol.article.model.entity.Cask;
 import flowcontrol.article.model.response.CaskResponse;
 import org.springframework.stereotype.Component;
 
+import java.util.UUID;
+
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
@@ -31,7 +33,7 @@ public class CaskAssembler extends BaseAssembler<Cask, CaskResponse> {
                         .withSelfRel());
 
         if(cask.getColor() != null){
-            Long id = cask.getColor().getId();
+            UUID id = cask.getColor().getId();
             response
                     .add(linkTo(methodOn(ColorController.class)
                             .getById(id))

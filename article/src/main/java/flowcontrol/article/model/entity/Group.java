@@ -14,6 +14,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.UUID;
 
 @Entity(name = "Group")
 @Table(name = "article_groups")
@@ -23,6 +24,10 @@ import java.util.Set;
 @NoArgsConstructor
 @Transactional
 public class Group extends AbstractBaseEntity {
+
+    public Group(UUID id){
+        super(id);
+    }
 
     private String name;
     private String description;

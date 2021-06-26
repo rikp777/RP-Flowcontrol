@@ -10,17 +10,18 @@ import org.springframework.data.domain.Pageable;
 
 import javax.transaction.Transactional;
 import java.util.Optional;
+import java.util.UUID;
 
 @AllArgsConstructor
 @Slf4j
 public abstract class BaseService<T extends AbstractBaseEntity> {
 
-    private AbstractBaseRepository<T, Long> repository;
+    private AbstractBaseRepository<T, UUID> repository;
 
     @Transactional
-    public boolean isAlreadyPresentById(String value){
+    public boolean isAlreadyPresentById(UUID value){
         try {
-            return repository.findById(Long.parseLong(value)).isPresent();
+            return repository.findById(value).isPresent();
         } catch (Exception exception){
             throw new BadRequestException("Something went wrong");
         }
@@ -33,7 +34,7 @@ public abstract class BaseService<T extends AbstractBaseEntity> {
         return repository.findAll();
     }
 
-    public Optional<T> getById(Long id){
+    public Optional<T> getById(UUID id){
         return repository.findById(id);
     }
 

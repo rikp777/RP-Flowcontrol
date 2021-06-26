@@ -6,6 +6,8 @@ import flowcontrol.article.model.entity.Inset;
 import flowcontrol.article.model.response.InsetResponse;
 import org.springframework.stereotype.Component;
 
+import java.util.UUID;
+
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
@@ -29,7 +31,7 @@ public class InsetAssembler extends BaseAssembler<Inset, InsetResponse> {
                         .withSelfRel());
 
         if(inset.getColor() != null){
-            Long id = inset.getColor().getId();
+            UUID id = inset.getColor().getId();
             response
                     .add(linkTo(methodOn(ColorController.class)
                             .getById(id))

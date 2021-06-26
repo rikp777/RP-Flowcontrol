@@ -16,6 +16,8 @@ import org.springframework.hateoas.CollectionModel;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.UUID;
+
 @RestController
 @RequestMapping("/v1/groups")
 public class GroupController extends BaseController<GroupResponse, Group, CreateGroupRequest, UpdateGroupRequest, GroupMapper>{
@@ -48,7 +50,7 @@ public class GroupController extends BaseController<GroupResponse, Group, Create
 
     //region Relations
     @GetMapping("/{groupId}/articles")
-    public ResponseEntity<CollectionModel<ArticleResponse>> getAllBelongingArticles(@PathVariable Long groupId){
+    public ResponseEntity<CollectionModel<ArticleResponse>> getAllBelongingArticles(@PathVariable UUID groupId){
         return groupService.getById(groupId)
                 .map(color -> ResponseEntity.ok(articleAssembler.toCollectionModel(color.getArticles())))
                 .orElseThrow(() ->

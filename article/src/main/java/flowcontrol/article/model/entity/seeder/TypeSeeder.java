@@ -9,11 +9,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 
 import java.util.Set;
+import java.util.UUID;
 
 @Configuration
 @Slf4j
 public class TypeSeeder {
-    private int id = 0;
+    private int id = 1;
 
     @Autowired
     private final TypeRepository typeRepo;
@@ -25,7 +26,9 @@ public class TypeSeeder {
     private void message(Type type){
         boolean debug = true;
         if(debug)
-            log.info("Type seeder insert: " + this.id++ + " - " + type.getName());
+            log.info("Type seeder insert: " + this.id++ + " - " + type.getName() + " | " +
+                    "UUID: " + type.getId()
+            );
     }
 
     public Set<Type> run() {
@@ -34,7 +37,7 @@ public class TypeSeeder {
             log.info("Type seeding starting...");
 
             if (typeRepo.findByName("Bunches").isEmpty()) {
-                var type = new Type();
+                var type = new Type(UUID.fromString("b6391a76-d66b-11eb-b8bc-0242ac130003"));
                 type.setName("Bunches");
                 typeRepo.save(type);
 
@@ -42,7 +45,7 @@ public class TypeSeeder {
             }
 
             if (typeRepo.findByName("Leaves").isEmpty()) {
-                var type = new Type();
+                var type = new Type(UUID.fromString("b444f172-d66b-11eb-b8bc-0242ac130003"));
                 type.setName("Leaves");
                 typeRepo.save(type);
 
@@ -50,7 +53,7 @@ public class TypeSeeder {
             }
 
             if (typeRepo.findByName("Stem").isEmpty()) {
-                var type = new Type();
+                var type = new Type(UUID.fromString("b26988e0-d66b-11eb-b8bc-0242ac130003"));
                 type.setName("Stem");
                 typeRepo.save(type);
 
@@ -58,7 +61,7 @@ public class TypeSeeder {
             }
 
             if (typeRepo.findByName("Stemless").isEmpty()) {
-                var type = new Type();
+                var type = new Type(UUID.fromString("b02e1816-d66b-11eb-b8bc-0242ac130003"));
                 type.setName("Stemless");
                 typeRepo.save(type);
 
@@ -66,7 +69,7 @@ public class TypeSeeder {
             }
 
             if (typeRepo.findByName("Tros").isEmpty()) {
-                var type = new Type();
+                var type = new Type(UUID.fromString("ae0e04b0-d66b-11eb-b8bc-0242ac130003"));
                 type.setName("Tros");
                 typeRepo.save(type);
 
@@ -74,7 +77,7 @@ public class TypeSeeder {
             }
 
             if (typeRepo.findByName("Air").isEmpty()) {
-                var type = new Type();
+                var type = new Type(UUID.fromString("a4ffe974-d66b-11eb-b8bc-0242ac130003"));
                 type.setName("Air");
                 typeRepo.save(type);
 

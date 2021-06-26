@@ -7,16 +7,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
+import java.util.UUID;
 
-public class CaskExistsValidator implements ConstraintValidator<CaskExists, String> {
+public class CaskExistsValidator implements ConstraintValidator<CaskExists, UUID> {
 
     @Autowired
     private CaskService caskService;
 
     @SneakyThrows
     @Override
-    public boolean isValid(String value, ConstraintValidatorContext context){
-        if(value == null || value == "" || value.isBlank() || value.isEmpty()){
+    public boolean isValid(UUID value, ConstraintValidatorContext context){
+        if(value == null || value.equals("")){
             return true;
         }
 

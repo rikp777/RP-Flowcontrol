@@ -9,6 +9,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 
+import java.util.UUID;
+
 @Configuration
 @Slf4j
 public class ArticleSeeder {
@@ -16,7 +18,7 @@ public class ArticleSeeder {
     private final ArticleRepository articleRepo;
 
 
-    private int id = 0;
+    private int id = 1;
 
     public ArticleSeeder(ArticleRepository articleRepo) {
         this.articleRepo = articleRepo;
@@ -26,7 +28,11 @@ public class ArticleSeeder {
     private void message(Article article){
         boolean debug = true;
         if(debug)
-            log.info("Article seeder insert: " + this.id++ + " - " + article.getExcelCode());
+            log.info(
+                    "Article seeder insert: " + this.id++ + " - " + article.getExcelCode() + " | " +
+                            "UUID: " + article.getId()
+
+            );
     }
 
     public void run(UtilSeeder util) {
@@ -48,7 +54,7 @@ public class ArticleSeeder {
 
             // region Wit
             if (articleRepo.findByExcelCode("WI0001NL").isEmpty()) {
-                Article article = new Article(); //1
+                Article article = new Article(UUID.fromString("56e6b597-929e-4aaf-97bf-4f2506d2cacc")); //1
                 article.setExcelCode("WI0001NL");
                 article.setInsetLimit(1);
                 article.setInsetGram(2500);
@@ -64,7 +70,7 @@ public class ArticleSeeder {
             }
 
             if (articleRepo.findByExcelCode("WI0002NL").isEmpty()) {
-                Article article = new Article(); //2
+                Article article = new Article(UUID.fromString("29ef480b-2a00-4bc6-b97f-63b63e321c57")); //2
                 article.setExcelCode("WI0002NL");
                 article.setInsetLimit(1);
                 article.setPalletLimit(170);
@@ -80,7 +86,7 @@ public class ArticleSeeder {
             }
 
             if (articleRepo.findByExcelCode("WF0003NL").isEmpty()) {
-                Article article = new Article(); //32
+                Article article = new Article(UUID.fromString("595ab897-75d5-476b-9ed0-534db67bdf19")); //32
                 article.setExcelCode("WF0003NL");
                 article.setInsetLimit(6);
                 article.setInsetGram(250);
@@ -97,7 +103,7 @@ public class ArticleSeeder {
             }
 
             if (articleRepo.findByExcelCode("WF0004NL").isEmpty()) {
-                Article article = new Article(); //33
+                Article article = new Article(UUID.fromString("a4a3c9ff-ea68-4ee0-8d57-1930b2ffdbfb")); //33
                 article.setExcelCode("WF0004NL");
                 article.setInsetLimit(6);
                 article.setInsetGram(250);
@@ -114,7 +120,7 @@ public class ArticleSeeder {
             }
 
             if (articleRepo.findByExcelCode("WF0005NL").isEmpty()) {
-                Article article = new Article(); //34
+                Article article = new Article(UUID.fromString("658203c6-c2d0-41ee-9599-8c606e96388a")); //34
                 article.setExcelCode("WF0005NL");
                 article.setInsetLimit(4);
                 article.setInsetGram(400);

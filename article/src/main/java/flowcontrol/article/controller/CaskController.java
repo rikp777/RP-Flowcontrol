@@ -17,6 +17,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/v1/casks")
@@ -71,8 +72,8 @@ public class CaskController extends BaseController<CaskResponse, Cask, CreateCas
                     "multipart/form-data"
             }
     )//UPDATE
-    public ResponseEntity update(@PathVariable String caskId, @Valid @ModelAttribute("cask") CreateCaskRequest createCask){
-        return caskService.getById(Long.parseLong(caskId))
+    public ResponseEntity update(@PathVariable UUID caskId, @Valid @ModelAttribute("cask") CreateCaskRequest createCask){
+        return caskService.getById(caskId)
                 .map(cask -> {
                     Cask mappedCask = caskMapper.mapUpdatesToOriginal(createCask, cask);
                     return caskService.createOrUpdate(mappedCask)
@@ -92,8 +93,8 @@ public class CaskController extends BaseController<CaskResponse, Cask, CreateCas
                     MediaType.APPLICATION_XML_VALUE,
             }
     )//DELETE
-    public ResponseEntity delete(@PathVariable String caskId){
-        return caskService.getById(Long.parseLong(caskId))
+    public ResponseEntity delete(@PathVariable UUID caskId){
+        return caskService.getById(caskId)
                 .map(cask -> {
                     caskService.delete(cask);
                     return ResponseEntity.ok("Deleted cask[" + caskId + "]");
@@ -107,7 +108,7 @@ public class CaskController extends BaseController<CaskResponse, Cask, CreateCas
 
     //region Relations
     @GetMapping("/{caskId}/articles") //READ ALL
-    public ResponseEntity getAllBelongingArticles(@PathVariable Long caskId){
+    public ResponseEntity getAllBelongingArticles(@PathVariable UUID caskId){
         return caskService.getById(caskId)
                 .map(cask -> ResponseEntity.ok(articleAssembler.toCollectionModel(cask.getArticles())))
                 .orElseThrow(() ->
