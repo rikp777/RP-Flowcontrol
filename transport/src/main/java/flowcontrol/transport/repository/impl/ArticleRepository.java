@@ -16,6 +16,7 @@ import reactor.core.publisher.Mono;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Repository
 public class ArticleRepository {
@@ -26,7 +27,7 @@ public class ArticleRepository {
     @Autowired
     private BearerTokenWrapper tokenWrapper;
 
-    public Article findById(Long id) {
+    public Article findById(UUID id) {
         Article article = webClientBuilder
                 .filter(authHeader(tokenWrapper.getToken()))
                 .build() //Gives you a client

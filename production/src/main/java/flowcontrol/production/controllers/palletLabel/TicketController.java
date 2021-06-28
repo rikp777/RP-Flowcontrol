@@ -16,6 +16,8 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.UUID;
+
 
 @RestController
 @RequestMapping("/v1/farmers/{farmerId}/palletlabels/{palletLabelId}/tickets")
@@ -39,8 +41,8 @@ public class TicketController {
             }
     )
     public ResponseEntity<CollectionModel<TicketResponse>> findAll(
-            @PathVariable Long farmerId,
-            @PathVariable Long palletLabelId
+            @PathVariable UUID farmerId,
+            @PathVariable UUID palletLabelId
     ){
         BasicMetaData metaData = BasicMetaData.builder()
                 .farmerId(farmerId)
@@ -69,9 +71,9 @@ public class TicketController {
             }
     )
     public ResponseEntity<EntityModel<TicketResponse>> findOne(
-            @PathVariable Long farmerId,
-            @PathVariable Long palletLabelId,
-            @PathVariable Long ticketId
+            @PathVariable UUID farmerId,
+            @PathVariable UUID palletLabelId,
+            @PathVariable UUID ticketId
     ) {
         BasicMetaData metaData = BasicMetaData.builder()
                 .farmerId(farmerId)
@@ -91,9 +93,9 @@ public class TicketController {
      */
     @PostMapping()
     public ResponseEntity<EntityModel<TicketResponse>> createTicket(
-            @PathVariable Long farmerId,
-            @PathVariable Long palletLabelId,
-            @RequestParam("line_id") Long lineId
+            @PathVariable UUID farmerId,
+            @PathVariable UUID palletLabelId,
+            @RequestParam("line_id") UUID lineId
     ){
         BasicMetaData metaData = BasicMetaData.builder()
                 .farmerId(farmerId)
@@ -119,9 +121,9 @@ public class TicketController {
             }
     )
     public ResponseEntity<EntityModel<TicketResponse>> closeTicket(
-            @PathVariable Long farmerId,
-            @PathVariable Long palletLabelId,
-            @PathVariable Long ticketId
+            @PathVariable UUID farmerId,
+            @PathVariable UUID palletLabelId,
+            @PathVariable UUID ticketId
     ){
         BasicMetaData metaData = BasicMetaData.builder()
                 .farmerId(farmerId)

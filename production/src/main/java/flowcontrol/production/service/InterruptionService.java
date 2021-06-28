@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -39,7 +40,7 @@ public class InterruptionService {
      * Returns error message when data has been found for ticketId but the belonging ids are not right else return
      * empty list
      */
-    public List<Interruption> findAll(BasicMetaData meta, Long ticketId){
+    public List<Interruption> findAll(BasicMetaData meta, UUID ticketId){
         return interruptionRepository.getInterruptionsByTicketId(ticketId)
                 .stream()
                 .map(interruptionItem -> {
@@ -64,7 +65,7 @@ public class InterruptionService {
      * @param interruptionId
      * @return
      */
-    public Optional<Interruption> findById(BasicMetaData meta, Long ticketId, Long interruptionId){
+    public Optional<Interruption> findById(BasicMetaData meta, UUID ticketId, UUID interruptionId){
         Interruption interruption=  interruptionRepository
                 .getInterruptionByTicketIdAndId(
                         ticketId,
@@ -91,8 +92,8 @@ public class InterruptionService {
      */
     public Optional<Interruption> create(
             BasicMetaData meta,
-            Long ticketId,
-            Long interruptionReasonId,
+            UUID ticketId,
+            UUID interruptionReasonId,
             Integer usedArticleAmount
     ){
         log.info("================================================");
@@ -150,7 +151,7 @@ public class InterruptionService {
      * @param interruptionId
      * @return
      */
-    public Optional<Interruption> close(BasicMetaData meta, Long ticketId, Long interruptionId){
+    public Optional<Interruption> close(BasicMetaData meta, UUID ticketId, UUID interruptionId){
         // Get interruption
         Interruption interruption = this.findById(meta, ticketId, interruptionId).get();
 
@@ -174,8 +175,8 @@ public class InterruptionService {
      */
     public Interruption update(
             BasicMetaData meta,
-            Long ticketId,
-            Long interruptionId,
+            UUID ticketId,
+            UUID interruptionId,
             Interruption interruption
     ){
         // Get interruption
@@ -200,8 +201,8 @@ public class InterruptionService {
      */
     public void deleteById(
             BasicMetaData meta,
-            Long ticketId,
-            Long interruptionId
+            UUID ticketId,
+            UUID interruptionId
     ){
         // Check if exists
         if(interruptionRepository.existsById(interruptionId)){

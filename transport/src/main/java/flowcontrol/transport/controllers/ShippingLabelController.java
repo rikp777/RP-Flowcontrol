@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.UUID;
 
 
 @RestController
@@ -33,7 +34,7 @@ public class ShippingLabelController {
 
     @PostMapping()
     public ResponseEntity createPalletLabel(
-            @PathVariable Long farmerId,
+            @PathVariable UUID farmerId,
             @RequestBody CreateShippingLabelRequest newShippingLabel
     ){
         return shippingLabelService.create(farmerId, newShippingLabel)
@@ -51,7 +52,7 @@ public class ShippingLabelController {
                     MediaType.APPLICATION_JSON_VALUE
             }
     )
-    public ResponseEntity exportShippingLabelForExact(@PathVariable Long farmerId, @PathVariable Long shippingLabelId){
+    public ResponseEntity exportShippingLabelForExact(@PathVariable UUID farmerId, @PathVariable UUID shippingLabelId){
 
 
         List<Order> orders = Arrays.asList(

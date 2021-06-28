@@ -13,6 +13,7 @@ import reactor.core.publisher.Mono;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Repository
 public class CellRepository {
@@ -20,7 +21,7 @@ public class CellRepository {
     @Autowired
     private WebClient.Builder webClientBuilder;
 
-    public Cell findById(Long farmerId, Long cellId) {
+    public Cell findById(UUID farmerId, UUID cellId) {
         Cell cell = webClientBuilder.build() //Gives you a client
                 .get() // Method for the request
                 .uri("http://localhost:7071/api/v1/farmers/"+ farmerId + "/cells/" + cellId) // Url that you need to
@@ -36,7 +37,7 @@ public class CellRepository {
         return Optional.of(cell).orElseThrow(() -> new ResourceNotFoundException("Cell", "Id", cellId));
     }
 
-    public List<Cell> findAll(Long farmerId) {
+    public List<Cell> findAll(UUID farmerId) {
         List<Cell> cells = webClientBuilder.build()
                 .get()
                 .uri("http://localhost:7071/api/v1/farmers/"+ farmerId + "/cells")

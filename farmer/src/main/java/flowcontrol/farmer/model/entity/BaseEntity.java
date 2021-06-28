@@ -3,21 +3,64 @@ package flowcontrol.farmer.model.entity;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Type;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.time.LocalDateTime;
+import java.util.UUID;
 
 @MappedSuperclass
 @Getter
 @Setter
-//@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-public class BaseEntity  implements Serializable {
+@JsonIgnoreProperties(
+        {"hibernateLazyInitializer", "handler", "createAt", "updatedAt"}
+)
+public abstract class BaseEntity implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GenericGenerator(name = "UseExistingIdOtherwiseGenerateUsingIdentity", strategy = "flowcontrol.farmer.model.entity.UseExistingIdOtherwiseGenerateUsingIdentity")
+    @GeneratedValue(generator = "UseExistingIdOtherwiseGenerateUsingIdentity")
+    @Column(unique = true, nullable = false)
+    @Type(type="org.hibernate.type.UUIDCharType")
+    private UUID id;
+
+    @Version
+    private int version;
+
+    @Basic
     @Column(
-            name = "id",
-            updatable = false
+            name = "created_at",
+            nullable = false,
+            insertable = true,
+            updatable = false,
+            columnDefinition = "TIMESTAMP NOT NULL"
     )
-    private Long id;
+    @CreatedDate
+    private LocalDateTime createdAt;
+
+    @Basic
+    @Column(
+            name = "updated_at",
+            nullable = false,
+            insertable = true,
+            updatable = false,
+            columnDefinition = "TIMESTAMP NOT NULL"
+    )
+    @LastModifiedDate
+    private LocalDateTime updatedAt;
+
+    public BaseEntity(){
+        this.createdAt = LocalDateTime.now();
+        this.updatedAt = LocalDateTime.now();
+    }
+    public BaseEntity(UUID id){
+        this.id = id;
+        this.createdAt = LocalDateTime.now();
+        this.updatedAt = LocalDateTime.now();
+    }
 }
+

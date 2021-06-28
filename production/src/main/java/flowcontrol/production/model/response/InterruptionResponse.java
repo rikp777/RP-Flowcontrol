@@ -11,6 +11,7 @@ import org.springframework.hateoas.RepresentationModel;
 import org.springframework.hateoas.server.core.Relation;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Builder
 @Getter
@@ -19,7 +20,7 @@ import java.time.LocalDateTime;
 @Relation(itemRelation = "interruption", collectionRelation = "interruptions")
 public class InterruptionResponse extends RepresentationModel<InterruptionResponse> {
 
-    private Long id;
+    private UUID id;
 
     private LocalDateTime startAt;
     private LocalDateTime endAt;

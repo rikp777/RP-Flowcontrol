@@ -14,6 +14,7 @@ import org.springframework.hateoas.server.core.Relation;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @Builder
 @Getter
@@ -21,7 +22,7 @@ import java.util.List;
 @EqualsAndHashCode(callSuper = false)
 @Relation(itemRelation = "ticket", collectionRelation = "tickets")
 public class TicketResponse extends RepresentationModel<TicketResponse> {
-    private Long id;
+    private UUID id;
 
     private LocalDateTime startAt;
     private LocalDateTime  endAt;

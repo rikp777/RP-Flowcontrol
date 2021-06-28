@@ -28,6 +28,7 @@ import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.constraints.Max;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/v1/farmers/{farmerId}/certificates")
@@ -63,8 +64,8 @@ public class FarmerCertificateController extends BaseController<FarmerCertificat
     ) //READ BY ID
     @PreAuthorize("hasRole('ADMIN') || hasRole('PLANNING') || hasRole('ICT') || hasRole('USER') ")
     public ResponseEntity<FarmerCertificateResponse> getById(
-            @PathVariable Long farmerId,
-            @PathVariable Long id
+            @PathVariable UUID farmerId,
+            @PathVariable UUID id
     ){
         return farmerCertificateService.getByIdAndFarmerId(id, farmerId)
                 .map(entity -> ResponseEntity.ok(farmerCertificateAssembler.toModel(entity)))
@@ -81,7 +82,7 @@ public class FarmerCertificateController extends BaseController<FarmerCertificat
     )//READ ALL
     @PreAuthorize("hasRole('ADMIN') || hasRole('PLANNING') || hasRole('ICT')")
     public CollectionModel<FarmerCertificateResponse> getAll(
-            @PathVariable Long farmerId
+            @PathVariable UUID farmerId
     ){
         Iterable<FarmerCertificate> entities = farmerCertificateService.getAllByFarmerId(farmerId);
         return farmerCertificateAssembler.toCollectionModel(entities);

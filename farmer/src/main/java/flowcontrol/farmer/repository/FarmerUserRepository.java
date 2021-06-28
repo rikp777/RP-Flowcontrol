@@ -6,7 +6,8 @@ import flowcontrol.farmer.model.entity.FarmerUser;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
-public interface FarmerUserRepository extends AbstractBaseRepository<FarmerUser, Long>{
-    List<FarmerUser> getFarmerUserByUserId(Long userId);
+public interface FarmerUserRepository extends AbstractBaseRepository<FarmerUser, UUID>{
+    List<FarmerUser> getFarmerUserByUserId(UUID userId);
 }

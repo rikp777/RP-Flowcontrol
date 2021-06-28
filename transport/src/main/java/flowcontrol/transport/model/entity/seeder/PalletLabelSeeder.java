@@ -1,80 +1,58 @@
 package flowcontrol.transport.model.entity.seeder;
 
+import flowcontrol.transport.config.seeder.SeederConfig;
 import flowcontrol.transport.model.entity.PalletLabel;
 import flowcontrol.transport.repository.PalletLabelRepository;
-import flowcontrol.transport.repository.ShippingLabelRepository;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Configuration
 @Slf4j
 public class PalletLabelSeeder {
-    @Autowired
-    private final PalletLabelRepository palletLabelRepo;
 
-    public PalletLabelSeeder(PalletLabelRepository palletLabelRepo) {
+    private final PalletLabelRepository palletLabelRepo;
+    private SeederConfig seederConfig;
+
+    private int id = 1;
+
+    public PalletLabelSeeder(PalletLabelRepository palletLabelRepo, SeederConfig seederConfig) {
         this.palletLabelRepo = palletLabelRepo;
+        this.seederConfig = seederConfig;
+    }
+
+    private void message(PalletLabel palletLabel){
+        if(this.seederConfig.isInDebugMode())
+            UtilSeeder.sendMessage("PalletLabel seeder", this.id, palletLabel.getGeneralId().toString(), palletLabel.getId());
+        this.id++;
     }
 
     public Set<PalletLabel> run(UtilSeeder util) {
-        List<PalletLabel> palletLabels = Arrays.asList(
-                PalletLabel.builder()
-                        .generalId(1L)
-                        .palletLabelFarmerId(1L)
-                        .article(104L)
-                        .articleAmount(180)
-                        .cropDate("2021-03-02")
-                        .note("Test one")
-                        .harvestCycle(1)
-                        .harvestCycleDay(1)
-                        .cell(1L)
-                        .farmer(1L)
-                        .palletType(1L)
-                        .shippingLabel(util.findShippingLabelInSet(1L))
-                        .build(),
-                PalletLabel.builder()
-                        .generalId(2L)
-                        .palletLabelFarmerId(2L)
-                        .article(105L)
-                        .articleAmount(180)
-                        .cropDate("2021-03-02")
-                        .note("Test two")
-                        .harvestCycle(1)
-                        .harvestCycleDay(1)
-                        .cell(1L)
-                        .farmer(1L)
-                        .palletType(1L)
-                        .shippingLabel(util.findShippingLabelInSet(1L))
-                        .build(),
-                PalletLabel.builder()
-                        .generalId(3L)
-                        .palletLabelFarmerId(3L)
-                        .article(106L)
-                        .articleAmount(180)
-                        .cropDate("2021-03-02")
-                        .note("Test three")
-                        .harvestCycle(1)
-                        .harvestCycleDay(1)
-                        .cell(1L)
-                        .farmer(1L)
-                        .palletType(1L)
-                        .shippingLabel(util.findShippingLabelInSet(1L))
-                        .build()
-        );
+        if (this.seederConfig.isInInsetDataMode()) {
+            if (this.palletLabelRepo.findById(UUID.fromString("3d443c4a-9930-4e31-a33f-59f515b4b94e")).isEmpty()) {
+                PalletLabel palletLabel = new PalletLabel(UUID.fromString("3d443c4a-9930-4e31-a33f-59f515b4b94e"));
+                palletLabel.setGeneralId(1L);
+                palletLabel.setPalletLabelFarmerId(UUID.fromString(""));//todo add farmerid
+                palletLabel.setArticle(UUID.fromString("56e6b597-929e-4aaf-97bf-4f2506d2cacc"));
+                palletLabel.setArticleAmount(180);
+                palletLabel.setCropDate("2021-03-02");
+                palletLabel.setNote("Test one");
+                palletLabel.setHarvestCycle(1);
+                palletLabel.setHarvestCycleDay(1);
+                palletLabel.setCell(UUID.fromString(""));
+                palletLabel.setFarmer(UUID.fromString(""));
+                palletLabel.setPalletType(UUID.fromString(""));
+                palletLabel.setShippingLabel(util.findShippingLabelInSet(UUID.fromString("")));
+                palletLabelRepo.save(palletLabel);
 
-        if(palletLabelRepo.findAll().size() == 0){
-            log.info("PalletLabel done seeding");
-            palletLabelRepo.saveAll(palletLabels);
+                message(palletLabel);
+            }
+            log.info("PalletLabel seeding done, seeded: " + (this.id - 1) + " pallet labels.");
+        } else {
+            log.info("PalletLabel seeding not required");
         }
-
-        List<PalletLabel> palletLabelss = palletLabelRepo.findAll();
-        return new HashSet<>(palletLabelss);
+        return new HashSet<>(palletLabelRepo.findAll());
     }
 }
 

@@ -11,14 +11,21 @@ import javax.transaction.Transactional;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.UUID;
 
 @Entity(name = "Farmer")
 @Table(name = "farmer")
-@Data
+
 @Builder
-@NoArgsConstructor
+
+@Data
 @AllArgsConstructor
+@NoArgsConstructor
 public class Farmer extends BaseEntity{
+
+    public Farmer(UUID id){
+        super(id);
+    }
 
     private String name;
     private String street;

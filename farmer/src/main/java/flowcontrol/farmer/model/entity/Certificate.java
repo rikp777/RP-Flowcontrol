@@ -6,6 +6,7 @@ import lombok.*;
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.UUID;
 
 @Entity(name = "Certificate")
 @Table(name = "certificate")
@@ -14,6 +15,10 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Certificate extends BaseEntity {
+
+    public Certificate(UUID id){
+        super(id);
+    }
 
     private String name;
 

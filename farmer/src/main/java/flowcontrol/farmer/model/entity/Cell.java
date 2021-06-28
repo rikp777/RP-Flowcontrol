@@ -6,14 +6,19 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.UUID;
 
 @Entity(name = "Cell")
-@Table(name = "cell")
+@Table(name = "cultivation_cell")
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class Cell extends BaseEntity{
+
+    public Cell(UUID id){
+        super(id);
+    }
 
     private String name;
     private String description;

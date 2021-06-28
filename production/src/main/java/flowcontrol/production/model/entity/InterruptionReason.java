@@ -2,19 +2,26 @@ package flowcontrol.production.model.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @Getter
 @Setter
 @Entity( name = "InterruptionReason" )
 @Table( name = "interruption_reason" )
+@NoArgsConstructor
 public class InterruptionReason extends BaseEntity {
 
-    private Long id;
+    public InterruptionReason(UUID id){
+        super(id);
+    }
+
+    private UUID id;
 
     @Column(
             name = "name",

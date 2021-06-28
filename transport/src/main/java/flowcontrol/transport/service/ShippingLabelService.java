@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.UUID;
 
 @Service
 @AllArgsConstructor
@@ -33,17 +34,17 @@ public class ShippingLabelService {
 
     private final PalletLabelService palletLabelService;
 
-    public Optional<ShippingLabel> getAll(Long farmerId, Long shippingLabelId){
+    public Optional<ShippingLabel> getAll(UUID farmerId, UUID shippingLabelId){
         Optional<ShippingLabel> shippingLabel = shippingLabelRepository.findById(shippingLabelId);
 
         return shippingLabel;
     }
 
-    public Optional<ShippingLabel> create(Long farmerId, CreateShippingLabelRequest newShippingLabel){
+    public Optional<ShippingLabel> create(UUID farmerId, CreateShippingLabelRequest newShippingLabel){
         if(newShippingLabel.getPalletLabelIds().length == 0) throw new ShippingLabelException("Create", "Palletlabels" +
                 " are not set", newShippingLabel);
 
-        for (Long palletLabelId : newShippingLabel.getPalletLabelIds()){
+        for (UUID palletLabelId : newShippingLabel.getPalletLabelIds()){
             PalletLabel palletLabel = palletLabelService.getById(farmerId, palletLabelId).get();
             if(palletLabel.getShippingLabel() != null){
                 throw  new ShippingLabelException("Create", "Given palletlabel already has a shippinglabel attached to it", newShippingLabel);
@@ -55,11 +56,11 @@ public class ShippingLabelService {
         shippingLabel.setTransportDate("2020-02-02");
         shippingLabel.setTransportDeliveryDate("2020-02-02");
         shippingLabel.setFarmerId(farmerId);
-        shippingLabel.setTruckId(1L);
-        shippingLabel.setTransportDriverId(1L);
+        shippingLabel.setTruckId(newShippingLabel.getTruckId());
+        shippingLabel.setTransportDriverId(newShippingLabel.getTransportDriverId());
         ShippingLabel shippingLabelSaved = shippingLabelRepository.save(shippingLabel);
 
-        for (Long palletLabelId : newShippingLabel.getPalletLabelIds()){
+        for (UUID palletLabelId : newShippingLabel.getPalletLabelIds()){
             PalletLabel palletLabel = palletLabelService.getById(farmerId, palletLabelId).get();
             palletLabel.setShippingLabel(shippingLabelSaved);
             palletLabelRepository.save(palletLabel);

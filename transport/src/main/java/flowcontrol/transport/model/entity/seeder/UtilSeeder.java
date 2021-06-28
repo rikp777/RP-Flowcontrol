@@ -5,17 +5,27 @@ import flowcontrol.transport.model.entity.PalletLabel;
 import flowcontrol.transport.model.entity.ShippingLabel;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.Set;
+import java.util.UUID;
 
 @Getter
 @Setter
+@Slf4j
 public class UtilSeeder {
 
     private Set<PalletLabel> palletLabels;
     private Set<ShippingLabel> shippingLabels;
 
-    public PalletLabel findPalletLabelInSet(Long palletLabelId){
+
+    public static void sendMessage(String seederName, int insertNumber, String identifier, UUID id){
+        log.info(seederName + " insert: " + insertNumber + " - " + identifier + " | " +
+                "UUID: " + id
+        );
+    }
+
+    public PalletLabel findPalletLabelInSet(UUID palletLabelId){
         if(this.palletLabels.stream().count() > 0) {
             return this.palletLabels.stream()
                     .filter(item ->
@@ -27,7 +37,7 @@ public class UtilSeeder {
         }
     }
 
-    public ShippingLabel findShippingLabelInSet(Long shippingLabelId){
+    public ShippingLabel findShippingLabelInSet(UUID shippingLabelId){
         if(this.shippingLabels.stream().count() > 0) {
             return this.shippingLabels.stream()
                     .filter(item ->

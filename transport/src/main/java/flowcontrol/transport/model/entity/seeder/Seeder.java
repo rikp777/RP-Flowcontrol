@@ -25,8 +25,6 @@ public class Seeder {
             // Pallet labels
             Set<PalletLabel> palletLabels = palletLabelSeeder.run(util);
             util.setPalletLabels(palletLabels);
-
-
         };
     }
 }

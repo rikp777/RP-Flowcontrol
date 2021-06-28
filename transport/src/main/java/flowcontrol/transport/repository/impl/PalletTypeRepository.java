@@ -13,6 +13,7 @@ import reactor.core.publisher.Mono;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Repository
 public class PalletTypeRepository {
@@ -20,7 +21,7 @@ public class PalletTypeRepository {
     @Autowired
     private WebClient.Builder webClientBuilder;
 
-    public PalletType findById(Long id) {
+    public PalletType findById(UUID id) {
         PalletType palletType = webClientBuilder.build() //Gives you a client
                 .get() // Method for the request
                 .uri("http://localhost:7078/api/v1/pallettypes/" + id) // Url that you need to access

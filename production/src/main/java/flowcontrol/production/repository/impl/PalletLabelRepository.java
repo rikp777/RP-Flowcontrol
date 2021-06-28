@@ -18,6 +18,7 @@ import reactor.core.publisher.Mono;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
 @Repository
@@ -45,7 +46,7 @@ public class PalletLabelRepository {
     }
 
 
-    public Optional<PalletLabel> findById(Long farmerId, Long palletLabelId) {
+    public Optional<PalletLabel> findById(UUID farmerId, UUID palletLabelId) {
 //        palletLabelRedisTemplate.delete(getRedisKey(palletLabelId.toString()));
         //PalletLabel cachedPalletLabel = getValueOperations().get(getRedisKey(palletLabelId.toString()));
 
@@ -71,7 +72,7 @@ public class PalletLabelRepository {
         //return Optional.of(cachedPalletLabel);
     }
 
-    public List<PalletLabel> findAll(Long farmerId) {
+    public List<PalletLabel> findAll(UUID farmerId) {
         List<PalletLabel> palletLabel = webClientBuilder
                 .filter(authHeader(tokenWrapper.getToken()))
                 .build()

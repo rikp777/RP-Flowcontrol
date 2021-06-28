@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class FarmerUserService extends BaseService<FarmerUser> {
@@ -21,7 +22,7 @@ public class FarmerUserService extends BaseService<FarmerUser> {
     }
 
 
-    public List<FarmerUser> getAllByUserId(Long userId){
+    public List<FarmerUser> getAllByUserId(UUID userId){
         return farmerUserRepository.getFarmerUserByUserId(userId);
     }
 }

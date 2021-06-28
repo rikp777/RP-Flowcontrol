@@ -6,14 +6,15 @@ import lombok.Data;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Data
 public class PalletLabel implements Serializable {
-    private Long id;
+    private UUID id;
     private Long generalId;
     private String cropDate;
     private String note;
-    private Long palletLabelFarmerId;
+    private UUID palletLabelFarmerId;
     private Integer articleAmount;
     private Article article;
 

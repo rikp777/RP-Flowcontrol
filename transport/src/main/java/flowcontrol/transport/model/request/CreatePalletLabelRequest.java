@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import lombok.Data;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Data
 @JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
@@ -16,8 +17,8 @@ public class CreatePalletLabelRequest {
     private Integer harvestCycle;
     private Integer harvestCycleDay;
 
-    private Long cellId;
-    private Long articleId;
-    private Long farmerId;
-    private Long palletTypeId;
+    private UUID cellId;
+    private UUID articleId;
+    private UUID farmerId;
+    private UUID palletTypeId;
 }

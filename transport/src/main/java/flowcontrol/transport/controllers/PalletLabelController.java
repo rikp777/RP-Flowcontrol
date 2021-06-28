@@ -16,6 +16,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/v1/farmers/{farmerId}/palletlabels")
@@ -35,15 +36,15 @@ public class PalletLabelController {
 
     @GetMapping()
     public List<PalletLabel> getAllPalletLabels(
-            @PathVariable Long farmerId
+            @PathVariable UUID farmerId
     ){
         return palletLabelService.getAll(farmerId);
     }
 
     @GetMapping("/{palletLabelId}")
     public ResponseEntity<PalletLabelResponse> getPalletLabel(
-            @PathVariable Long farmerId,
-            @PathVariable("palletLabelId") Long palletLabelId
+            @PathVariable UUID farmerId,
+            @PathVariable("palletLabelId") UUID palletLabelId
     ){
         Farmer farmer = farmerRepository.findById(farmerId); //change get it from palletlabel farmer id
 
@@ -67,7 +68,7 @@ public class PalletLabelController {
 
     @PostMapping()
     public ResponseEntity createPalletLabel(
-            @PathVariable Long farmerId,
+            @PathVariable UUID farmerId,
             @RequestBody CreatePalletLabelRequest newPalletLabel
     ){
         return palletLabelService.create(farmerId, newPalletLabel)

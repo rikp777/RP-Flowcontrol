@@ -1,6 +1,6 @@
 package flowcontrol.production.config;
 
-import flowcontrol.production.config.security.TokenInterceptor;
+import flowcontrol.production.security.TokenInterceptor;
 import flowcontrol.production.model.general.BearerTokenWrapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
