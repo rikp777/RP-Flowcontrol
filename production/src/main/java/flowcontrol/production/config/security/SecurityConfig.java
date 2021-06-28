@@ -31,6 +31,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 // Add a filter to validate the tokens with every request
                 .addFilterAfter(new JwtTokenAuthenticationFilter(jwtConfig), UsernamePasswordAuthenticationFilter.class)
                 .authorizeRequests()
+                .antMatchers("/**/docs.html").permitAll()
+                .antMatchers("/**/swagger-ui/**").permitAll()
+                .antMatchers("/**/v3/api-docs/**").permitAll()
                 .anyRequest().authenticated();
     }
 }
