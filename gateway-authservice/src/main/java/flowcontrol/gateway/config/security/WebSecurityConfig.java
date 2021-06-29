@@ -23,6 +23,9 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
 
+import java.util.Collections;
+import java.util.List;
+
 @Profile("!dev")
 @Configuration
 @EnableWebSecurity(debug = true)
@@ -106,7 +109,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         final CorsConfiguration config = new CorsConfiguration();
         config.setAllowCredentials(true);
-        config.addAllowedOrigin("*");
+        config.setAllowedOrigins(List.of(
+                "http://localhost:8080",
+                "http://127.0.0.1:8080",
+                "https://todo.add.domain.com")
+        );
         config.addAllowedHeader("*");
         config.addAllowedMethod("OPTIONS");
         config.addAllowedMethod("HEAD");
