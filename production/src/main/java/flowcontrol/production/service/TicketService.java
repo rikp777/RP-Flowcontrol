@@ -119,6 +119,7 @@ public class TicketService {
         // Instantiate new Ticket
         Ticket ticket = new Ticket();
         ticket.setFarmerId(meta.getFarmerId());
+        ticket.setPalletLabelId(meta.getPalletLabelId());
 
         // Get List of tickets that belong to pallet label by id
         List<Ticket> ticketList =
@@ -130,11 +131,11 @@ public class TicketService {
         log.info("================================================");
         log.info("Begin check [Create Ticket]");
         if(ticketList.isEmpty()) {
-            log.info("Pallet label: [" + palletLabel.getId() + "] has no tickets yet");
+            log.info("Pallet label: [" + meta.getPalletLabelId() + "] has no tickets yet");
 
             ticket.setArticleAmountUsed(palletLabel.getArticleAmount());
             ticket.setStartAt(LocalDateTime.now());
-            ticket.setPalletLabelId(palletLabel.getId());
+            ticket.setPalletLabelId(meta.getPalletLabelId());
             ticket.setLine(line);
             ticketRepository.save(ticket);
 

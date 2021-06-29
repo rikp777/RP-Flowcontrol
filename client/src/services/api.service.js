@@ -161,6 +161,7 @@ class ApiService {
     static getId(resource){
         let id = 0
         if(resource){
+            console.log("Get Id from resource: ", resource)
             let segments = resource.split("/")
             return segments[segments.length - 1];
         }

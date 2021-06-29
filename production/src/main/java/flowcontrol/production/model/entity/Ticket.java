@@ -19,7 +19,9 @@ import java.util.UUID;
 @ToString
 public class Ticket extends BaseEntity {
 
+    @org.hibernate.annotations.Type(type="uuid-char")
     private UUID palletLabelId;
+    @org.hibernate.annotations.Type(type="uuid-char")
     private UUID farmerId;
 
     @Column(

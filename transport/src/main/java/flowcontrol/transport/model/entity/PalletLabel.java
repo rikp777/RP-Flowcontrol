@@ -27,10 +27,11 @@ public class PalletLabel extends BaseEntity{
         super(id);
     }
 
+    @Column(unique=true)
     private Long generalId;
     private String cropDate;
     private String note;
-    private UUID palletLabelFarmerId;
+    private Long palletLabelFarmerId;
     private Integer articleAmount;
 
     private Integer harvestCycle;

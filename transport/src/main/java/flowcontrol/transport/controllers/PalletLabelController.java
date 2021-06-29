@@ -1,9 +1,11 @@
 package flowcontrol.transport.controllers;
 
 import flowcontrol.transport.config.security.JwtConfig;
+import flowcontrol.transport.controllers.assembler.PalletLabelAssembler;
 import flowcontrol.transport.exception.PalletLabelException;
 import flowcontrol.transport.exception.ResourceNotFoundException;
 import flowcontrol.transport.model.entity.PalletLabel;
+import flowcontrol.transport.model.general.Article;
 import flowcontrol.transport.model.general.Farmer;
 import flowcontrol.transport.model.request.CreatePalletLabelRequest;
 import flowcontrol.transport.model.response.PalletLabelResponse;
@@ -29,6 +31,9 @@ public class PalletLabelController {
     private final PalletLabelService palletLabelService;
 
     @Autowired
+    private final PalletLabelAssembler palletLabelAssembler;
+
+    @Autowired
     private final ArticleRepository articleRepository;
     @Autowired
     private final FarmerRepository farmerRepository;
@@ -49,22 +54,28 @@ public class PalletLabelController {
         Farmer farmer = farmerRepository.findById(farmerId); //change get it from palletlabel farmer id
 
         return palletLabelService.getById(farmerId, palletLabelId)
-                .map(palletLabel -> ResponseEntity.ok(
-                        new PalletLabelResponse().builder()
-                                .id(palletLabel.getId())
-                                .generalId(palletLabel.getGeneralId())
-                                .article(articleRepository.findById(palletLabel.getArticle()))
-                                .articleAmount(palletLabel.getArticleAmount())
-                                .cropDate(palletLabel.getCropDate())
-                                .harvestCycle(palletLabel.getHarvestCycle())
-                                .harvestCycleDay(palletLabel.getHarvestCycleDay())
-                                .farmer(farmer)
-                                .build()
-                ))
+                .map(palletLabel -> ResponseEntity.ok(palletLabelAssembler.toModel(palletLabel)))
                 .orElseThrow(() ->
                         new ResourceNotFoundException("PalletLabel", "Id", palletLabelId)
                 );
     }
+
+
+    @GetMapping("/getbygeneral/{genericPalletLabelId}")
+    public ResponseEntity<PalletLabelResponse> getPalletLabelByGenericId(
+            @PathVariable UUID farmerId,
+            @PathVariable("genericPalletLabelId") Long generalPalletLabelId
+    ){
+        Farmer farmer = farmerRepository.findById(farmerId); //change get it from palletlabel farmer id
+
+        return palletLabelService.getByGeneralId(farmerId, generalPalletLabelId)
+                .map(palletLabel -> ResponseEntity.ok(palletLabelAssembler.toModel(palletLabel)))
+                .orElseThrow(() ->
+                        new ResourceNotFoundException("PalletLabel", "Id", generalPalletLabelId)
+                );
+    }
+
+
 
     @PostMapping()
     public ResponseEntity createPalletLabel(

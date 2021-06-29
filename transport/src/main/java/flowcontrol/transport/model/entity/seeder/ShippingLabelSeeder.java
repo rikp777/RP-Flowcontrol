@@ -35,9 +35,9 @@ public class ShippingLabelSeeder {
                 shippingLabel.setGeneralId(1L);
                 shippingLabel.setTransportDate("2020-02-02");
                 shippingLabel.setTransportDeliveryDate("2020-02-02");
-                shippingLabel.setFarmerId(UUID.fromString(""));
-                shippingLabel.setTruckId(UUID.fromString(""));
-                shippingLabel.setTransportDriverId(UUID.fromString(""));
+                shippingLabel.setFarmerId(UUID.fromString("e6c9b529-b44f-4809-9c25-fb15f4e32795"));
+                shippingLabel.setTruckId(UUID.fromString("2239de3c-17d7-4d39-9182-54aee9c71476"));
+                shippingLabel.setTransportDriverId(UUID.fromString("e8f2ac43-9cc4-40c3-9b9a-54522f5d7f0d"));
                 shippingLabelRepo.save(shippingLabel);
 
                 message(shippingLabel);

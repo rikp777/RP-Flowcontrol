@@ -37,7 +37,7 @@ public class ArticleRepository {
                 .onStatus(HttpStatus::is4xxClientError,
                         error -> Mono.error(new ResourceNotFoundException("Article", "Id", id)))
                 .onStatus(HttpStatus::is5xxServerError,
-                        error -> Mono.error(new AppException("Server is not responding")))
+                        error -> Mono.error(new AppException("Cant fetch article with id: " + id + " please contact us. This is an issue on our side!")))
                 .bodyToMono(Article.class) // Whatever body go get back map it to the class - Mono means you will get a
                 // object back but not right away "async" //empty page but you will need to wait but you know it will come and than you can do stuff "promise"
                 .block();  // converts async to sync

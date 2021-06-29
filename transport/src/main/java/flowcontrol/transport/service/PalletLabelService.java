@@ -59,6 +59,18 @@ public class PalletLabelService {
                 .findById(palletLabelId);
     }
 
+    public Optional<PalletLabel> getByGeneralId(UUID farmerId, Long generalPalletLabelId){
+        log.info(
+                Thread.currentThread().getStackTrace()[2].getClassName() + "." +
+                        Thread.currentThread().getStackTrace()[2].getMethodName() + "." +
+                        "farmerId:[" + farmerId +"]." +
+                        "palletLabelId[" + generalPalletLabelId + "]"
+        );
+
+        return palletLabelRepository
+                .findByGeneralId(generalPalletLabelId);
+    }
+
 
     public Optional<PalletLabel> create(UUID farmerId, CreatePalletLabelRequest newPalletLabel){
         log.info(
@@ -79,9 +91,13 @@ public class PalletLabelService {
         // Create new
         PalletLabel palletLabel = new PalletLabel();
 
+        //Get lasts id's
+        //Last general id
+        //Last specific farmer id
+
         // IDS
         palletLabel.setGeneralId(1L);
-        palletLabel.setPalletLabelFarmerId(farmerId);
+        palletLabel.setPalletLabelFarmerId(2l);
 
         // Data
         palletLabel.setCropDate(newPalletLabel.getCropDate());

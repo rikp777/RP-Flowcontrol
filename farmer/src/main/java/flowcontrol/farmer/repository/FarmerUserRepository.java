@@ -9,5 +9,5 @@ import java.util.Optional;
 import java.util.UUID;
 
 public interface FarmerUserRepository extends AbstractBaseRepository<FarmerUser, UUID>{
-    List<FarmerUser> getFarmerUserByUserId(UUID userId);
+    List<FarmerUser> getFarmerUserByUserId(Long userId);
 }

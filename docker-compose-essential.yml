@@ -107,3 +107,22 @@ services:
       timeout: 20s
       retries: 10
 
+  zuul-service:
+    container_name: zuul-service
+    hostname: zuul-service
+    build: ./zuul-service
+
+    mem_limit: 350m
+
+    ports:
+      - 8762:8762
+
+    links:
+      - eureka-service
+
+    depends_on:
+      - database
+
+    environment:
+      eureka.client.serviceUrl.defaultZone: http://eureka-service:8761/eureka
+

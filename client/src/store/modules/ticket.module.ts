@@ -9,6 +9,8 @@ import PalletLabelEndpoint from "@/api/palletLabel.endpoint";
 })
 class PalletLabelModule extends VuexModule {
 
+    public lines : any = []
+
     public palletLabels : any = []
     public palletLabel : any = {}
 
@@ -70,8 +72,19 @@ class PalletLabelModule extends VuexModule {
         }
     }
 
+    get getLines(): any {
+        return this.lines
+    }
+
     get getPalletLabel() : any {
         return this.palletLabel
+    }
+    get getPalletLabelId() : string {
+        if(this.palletLabel){
+            console.log(this.palletLabel.links.self.href)
+            return Api.getId(this.palletLabel.links.self.href)
+        }
+        return ""
     }
     get getTickets() : any {
         return this.tickets
@@ -89,12 +102,24 @@ class PalletLabelModule extends VuexModule {
         return this.hasError
     }
 
+    @Action({ rawError: true })
+    public async getAllProductionLines() {
+        this.context.commit("startLoading")
+        const api = new Api(`/production/api/v1/lines`)
+        await api.get()
+            .then((response: any) => {
+                this.context.commit("setLines", response.data);
+                this.context.commit("endLoading")
+            }).catch((error :any) => {
+                this.context.commit("endLoading")
+            })
+    }
 
     @Action({ rawError: true })
     public async getPalletLabelById(palletLabelId: number) {
         this.context.commit("startLoading")
         const farmerId = localStorage.getItem('farmer')
-        const api = new Api(`/transport/api/v1/farmers/${farmerId}/palletlabels`)
+        const api = new Api(`/transport/api/v1/farmers/${farmerId}/palletlabels/getbygeneral`)
         await api.get(palletLabelId.toString())
             .then((response: any) => {
                 this.context.commit("setPalletLabel", response.data);
@@ -105,7 +130,7 @@ class PalletLabelModule extends VuexModule {
     }
 
     @Action({ rawError: true })
-    public async getAllTicketsBelongingToPalletLabelId(palletLabelId: number) {
+    public async getAllTicketsBelongingToPalletLabelId(palletLabelId: string) {
         this.context.commit("startLoading")
         const farmerId = localStorage.getItem('farmer')
         const api = new Api(`/production/api/v1/farmers/${farmerId}/palletlabels/${palletLabelId}/tickets`)
@@ -131,7 +156,7 @@ class PalletLabelModule extends VuexModule {
         }
         const farmerId = localStorage.getItem('farmer')
         const data = {}
-        const api = new Api(`/production/api/v1/farmers/${farmerId}/palletlabels/${this.palletLabel.id}/tickets`)
+        const api = new Api(`/production/api/v1/farmers/${farmerId}/palletlabels/${Api.getId(this.palletLabel.links.self.href)}/tickets`)
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
         await api.post(data, params).then((response) => {
@@ -230,6 +255,12 @@ class PalletLabelModule extends VuexModule {
         if(this.debug) console.log("[TicketModule] setInterruption()", data)
         if(data === null) return
         this.interruption = data;
+    }
+    @Mutation
+    private setLines(data : any) : void{
+        if(this.debug) console.log("[TicketModule] setLines()", data)
+        if(data === null) return
+        this.lines = data;
     }
 
     @Mutation

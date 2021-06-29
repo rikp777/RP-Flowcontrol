@@ -18,6 +18,9 @@
                   <section>
                     <b-loading :is-full-page="false" v-model="isLoading" :can-cancel="false"></b-loading>
                     <b-notification :closable="true" class="is-primary" v-if="palletLabel.article">
+                      <b-progress :value="(usedAmount / this.palletLabel.articleAmount) * 100" size="is-medium" show-value type="is-success">
+                        used {{ usedAmount }} out of {{ this.palletLabel.articleAmount }}
+                      </b-progress>
                       <table class="table is-fullwidth is-transparent">
                         <tbody>
 
@@ -35,8 +38,12 @@
                           <td width="2%"><r-icon icon="people-carry"></r-icon></td>
                           <td width="30%">Line nr.:</td>
                           <td>
-                            <span v-if="form.lineId">{{form.lineId}}</span>
-                            <span v-else-if="tickets[0]">{{tickets[this.tickets.length -1].line.id}}</span>
+                            <template v-if="selectedLine">
+                              <span v-if="selectedLine.name">{{selectedLine.name}}</span>
+                              <span v-if="selectedLine.description"><br><small>{{selectedLine.description}}</small></span>
+                            </template>
+
+<!--                            <span v-else-if="tickets[0]">{{tickets[this.tickets.length -1].line.id}}</span>-->
                           </td>
                           <td width="2%"><a class="button is-small is-primary" href="#">Check</a></td>
                         </tr>
@@ -115,20 +122,31 @@
                                  icon="pallet">
                         </b-input>
                       </b-field>
-
-                      <b-field
-                          v-if="tickets.length == 0"
-                          message="Press enter after filling label"
-                      >
-                        <b-input
-                            placeholder="Line id"
-                            :lazy=true
-                            v-model="form.lineId"
-                            type="number"
-                            icon-pack="fas"
-                            icon="people-carry">
-                        </b-input>
+                      <b-field label="Lines" v-if="lines">
+                        <b-select placeholder="Select a character" icon="people-carry" v-model="form.lineId">
+                          <optgroup label="Lines">
+                            <template v-for="(line, index) in lines ">
+                              <option :value="line.id" :key="index">
+                                {{line.name}}
+                              </option>
+                            </template>
+                          </optgroup>
+                        </b-select>
                       </b-field>
+
+<!--                      <b-field-->
+<!--                          v-if="tickets.length == 0"-->
+<!--                          message="Press enter after filling label"-->
+<!--                      >-->
+<!--                        <b-input-->
+<!--                            placeholder="Line id"-->
+<!--                            :lazy=true-->
+<!--                            v-model="form.lineId"-->
+<!--                            type="number"-->
+<!--                            icon-pack="fas"-->
+<!--                            icon="people-carry">-->
+<!--                        </b-input>-->
+<!--                      </b-field>-->
                       <b-field
                           v-if="canCreateNewTicket"
                       >
@@ -330,9 +348,14 @@ export default {
       tickets: "getTickets",
       interruptions: "getInterruptions",
       palletLabel: "getPalletLabel",
+      palletLabelId: "getPalletLabelId",
+      lines: "getLines",
       hasError: "getHasError",
       isLoading: "getIsLoading",
     }),
+    selectedLine(){
+      return this.lines.filter(line => line.id == this.form.lineId)[0]
+    },
     isLastTicketIsOpen(){
       if(this.tickets != null && this.tickets.length > 0 && this.tickets != ""){
         if(this.tickets[this.tickets.length -1].endAt == null){
@@ -364,6 +387,13 @@ export default {
       }
       return false;
     },
+    usedAmount(){
+      let usedAmount = 0
+      this.tickets.forEach(ticket => {
+        usedAmount = usedAmount + ticket.articleAmountUsed
+      })
+      return usedAmount
+    },
 
     processStops: function () {
       return  this.form.interruptionReasonId == 4 ||
@@ -387,6 +417,7 @@ export default {
   methods: {
     ...mapActions("ticket", {
       createTicket: "createTicket",
+      getAllLines: "getAllProductionLines",
       getPalletLabelById: "getPalletLabelById",
       getAllTicketsBelongingToPalletLabelId: "getAllTicketsBelongingToPalletLabelId",
       getAllInterruptionsByTicket: "getAllInterruptionsByTicket",
@@ -406,7 +437,7 @@ export default {
     async getTickets(){
       await this.purgeData();
       await this.getPalletLabelById(this.form.palletLabelId)
-      await this.getAllTicketsBelongingToPalletLabelId(this.form.palletLabelId)
+      await this.getAllTicketsBelongingToPalletLabelId(this.palletLabelId)
       // await this.fetchInterruptionssAction(this.tickets[this.tickets.length -1])
     },
     async actionGetPalletLabelById(palletLabelId){
@@ -453,8 +484,9 @@ export default {
       await this.fetchInterruptionssAction(this.tickets[this.tickets.length -1])
     }
   },
-  mounted() {
+  async mounted() {
     this.purgeData();
+    await this.getAllLines()
   }
 }
 </script>

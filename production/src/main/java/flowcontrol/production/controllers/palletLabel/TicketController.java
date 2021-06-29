@@ -34,12 +34,7 @@ public class TicketController {
      * @param farmerId
      * @param palletLabelId
      */
-    @GetMapping(
-            produces = {
-                    MediaType.APPLICATION_JSON_VALUE,
-                    MediaTypes.HAL_JSON_VALUE
-            }
-    )
+    @GetMapping()
     public ResponseEntity<CollectionModel<TicketResponse>> findAll(
             @PathVariable UUID farmerId,
             @PathVariable UUID palletLabelId
