@@ -4,24 +4,24 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+@Entity(name = "InterruptionReason")
+@Table(name = "interruption_reason")
 @Getter
 @Setter
-@Entity( name = "InterruptionReason" )
-@Table( name = "interruption_reason" )
+@ToString
 @NoArgsConstructor
 public class InterruptionReason extends BaseEntity {
 
     public InterruptionReason(UUID id){
         super(id);
     }
-
-    private UUID id;
 
     @Column(
             name = "name",

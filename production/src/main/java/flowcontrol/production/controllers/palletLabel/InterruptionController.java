@@ -38,8 +38,8 @@ public class InterruptionController {
             @PathVariable UUID farmerId,
             @PathVariable UUID palletLabelId,
             @PathVariable UUID ticketId,
-            @RequestParam UUID interruptionReasonId,
-            @RequestParam Integer usedArticleAmount
+            @RequestParam("interruption_reason_id") UUID interruptionReasonId,
+            @RequestParam("used_article_amount") Integer usedArticleAmount
             ){
         BasicMetaData metaData = BasicMetaData.builder()
                 .farmerId(farmerId)

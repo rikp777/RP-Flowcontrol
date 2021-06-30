@@ -1,6 +1,6 @@
 package flowcontrol.production.model.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
@@ -16,8 +16,10 @@ import java.util.UUID;
 @MappedSuperclass
 @Getter
 @Setter
-//@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-public class BaseEntity implements Serializable {
+@JsonIgnoreProperties(
+        {"hibernateLazyInitializer", "handler", "createAt", "updatedAt"}
+)
+public abstract class BaseEntity implements Serializable {
 
     @Id
     @GenericGenerator(name = "UseExistingIdOtherwiseGenerateUsingIdentity", strategy = "flowcontrol.production.model.entity.UseExistingIdOtherwiseGenerateUsingIdentity")
