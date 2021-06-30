@@ -191,6 +191,8 @@ public class TicketService {
                 ticketRepository.save(ticket);
             }
         }
+
+        //todo also close still open interruptions because people are dumb
     }
 
     public Optional<Ticket> fillRefillTray(

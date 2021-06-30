@@ -38,7 +38,6 @@ class JwtService {
     destroyAllTokens(){
         localStorage.removeItem(this.AuthTokenKey);
         localStorage.removeItem(this.AuthRefreshTokenKey);
-        localStorage.removeItem("farmer");
     }
 }
 export default JwtService;

@@ -7,7 +7,14 @@
           <div class="media">
             <div class="media-content">
               <p class="title is-4">Create ticket</p>
-              <p class="subtitle is-6">Make a ticket, for processing the specified pallet.</p>
+              <p class="subtitle is-6">Make a ticket, for processing the specified pallet. <br>
+                <small>
+                  Please note that you are responsible for all tickets you open. Please note that you are responsible for all tickets you open.
+                  Always close tickets when they are used up or when processing is interrupted.
+
+                </small>
+              </p>
+
             </div>
           </div>
 
@@ -70,7 +77,18 @@
                         <tr v-if="itemsToStillProcess === 0">
                           <td width="2%"><r-icon icon="truck-loading"></r-icon></td>
                           <td width="30%">Status:</td>
-                          <td>Processed</td>
+                          <td>
+                            <div class="icon-text">
+                                 Processed
+                              <span v-if="!tickets[tickets.length -1].endAt" class="icon has-text-warning is-size-7">
+                                <r-icon icon="check-circle" />
+                              </span>
+                              <span v-else class="icon has-text-success is-size-7">
+                                <r-icon icon="check-circle" />
+                              </span>
+                              <small v-if="!tickets[tickets.length -1].endAt">with a proviso!</small>
+                            </div>
+                          </td>
                           <td width="2%"><a class="button is-small is-primary" href="#">Check</a></td>
                         </tr>
                         </tbody>
@@ -81,30 +99,43 @@
                 <div class="column">
                   <form v-on:submit.prevent>
                     <section v-if="form.palletLabelId">
+                      <p class="is-size-7 has-text-centered"><small>Pallet label meta data:</small></p>
                       <b-field grouped group-multiline>
                         <div class="control">
-                          <b-tag
-                              v-if="palletLabel.farmer"
-                              type="is-primary"
-                              attached>
-                            {{palletLabel.farmer.name}}
-                          </b-tag>
+                          <b-tooltip label="Pallet label notes"
+                                     position="is-top"
+                                     type="is-success">
+                            <b-tag
+                                v-if="palletLabel.note"
+                                type="is-primary"
+                                attached>
+                              {{palletLabel.note}}
+                            </b-tag>
+                          </b-tooltip>
                         </div>
                         <div class="control">
-                          <b-tag
-                              v-if="palletLabel.cropDate"
-                              type="is-primary"
-                              attached>
-                            {{palletLabel.cropDate}}
-                          </b-tag>
+                          <b-tooltip label="Crop date"
+                                     position="is-top"
+                                     type="is-success">
+                            <b-tag
+                                v-if="palletLabel.cropDate"
+                                type="is-primary"
+                                attached>
+                              {{palletLabel.cropDate}}
+                            </b-tag>
+                          </b-tooltip>
                         </div>
                         <div class="control">
-                          <b-tag
-                              v-if="palletLabel.articleAmount"
-                              type="is-primary"
-                              attached>
-                            {{palletLabel.articleAmount}}
-                          </b-tag>
+                          <b-tooltip label="Article amount"
+                                     position="is-top"
+                                     type="is-success">
+                            <b-tag
+                                v-if="palletLabel.articleAmount"
+                                type="is-primary"
+                                attached>
+                              {{palletLabel.articleAmount}}
+                            </b-tag>
+                          </b-tooltip>
                         </div>
                       </b-field>
                       <div >
@@ -122,7 +153,7 @@
                                  icon="pallet">
                         </b-input>
                       </b-field>
-                      <b-field label="Lines" v-if="lines">
+                      <b-field label="Lines" v-if="lines && tickets.length === 0">
                         <b-select placeholder="Select a character" icon="people-carry" v-model="form.lineId">
                           <optgroup label="Lines">
                             <template v-for="(line, index) in lines ">
@@ -133,23 +164,10 @@
                           </optgroup>
                         </b-select>
                       </b-field>
-
-<!--                      <b-field-->
-<!--                          v-if="tickets.length == 0"-->
-<!--                          message="Press enter after filling label"-->
-<!--                      >-->
-<!--                        <b-input-->
-<!--                            placeholder="Line id"-->
-<!--                            :lazy=true-->
-<!--                            v-model="form.lineId"-->
-<!--                            type="number"-->
-<!--                            icon-pack="fas"-->
-<!--                            icon="people-carry">-->
-<!--                        </b-input>-->
-<!--                      </b-field>-->
                       <b-field
                           v-if="canCreateNewTicket"
                       >
+
                         <p class="control">
                           <b-button type="is-primary" @click="actionCreateTicket()">Create ticket</b-button>
                         </p>
@@ -215,7 +233,7 @@
 
                         <b-field v-if="form.interruptionReasonId">
                           <p class="control">
-                            <b-button type="is-primary" @click="actionCreateInteruption()">Make interruption</b-button>
+                            <b-button type="is-primary" @click="actionCreateInterruption()">Make interruption</b-button>
                           </p>
                         </b-field>
                         <b-field v-if="isLastInterruptionOpen">
@@ -243,7 +261,7 @@
                   detailed
                   detail-key="id"
                   detail-transition="fade"
-                  @details-open="(row) => $buefy.toast.open(`Expanded ticket ${row.id}`)"
+                  @details-open="(row) => $buefy.toast.open(`Expanded ticket`)"
                   :show-detail-icon="true"
                   v-if="!hasError && tickets.length > 0"
                   :data="tickets"
@@ -257,42 +275,54 @@
 
 
                 <b-table-column field="user.startAt" label="Start date" sortable v-slot="props">
-                  {{ props.row.startAt }}
+                  <div >
+                    {{ props.row.startAt | moment("hh:mm:ss")}} | {{ props.row.startAt | moment("dddd")}}<br />
+                    {{ props.row.startAt | moment("DD-MM-YYYY")}}
+                  </div>
+
                 </b-table-column>
                 <b-table-column field="user.endAt" label="End date" sortable v-slot="props">
-                  <td>
-                    <span class="tag is-danger" v-if="props.row.endAt == null">No endtime yet</span>
-                    <span v-else>{{ props.row.endAt }}</span>
-                  </td>
+                  <span class="tag is-danger" v-if="props.row.endAt == null">No endtime yet</span>
+                  <div v-else>
+                    {{ props.row.endAt | moment("hh:mm:ss")}} | {{ props.row.endAt | moment("dddd")}}<br />
+                    {{ props.row.endAt | moment("DD-MM-YYYY")}}
+                  </div>
                 </b-table-column>
-                <b-table-column field="user.articleAmountUsed" label="Article amount used" sortable v-slot="props">
-                  {{ props.row.articleAmountUsed }}
+                <b-table-column field="user.articleAmountUsed" label="Article amount used" sortable v-slot="props" >
+                  <div class="has-text-centered" v-if="props.row.articleAmountUsed">{{ props.row.articleAmountUsed }}</div>
                 </b-table-column>
                 <b-table-column field="user.refillTrays" label="Refill trays" sortable v-slot="props">
-                  {{ props.row.refillTrays }}
+                  <div v-if="props.row.refillTrays">{{ props.row.refillTrays }}</div>
                 </b-table-column>
 
-                <template slot="detail" slot-scope="props">
-                  <div>
+                <template slot="detail" slot-scope="props" >
+                  <div v-if="props.row.interruptions.length > 0">
                     <table>
                       <thead>
-                        <tr>
-                          <td>Name</td>
-                          <td>Description</td>
-                          <td>StartAt</td>
-                          <td>EndAt</td>
-                          <td>Time</td>
-                        </tr>
+                      <tr>
+                        <th>Name</th>
+                        <th>Description</th>
+                        <th>StartAt</th>
+                        <th>EndAt</th>
+                        <th>Time</th>
+                      </tr>
                       </thead>
                       <tbody>
                       <tr v-for="(interruption, index) in props.row.interruptions" :key="index">
 
                         <td>{{ interruption.interruptionReason.name }}</td>
                         <td>{{ interruption.interruptionReason.description }}</td>
-                        <td>{{ interruption.startAt }}</td>
+                        <td>
+                          <div >
+                            {{ interruption.startAt | moment("hh:mm:ss")}}<br />
+                            {{ interruption.startAt | moment("DD-MM-YYYY")}}
+                          </div>
                         <td>
                           <span class="tag is-danger" v-if="interruption.endAt == null">No endtime yet</span>
-                          <span v-else>{{ interruption.endAt }}</span>
+                          <div v-else>
+                            {{ interruption.endAt | moment("hh:mm:ss")}}<br />
+                            {{ interruption.endAt | moment("DD-MM-YYYY")}}
+                          </div>
                         </td>
                         <td>
                           <div class="text-red-400" v-if="interruption.endAt != null">{{
@@ -308,9 +338,20 @@
                       </tbody>
                     </table>
                   </div>
+
+                  <b-notification
+                      v-else
+                      :closable="false"
+                      type="is-success"
+                      has-icon
+                      icon="laugh-wink"
+                      role="alert"
+                      aria-close-label="Close notification">
+                    No interruptions for this ticket, good job!
+                  </b-notification>
+
                 </template>
               </b-table>
-<!--              {{tickets}}-->
             </section>
           </div>
         </div>
@@ -337,6 +378,11 @@ export default {
   },
   watch: {
     'form.palletLabelId': function (newVal, oldVal){
+      this.palletLabelId = null;
+      this.lineId = null;
+      this.interruptionReasonId = null;
+      this.usedArticleAmount = null;
+      this.refillAmount = null;
       this.purgeData()
       this.actionGetPalletLabelById(newVal)
     },
@@ -354,7 +400,17 @@ export default {
       isLoading: "getIsLoading",
     }),
     selectedLine(){
-      return this.lines.filter(line => line.id == this.form.lineId)[0]
+      if(this.tickets.length !== 0){
+        if(this.tickets[this.tickets.length -1].line){
+          console.log(this.tickets[this.tickets.length -1].line)
+          return this.tickets[this.tickets.length -1].line
+        }
+      }
+
+      if(this.form.lineId){
+        return this.lines.filter(line => line.id === this.form.lineId)[0]
+      }
+      return null
     },
     isLastTicketIsOpen(){
       if(this.tickets != null && this.tickets.length > 0 && this.tickets != ""){
@@ -368,12 +424,12 @@ export default {
     },
 
     canCreateNewTicket(){
-      if(this.palletLabel != null && this.form.lineId != null && !this.itemsToStillProcess <= 0) return true
+      if(this.palletLabel != null && this.form.lineId != null && !(this.itemsToStillProcess <= 0)) return true
       return false;
     },
 
     palletLabelIsFullyUsed() {
-      console.log(this.tickets)
+      //console.log(this.tickets)
       if(this.tickets.length > 0 && this.palletLabel) {
         const hasEnd = this.tickets[this.tickets.length -1].endAt != null
         let usedAmount = 0
@@ -417,6 +473,7 @@ export default {
   methods: {
     ...mapActions("ticket", {
       createTicket: "createTicket",
+      createInterruption: "createInterruption",
       getAllLines: "getAllProductionLines",
       getPalletLabelById: "getPalletLabelById",
       getAllTicketsBelongingToPalletLabelId: "getAllTicketsBelongingToPalletLabelId",
@@ -426,9 +483,24 @@ export default {
       purgeData: "purgeData"
     }),
 
-    actionCreateTicket(){
-      this.createTicket(this.form.lineId)
-      this.getTickets();
+    async actionCreateTicket(){
+      await this.createTicket(this.form.lineId)
+      await this.getTickets();
+    },
+    async actionCreateInterruption(){
+      const params = {}
+      if (this.form.usedArticleAmount != null && this.form.usedArticleAmount != ""){
+        //console.log("dit kan niet", this.form.usedArticleAmount)
+        params.interruptionReasonId = this.form.interruptionReasonId;
+        params.usedArticleAmount = this.form.usedArticleAmount;
+      }else {
+        //console.log("raak")
+        params.interruptionReasonId = this.form.interruptionReasonId
+        params.usedArticleAmount = this.palletLabel.articleAmount;
+      }
+      console.log(params)
+      await this.createInterruption(params)
+      await this.getTickets();
     },
 
     getInterruptions(){
@@ -446,20 +518,21 @@ export default {
         await this.getTickets()
       }
     },
-    actionCreateInteruption(){
+    out(){
       const data = {}
       const params = {}
       if (this.form.usedArticleAmount != null && this.form.usedArticleAmount != ""){
-        console.log("dit kan niet", this.form.usedArticleAmount)
+        //console.log("dit kan niet", this.form.usedArticleAmount)
         params.interruptionReasonId = this.form.interruptionReasonId;
         params.usedArticleAmount = this.form.usedArticleAmount;
       }else {
-        console.log("raak")
+        //console.log("raak")
         params.interruptionReasonId = this.form.interruptionReasonId;
         params.usedArticleAmount = this.palletLabel.articleAmount;
       }
+      console.log(params)
 
-      console.log(this.form.usedArticleAmount)
+      //console.log(this.form.usedArticleAmount)
       const headers = this.request.headers
       const apiUrl = `http://127.0.0.1:8762/production/api/v1/farmers/1/palletlabels/${this.tickets[this.tickets.length -1].palletLabel.id}/tickets/${this.tickets[this.tickets.length -1].id}/interruptions`
       this.axios.post(apiUrl, data, { params, headers }).then((response) => {
@@ -477,7 +550,7 @@ export default {
       // let isUsed = this.palletLabelIsFullyUsed;
     },
     async actionCloseInterruption(){
-      console.log(this.tickets)
+      //console.log(this.tickets)
       await this.fetchTicketsAction(this.tickets[this.tickets.length -1].palletLabel.id)
       await this.closeInterruptionAction(this.tickets[this.tickets.length -1])
 

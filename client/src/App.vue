@@ -11,7 +11,7 @@
     <div v-if="isLoggedIn">
       <div class="container is-fluid">
         <div class="columns">
-          <div class="column is-3">
+          <div class="column is-2">
             <section class="section">
               <sidenav />
             </section>

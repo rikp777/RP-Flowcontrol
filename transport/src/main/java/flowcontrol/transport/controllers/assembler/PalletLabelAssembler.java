@@ -35,6 +35,7 @@ public class PalletLabelAssembler implements RepresentationModelAssembler<Pallet
                 .cropDate(entity.getCropDate())
                 .harvestCycle(entity.getHarvestCycle())
                 .harvestCycleDay(entity.getHarvestCycleDay())
+                .note(entity.getNote())
                 .build();
 
         response

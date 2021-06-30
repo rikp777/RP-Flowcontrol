@@ -37,7 +37,7 @@ public class PalletLabelSeeder {
                 palletLabel.setArticle(UUID.fromString("56e6b597-929e-4aaf-97bf-4f2506d2cacc"));
                 palletLabel.setArticleAmount(180);
                 palletLabel.setCropDate("2021-03-02");
-                palletLabel.setNote("Test one");
+                palletLabel.setNote("These mushrooms have a slight discoloration ");
                 palletLabel.setHarvestCycle(1);
                 palletLabel.setHarvestCycleDay(1);
                 palletLabel.setCell(UUID.fromString("2950cbec-b8b3-4a9e-8847-b2c92418fc42"));
@@ -55,7 +55,7 @@ public class PalletLabelSeeder {
                 palletLabel.setArticle(UUID.fromString("29ef480b-2a00-4bc6-b97f-63b63e321c57"));
                 palletLabel.setArticleAmount(180);
                 palletLabel.setCropDate("2021-03-03");
-                palletLabel.setNote("Test Two");
+                palletLabel.setNote("These mushrooms are in a different box than discussed ");
                 palletLabel.setHarvestCycle(1);
                 palletLabel.setHarvestCycleDay(1);
                 palletLabel.setCell(UUID.fromString("2950cbec-b8b3-4a9e-8847-b2c92418fc42"));

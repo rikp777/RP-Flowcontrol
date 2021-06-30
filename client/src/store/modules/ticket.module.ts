@@ -4,6 +4,8 @@ import ticketApi from "@/api/ticket.endpoint";
 import palletLabelApi from "@/api/palletLabel.endpoint";
 import PalletLabelEndpoint from "@/api/palletLabel.endpoint";
 
+
+//TODO Refactor and code cleanup
 @Module({
     namespaced: true
 })
@@ -22,32 +24,32 @@ class PalletLabelModule extends VuexModule {
 
     public interruptionReasons: any = [
         {
-            value: 1,
+            value: "833c0bf0-b070-4125-b1f8-fe30816645d5",
             label: "Break",
             stopProcess: false
         },
         {
-            value: 2,
+            value: "29a3a649-2319-4bec-85c7-b25529bc2cb6",
             label: "New foil",
             stopProcess: false
         },
         {
-            value: 3,
+            value: "572340cc-8894-4636-8522-6f559692d8db",
             label: "Sticker change",
             stopProcess: false
         },
         {
-            value: 4,
+            value: "4e359093-2aa3-4559-8582-334ae66c7c7c",
             label: "Product swap",
             stopProcess: true
         },
         {
-            value: 5,
+            value: "3a265806-3948-46a1-917b-a725f5c2e1cc",
             label: "Product disapproval",
             stopProcess: true
         },
         {
-            value: 6,
+            value: "721d6aa0-e3a3-4f12-83a6-72f2d59148e9",
             label: "Production line error",
             stopProcess: true
         }
@@ -168,9 +170,29 @@ class PalletLabelModule extends VuexModule {
     }
 
     @Action({ rawError: true })
+    public async createInterruption(params: any){
+        console.log(params)
+        if(this.tickets == null) return
+        this.context.commit("startLoading")
+        const farmerId = localStorage.getItem('farmer')
+        const data = {}
+
+        const api = new Api(`/production/api/v1/farmers/${farmerId}/palletlabels/${Api.getId(this.palletLabel.links.self.href)}/tickets/${this.tickets[this.tickets.length -1].id}/interruptions`)
+
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        await api.post(data, params).then((response) => {
+            this.context.commit("setInterruptions", response.data);
+            this.context.commit("endLoading")
+        }).catch((error) => {
+            this.context.commit("setError", true)
+        })
+    }
+
+    @Action({ rawError: true })
     public async closeTicket(ticket: any) {
         const farmerId = localStorage.getItem('farmer')
-        const api = new Api(`/production/api/v1/farmers/${farmerId}/palletlabels/${ticket.palletLabel.id}/tickets/${ticket.id}/close`)
+        const api = new Api(`/production/api/v1/farmers/${farmerId}/palletlabels/${Api.getId(this.palletLabel.links.self.href)}/tickets/${ticket.id}/close`)
         await api.post()
             .then((response) => {
                 this.context.commit("setPurgeData");
