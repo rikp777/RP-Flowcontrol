@@ -1,21 +1,30 @@
 package flowcontrol.gateway.model.entity;
 
 import flowcontrol.gateway.model.entity.base.DateAudit;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.NaturalId;
 
 import javax.persistence.*;
 import java.time.Instant;
+import java.util.UUID;
+
+
+@Entity(name = "refresh_token")
+@Table(name = "refresh_token")
+
+@Builder
 
 @Data
-@Entity(name = "refresh_token")
-public class RefreshToken extends DateAudit {
+@AllArgsConstructor
+@NoArgsConstructor
+public class RefreshToken extends BaseEntity {
 
-    @Id
-    @Column(name = "token_id")
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "refresh_token_sequence")
-    @SequenceGenerator(name = "refresh_token_sequence", allocationSize = 1)
-    private Long id;
+    public RefreshToken(UUID id){
+        super(id);
+    }
 
     @Column(name = "token", nullable = false, unique = true)
     @NaturalId(mutable = true)

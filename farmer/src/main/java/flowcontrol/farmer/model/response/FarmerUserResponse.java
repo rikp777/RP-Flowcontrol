@@ -10,6 +10,7 @@ import org.springframework.hateoas.server.core.Relation;
 
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import java.util.UUID;
 
 @Builder
 @Data
@@ -19,7 +20,7 @@ public class FarmerUserResponse extends RepresentationModel<FarmerResponse> {
     private FarmerResponse farmer;
 
     @JsonProperty("user_id")
-    private Long userId;
+    private UUID userId;
 
     private String email;
 }

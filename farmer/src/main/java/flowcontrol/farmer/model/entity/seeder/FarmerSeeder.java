@@ -69,7 +69,7 @@ public class FarmerSeeder {
 
                 FarmerUser farmerUser =  FarmerUser.builder()
                         .email("test@flowcontrol.com")
-                        .userId(1l)
+                        .userId(UUID.fromString("9cc4f0a4-caa9-4b7b-b9b7-637ac57d861a"))
                         .farmer(farmer)
                         .build();
 
@@ -103,7 +103,7 @@ public class FarmerSeeder {
 
                 FarmerUser farmerUser =  FarmerUser.builder()
                         .email("test@flowcontrol.com")
-                        .userId(1l)
+                        .userId(UUID.fromString("9cc4f0a4-caa9-4b7b-b9b7-637ac57d861a"))
                         .farmer(farmer)
                         .build();
 

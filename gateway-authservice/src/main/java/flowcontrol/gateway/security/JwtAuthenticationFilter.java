@@ -17,6 +17,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.UUID;
 
 @Slf4j
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
@@ -44,7 +45,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             String jwt = getJwtFromRequest(request);
 
             if(StringUtils.hasText(jwt) && jwtTokenValidator.validateToken(jwt)) {
-                Long userId = jwtTokenProvider.getUserIdFromJwt(jwt);
+                UUID userId = jwtTokenProvider.getUserIdFromJwt(jwt);
 
                 UserDetails userDetails = customUserDetailsService.loadUserById(userId);
 

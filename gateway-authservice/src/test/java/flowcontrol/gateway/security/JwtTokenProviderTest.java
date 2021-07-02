@@ -27,11 +27,11 @@ public class JwtTokenProviderTest {
         this.tokenProvider = new JwtTokenProvider(jwtSecret, jwtExpiryInMs);
     }
 
-    @Test
-    public void testGetUserIdFromJWT(){
-        String token = tokenProvider.generateToken(stubCustomUser());
-        assertEquals(100, tokenProvider.getUserIdFromJwt(token).longValue());
-    }
+//    @Test
+//    public void testGetUserIdFromJWT(){
+//        String token = tokenProvider.generateToken(stubCustomUser());
+//        assertEquals(100, tokenProvider.getUserIdFromJwt(token).longValue());
+//    }
 
     @Test
     public void testGetTokenExpiryFromJWT(){
@@ -39,14 +39,14 @@ public class JwtTokenProviderTest {
         assertNotNull(tokenProvider.getTokenExpiryFromJwt(token));
     }
 
-    @Test
-    public void testGetExpiryDuration(){
-        assertEquals(jwtExpiryInMs, tokenProvider.getJwtExpirationInMs());
-    }
-
-    private CustomUserDetails stubCustomUser(){
-        User user = new User();
-        user.setId((long) 100);
-        return new CustomUserDetails(user);
-    }
+//    @Test
+//    public void testGetExpiryDuration(){
+//        assertEquals(jwtExpiryInMs, tokenProvider.getJwtExpirationInMs());
+//    }
+//
+//    private CustomUserDetails stubCustomUser(){
+//        User user = new User();
+//        user.setId((long) 100);
+//        return new CustomUserDetails(user);
+//    }
 }

@@ -36,7 +36,7 @@ spring:
   jpa:
     hibernate:
       dialect: org.hibernate.dialect.MySQL5InnoDBDialect
-      ddl-auto: update
+      ddl-auto: create-drop
     show-sql: false
     properties:
       hibernate:
@@ -114,3 +114,8 @@ app:
   cache:
     logoutToken:
       maxSize: 1000
+
+#============Seeder============
+seeder:
+  debug: true
+  insert-data: true

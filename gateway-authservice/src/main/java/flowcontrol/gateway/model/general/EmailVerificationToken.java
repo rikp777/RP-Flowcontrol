@@ -1,28 +1,23 @@
 package flowcontrol.gateway.model.general;
 
+import flowcontrol.gateway.model.entity.BaseEntity;
 import flowcontrol.gateway.model.entity.User;
 import flowcontrol.gateway.model.entity.base.DateAudit;
 import flowcontrol.gateway.model.entity.enumeration.TokenStatus;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.Instant;
 
 @Entity(name = "email_verification_token")
+@Table(name = "email_verification_token")
+
+@Builder
+
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter
-@Setter
-public class EmailVerificationToken extends DateAudit {
-
-    @Id
-    @Column(name = "token_id")
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "email_token_sequence")
-    @SequenceGenerator(name = "email_token_sequence", allocationSize = 1)
-    private Long id;
+public class EmailVerificationToken extends BaseEntity {
 
     @Column(name = "token", nullable = false, unique = true)
     private String token;

@@ -12,6 +12,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
+import java.util.UUID;
 
 @Slf4j
 @AllArgsConstructor
@@ -30,7 +31,7 @@ public class CustomUserDetailsService implements UserDetailsService {
                 .orElseThrow(() -> new UsernameNotFoundException("Couldn't find a matching user email in the database form " + email));
     }
 
-    public UserDetails loadUserById(Long id){
+    public UserDetails loadUserById(UUID id){
         Optional<User> dbUser = userRepository.findById(id);
 
         log.info("Fetched user : " + dbUser + " by " + id);

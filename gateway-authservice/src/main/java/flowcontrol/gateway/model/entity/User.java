@@ -10,26 +10,23 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 import flowcontrol.gateway.validation.NullOrNotBlank;
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 import org.hibernate.annotations.NaturalId;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.UUID;
+
+@Entity(name = "User")
+@Table(name = "user")
+
+@Builder
 
 @Getter
 @Setter
-@Entity(name = "user")
-@ToString
-public class User extends DateAudit {
-
-    @Id
-    @Column(name = "user_id")
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_sequence")
-    @SequenceGenerator(name = "user_sequence", allocationSize = 1)
-    private Long id;
+@AllArgsConstructor
+@NoArgsConstructor
+public class User extends BaseEntity {
 
     @NaturalId //Lookup Id
     @Column(name = "email", unique = true)
@@ -62,20 +59,17 @@ public class User extends DateAudit {
     @JoinTable(
             name = "user_authority",
             joinColumns = {
-                @JoinColumn(name = "user_id", referencedColumnName = "user_id")
+                @JoinColumn(name = "user_id", referencedColumnName = "id")
             },
             inverseJoinColumns = {
-                @JoinColumn(name = "role_id", referencedColumnName = "role_id")
+                @JoinColumn(name = "role_id", referencedColumnName = "id")
             }
     )
+    @JsonManagedReference
     private Set<Role> roles = new HashSet<>();
 
-    public User(){
-        super();
-    }
-
     public User(User user){
-        id = user.getId();
+        super(user.getId());
         username = user.getUsername();
         password = user.getPassword();
         firstName = user.getFirstName();
@@ -84,6 +78,9 @@ public class User extends DateAudit {
         isActive = user.getIsActive();
         isEmailVerified = user.getIsEmailVerified();
         roles = user.getRoles();
+    }
+    public User(UUID id){
+        super(id);
     }
 
     public void addRole(Role role){

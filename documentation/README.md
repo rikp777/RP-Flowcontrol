@@ -20,5 +20,6 @@ docker run -d -p 8081:8080 service-billing:0.0.1-snapshot
 detail code snipped wat is 
 
 
-Lombok @data annotation can cause infinite recursion
+Lombok @data annotation can cause infinite recursion with EqualsAndHashCode
 https://stackoverflow.com/questions/49998868/hibernate-infinite-recursion-how-to-solve-it
+It ones again fcked me up for hours, look back at this thanks :)

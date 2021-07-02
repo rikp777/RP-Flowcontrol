@@ -20,6 +20,7 @@ import org.springframework.stereotype.Service;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
+import java.util.UUID;
 
 @Service
 @AllArgsConstructor
@@ -39,7 +40,7 @@ public class UserService {
         return userRepository.findByEmail(email);
     }
 
-    public Optional<User> findById(Long id){
+    public Optional<User> findById(UUID id){
         return userRepository.findById(id);
     }
 

@@ -19,7 +19,7 @@ public class FarmerUser extends BaseEntity {
     @JoinColumn(name="farmer_id", nullable = false)
     private Farmer farmer;
 
-    private Long userId;
+    private UUID userId;
     private String email;
 }
 
