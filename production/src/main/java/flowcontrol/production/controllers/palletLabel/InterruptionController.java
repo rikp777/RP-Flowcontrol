@@ -12,6 +12,8 @@ import org.springframework.hateoas.EntityModel;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.UUID;
+
 @RestController
 @RequestMapping("/v1/farmers/{farmerId}/palletlabels/{palletLabelId}/tickets/{ticketId}/interruptions")
 @AllArgsConstructor
@@ -33,11 +35,11 @@ public class InterruptionController {
      */
     @PostMapping()
     public ResponseEntity createInterruption(
-            @PathVariable Long farmerId,
-            @PathVariable Long palletLabelId,
-            @PathVariable Long ticketId,
-            @RequestParam Long interruptionReasonId,
-            @RequestParam Integer usedArticleAmount
+            @PathVariable UUID farmerId,
+            @PathVariable UUID palletLabelId,
+            @PathVariable UUID ticketId,
+            @RequestParam("interruption_reason_id") UUID interruptionReasonId,
+            @RequestParam("used_article_amount") Integer usedArticleAmount
             ){
         BasicMetaData metaData = BasicMetaData.builder()
                 .farmerId(farmerId)
@@ -60,10 +62,10 @@ public class InterruptionController {
      */
     @PostMapping("/{interruptionId}/close")
     public ResponseEntity closeInterruption(
-            @PathVariable Long farmerId,
-            @PathVariable Long palletLabelId,
-            @PathVariable Long ticketId,
-            @PathVariable Long interruptionId
+            @PathVariable UUID farmerId,
+            @PathVariable UUID palletLabelId,
+            @PathVariable UUID ticketId,
+            @PathVariable UUID interruptionId
     ){
         BasicMetaData metaData = BasicMetaData.builder()
                 .farmerId(farmerId)
@@ -85,9 +87,9 @@ public class InterruptionController {
      */
     @GetMapping
     public ResponseEntity<CollectionModel<InterruptionResponse>> findAll(
-            @PathVariable Long farmerId,
-            @PathVariable Long palletLabelId,
-            @PathVariable Long ticketId
+            @PathVariable UUID farmerId,
+            @PathVariable UUID palletLabelId,
+            @PathVariable UUID ticketId
     ){
         BasicMetaData metaData = BasicMetaData.builder()
                 .farmerId(farmerId)
@@ -110,10 +112,10 @@ public class InterruptionController {
      */
     @GetMapping("/{interruptionId}")
     public ResponseEntity<EntityModel<InterruptionResponse>> findOne(
-            @PathVariable Long farmerId,
-            @PathVariable Long palletLabelId,
-            @PathVariable Long ticketId,
-            @PathVariable Long interruptionId
+            @PathVariable UUID farmerId,
+            @PathVariable UUID palletLabelId,
+            @PathVariable UUID ticketId,
+            @PathVariable UUID interruptionId
     ){
         BasicMetaData metaData = BasicMetaData.builder()
                 .farmerId(farmerId)

@@ -7,9 +7,10 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
-public interface CellRepository extends AbstractBaseRepository<Cell, Long> {
-    List<Cell> getCellByFarmerId(Long farmerId);
-    Optional<Cell> getCellByFarmerIdAndId(Long farmerId, Long cellId);
+public interface CellRepository extends AbstractBaseRepository<Cell, UUID> {
+    List<Cell> getCellByFarmerId(UUID farmerId);
+    Optional<Cell> getCellByFarmerIdAndId(UUID farmerId, UUID cellId);
 
 }

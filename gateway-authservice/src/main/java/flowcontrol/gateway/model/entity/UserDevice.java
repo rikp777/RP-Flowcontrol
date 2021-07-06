@@ -2,19 +2,27 @@ package flowcontrol.gateway.model.entity;
 
 import flowcontrol.gateway.model.entity.base.DateAudit;
 import flowcontrol.gateway.model.entity.enumeration.DeviceType;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.UUID;
+
+@Entity(name = "UserDevice")
+@Table(name = "user_device")
+
+@Builder
 
 @Data
-@Entity(name = "user_device")
-public class UserDevice extends DateAudit {
+@AllArgsConstructor
+@NoArgsConstructor
+public class UserDevice extends BaseEntity {
 
-    @Id
-    @Column(name = "user_device_id")
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_device_sequence")
-    @SequenceGenerator(name = "user_device_sequence", allocationSize = 1)
-    private Long id;
+    public UserDevice(UUID id){
+        super(id);
+    }
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)

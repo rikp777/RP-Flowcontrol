@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import java.time.Instant;
 import java.util.Date;
 import java.util.Optional;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -52,7 +53,7 @@ public class RefreshTokenService {
         }
     }
 
-    public void deleteById(Long id){
+    public void deleteById(UUID id){
         refreshTokenRepository.deleteById(id);
     }
 

@@ -8,25 +8,26 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.Set;
+import java.util.UUID;
 
 @Entity(name = "palletLabel")
 @Table(name = "pallet_labels")
 @Data
-@Builder
-@AllArgsConstructor
 @NoArgsConstructor
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler", "shippinglabel"})
-public class PalletLabel {
-    @Id @GeneratedValue
-    @Column(
-            name = "id",
-            updatable = false
-    )
-    private Long id;
+public class PalletLabel extends BaseEntity{
+
+    @Builder
+    public PalletLabel(UUID id){
+        super(id);
+    }
+
+    @Column(unique=true)
     private Long generalId;
     private String cropDate;
     private String note;
@@ -37,16 +38,16 @@ public class PalletLabel {
     private Integer harvestCycleDay;
 
     @Column(name = "cell_id")
-    private Long cell;
+    private UUID cell;
 
     @Column(name = "article_id")
-    private Long article;
+    private UUID article;
 
     @Column(name = "farmer_id")
-    private Long farmer;
+    private UUID farmer;
 
     @Column(name = "pallet_type_id")
-    private Long palletType;
+    private UUID palletType;
 
 //    private Cell cell;
 //    private Article article;

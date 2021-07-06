@@ -14,6 +14,7 @@ import org.hibernate.annotations.FetchMode;
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.UUID;
 
 @Entity(name = "shippingLabel")
 @Table(name = "shipping_labels")
@@ -22,21 +23,18 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler", "palletLabels"})
-public class ShippingLabel {
-    @Id
-    @GeneratedValue
-    @Column(
-            name = "id",
-            updatable = false
-    )
-    private Long id;
+public class ShippingLabel extends BaseEntity{
+
+    public ShippingLabel(UUID id){
+        super(id);
+    }
 
     private Long generalId;
     private String transportDate;
     private String transportDeliveryDate;
-    private Long farmerId;
-    private Long truckId;
-    private Long transportDriverId;
+    private UUID farmerId;
+    private UUID truckId;
+    private UUID transportDriverId;
 
     @OneToMany(
             mappedBy = "shippingLabel",

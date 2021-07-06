@@ -23,6 +23,7 @@ import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -36,7 +37,7 @@ public class PalletLabelService {
     private final FarmerRepository farmerRepository;
     private final PalletTypeRepository palletTypeRepository;
 
-    public List<PalletLabel> getAll(Long farmerId){
+    public List<PalletLabel> getAll(UUID farmerId){
         log.info(
                 Thread.currentThread().getStackTrace()[2].getClassName() + "." +
                 Thread.currentThread().getStackTrace()[2].getMethodName() + "." +
@@ -46,7 +47,7 @@ public class PalletLabelService {
         return palletLabelRepository.findAll();
     }
 
-    public Optional<PalletLabel> getById(Long farmerId, Long palletLabelId){
+    public Optional<PalletLabel> getById(UUID farmerId, UUID palletLabelId){
         log.info(
                 Thread.currentThread().getStackTrace()[2].getClassName() + "." +
                 Thread.currentThread().getStackTrace()[2].getMethodName() + "." +
@@ -58,17 +59,29 @@ public class PalletLabelService {
                 .findById(palletLabelId);
     }
 
+    public Optional<PalletLabel> getByGeneralId(UUID farmerId, Long generalPalletLabelId){
+        log.info(
+                Thread.currentThread().getStackTrace()[2].getClassName() + "." +
+                        Thread.currentThread().getStackTrace()[2].getMethodName() + "." +
+                        "farmerId:[" + farmerId +"]." +
+                        "palletLabelId[" + generalPalletLabelId + "]"
+        );
 
-    public Optional<PalletLabel> create(Long farmerId, CreatePalletLabelRequest newPalletLabel){
+        return palletLabelRepository
+                .findByGeneralId(generalPalletLabelId);
+    }
+
+
+    public Optional<PalletLabel> create(UUID farmerId, CreatePalletLabelRequest newPalletLabel){
         log.info(
                 Thread.currentThread().getStackTrace()[2].getClassName() + "." +
                 Thread.currentThread().getStackTrace()[2].getMethodName() + "." +
                 "farmerId:[" + farmerId +"]"
         );
 
-        Long articleId = newPalletLabel.getArticleId();
-        Long cellId = newPalletLabel.getCellId();
-        Long palletTypeId = newPalletLabel.getPalletTypeId();
+        UUID articleId = newPalletLabel.getArticleId();
+        UUID cellId = newPalletLabel.getCellId();
+        UUID palletTypeId = newPalletLabel.getPalletTypeId();
 
         Article article = articleRepository.findById(articleId);
         Cell cell = cellRepository.findById(farmerId, cellId);
@@ -78,9 +91,13 @@ public class PalletLabelService {
         // Create new
         PalletLabel palletLabel = new PalletLabel();
 
+        //Get lasts id's
+        //Last general id
+        //Last specific farmer id
+
         // IDS
         palletLabel.setGeneralId(1L);
-        palletLabel.setPalletLabelFarmerId(1L);
+        palletLabel.setPalletLabelFarmerId(2l);
 
         // Data
         palletLabel.setCropDate(newPalletLabel.getCropDate());
@@ -90,7 +107,7 @@ public class PalletLabelService {
         palletLabel.setNote(newPalletLabel.getNote());
 
         // Relations
-        palletLabel.setArticle(articleId);
+        palletLabel.setArticle(newPalletLabel.getPalletTypeId());
         palletLabel.setCell(cellId);
         palletLabel.setFarmer(farmerId);
         palletLabel.setPalletType(palletTypeId);

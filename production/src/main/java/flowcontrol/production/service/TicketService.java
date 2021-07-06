@@ -19,6 +19,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 @AllArgsConstructor
@@ -45,7 +46,7 @@ public class TicketService {
      * @param ticketId
      * @return
      */
-    public Optional<Ticket> findById(BasicMetaData meta, Long ticketId){
+    public Optional<Ticket> findById(BasicMetaData meta, UUID ticketId){
         return this.ticketRepository.getTicketsByFarmerIdAndPalletLabelIdAndId(
                 meta.getFarmerId(),
                 meta.getPalletLabelId(),
@@ -53,7 +54,7 @@ public class TicketService {
         );
     }
 
-    public Optional<Ticket> close(BasicMetaData meta, Long ticketId){
+    public Optional<Ticket> close(BasicMetaData meta, UUID ticketId){
         // Get ticket
         Ticket ticket =this.ticketRepository
                 .getTicketsByFarmerIdAndPalletLabelIdAndId(
@@ -78,7 +79,7 @@ public class TicketService {
 
     public Optional<Ticket> closeTicketWithRestAmount(
             BasicMetaData meta,
-            Long ticketId,
+            UUID ticketId,
             Integer usedArticleAmount
     ){
         // Get ticket
@@ -102,7 +103,7 @@ public class TicketService {
         return Optional.of(ticket);
     }
 
-    public Optional<Ticket> create(BasicMetaData meta, Long lineId){
+    public Optional<Ticket> create(BasicMetaData meta, UUID lineId){
         // Get pallet label ?
         PalletLabel palletLabel = palletLabelRepository
                 .findById(
@@ -118,6 +119,7 @@ public class TicketService {
         // Instantiate new Ticket
         Ticket ticket = new Ticket();
         ticket.setFarmerId(meta.getFarmerId());
+        ticket.setPalletLabelId(meta.getPalletLabelId());
 
         // Get List of tickets that belong to pallet label by id
         List<Ticket> ticketList =
@@ -129,11 +131,11 @@ public class TicketService {
         log.info("================================================");
         log.info("Begin check [Create Ticket]");
         if(ticketList.isEmpty()) {
-            log.info("Pallet label: [" + palletLabel.getId() + "] has no tickets yet");
+            log.info("Pallet label: [" + meta.getPalletLabelId() + "] has no tickets yet");
 
             ticket.setArticleAmountUsed(palletLabel.getArticleAmount());
             ticket.setStartAt(LocalDateTime.now());
-            ticket.setPalletLabelId(palletLabel.getId());
+            ticket.setPalletLabelId(meta.getPalletLabelId());
             ticket.setLine(line);
             ticketRepository.save(ticket);
 
@@ -189,11 +191,13 @@ public class TicketService {
                 ticketRepository.save(ticket);
             }
         }
+
+        //todo also close still open interruptions because people are dumb
     }
 
     public Optional<Ticket> fillRefillTray(
             BasicMetaData meta,
-            Long ticketId,
+            UUID ticketId,
             FillRefillTrayRequest fillRefillTrayRequest){
         Ticket ticket = ticketRepository
                 .getTicketsByFarmerIdAndPalletLabelIdAndId(

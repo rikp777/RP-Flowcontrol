@@ -7,6 +7,7 @@ import flowcontrol.farmer.repository.FarmerCertificateRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class FarmerCertificateService extends BaseService<FarmerCertificate> {
@@ -18,10 +19,10 @@ public class FarmerCertificateService extends BaseService<FarmerCertificate> {
         this.farmerCertificateRepository = farmerCertificateRepository;
     }
 
-    public Optional<FarmerCertificate> getByIdAndFarmerId(Long farmerCertificateId, Long farmerId){
+    public Optional<FarmerCertificate> getByIdAndFarmerId(UUID farmerCertificateId, UUID farmerId){
         return farmerCertificateRepository.getFarmerCertificatesByFarmerIdAndId(farmerId, farmerCertificateId);
     }
-    public Iterable<FarmerCertificate> getAllByFarmerId(Long farmerId){
+    public Iterable<FarmerCertificate> getAllByFarmerId(UUID farmerId){
         return farmerCertificateRepository.getFarmerCertificatesByFarmerId(farmerId);
     }
 }

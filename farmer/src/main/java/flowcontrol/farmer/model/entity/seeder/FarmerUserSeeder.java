@@ -15,6 +15,7 @@ import org.springframework.context.annotation.Configuration;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
+import java.util.UUID;
 
 @Configuration
 @Slf4j
@@ -35,12 +36,12 @@ public class FarmerUserSeeder {
         List<FarmerUser> farmerUsers = Arrays.asList(
                 FarmerUser.builder()
                         .email("test@flowcontrol.com")
-                        .userId(1l)
+                        .userId(UUID.fromString("9cc4f0a4-caa9-4b7b-b9b7-637ac57d861a"))
                         .farmer(farmerOne)
                         .build(),
                 FarmerUser.builder()
                         .email("test@flowcontrol.com")
-                        .userId(1l)
+                        .userId(UUID.fromString("9cc4f0a4-caa9-4b7b-b9b7-637ac57d861a"))
                         .farmer(farmerTwo)
                         .build()
         );

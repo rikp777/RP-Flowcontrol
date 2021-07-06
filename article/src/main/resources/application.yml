@@ -80,4 +80,4 @@ security:
 #============Seeder============
 seeder:
   debug: true
-  insert-data: false
+  insert-data: true

@@ -5,12 +5,13 @@ import flowcontrol.gateway.model.entity.UserDevice;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;
+import java.util.UUID;
 
-public interface UserDeviceRepository extends JpaRepository<UserDevice, Long> {
+public interface UserDeviceRepository extends JpaRepository<UserDevice, UUID> {
 
-    Optional<UserDevice> findById(long id);
+    Optional<UserDevice> findById(UUID id);
     Optional<UserDevice> findByRefreshToken(RefreshToken refreshToken);
-    Optional<UserDevice> findByUserId(Long userId);
+    Optional<UserDevice> findByUserId(UUID userId);
 
 
 }

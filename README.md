@@ -67,11 +67,18 @@ How to set up your postman to accept OpenApi can be fount here [postman setup](h
 To visit and inspect the following links you need to run the docker-compose
 - [Article | REST API Endpoints](http://127.0.0.1:8762/article/api/docs.html) 
 - [Farmer | REST API Endpoints](http://127.0.0.1:8762/farmer/api/docs.html)
+- [Transport | REST API Endpoints](http://127.0.0.1:8762/transport/api/docs.html)
+- [Production | REST API Endpoints](http://127.0.0.1:8762/production/api/docs.html)
 
 # Install/Setup 
 To run all the service run the following command
 - Linux: `DOCKER_BUILDKIT=1 docker-compose up --build`
 - Windows: `docker-compose up --build`
+
+Start only database, redis, eureka and kafka:
+- `docker-compose -f docker-compose-essential.yml up --build`
+
+If your database doesn't load or seed please remove the already existing docker volumes dir in your root project directory.
 
 ## Docker 
 To run the above command you need to install [docker](https://docs.docker.com/)

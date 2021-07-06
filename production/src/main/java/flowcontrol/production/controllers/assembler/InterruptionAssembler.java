@@ -14,6 +14,8 @@ import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.server.RepresentationModelAssembler;
 import org.springframework.stereotype.Component;
 
+import java.util.UUID;
+
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
@@ -30,11 +32,11 @@ public class InterruptionAssembler implements RepresentationModelAssembler<Inter
     @Override
     public InterruptionResponse toModel(Interruption interruption) {
         Ticket ticket = interruption.getTicket();
-        PalletLabel palletLabel = palletLabelRepository.findById(1L, ticket.getPalletLabelId()).get();
-        Long farmerId = palletLabel.getFarmer().getId();
-        Long palletLabelId = ticket.getPalletLabelId();
-        Long ticketId = ticket.getId();
-        Long interruptionId = interruption.getId();
+        PalletLabel palletLabel = palletLabelRepository.findById(UUID.randomUUID(), ticket.getPalletLabelId()).get(); //todo yet seeder uuid
+        UUID farmerId = palletLabel.getFarmer().getId();
+        UUID palletLabelId = ticket.getPalletLabelId();
+        UUID ticketId = ticket.getId();
+        UUID interruptionId = interruption.getId();
 
         InterruptionResponse interruptionResponse = InterruptionResponse.builder()
                 .id(interruption.getId())

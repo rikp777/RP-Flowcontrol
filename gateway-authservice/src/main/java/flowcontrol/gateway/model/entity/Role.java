@@ -2,25 +2,31 @@ package flowcontrol.gateway.model.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import flowcontrol.gateway.model.entity.enumeration.RoleType;
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.NaturalId;
 
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.UUID;
+
+@Entity(name = "Role")
+@Table(name = "role")
+
+@Builder
 
 @Getter
 @Setter
-@Entity(name = "role")
-public class Role {
+@
+@AllArgsConstructor
+@NoArgsConstructor
+public class Role extends BaseEntity {
 
-    @Id
-    @Column(name = "role_id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    public Role(UUID id){
+        super(id);
+    }
 
     @Column(name = "role_name")
     @Enumerated(EnumType.STRING)
@@ -28,7 +34,7 @@ public class Role {
     private RoleType roleType;
 
     @ManyToMany(mappedBy = "roles", fetch = FetchType.LAZY)
-    @JsonIgnore
+    @JsonBackReference
     private Set<User> users = new HashSet<>();
 
     public boolean isAdminRole(){

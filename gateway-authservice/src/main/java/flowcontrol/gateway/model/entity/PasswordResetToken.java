@@ -1,26 +1,25 @@
 package flowcontrol.gateway.model.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.NaturalId;
 
 import javax.persistence.*;
 import java.time.Instant;
+import java.util.UUID;
+
 
 @Entity(name = "password_reset_token")
+@Table(name = "password_reset_token")
+
+@Builder
+
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter
-@Setter
-public class PasswordResetToken {
-
-    @Id
-    @Column(name = "token_id")
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "password_reset_token_sequence")
-    @SequenceGenerator(name = "password_reset_token_sequence", allocationSize = 1)
-    private Long id;
+public class PasswordResetToken extends BaseEntity{
+    public PasswordResetToken(UUID id){
+        super(id);
+    }
 
     @NaturalId
     @Column(name = "token_name", nullable = false, unique = true)

@@ -16,6 +16,7 @@ import reactor.core.publisher.Mono;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Repository
 public class FarmerRepository {
@@ -26,7 +27,7 @@ public class FarmerRepository {
     @Autowired
     private BearerTokenWrapper tokenWrapper;
 
-    public Farmer findById(Long id) {
+    public Farmer findById(UUID id) {
         Farmer farmer = webClientBuilder
                 .filter(authHeader(tokenWrapper.getToken()))
                 .build() //Gives you a client

@@ -25,9 +25,11 @@ import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.AssertionsForClassTypes.catchThrowable;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -36,7 +38,7 @@ class MockData {
 
     public Line getLine() {
         Line line = new Line();
-        line.setId(1l);
+        line.setId(UUID.randomUUID());
         line.setName("Line one");
         line.setDescription("Line one");
         return line;
@@ -50,15 +52,15 @@ class MockData {
 
     public Farmer getFarmer() {
         Farmer farmer = new Farmer();
-        farmer.setId(1l);
+        farmer.setId(UUID.randomUUID());
         farmer.setName("Test farmer");
         return farmer;
     }
 
     public PalletLabel getPalletLabel() {
         PalletLabel palletLabel = new PalletLabel();
-        palletLabel.setId(1l);
-        palletLabel.setPalletLabelFarmerId(1l);
+        palletLabel.setId(UUID.randomUUID());
+        palletLabel.setPalletLabelFarmerId(UUID.randomUUID());
         palletLabel.setArticle(this.getArticle());
         palletLabel.setArticleAmount(180);
         palletLabel.setFarmer(this.getFarmer());
@@ -70,7 +72,7 @@ class MockData {
 
     public Ticket getTicket(){
         Ticket ticket = new Ticket();
-        ticket.setId(1l);
+        ticket.setId(UUID.randomUUID());
         ticket.setFarmerId(getFarmer().getId());
         ticket.setPalletLabelId(getPalletLabel().getId());
         ticket.setStartAt(LocalDateTime.now());
@@ -105,8 +107,8 @@ class TicketServiceTest {
         ticketService = new TicketService(ticketRepository, lineRepository, palletLabelRepository);
         mockData = new MockData();
         metaData = BasicMetaData.builder()
-                .farmerId(1l)
-                .palletLabelId(1l)
+                .farmerId(UUID.randomUUID())
+                .palletLabelId(UUID.randomUUID())
                 .build();
     }
 
@@ -117,7 +119,7 @@ class TicketServiceTest {
     @Test
     void itShouldCloseTicket() {
         when(
-                ticketRepository.getTicketsByFarmerIdAndPalletLabelIdAndId(anyLong(), anyLong(), anyLong())
+                ticketRepository.getTicketsByFarmerIdAndPalletLabelIdAndId(any(UUID.class), any(UUID.class), any(UUID.class))
         ).thenReturn(
                 Optional.of(mockData.getTicket())
         );
@@ -142,7 +144,7 @@ class TicketServiceTest {
         );
 
         when(
-                lineRepository.findById(anyLong())
+                lineRepository.findById(any(UUID.class))
         ).thenReturn(
                 Optional.of(mockData.getLine())
         );
@@ -150,7 +152,7 @@ class TicketServiceTest {
 
         // First ticket for palletlabel
         //when
-        Ticket firstTicket = ticketService.create(metaData, 1l).get();
+        Ticket firstTicket = ticketService.create(metaData, UUID.randomUUID()).get();
         //then
         verify(ticketRepository).save(firstTicket);
 
@@ -160,9 +162,9 @@ class TicketServiceTest {
         Ticket ticketToReturnWithRest = mockData.getTicket();
         ticketToReturnWithRest.setArticleAmountUsed(160);
         when(
-                ticketRepository.getTicketByFarmerIdAndPalletLabelId(anyLong(), anyLong())
+                ticketRepository.getTicketByFarmerIdAndPalletLabelId(any(UUID.class), any(UUID.class))
         ).then((Answer<List<Ticket>>) invocation -> Arrays.asList(ticketToReturnWithRest));
-        Ticket secondTicket = ticketService.create(metaData, 1l).get();
+        Ticket secondTicket = ticketService.create(metaData, UUID.randomUUID()).get();
         //then
         verify(ticketRepository).save(secondTicket);
 
@@ -170,15 +172,17 @@ class TicketServiceTest {
         Ticket ticketToReturnNoRest = mockData.getTicket();
         ticketToReturnNoRest.setArticleAmountUsed(180);
         when(
-                ticketRepository.getTicketByFarmerIdAndPalletLabelId(anyLong(), anyLong())
+                ticketRepository.getTicketByFarmerIdAndPalletLabelId(any(UUID.class), any(UUID.class))
         ).then((Answer<List<Ticket>>) invocation -> Arrays.asList(ticketToReturnNoRest));
         //then
 
         Throwable thrown = catchThrowable(() -> {
-            ticketService.create(metaData, 1l);
+            ticketService.create(metaData, UUID.randomUUID());
         });
 
         assertThat(thrown)
                 .isInstanceOf(TicketException.class);
     }
 }
+
+//todo fix uuid stuff

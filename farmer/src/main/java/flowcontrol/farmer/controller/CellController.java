@@ -30,6 +30,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Optional;
+import java.util.UUID;
 
 
 @RestController
@@ -64,8 +65,8 @@ public class CellController extends BaseController<CellResponse, Cell, CreateCel
     ) //READ BY ID
     @PreAuthorize("hasRole('ADMIN') || hasRole('PLANNING') || hasRole('ICT') || hasRole('USER') ")
     public ResponseEntity<CellResponse> getById(
-            @PathVariable Long farmerId,
-            @PathVariable Long id
+            @PathVariable UUID farmerId,
+            @PathVariable UUID id
     ){
         return cellService.getByIdAndFarmerId(id, farmerId)
                 .map(entity -> ResponseEntity.ok(cellAssembler.toModel(entity)))
@@ -82,7 +83,7 @@ public class CellController extends BaseController<CellResponse, Cell, CreateCel
     )//READ ALL
     @PreAuthorize("hasRole('ADMIN') || hasRole('PLANNING') || hasRole('ICT')")
     public CollectionModel<CellResponse> getAll(
-            @PathVariable Long farmerId
+            @PathVariable UUID farmerId
     ){
         Iterable<Cell> entities = cellService.getAllByFarmerId(farmerId);
         return cellAssembler.toCollectionModel(entities);

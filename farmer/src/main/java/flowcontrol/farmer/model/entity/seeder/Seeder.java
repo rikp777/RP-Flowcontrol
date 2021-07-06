@@ -16,8 +16,7 @@ public class Seeder {
     CommandLineRunner commandLineRunner(
            FarmerSeeder farmerSeeder,
            CertificateSeeder certificateSeeder,
-           CellSeeder cellSeeder,
-           FarmerUserSeeder farmerUserSeeder
+           CellSeeder cellSeeder
     ) {
         return arts -> {
             UtilSeeder util = new UtilSeeder();
@@ -32,10 +31,6 @@ public class Seeder {
             // Cell
             Set<Cell> cells = cellSeeder.run(util);
             util.setCells(cells);
-
-            // Cell
-            Set<FarmerUser> farmerUsers = farmerUserSeeder.run(util);
-
         };
     }
 }

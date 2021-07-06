@@ -10,6 +10,7 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @Entity(name = "Ticket")
 @Table(name = "ticket")
@@ -18,8 +19,10 @@ import java.util.List;
 @ToString
 public class Ticket extends BaseEntity {
 
-    private Long palletLabelId;
-    private Long farmerId;
+    @org.hibernate.annotations.Type(type="uuid-char")
+    private UUID palletLabelId;
+    @org.hibernate.annotations.Type(type="uuid-char")
+    private UUID farmerId;
 
     @Column(
             name = "started_at",

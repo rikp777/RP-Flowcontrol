@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.UUID;
 
 @Entity(name = "farmerUser")
 @Table(name = "farmer_user")
@@ -18,7 +19,7 @@ public class FarmerUser extends BaseEntity {
     @JoinColumn(name="farmer_id", nullable = false)
     private Farmer farmer;
 
-    private Long userId;
+    private UUID userId;
     private String email;
 }
 

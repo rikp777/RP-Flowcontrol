@@ -23,6 +23,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.Max;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
+import java.util.UUID;
 
 public abstract class BaseController<R extends RepresentationModel<?>, T extends BaseEntity, C, U, M extends BaseMapper<T, C, U>> {
 
@@ -69,7 +70,7 @@ public abstract class BaseController<R extends RepresentationModel<?>, T extends
             }
     ) //UPDATE
     @PreAuthorize("hasRole('ADMIN') || hasRole('PLANNING') || hasRole('ICT')")
-    public ResponseEntity<R> update(@PathVariable Long id, @Valid @ModelAttribute("article") U updateEntity){
+    public ResponseEntity<R> update(@PathVariable UUID id, @Valid @ModelAttribute("article") U updateEntity){
         return service.getById(id)
                 .map(entity -> {
                     var mappedEntity = mapper.mapUpdatesToOriginal(updateEntity, entity);
@@ -94,7 +95,7 @@ public abstract class BaseController<R extends RepresentationModel<?>, T extends
             }
     )//DELETE
     @PreAuthorize("hasRole('ADMIN') || hasRole('PLANNING') || hasRole('ICT')")
-    public ResponseEntity<String> delete(@PathVariable Long id){
+    public ResponseEntity<String> delete(@PathVariable UUID id){
         return service.getById(id)
                 .map(entity -> {
                     service.delete(entity);

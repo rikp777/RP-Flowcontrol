@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 
 import java.time.Instant;
 import java.util.Date;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Component
@@ -27,7 +28,7 @@ public class JwtTokenProvider {
     public String generateToken(CustomUserDetails customUserDetails){
         Instant expiryDate = Instant.now().plusMillis(jwtExpirationInMs);
         return Jwts.builder()
-                .setSubject(Long.toString(customUserDetails.getId()))
+                .setSubject(customUserDetails.getId().toString())
                 .claim("authorities", customUserDetails.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList()))
                 .setIssuedAt(Date.from(Instant.now()))
                 .setExpiration(Date.from(expiryDate))
@@ -46,13 +47,13 @@ public class JwtTokenProvider {
                 .compact();
     }
 
-    public Long getUserIdFromJwt(String token){
+    public UUID getUserIdFromJwt(String token){
         Claims claims = Jwts.parser()
                 .setSigningKey(jwtSecret)
                 .parseClaimsJws(token)
                 .getBody();
 
-        return Long.parseLong(claims.getSubject());
+        return UUID.fromString(claims.getSubject());
     }
 
     public Date getTokenExpiryFromJwt(String token){

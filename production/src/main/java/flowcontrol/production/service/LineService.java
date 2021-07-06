@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import javax.swing.text.html.Option;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class LineService {
@@ -24,7 +25,7 @@ public class LineService {
         return this.lineRepository.findAll();
     }
 
-    public Optional<Line> getById(Long id){
+    public Optional<Line> getById(UUID id){
         Line line = this.lineRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Line", "Line not found", id));
 

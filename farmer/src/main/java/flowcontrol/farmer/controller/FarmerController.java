@@ -30,6 +30,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.constraints.Max;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/v1/farmers")
@@ -71,7 +72,7 @@ public class FarmerController extends BaseController<FarmerResponse, Farmer, Cre
     @GetMapping("/{id}") //READ BY ID
     @PreAuthorize("hasRole('ADMIN') || hasRole('PLANNING') || hasRole('ICT') || hasRole('USER') ")
     public ResponseEntity<FarmerResponse> getById(
-            @PathVariable Long id
+            @PathVariable UUID id
     ){
         return farmerService.getById(id)
                 .map(entity -> ResponseEntity.ok(farmerAssembler.toModel(entity)))

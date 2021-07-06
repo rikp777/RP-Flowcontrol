@@ -215,5 +215,7 @@ sysinfo.txt
 *.symbols.zip
 
 # Crashlytics generated file
-./docker-volumes
 /docker-volumes/
+
+# Video format
+*.mp4
