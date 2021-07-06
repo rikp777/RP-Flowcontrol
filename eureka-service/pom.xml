@@ -12,7 +12,7 @@
     <artifactId>eureka-service</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>eureka-service</name>
-    <description>Eureka discovery service for flowcontrol</description>
+    <description>Eureka discovery service for Flowcontrol</description>
     <properties>
         <java.version>15</java.version>
         <spring-cloud.version>2020.0.3</spring-cloud.version>

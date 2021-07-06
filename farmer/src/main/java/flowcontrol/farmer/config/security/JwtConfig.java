@@ -1,4 +1,4 @@
-package flowcontrol.farmer.security;
+package flowcontrol.farmer.config.security;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;

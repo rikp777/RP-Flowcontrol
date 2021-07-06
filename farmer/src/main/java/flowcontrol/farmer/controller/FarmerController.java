@@ -13,6 +13,7 @@ import flowcontrol.farmer.model.response.FarmerResponse;
 import flowcontrol.farmer.model.response.FarmerUserResponse;
 import flowcontrol.farmer.service.FarmerService;
 import flowcontrol.farmer.service.FarmerUserService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -32,6 +33,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/v1/farmers")
+@SecurityRequirement(name = "bearerAuth")
 public class FarmerController extends BaseController<FarmerResponse, Farmer, CreateFarmerRequest, UpdateFarmerRequest, FarmerMapper>{
 
     //Assembler

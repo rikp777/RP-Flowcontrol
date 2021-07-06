@@ -17,6 +17,7 @@ import flowcontrol.farmer.model.response.FarmerCertificateResponse;
 import flowcontrol.farmer.model.response.FarmerResponse;
 import flowcontrol.farmer.service.CellService;
 import flowcontrol.farmer.service.FarmerService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.CollectionModel;
@@ -33,6 +34,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/v1/farmers/{farmerId}/cells")
+@SecurityRequirement(name = "bearerAuth")
 public class CellController extends BaseController<CellResponse, Cell, CreateCellRequest, UpdateCellRequest, CellMapper>{
 
     //Assembler

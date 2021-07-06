@@ -1,18 +1,14 @@
-package flowcontrol.farmer.security;
+package flowcontrol.farmer.config.security;
 
+import flowcontrol.farmer.security.JwtTokenAuthenticationFilter;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-import org.springframework.web.filter.CorsFilter;
 
 import javax.servlet.http.HttpServletResponse;
-import java.util.Arrays;
 
 
 @EnableWebSecurity
@@ -35,6 +31,9 @@ public class SecurityTokenConfig extends WebSecurityConfigurerAdapter {
                 // Add a filter to validate the tokens with every request
                 .addFilterAfter(new JwtTokenAuthenticationFilter(jwtConfig), UsernamePasswordAuthenticationFilter.class)
                 .authorizeRequests()
+                .antMatchers("/**/docs.html").permitAll()
+                .antMatchers("/**/swagger-ui/**").permitAll()
+                .antMatchers("/**/v3/api-docs/**").permitAll()
                 .anyRequest().authenticated();
     }
 }

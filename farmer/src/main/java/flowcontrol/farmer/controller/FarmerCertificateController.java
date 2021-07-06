@@ -15,6 +15,7 @@ import flowcontrol.farmer.model.response.CellResponse;
 import flowcontrol.farmer.model.response.FarmerCertificateResponse;
 import flowcontrol.farmer.service.CellService;
 import flowcontrol.farmer.service.FarmerCertificateService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -31,6 +32,7 @@ import javax.validation.constraints.Max;
 
 @RestController
 @RequestMapping("/v1/farmers/{farmerId}/certificates")
+@SecurityRequirement(name = "bearerAuth")
 public class FarmerCertificateController extends BaseController<FarmerCertificateResponse, FarmerCertificate, FarmerCertificateRequest, FarmerCertificateRequest, FarmerCertificateMapper>{
 
     //Assembler

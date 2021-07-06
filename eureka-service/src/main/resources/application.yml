@@ -1,11 +1,16 @@
+#============SERVER============
+server:
+  # HTTP server port
+  port: 8761
+
+#============Spring============
 spring:
   application:
     name: eureka-service
 
-server:
-  port: 8761
 
 
+#============Eureka============
 eureka:
   instance:
     hostname: localhost
@@ -23,5 +28,6 @@ eureka:
   server:
     wait-time-in-ms-when-sync-empty: 0
 
+#============Ribbon============
 ribbon:
   ServerListRefreshInterval: 5000
