@@ -19,6 +19,7 @@ public class FarmerUser extends BaseEntity {
     @JoinColumn(name="farmer_id", nullable = false)
     private Farmer farmer;
 
+    @org.hibernate.annotations.Type(type="uuid-char")
     private UUID userId;
     private String email;
 }

@@ -24,7 +24,7 @@ spring:
       fail_on_empty_beans: false
   #============JDBC============
   datasource:
-    url: jdbc:mariadb://localhost:3306/farmer
+    url: jdbc:mariadb://localhost:3386/farmer
     driver-class-name: org.mariadb.jdbc.Driver
     username: root
     password: root

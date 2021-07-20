@@ -23,7 +23,7 @@ spring:
 
 
   datasource:
-    url: jdbc:mariadb://localhost:3306/authservice
+    url: jdbc:mariadb://localhost:3386/authservice
     username: root
     driver-class-name: org.mariadb.jdbc.Driver
     password: root
@@ -36,7 +36,7 @@ spring:
   jpa:
     hibernate:
       dialect: org.hibernate.dialect.MySQL5InnoDBDialect
-      ddl-auto: create-drop
+      ddl-auto: update
     show-sql: false
     properties:
       hibernate:
@@ -64,10 +64,15 @@ spring:
           destination: moments.user.changed
           contentType: application/json
 
+#============Eureka============
 eureka:
   client:
-    service-url:
-      default-zone: http://localhost:8761/eureka
+    register-with-eureka: true
+    fetch-registry: true
+    serviceUrl:
+      defaultZone: http://${eureka.address:localhost:8761}/eureka
+  instance:
+    prefer-ip-address: true
 
 
 security:

@@ -109,7 +109,7 @@ public class FarmerController extends BaseController<FarmerResponse, Farmer, Cre
     @GetMapping("/user/{id}")
     @PreAuthorize("hasRole('USER')")
     public CollectionModel<FarmerUserResponse> getAllByUserId(
-            @PathVariable Long id
+            @PathVariable UUID id
     ){
         return farmerUserAssembler.toCollectionModel(farmerUserService.getAllByUserId(id));
     }

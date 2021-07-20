@@ -125,7 +125,7 @@ public class TicketService {
         List<Ticket> ticketList =
                 ticketRepository.getTicketByFarmerIdAndPalletLabelId(
                         meta.getFarmerId(),
-                        palletLabel.getId()
+                        meta.getPalletLabelId()
                 );
 
         log.info("================================================");
@@ -162,7 +162,7 @@ public class TicketService {
                 // Create new ticket with rest amount
                 ticket.setArticleAmountUsed(palletLabel.getArticleAmount() - totalArticleAmountUsed);
                 ticket.setStartAt(LocalDateTime.now());
-                ticket.setPalletLabelId(palletLabel.getId());
+                ticket.setPalletLabelId(meta.getPalletLabelId());
                 ticket.setLine(line);
                 ticketRepository.save(ticket);
                 log.info("Create new ticket with rest amount [" + (palletLabel.getArticleAmount() - totalArticleAmountUsed) + "]" );

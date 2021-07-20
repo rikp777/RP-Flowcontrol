@@ -19,7 +19,6 @@ import java.util.UUID;
 
 @Getter
 @Setter
-@
 @AllArgsConstructor
 @NoArgsConstructor
 public class Role extends BaseEntity {

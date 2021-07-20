@@ -100,7 +100,7 @@ services:
       - ./docker-volumes/database/mariadb/:/var/lib/mysql
 
     ports:
-      - 3306:3306
+      - 3386:3306
 
     healthcheck:
       test: [ "CMD", "mysqladmin" ,"ping", "-h", "localhost" ]

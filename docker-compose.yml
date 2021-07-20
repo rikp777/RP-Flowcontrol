@@ -121,7 +121,7 @@ services:
       - ./docker-volumes/database/mariadb/:/var/lib/mysql
 
     ports:
-      - 6073:3306
+      - 3386:3306
 
     healthcheck:
       test: [ "CMD", "mysqladmin" ,"ping", "-h", "localhost" ]
@@ -149,7 +149,7 @@ services:
       WAIT_HOSTS_TIMEOUT: 300
       WAIT_SLEEP_INTERVAL: 30
       WAIT_HOST_CONNECTION_TIMEOUT: 30
-      SPRING_DATASOURCE_URL: jdbc:mariadb://database:3306/article
+      SPRING_DATASOURCE_URL: jdbc:mariadb://database:3386/article
       SPRING_DATASOURCE_USERNAME: root
       SPRING_DATASOURCE_PASSWORD: root
       SPRING_JPA_HIBERNATE_DDL_AUTO: create-drop
@@ -175,7 +175,7 @@ services:
       WAIT_HOSTS_TIMEOUT: 300
       WAIT_SLEEP_INTERVAL: 30
       WAIT_HOST_CONNECTION_TIMEOUT: 30
-      SPRING_DATASOURCE_URL: jdbc:mariadb://database:3306/farmer
+      SPRING_DATASOURCE_URL: jdbc:mariadb://database:3386/farmer
       SPRING_DATASOURCE_USERNAME: root
       SPRING_DATASOURCE_PASSWORD: root
       SPRING_JPA_HIBERNATE_DDL_AUTO: create-drop
@@ -200,7 +200,7 @@ services:
       WAIT_HOSTS_TIMEOUT: 300
       WAIT_SLEEP_INTERVAL: 30
       WAIT_HOST_CONNECTION_TIMEOUT: 30
-      SPRING_DATASOURCE_URL: jdbc:mariadb://database:3306/production
+      SPRING_DATASOURCE_URL: jdbc:mariadb://database:3386/production
       SPRING_DATASOURCE_USERNAME: root
       SPRING_DATASOURCE_PASSWORD: root
       SPRING_JPA_HIBERNATE_DDL_AUTO: create-drop
@@ -225,7 +225,7 @@ services:
       WAIT_HOSTS_TIMEOUT: 300
       WAIT_SLEEP_INTERVAL: 30
       WAIT_HOST_CONNECTION_TIMEOUT: 30
-      SPRING_DATASOURCE_URL: jdbc:mariadb://database:3306/transport
+      SPRING_DATASOURCE_URL: jdbc:mariadb://database:3386/transport
       SPRING_DATASOURCE_USERNAME: root
       SPRING_DATASOURCE_PASSWORD: root
       SPRING_JPA_HIBERNATE_DDL_AUTO: create-drop
@@ -249,7 +249,7 @@ services:
 
     environment:
       eureka.client.serviceUrl.defaultZone: http://eureka-service:8761/eureka
-      SPRING_DATASOURCE_URL: jdbc:mariadb://database:3306/authservice
+      SPRING_DATASOURCE_URL: jdbc:mariadb://database:3386/authservice
       SPRING_DATASOURCE_USERNAME: root
       SPRING_DATASOURCE_PASSWORD: root
       SPRING_JPA_HIBERNATE_DDL_AUTO: create-drop

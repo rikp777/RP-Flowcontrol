@@ -72,7 +72,12 @@ public class InterruptionService {
                         interruptionId
                 )
                 .map(interruptionItem -> {
-                            if (interruptionItem.getTicket().getFarmerId() == meta.getFarmerId() && interruptionItem.getTicket().getPalletLabelId() == meta.getPalletLabelId())
+//                            log.info(interruptionItem.getTicket().getFarmerId() + " == " + meta.getFarmerId());
+//                            log.info(interruptionItem.getTicket().getPalletLabelId() + " == " + meta.getPalletLabelId());
+//                            log.info(String.valueOf(interruptionItem.getTicket().getFarmerId() == meta.getFarmerId()));
+//                            log.info(String.valueOf(interruptionItem.getTicket().getPalletLabelId() == meta.getPalletLabelId()));
+
+                            if (interruptionItem.getTicket().getFarmerId().equals(meta.getFarmerId()) && interruptionItem.getTicket().getPalletLabelId().equals(meta.getPalletLabelId()))
                                 return interruptionItem;
                             return null;
                         }

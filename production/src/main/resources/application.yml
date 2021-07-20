@@ -24,7 +24,7 @@ spring:
     default-property-inclusion: NON_ABSENT
   #============JDBC============
   datasource:
-    url: jdbc:mariadb://localhost:3306/production
+    url: jdbc:mariadb://localhost:3386/production
     username: root
     driver-class-name: org.mariadb.jdbc.Driver
     password: root

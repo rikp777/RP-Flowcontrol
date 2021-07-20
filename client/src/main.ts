@@ -8,7 +8,7 @@ import './index.scss'
 // Security
 import AccessControl from '@/services/accessControl.service'
 
-
+Vue.config.devtools=false
 const access = new AccessControl();
 access.router(store, router)
 
@@ -26,7 +26,9 @@ import { fas } from "@fortawesome/free-solid-svg-icons";
 library.add(fas);
 Vue.component("r-icon", FontAwesomeIcon);
 
-import moment from 'vue-moment';
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+import moment from "vue-moment";
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 Vue.use(moment);

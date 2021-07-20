@@ -21,7 +21,7 @@ spring:
 
   #============JDBC============
   datasource:
-    url: jdbc:mariadb://localhost:3306/transport
+    url: jdbc:mariadb://localhost:3386/transport
     username: root
     driver-class-name: org.mariadb.jdbc.Driver
     password: root

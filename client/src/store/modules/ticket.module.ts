@@ -67,7 +67,7 @@ class PalletLabelModule extends VuexModule {
         if(this.tickets != null && this.palletLabel != null){
             let leftOver = this.palletLabel.articleAmount;
             this.tickets.forEach((ticket : any) => {
-                console.log(ticket.articleAmountUsed)
+                //console.log(ticket.articleAmountUsed)
                 leftOver = leftOver - ticket.articleAmountUsed
             })
             return leftOver
@@ -83,7 +83,7 @@ class PalletLabelModule extends VuexModule {
     }
     get getPalletLabelId() : string {
         if(this.palletLabel){
-            console.log(this.palletLabel.links.self.href)
+            //console.log(this.palletLabel.links.self.href)
             return Api.getId(this.palletLabel.links.self.href)
         }
         return ""
@@ -138,9 +138,10 @@ class PalletLabelModule extends VuexModule {
         const api = new Api(`/production/api/v1/farmers/${farmerId}/palletlabels/${palletLabelId}/tickets`)
         await api.get()
             .then((response:any ) => {
-                console.log(response)
+                //console.log(response)
                 if(response.data.embedded && response.data.embedded.tickets){
                     this.context.commit("setTickets", response.data.embedded.tickets);
+                    this.context.commit("setInterruptions", response.data.embedded.tickets[response.data.embedded.tickets.length -1].interruptions);
                 }
                 this.context.commit("endLoading")
             })
@@ -150,7 +151,7 @@ class PalletLabelModule extends VuexModule {
     }
     @Action({ rawError: true })
     public async createTicket(lineId : number){
-        console.log(lineId)
+        //console.log(lineId)
         if(lineId == null) return
         this.context.commit("startLoading")
         const params : any = {
@@ -171,13 +172,13 @@ class PalletLabelModule extends VuexModule {
 
     @Action({ rawError: true })
     public async createInterruption(params: any){
-        console.log(params)
+        //(params)
         if(this.tickets == null) return
         this.context.commit("startLoading")
         const farmerId = localStorage.getItem('farmer')
         const data = {}
 
-        const api = new Api(`/production/api/v1/farmers/${farmerId}/palletlabels/${Api.getId(this.palletLabel.links.self.href)}/tickets/${this.tickets[this.tickets.length -1].id}/interruptions`)
+        const api = new Api(`/production/api/v1/farmers/${farmerId}/palletlabels/${Api.getId(this.palletLabel.links.self.href)}/tickets/${this.tickets.find((ticket : any) => ticket.endAt == null).id}/interruptions`)
 
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
@@ -217,11 +218,22 @@ class PalletLabelModule extends VuexModule {
 
     @Action({ rawError: true })
     public async closeInterruption(ticket: any) {
+        this.context.commit("startLoading")
         const farmerId = localStorage.getItem('farmer')
-        const api = new Api(`/production/api/v1/farmers/${farmerId}/palletlabels/${ticket.palletLabel.id}/tickets/${ticket.id}/interruptions/${ticket.interruptions[ticket.interruptions.length -1].id}/close`)
+        console.log("=2=2=2=2=2=2=2=2=2")
+        console.log(ticket.interruptions.find((interruption : any) => interruption.endAt == null))
+
+        const interruptionId = ticket.interruptions.find((interrupt : any ) => interrupt.endAt == null).id
+        console.log("id is", interruptionId)
+        const api = new Api(`/production/api/v1/farmers/${farmerId}/palletlabels/${Api.getId(this.palletLabel.links.self.href)}/tickets/${ticket.id}/interruptions/${interruptionId}/close`)
         await api.post()
             .then((response : any) => {
-                console.log("Close interruption", ticket.interruptions[ticket.interruptions.length -1].id)
+
+                //console.log("Close interruption", ticket.interruptions[ticket.interruptions.length -1].id)
+                this.context.commit("setInterruption", response.data);
+                this.context.commit("endLoading")
+            }).catch((error) => {
+                this.context.commit("setError", true)
             })
     }
 

@@ -77,7 +77,7 @@ class ApiService {
         requestSender.defaults.headers.common["Content-Type"] = `application/json`
 
         //demo
-        requestSender.defaults.headers.common["Authorization"] = `Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiYXV0aG9yaXRpZXMiOlsiUk9MRV9BRE1JTiJdLCJpYXQiOjE2MjMwNTgxNDEsImV4cCI6MTk5OTk5OTk5NywiYXVkIjoidGVzdEBmbG93Y29udHJvbC5jb20ifQ.yXx2fU3NWFCg5ETbZy6zo1_oVaN2xUa_yOE27VuOYiYQ27T1fmb72y8mJFPTxnFnfXDEqtRubcTI1gGENzFZTA`
+        requestSender.defaults.headers.common["Authorization"] = `Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIzY2MyYzJlNi0yYjNkLTQ4NWQtYjRjNy02NjFhNTFkMmI1N2YiLCJhdXRob3JpdGllcyI6WyJST0xFX1VTRVIiXSwiaWF0IjoxOTk5OTk5OTk5LCJleHAiOjE5OTk5OTk5OTksImF1ZCI6InRlc3RAZmxvd2NvbnRyb2wuY29tIn0.dmaoWA2F0juuKrp-zgJDxSRfeKibSRGzzviRlropfuaAgB6T_y2FCiEO39PXEaNogPBQty0zm3TpReT1-AcngQ`
     }
 
     query(params = "") {

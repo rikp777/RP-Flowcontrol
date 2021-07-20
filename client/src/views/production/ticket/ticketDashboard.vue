@@ -9,9 +9,10 @@
               <p class="title is-4">Create ticket</p>
               <p class="subtitle is-6">Make a ticket, for processing the specified pallet. <br>
                 <small>
-                  Please note that you are responsible for all tickets you open. Please note that you are responsible for all tickets you open.
+                  Please note that you are responsible for all tickets you open.
                   Always close tickets when they are used up or when processing is interrupted.
-
+                  Be precise think before you do, errors are irreparable and are registered in your name.
+                  <b>Check all fields before clicking buttons.</b>
                 </small>
               </p>
 
@@ -24,10 +25,20 @@
                 <div class="column is-two-thirds">
                   <section>
                     <b-loading :is-full-page="false" v-model="isLoading" :can-cancel="false"></b-loading>
-                    <b-notification :closable="true" class="is-primary" v-if="palletLabel.article">
-                      <b-progress :value="(usedAmount / this.palletLabel.articleAmount) * 100" size="is-medium" show-value type="is-success">
-                        used {{ usedAmount }} out of {{ this.palletLabel.articleAmount }}
+                    <b-notification :closable="false" class="is-primary" v-if="palletLabel.article">
+                      <b-progress format="percent" :max="this.palletLabel.articleAmount">
+                        <template #bar>
+                          <b-progress-bar :value="definitiveUsedAmount" type="is-success" show-value>{{definitiveUsedAmount}} | Definitive</b-progress-bar>
+                          <b-progress-bar v-if="provisoUsedAmount != 0" :value="provisoUsedAmount" type="is-warning" show-value>{{provisoUsedAmount}} | Proviso</b-progress-bar>
+                          <b-progress-bar v-if="stillNeedsToBeUsedAmount != 0" :value="stillNeedsToBeUsedAmount" type="is-danger" show-value>{{stillNeedsToBeUsedAmount}} | Unprocessed</b-progress-bar>
+                        </template>
                       </b-progress>
+                    </b-notification>
+                    <b-notification :closable="false" class="is-primary" v-if="palletLabel.article">
+
+<!--                      <b-progress :value="(usedAmount / this.palletLabel.articleAmount) * 100" size="is-medium" show-value type="is-success">-->
+<!--                        used {{ usedAmount }} out of {{ this.palletLabel.articleAmount }}-->
+<!--                      </b-progress>-->
                       <table class="table is-fullwidth is-transparent">
                         <tbody>
 
@@ -69,24 +80,24 @@
                             <span v-if="itemsToStillProcess < palletLabel.articleAmount">
                               {{itemsToStillProcess}} of {{palletLabel.articleAmount}}
                             </span>
-                            <span >{{itemsToStillProcess}}</span>
+<!--                            <span >{{itemsToStillProcess}}</span>-->
                           </td>
                           <td width="2%"></td>
                         </tr>
 
-                        <tr v-if="itemsToStillProcess === 0">
+                        <tr>
                           <td width="2%"><r-icon icon="truck-loading"></r-icon></td>
                           <td width="30%">Status:</td>
                           <td>
                             <div class="icon-text">
                                  Processed
-                              <span v-if="!tickets[tickets.length -1].endAt" class="icon has-text-warning is-size-7">
+                              <span v-if="provisoUsedAmount !== 0 || stillNeedsToBeUsedAmount !== 0" class="icon has-text-warning is-size-7">
                                 <r-icon icon="check-circle" />
                               </span>
                               <span v-else class="icon has-text-success is-size-7">
                                 <r-icon icon="check-circle" />
                               </span>
-                              <small v-if="!tickets[tickets.length -1].endAt">with a proviso!</small>
+                              <small v-if="provisoUsedAmount !== 0 || stillNeedsToBeUsedAmount !== 0">with a proviso!</small>
                             </div>
                           </td>
                           <td width="2%"><a class="button is-small is-primary" href="#">Check</a></td>
@@ -153,17 +164,36 @@
                                  icon="pallet">
                         </b-input>
                       </b-field>
-                      <b-field label="Lines" v-if="lines && tickets.length === 0">
-                        <b-select placeholder="Select a character" icon="people-carry" v-model="form.lineId">
-                          <optgroup label="Lines">
-                            <template v-for="(line, index) in lines ">
-                              <option :value="line.id" :key="index">
+                      <template v-if="lines && !isLastTicketIsOpen && form.palletLabelId != null">
+                        <b-field label="Lines" v-if="lines.length <= 10">
+                          <div class="block">
+                            <template v-for="(line, index) in orderedLines">
+                              <b-radio
+                                  :key="index"
+                                  v-model="form.lineId"
+                                  :name="`line-`+ line.id"
+                                  :native-value="line.id">
+
                                 {{line.name}}
-                              </option>
+
+                              </b-radio>
                             </template>
-                          </optgroup>
-                        </b-select>
-                      </b-field>
+
+                          </div>
+                        </b-field>
+                        <b-field label="Lines" v-if="lines.length > 10">
+                          <b-select placeholder="Select a character" icon="people-carry" v-model="form.lineId">
+                            <optgroup label="Lines">
+                              <template v-for="(line, index) in lines ">
+                                <option :value="line.id" :key="index">
+                                  {{line.name}}
+                                </option>
+                              </template>
+                            </optgroup>
+                          </b-select>
+                        </b-field>
+                      </template>
+
                       <b-field
                           v-if="canCreateNewTicket"
                       >
@@ -172,8 +202,9 @@
                           <b-button type="is-primary" @click="actionCreateTicket()">Create ticket</b-button>
                         </p>
                       </b-field>
+
                       <b-field
-                          v-if="!canCreateNewTicket && isLastTicketIsOpen"
+                          v-if="!canCreateNewTicket && isLastTicketIsOpen && !isLastInterruptionOpen && !processStops"
                       >
                         <p class="control">
                           <b-button @click="actionCloseTicket()">Close ticket</b-button>
@@ -218,12 +249,14 @@
                         </b-field>
 
                         <b-field
-                            label="Used/processed article amount"
+                            :label="`How many are there still left on the pallet max: ` + (provisoUsedAmount -1)"
                             v-if="processStops"
                         >
                           <b-input
                               placeholder="example: (50)"
                               :lazy=false
+                              required
+                              :max="provisoUsedAmount"
                               v-model="form.usedArticleAmount"
                               type="number"
                               icon-pack="fas"
@@ -231,9 +264,12 @@
                           </b-input>
                         </b-field>
 
-                        <b-field v-if="form.interruptionReasonId">
+                        <b-field v-if="form.interruptionReasonId && !isLastInterruptionOpen">
                           <p class="control">
-                            <b-button type="is-primary" @click="actionCreateInterruption()">Make interruption</b-button>
+                            <b-button type="is-primary" @click="actionCreateInterruption()">
+                              <span v-if="!processStops">Make interruption</span>
+                              <span v-if="processStops">Close ticket with interruption</span>
+                            </b-button>
                           </p>
                         </b-field>
                         <b-field v-if="isLastInterruptionOpen">
@@ -273,7 +309,12 @@
                   aria-page-label="Page"
                   aria-current-label="Current page">
 
+                <b-table-column field="user.startAt" label="Line" sortable v-slot="props">
+                  <div >
+                    {{ props.row.line.name }}
+                  </div>
 
+                </b-table-column>
                 <b-table-column field="user.startAt" label="Start date" sortable v-slot="props">
                   <div >
                     {{ props.row.startAt | moment("hh:mm:ss")}} | {{ props.row.startAt | moment("dddd")}}<br />
@@ -399,11 +440,16 @@ export default {
       hasError: "getHasError",
       isLoading: "getIsLoading",
     }),
+    orderedLines(){
+      return this.lines.slice().sort((a, b) => {
+        return (a.name > b.name) ? 1 : -1;
+      });
+    },
     selectedLine(){
       if(this.tickets.length !== 0){
-        if(this.tickets[this.tickets.length -1].line){
+        if(this.tickets.find((ticket) => ticket.endAt == null)){
           console.log(this.tickets[this.tickets.length -1].line)
-          return this.tickets[this.tickets.length -1].line
+            return this.tickets.find((ticket) => ticket.endAt == null).line
         }
       }
 
@@ -414,7 +460,7 @@ export default {
     },
     isLastTicketIsOpen(){
       if(this.tickets != null && this.tickets.length > 0 && this.tickets != ""){
-        if(this.tickets[this.tickets.length -1].endAt == null){
+        if(this.tickets.find((ticket) => ticket.endAt == null)){
           return true
         }else{
           return false
@@ -443,6 +489,27 @@ export default {
       }
       return false;
     },
+    stillNeedsToBeUsedAmount(){
+      return this.palletLabel.articleAmount - this.definitiveUsedAmount
+    },
+    definitiveUsedAmount(){
+      let usedAmount = 0
+      this.tickets.forEach(ticket => {
+        if(ticket.endAt){
+          usedAmount = usedAmount + ticket.articleAmountUsed
+        }
+      })
+      return usedAmount
+    },
+    provisoUsedAmount(){
+      let usedAmount = 0
+      this.tickets.forEach(ticket => {
+        if(!ticket.endAt){
+          usedAmount = usedAmount + ticket.articleAmountUsed
+        }
+      })
+      return usedAmount
+    },
     usedAmount(){
       let usedAmount = 0
       this.tickets.forEach(ticket => {
@@ -452,22 +519,34 @@ export default {
     },
 
     processStops: function () {
-      return  this.form.interruptionReasonId == 4 ||
-          this.form.interruptionReasonId == 5 || this.form.interruptionReasonId == 6
+      return  this.form.interruptionReasonId == "3a265806-3948-46a1-917b-a725f5c2e1cc" ||
+          this.form.interruptionReasonId == "4e359093-2aa3-4559-8582-334ae66c7c7c" || this.form.interruptionReasonId == "721d6aa0-e3a3-4f12-83a6-72f2d59148e9"
     },
 
     isLastInterruptionOpen: function () {
-      let success = false
-      if(this.interruptions != null) {
-        if (this.interruptions.length > 0) {
-          this.interruptions.forEach(item => {
-            if (item.endAt == null) {
-              success = true
-            }
-          })
+      console.log("===================")
+      console.log(this.interruptions)
+      if(this.interruptions != null && this.interruptions.length > 0 && this.tickets != ""){
+        if(this.interruptions[this.interruptions.length -1].endAt == null){
+          return true
+        }else{
+          return false
         }
       }
-      return success
+      return false
+
+      //
+      // let success = false
+      // if(this.interruptions != null) {
+      //   if (this.interruptions.length > 0) {
+      //     this.interruptions.forEach(item => {
+      //       if (item.endAt == null) {
+      //         success = true
+      //       }
+      //     })
+      //   }
+      // }
+      // return success
     }
   },
   methods: {
@@ -489,14 +568,14 @@ export default {
     },
     async actionCreateInterruption(){
       const params = {}
-      if (this.form.usedArticleAmount != null && this.form.usedArticleAmount != ""){
-        //console.log("dit kan niet", this.form.usedArticleAmount)
+      if (this.form.usedArticleAmount != null && this.form.usedArticleAmount != "" && this.form.usedArticleAmount > 0){
+        console.log("dit kan niet", this.tickets.find((ticket) => ticket.endAt == null).articleAmountUsed)
         params.interruptionReasonId = this.form.interruptionReasonId;
-        params.usedArticleAmount = this.form.usedArticleAmount;
+        params.usedArticleAmount = this.tickets.find((ticket) => ticket.endAt == null).articleAmountUsed - this.form.usedArticleAmount;
       }else {
-        //console.log("raak")
+        console.log("================99-0-9=====raak", (this.palletLabel.articleAmount - this.usedAmount))
         params.interruptionReasonId = this.form.interruptionReasonId
-        params.usedArticleAmount = this.palletLabel.articleAmount;
+        params.usedArticleAmount = this.usedAmount;
       }
       console.log(params)
       await this.createInterruption(params)
@@ -543,18 +622,20 @@ export default {
       })
     },
     async actionCloseTicket(){
-      await this.closeTicket(this.tickets[this.tickets.length -1])
+      console.log("gdvdd kut zooi")
+      await this.closeTicket(this.tickets.find((ticket) => ticket.endAt == null))
       await this.getTickets();
       // await this.fetchTicketsAction(this.form.palletLabelId)
       // await this.fetchInterruptionssAction(this.tickets[this.tickets.length -1])
       // let isUsed = this.palletLabelIsFullyUsed;
     },
     async actionCloseInterruption(){
-      //console.log(this.tickets)
-      await this.fetchTicketsAction(this.tickets[this.tickets.length -1].palletLabel.id)
-      await this.closeInterruptionAction(this.tickets[this.tickets.length -1])
-
-      await this.fetchInterruptionssAction(this.tickets[this.tickets.length -1])
+      console.log("===Close interruption===")
+      console.log()
+      await this.closeInterruptionAction(this.tickets.find((ticket) => ticket.endAt == null))
+      await this.getTickets(this.tickets.find((ticket) => ticket.endAt == null).palletLabel.id)
+      //
+      // await this.fetchInterruptionssAction(this.tickets[this.tickets.length -1])
     }
   },
   async mounted() {
